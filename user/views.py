@@ -40,6 +40,13 @@ class Authenticate(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = AuthenticationSerializer
 
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user_id = request.session['slug_id']
+            classes = ClassInstructor.objects.filter(instructor_id=user_id)
+            return render(request, "dashboard.html", {'datas': serializer.data,"data":classes})
+
 
 def get_deactivated_user(email, username):
     # if User.objects.filter(deactivate=False, username=username):
@@ -110,7 +117,7 @@ class UserViewSet(ModelViewSet):
         logger.info(f'New Super User create successfully {serializer.data}')
         # return Response({'user': serializer.data}, status=status.HTTP_201_CREATED)
         # return render(request, self.template_name,{'user': serializer.data})
-        print(serializer.data)
+
         return render(request,"dashboard.html",{'data':serializer.data})
 
     @authorize([user_constants.Trainee, user_constants.Admin])

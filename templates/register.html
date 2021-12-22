@@ -110,7 +110,8 @@
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
                                 <form _ngcontent-jar-c34="" novalidate="" role="form"
-                                      class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                      class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST" action="user/login">
+                                    {% csrf_token %}
                                     <div _ngcontent-jar-c34="" class="col-md-12">
                                         <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
                                                                                              for="email">Email
@@ -127,7 +128,7 @@
                                                 class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
                                         <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                             <button _ngcontent-jar-c34="" type="submit"
-                                                    class="btn btn-primary btn-login btn-sm" disabled="">LOGIN
+                                                    class="btn btn-primary btn-login btn-sm" >LOGIN
                                             </button>
                                         </div>
                                     </div>

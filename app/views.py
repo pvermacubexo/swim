@@ -1,3 +1,5 @@
+import threading
+
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -12,12 +14,24 @@ from user.models import Profile, User
 
 def SwimTimeView(request):
     return render(request, 'index.html')
-
+#
+# def login(request):
+#     if request.method == "POST":
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         try:
+#             if User.objects.get(email=email, password=password) is not None:
+#                 request.session['user_name'] = email
+#                 return render(request,"dashboard.html")
+#         except:
+#             return render(request,"register.html")
 
 def SwimTimeDashboard(request):
+
     user_id = request.session['slug_id']
     classes = ClassInstructor.objects.filter(instructor_id=user_id)
     return render(request, 'dashboard.html',{"data":classes})
+
 
 
 # @login_required

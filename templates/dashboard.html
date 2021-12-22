@@ -67,6 +67,7 @@
                                                                     _ngcontent-ygs-c30="">COURSES AVAILABLE </h3>
                                                             </div>
                                                             <div _ngcontent-ygs-c30="" class="row">
+                                                            {% if data %}
                                                                 {% for classes in data %}
                                                                     <div _ngcontent-ygs-c30=""
                                                                          class="col-md-4 col-sm-6">
@@ -110,8 +111,15 @@
                                                                                         class="btn-custom">BOOK A
                                                                                     CLASS</a></div>
                                                                         </div>
-                                                                    </div><!----></div>
+                                                                    </div>
+
                                                                 {% endfor %}
+                                                                {% else %}
+
+                                                                {% endif%}
+
+                                                                <!----></div>
+
                                                         </div>
                                                     </div>
                                                 </div>

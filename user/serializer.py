@@ -3,10 +3,12 @@ import datetime
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.shortcuts import render
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from rest_framework import serializers
+from rest_framework import serializers, request
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.sites.shortcuts import get_current_site
 

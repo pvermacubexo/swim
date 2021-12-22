@@ -8,6 +8,7 @@ urlpatterns = [
     path('dashboard/myschedule/', views.MySchedule ,name='schedule'),
     path('dashboard/re-payment/', views.Payment,name='payment'),
     path('registration/<str:id>', views.Registration,name='registration'),
+
     path('logout', views.LogoutView, name="LogoutView"),
     # path('register',views.Registration_view,name='registration_view'),
 
