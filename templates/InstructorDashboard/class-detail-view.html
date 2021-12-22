@@ -1,0 +1,324 @@
+{% extends 'InstructorDashboard/base/base.html' %}
+{% block title_block %}Swim Time Instructor{% endblock %}
+{% load static %}
+{% block exttra_style %}
+    <!-- Sweet Alert -->
+    <link href="https://mannatthemes.com/dastone-1/plugins/sweet-alert2/sweetalert2.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://mannatthemes.com/dastone-1/plugins/animate/animate.css" rel="stylesheet" type="text/css">
+
+{% endblock %}
+{% block page_content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">All Classes</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Classes</a></li>
+                                    <li class="breadcrumb-item active">List</li>
+                                </ol>
+                            </div><!--end col-->
+                            <div class="col-auto align-self-center">
+                                <a href="{% url 'InstructorDashboard:class_create_form' %}"
+                                   class="btn btn-md btn-outline-info">
+                                    <b>Add New Class</b>
+                                </a>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            {% if classes %}
+                {% for class in classes %}
+                    {% if forloop.counter|divisibleby:'2' %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-7 align-self-center">
+                                                <div class="">
+                                                    {#                                                <span class="bg-soft-pink p-2 rounded">Mannat Themes</span>#}
+                                                    <h3 class=" font-weight-bold">{{ class.title }}</h3>
+                                                    <ul class="list-inline mb-2 pro-features">
+                                                        <li class=" text-dark"><b class="text-primary">Duration
+                                                            :</b> {{ class.time_slot }}
+                                                            Min/Day
+                                                        </li>
+                                                        <li class=" text-dark"><b class="text-primary">Lesson Duration
+                                                            in
+                                                            Days:</b> {{ class.total_days }} Days
+                                                        </li>
+                                                        <li class=" text-dark"><b class="text-primary">Fees:</b>
+                                                            ${{ class.price }}
+                                                        </li>
+                                                    </ul>
+                                                    <p class="font-14">{{ class.description }}
+                                                    </p>
+                                                    <a href="{% url 'InstructorDashboard:class_update_form' class.id %}"
+                                                       class="btn btn-outline-primary">Update</a>
+                                                    <a type="button" data-toggle="modal"
+                                                       data-target="#class_delete{{ class.id }}"
+                                                       class="btn btn-outline-danger">Delete</a>
+
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-5  text-center">
+                                                <div class="carousel-item active">
+                                                    <img src="{{ class.thumbnail_image.url }}" style="height: 350px;"
+                                                         class="d-block w-100"
+                                                         alt="...">
+                                                </div>
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+
+
+                                        {# ----------Delete Modal ----------------#}
+                                        <div class="modal fade bd-example-modal-sm" id="class_delete{{ class.id }}"
+                                             tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h6 class="modal-title m-0" id="mySmallModalLabel">Do You want
+                                                            to
+                                                            Delete
+                                                            it?</h6>
+                                                        <button type="button" class="close " data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true"><i class="la la-times"></i></span>
+                                                        </button>
+                                                    </div><!--end modal-header-->
+                                                    <div class="modal-body text-center">
+                                                        <h4 class="mb-1">{{ class.title }}</h4>
+                                                    </div><!--end modal-body-->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btn-xs "
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <a href="{% url 'InstructorDashboard:class_delete' class.id %}">
+                                                            <button type="button"
+                                                                    class="btn btn-gradient-danger btn-xs">
+                                                                Delete
+                                                            </button>
+                                                        </a>
+                                                    </div><!--end modal-footer-->
+                                                </div><!--end modal-content-->
+                                            </div><!--end modal-dialog-->
+                                        </div><!--end modal-->
+                                        {# ----------Delete Modal ----------------#}
+
+
+                                    </div><!--end card-body-->
+                                </div><!--end card-->
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    {% else %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-5  text-center">
+                                                <div class="carousel-item active">
+                                                    <img src="{{ class.thumbnail_image.url }}" style="height: 350px;"
+                                                         class="d-block w-100"
+                                                         alt="...">
+                                                </div>
+                                            </div><!--end col-->
+                                            <div class="col-lg-7 align-self-center">
+                                                <div class="">
+                                                    {#                                            <span class="bg-soft-pink p-2 rounded">Mannat Themes</span>#}
+                                                    <h3 class="font-weight-bold">{{ class.title }}</h3>
+                                                    <ul class="list-inline mb-2 pro-features">
+                                                        <li class=" text-dark"><b class="text-primary">Duration per Day
+                                                            :</b> {{ class.time_slot }}
+                                                            Min/Day
+                                                        </li>
+                                                        <li class="text-dark"><b class="text-primary">Lesson
+                                                            Duration:</b> {{ class.total_days }} Days
+                                                        </li>
+                                                        <li class="text-dark"><b class="text-primary">Fees:</b>
+                                                            ${{ class.price }}
+                                                        </li>
+                                                    </ul>
+                                                    <p class="font-14">{{ class.description }}
+                                                    </p>
+                                                    <div class="text-right">
+                                                        <a href="{% url 'InstructorDashboard:class_update_form' class.id %}"
+                                                           class="btn btn-outline-primary">Update</a>
+                                                        <a type="button" data-toggle="modal"
+                                                           data-target="#class_delete{{ class.id }}"
+                                                           class="btn btn-outline-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div><!--end col-->
+                                        </div><!--end row-->
+
+
+                                        {# ----------Delete Modal ----------------#}
+                                        <div class="modal fade bd-example-modal-sm" id="class_delete{{ class.id }}"
+                                             tabindex="-1"
+                                             role="dialog"
+                                             aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-danger">
+                                                        <h6 class="modal-title m-0" id="mySmallModalLabel">Do You want
+                                                            to
+                                                            Delete
+                                                            it?</h6>
+                                                        <button type="button" class="close " data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true"><i class="la la-times"></i></span>
+                                                        </button>
+                                                    </div><!--end modal-header-->
+                                                    <div class="modal-body text-center">
+                                                        <h4 class="mb-1">{{ class.title }}</h4>
+                                                    </div><!--end modal-body-->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary btn-xs "
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                        <a href="{% url 'InstructorDashboard:class_delete' class.id %}">
+                                                            <button type="button"
+                                                                    class="btn btn-gradient-danger btn-xs">
+                                                                Delete
+                                                            </button>
+                                                        </a>
+                                                    </div><!--end modal-footer-->
+                                                </div><!--end modal-content-->
+                                            </div><!--end modal-dialog-->
+                                        </div><!--end modal-->
+                                        {# ----------Delete Modal ----------------#}
+                                    </div><!--end card-body-->
+                                </div><!--end card-->
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    {% endif %}
+
+                {% endfor %}
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table class="body-wrap"
+                               style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; width: 100%; background-color: transparent; margin: 0;"
+                               bgcolor="transparent">
+                            <tr>
+                                <td class="container" width="600"
+                                    style=" display: block !important; max-width: 600px !important; clear: both !important; "
+                                    valign="top">
+                                    <div class="content" style="padding: 20px;">
+                                        <table class="main" width="100%" cellpadding="0" cellspacing="0"
+                                               style="border: 1px solid rgba(130, 134, 156, 0.15);"
+                                               bgcolor="transparent">
+
+                                            <tr>
+                                                <td class="alert alert-primary border-0 bg-primary"
+                                                    style="padding: 20px; border-radius: 0;" align="center"
+                                                    valign="top">
+                                                    <img src="{% static 'images/bell.png' %}" alt=""
+                                                         style="margin-left: auto; margin-right: auto; display:block;width: 60px;">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="alert alert-dark border-0"
+                                                    style="color:#ffffff; background-color: #212f56; padding: 20px; border-radius: 0;"
+                                                    align="center" valign="top">
+                                                    Warning: You have not any Class yet.
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="content-wrap" style="padding: 20px;" valign="top">
+                                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td class="content-block"
+                                                                style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; padding: 10px 10px 20px;"
+                                                                valign="top">
+                                                                Create class and get start with Start.
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content-block"
+                                                                style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; padding: 0 0 20px;"
+                                                                valign="top">
+                                                                <a href="{% url 'InstructorDashboard:class_create_form' %}"
+                                                                   class="btn-primary"
+                                                                   style=" font-size: 14px; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: block; border-radius: 5px; text-transform: capitalize; border: none; padding: 10px 20px;">Add
+                                                                    new class</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="content-block"
+                                                                style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 14px; text-align: center;"
+                                                                valign="top">
+                                                                Thanks for choosing <b>SwimTime</b> Admin.
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </td>
+                                <td style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0;"
+                                    valign="top"></td>
+                            </tr>
+                        </table><!--end table-->
+                    </div><!--end col-->
+                </div><!--end row-->
+            {% endif %}
+        </div>
+    </div>
+    {#    <button type="button" class="btn btn-outline-info btn-sm waves-effect waves-light"#}
+    {#            id="sa-warning{{ class.id }}">Click me#}
+    {#    </button>#}
+{% endblock %}
+
+
+{#    {% block extra_script %}#}
+<script>
+                          var my_id = {{ class.id }};
+{#                          my_id = my_id.toString();#}
+                            console.log(typeof(my_id));
+                                !(function (t) {
+                                "use strict";
+                                var e = function () {
+                                var my_id = {{ class.id }};
+                                };
+                                (e.prototype.init = function () {
+                                        t("#sa-warning4").click(function () {
+                                            swal.fire({ title: "Are you sure?", text: "You won't be able to revert this!", type: "warning", showCancelButton: !0, confirmButtonText: "Yes, delete it!", cancelButtonText: "No, cancel!", reverseButtons: !0 }).then(
+                                                function (t) {
+                                                    t.value ? swal.fire("Deleted!", "Your file has been deleted.", "success") : t.dismiss === Swal.DismissReason.cancel && swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
+                                                }
+                                            );
+                                        });
+                                }),
+                                    (t.SweetAlert = new e()),
+                                    (t.SweetAlert.Constructor = e);
+                            })(window.jQuery),
+                                (function (t) {
+                                    "use strict";
+                                    window.jQuery.SweetAlert.init();
+                            })();
+
+
+
+
+
+
+
+</script>
+<!-- Sweet-Alert  -->
+<script src="https://mannatthemes.com/dastone-1/plugins/sweet-alert2/sweetalert2.min.js"></script>
+{#    {% endblock %}#}

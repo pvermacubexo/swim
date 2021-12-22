@@ -1,0 +1,1471 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block sidebar_content %}
+    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+        <div _ngcontent-nwk-c28="" class="tab-link first">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'payment' %} class="">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+    </a>
+{% endblock %}
+{% block page_content %}
+    <app-dashboard _nghost-ygs-c30="">
+        <div _ngcontent-ygs-c30="" class="col-md-11 content">
+            <div _ngcontent-ygs-c30="" class="main-content">
+                <div _ngcontent-ygs-c30="" class="container">
+                    <div _ngcontent-ygs-c30="" class="row">
+                        <div _ngcontent-ygs-c30="" class="container-fluid">
+                            <div _ngcontent-ygs-c30="" class="row">
+                                <div _ngcontent-ygs-c30="" class="content profile">
+                                    <div _ngcontent-ygs-c30="" class="profile-pic-section">
+                                        <div _ngcontent-ygs-c30="" class="content-section">
+                                            <div _ngcontent-ygs-c30="" class="container">
+                                                <div _ngcontent-ygs-c30="" class="row">
+                                                    <div _ngcontent-ygs-c30="" class="col-md-12"><img
+                                                            _ngcontent-ygs-c30="" alt=""
+                                                            src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                        <!----><h3 _ngcontent-ygs-c30="">{{ data.first_name}}</h3>
+                                                        <p _ngcontent-ygs-c30="" class="profileAddress"><i
+                                                                _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>USA
+                                                        </p><!---->
+                                                        <!--  <div _ngcontent-ygs-c30="" class="btn-div"><a
+                                                                  _ngcontent-ygs-c30="" class="unverified"><i
+                                                                  _ngcontent-ygs-c30="" class="fa fa-user"></i>Unrated
+                                                              Tutor</a></div> -->
+                                                    </div><!----></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-ygs-c30="" class="main-content profile-tab">
+                                        <div _ngcontent-ygs-c30="" class="course-main-div">
+                                            <div _ngcontent-ygs-c30="" class="ul-course-div">
+                                                <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
+                                                    <li _ngcontent-ygs-c30="" class="active"><a
+                                                            _ngcontent-ygs-c30="" data-toggle="tab" href="#course">COURSES
+                                                        AND SCHEDULE</a></li>
+                                                    <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
+                                                                                 data-toggle="tab" href="#about">ABOUT
+                                                        THE TRAINER</a></li>
+                                                </ul>
+                                            </div>
+                                            <div _ngcontent-ygs-c30="" class="tab-content">
+                                                <div _ngcontent-ygs-c30="" id="course"
+                                                     class="tab-pane fade in active">
+                                                    <div _ngcontent-ygs-c30="" class="container">
+                                                        <div _ngcontent-ygs-c30="" class="profile-div-bloack">
+                                                            <div _ngcontent-ygs-c30="" class="head"><h3
+                                                                    _ngcontent-ygs-c30="">COURSES AVAILABLE </h3>
+                                                            </div>
+                                                            <div _ngcontent-ygs-c30="" class="row">
+                                                                {% for classes in data %}
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="col-md-4 col-sm-6">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="profile-block">
+                                                                            <div _ngcontent-ygs-c30="" class="img-div">
+                                                                                <img _ngcontent-ygs-c30=""
+                                                                                     alt="thumbnail image"
+                                                                                     src="{{ classes.thumbnail_image }}">
+                                                                            </div>
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="content-div"><p
+                                                                                    _ngcontent-ygs-c30="" class="p-tag">
+                                                                                <span _ngcontent-ygs-c30="" class="tag">English</span>
+                                                                                <!----></p>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="title">{{ classes.title }}
+                                                                                </div>
+                                                                                <p _ngcontent-ygs-c30=""
+                                                                                   class="classTitle"><span
+                                                                                        _ngcontent-ygs-c30=""
+                                                                                        class="text">{{ classes.description }}</span>
+                                                                                </p>
+                                                                                <p _ngcontent-ygs-c30="" class="date">
+                                                                                    Days: {{ classes.total_days }} <span
+                                                                                        _ngcontent-ygs-c30=""></span>
+                                                                                </p>
+                                                                                <p _ngcontent-ygs-c30="" class="date">
+                                                                                    Session
+                                                                                    Duration: {{ classes.time_slot }}
+                                                                                    minute <span
+                                                                                        _ngcontent-ygs-c30="">(per session)</span>
+                                                                                </p>
+                                                                                <h3 _ngcontent-ygs-c30="" class="price">
+                                                                                    Fee : <i _ngcontent-ygs-c30=""
+                                                                                             class="fa fa-dollar"></i>{{ classes.total_days }}
+                                                                                    <span _ngcontent-ygs-c30="">(Complete Course )</span>
+                                                                                </h3><a _ngcontent-ygs-c30=""
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#appointment-popup"
+                                                                                        class="btn-custom">BOOK A
+                                                                                    CLASS</a></div>
+                                                                        </div>
+                                                                    </div><!----></div>
+                                                                {% endfor %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div _ngcontent-ygs-c30="" id="about" class="tab-pane fade">
+                                                    <div _ngcontent-ygs-c30="" class="container-fluid">
+                                                        <div _ngcontent-ygs-c30="" class="about-section">
+                                                            <div _ngcontent-ygs-c30="" class="row">
+                                                                <div _ngcontent-ygs-c30=""
+                                                                     class="col-md-6 col-sm-12 imageProfile">
+                                                                    <div _ngcontent-ygs-c30=""><img
+                                                                            _ngcontent-ygs-c30="" alt=""
+                                                                            class="imageIcon"
+                                                                            src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                                    </div>
+                                                                </div><!---->
+                                                                <div _ngcontent-ygs-c30=""
+                                                                     class="col-md-6 col-sm-12 profileContent"><h3
+                                                                        _ngcontent-ygs-c30="">samar verma</h3>
+                                                                    <p _ngcontent-ygs-c30=""><i
+                                                                            _ngcontent-ygs-c30=""
+                                                                            class="fa fa-map-marker"></i> USA </p>
+                                                                    <!----><p _ngcontent-ygs-c30=""
+                                                                              class="aboutDescription">class for
+                                                                        swimming</p><!---->
+                                                                    <ul _ngcontent-ygs-c30="">
+                                                                        <li _ngcontent-ygs-c30=""><a
+                                                                                _ngcontent-ygs-c30=""
+                                                                                target="_blank"
+                                                                                href="https://www.facebook.com/"><i
+                                                                                _ngcontent-ygs-c30=""
+                                                                                class="fa fa-facebook"></i></a></li>
+                                                                        <!---->
+                                                                        <li _ngcontent-ygs-c30=""><a
+                                                                                _ngcontent-ygs-c30=""
+                                                                                target="_blank"
+                                                                                href="https://www.instagram.com/"><i
+                                                                                _ngcontent-ygs-c30=""
+                                                                                class="fa fa-instagram"></i></a>
+                                                                        </li><!---->
+                                                                        <li _ngcontent-ygs-c30=""><a
+                                                                                _ngcontent-ygs-c30=""
+                                                                                target="_blank"
+                                                                                href="https://twitter.com/i/flow/login"><i
+                                                                                _ngcontent-ygs-c30=""
+                                                                                class="fa fa-twitter"></i></a></li>
+                                                                        <!----></ul>
+                                                                </div>
+                                                            </div><!----></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ngx-spinner _ngcontent-ygs-c30="" bdcolor="rgba(50, 50, 50, 0.8)" size="large"
+                                             type="ball-spin-clockwise" _nghost-ygs-c29=""><!----></ngx-spinner>
+                            </div>
+                        </div>
+                        <div _ngcontent-ygs-c30="" id="appointment-popup" tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel" data-backdrop="static" data-keyboard="false"
+                             aria-hidden="true" class="modal fade login login-pop appointment">
+                            <div _ngcontent-ygs-c30="" class="modal-dialog modal-lg">
+                                <fieldset _ngcontent-ygs-c30="" id="calendar_popup"
+                                          class="first-step first-fieldset-section">
+                                    <div _ngcontent-ygs-c30="" class="modal-content">
+                                        <div _ngcontent-ygs-c30="" class="modal-header registration-form">
+                                            <button _ngcontent-ygs-c30="" type="button"
+                                                    onclick="window.location.reload()" data-dismiss="modal"
+                                                    aria-hidden="true" class="close btn-first"> ×
+                                            </button>
+                                            <h4 _ngcontent-ygs-c30="">DATE / SCHEDULE</h4>
+                                            <p _ngcontent-ygs-c30="">When you want to get an appointment?</p></div>
+                                        <div _ngcontent-ygs-c30="" class="modal-body">
+                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                <div _ngcontent-ygs-c30="" class="row">
+                                                    <div _ngcontent-ygs-c30="" class="col-md-12 form-box">
+                                                        <form _ngcontent-ygs-c30="" novalidate="" role="form"
+                                                              action="javascript:void(0);"
+                                                              class="ng-untouched ng-pristine ng-valid">
+                                                            <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
+                                                                <li _ngcontent-ygs-c30="" class="active"><a
+                                                                        _ngcontent-ygs-c30="" data-toggle="tab"
+                                                                        href="#menu1">SELECT COMPLETE COURSE</a>
+                                                                </li>
+                                                                <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
+                                                                                             data-toggle="tab"
+                                                                                             href="#menu2">MAKE
+                                                                    INDIVIDUAL SELECTION</a></li>
+                                                            </ul>
+                                                            <div _ngcontent-ygs-c30="" class="tab-content">
+                                                                <div _ngcontent-ygs-c30="" id="menu1"
+                                                                     class="tab-pane fade in active">
+                                                                    <div _ngcontent-ygs-c30="" class="row">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="col-md-6 left"><h3
+                                                                                _ngcontent-ygs-c30="" class="date">
+                                                                            <a _ngcontent-ygs-c30=""
+                                                                               href="javascript:void(0);"
+                                                                               id="clearDates"
+                                                                               class="reset-btn"><span
+                                                                                    _ngcontent-ygs-c30="">x</span>Clear
+                                                                                Date</a> Select Start Date </h3>
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="mbsc-grid">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     id="calendar2"
+                                                                                     class="calendar hasDatepicker">
+                                                                                    <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
+                                                                                         style="display: block;">
+                                                                                        <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                                                                                            <a class="ui-datepicker-prev ui-corner-all"
+                                                                                               data-handler="prev"
+                                                                                               data-event="click"
+                                                                                               title="Prev"><span
+                                                                                                    class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
+                                                                                                class="ui-datepicker-next ui-corner-all"
+                                                                                                data-handler="next"
+                                                                                                data-event="click"
+                                                                                                title="Next"><span
+                                                                                                class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+                                                                                            <div class="ui-datepicker-title">
+                                                                                                <span class="ui-datepicker-month">December</span>&nbsp;<span
+                                                                                                    class="ui-datepicker-year">2021</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <table class="ui-datepicker-calendar">
+                                                                                            <thead>
+                                                                                            <tr>
+                                                                                                <th scope="col"
+                                                                                                    class="ui-datepicker-week-end">
+                                                                                                    <span title="Sunday">Su</span>
+                                                                                                </th>
+                                                                                                <th scope="col">
+                                                                                                    <span title="Monday">Mo</span>
+                                                                                                </th>
+                                                                                                <th scope="col">
+                                                                                                    <span title="Tuesday">Tu</span>
+                                                                                                </th>
+                                                                                                <th scope="col">
+                                                                                                    <span title="Wednesday">We</span>
+                                                                                                </th>
+                                                                                                <th scope="col">
+                                                                                                    <span title="Thursday">Th</span>
+                                                                                                </th>
+                                                                                                <th scope="col">
+                                                                                                    <span title="Friday">Fr</span>
+                                                                                                </th>
+                                                                                                <th scope="col"
+                                                                                                    class="ui-datepicker-week-end">
+                                                                                                    <span title="Saturday">Sa</span>
+                                                                                                </th>
+                                                                                            </tr>
+                                                                                            </thead>
+                                                                                            <tbody>
+                                                                                            <tr>
+                                                                                                <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+                                                                                                    &nbsp;
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+                                                                                                    &nbsp;
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+                                                                                                    &nbsp;
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">1</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">2</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">3</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">4</a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">5</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">6</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">7</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">8</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">9</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">10</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">11</a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">12</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">13</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">14</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">15</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today"
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default ui-state-highlight ui-state-hover">16</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">17</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">18</a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">19</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">20</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">21</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">22</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">23</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">24</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">25</a>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td class=" ui-datepicker-week-end "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">26</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">27</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">28</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">29</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">30</a>
+                                                                                                </td>
+                                                                                                <td class=" "
+                                                                                                    data-handler="selectDay"
+                                                                                                    data-event="click"
+                                                                                                    data-month="11"
+                                                                                                    data-year="2021">
+                                                                                                    <a class="ui-state-default">31</a>
+                                                                                                </td>
+                                                                                                <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">
+                                                                                                    &nbsp;
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <form _ngcontent-ygs-c30="" novalidate=""
+                                                                              class="ng-untouched ng-pristine ng-valid">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="col-md-6 right">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="time check-list"><h3
+                                                                                        _ngcontent-ygs-c30="">Select
+                                                                                    Time</h3><!---->
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         id="singleDate"></div>
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="block list">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="check-box-list">
+                                                                                            <div _ngcontent-ygs-c30=""
+                                                                                                 class="col-md-12">
+                                                                                                <div _ngcontent-ygs-c30=""
+                                                                                                     class="div-block timeSelectContent">
+                                                                                                    <!----></div>
+                                                                                                <!----></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div><!----></form>
+                                                                    </div>
+                                                                    <div _ngcontent-ygs-c30="" class="row">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="next-btn-div registration-form col-md-6"
+                                                                             style="text-align: center;">
+                                                                            <button _ngcontent-ygs-c30=""
+                                                                                    type="button"
+                                                                                    class="close btn exit">Check
+                                                                                Availability
+                                                                            </button>
+                                                                        </div><!----></div>
+                                                                </div>
+                                                                <div _ngcontent-ygs-c30="" id="menu2"
+                                                                     class="tab-pane fade">
+                                                                    <div _ngcontent-ygs-c30="" class="row">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="col-md-12 left">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="individual"><h3
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    class="date">Select Multiple
+                                                                                Date</h3><!---->
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="mbsc-grid">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         id="calendar"
+                                                                                         class="calendar hasDatepicker">
+                                                                                        <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
+                                                                                             style="display: block;">
+                                                                                            <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+                                                                                                <a class="ui-datepicker-prev ui-corner-all"
+                                                                                                   data-handler="prev"
+                                                                                                   data-event="click"
+                                                                                                   title="Prev"><span
+                                                                                                        class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
+                                                                                                    class="ui-datepicker-next ui-corner-all"
+                                                                                                    data-handler="next"
+                                                                                                    data-event="click"
+                                                                                                    title="Next"><span
+                                                                                                    class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
+                                                                                                <div class="ui-datepicker-title">
+                                                                                                    <span class="ui-datepicker-month">December</span>&nbsp;<span
+                                                                                                        class="ui-datepicker-year">2021</span>
+                                                                                                </div>
+                                                                                                <a class="ui-datepicker-clear-month"
+                                                                                                   title="Clear Date">X </a>
+                                                                                            </div>
+                                                                                            <table class="ui-datepicker-calendar">
+                                                                                                <thead>
+                                                                                                <tr>
+                                                                                                    <th scope="col"
+                                                                                                        class="ui-datepicker-week-end">
+                                                                                                        <span title="Sunday">Su</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col">
+                                                                                                        <span title="Monday">Mo</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col">
+                                                                                                        <span title="Tuesday">Tu</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col">
+                                                                                                        <span title="Wednesday">We</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col">
+                                                                                                        <span title="Thursday">Th</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col">
+                                                                                                        <span title="Friday">Fr</span>
+                                                                                                    </th>
+                                                                                                    <th scope="col"
+                                                                                                        class="ui-datepicker-week-end">
+                                                                                                        <span title="Saturday">Sa</span>
+                                                                                                    </th>
+                                                                                                </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                                <tr>
+                                                                                                    <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
+                                                                                                        data-event=""
+                                                                                                        data-handler="">
+                                                                                                        &nbsp;
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
+                                                                                                        data-event=""
+                                                                                                        data-handler="">
+                                                                                                        &nbsp;
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
+                                                                                                        data-event=""
+                                                                                                        data-handler="">
+                                                                                                        &nbsp;
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">1</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">2</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">3</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">4</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">5</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">6</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">7</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">8</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">9</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">10</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">11</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">12</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">13</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">14</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">15</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today"
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">16</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">17</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">18</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">19</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">20</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">21</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">22</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">23</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">24</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">25</a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td class=" ui-datepicker-week-end "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">26</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">27</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">28</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">29</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">30</a>
+                                                                                                    </td>
+                                                                                                    <td class=" "
+                                                                                                        data-handler=""
+                                                                                                        data-event=""
+                                                                                                        data-month="11"
+                                                                                                        data-year="2021">
+                                                                                                        <a class="ui-state-default">31</a>
+                                                                                                    </td>
+                                                                                                    <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
+                                                                                                        data-event=""
+                                                                                                        data-handler="">
+                                                                                                        &nbsp;
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="check-left"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div _ngcontent-ygs-c30="" class="row">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="next-btn-div registration-form col-md-12"
+                                                                             style="text-align: center;">
+                                                                            <button _ngcontent-ygs-c30=""
+                                                                                    type="button"> Check
+                                                                                Availability
+                                                                            </button>
+                                                                        </div>
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="col-md-3"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div _ngcontent-ygs-c30="" id="individual_date_time" style="display: none;">
+                                    <div _ngcontent-ygs-c30="" class="modal-content">
+                                        <div _ngcontent-ygs-c30="" class="modal-header registration-form">
+                                            <button _ngcontent-ygs-c30="" type="button"
+                                                    onclick="window.location.reload()" data-dismiss="modal"
+                                                    aria-hidden="true" class="close btn-first exit"> ×
+                                            </button>
+                                        </div>
+                                        <div _ngcontent-ygs-c30="" class="modal-body select-time"><h4
+                                                _ngcontent-ygs-c30="">Select Time</h4>
+                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                <div _ngcontent-ygs-c30="" class="form-bottom">
+                                                    <div _ngcontent-ygs-c30="" class="div-block"
+                                                         style="min-height: 50vh;">
+                                                        <div _ngcontent-ygs-c30="" class="row">
+                                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                <div _ngcontent-ygs-c30="" class="dropdown"><label
+                                                                        _ngcontent-ygs-c30="">2021-02-26</label><select
+                                                                        _ngcontent-ygs-c30=""
+                                                                        class="btn btn-primary dropdownSelect ng-untouched ng-pristine ng-valid">
+                                                                    <option _ngcontent-ygs-c30="" disabled="">Select
+                                                                        Time
+                                                                    </option><!----></select></div><!----></div>
+                                                            <!----></div><!----></div>
+                                                    <div _ngcontent-ygs-c30="" class="row termCondition">
+                                                        <div _ngcontent-ygs-c30="" class="col-md-1"
+                                                             style="text-align: right;"><input _ngcontent-ygs-c30=""
+                                                                                               type="checkbox"
+                                                                                               id="termsCondition"
+                                                                                               name="terms"
+                                                                                               value="1"></div>
+                                                        <div _ngcontent-ygs-c30="" class="col-md-10 labelContent">
+                                                            <label _ngcontent-ygs-c30="" for="termsCondition"> Check
+                                                                here to indicate that you have read and agree to the
+                                                                terms &amp; condition of the <span
+                                                                        _ngcontent-ygs-c30="">Swim Time Solutions </span>
+                                                                Agreement. </label></div>
+                                                    </div><!----></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div _ngcontent-ygs-c30="" id="booking_confirm" class="confirm-section"
+                                     style="display: none;">
+                                    <div _ngcontent-ygs-c30="" class="modal-content">
+                                        <div _ngcontent-ygs-c30="" class="modal-header registration-form">
+                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                                                    aria-hidden="true" class="close btn-first"> ×
+                                            </button>
+                                        </div>
+                                        <div _ngcontent-ygs-c30="" class="modal-body confirm-pay"><h4
+                                                _ngcontent-ygs-c30="">Confirm To Pay</h4>
+                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                <div _ngcontent-ygs-c30="" class="form-bottom">
+                                                    <div _ngcontent-ygs-c30="" class="confirm-block">
+                                                        <div _ngcontent-ygs-c30="" class="row">
+                                                            <div _ngcontent-ygs-c30=""
+                                                                 class="col-md-8 col-md-offset-2">
+                                                                <div _ngcontent-ygs-c30=""
+                                                                     class="confirm-block-div">
+                                                                    <div _ngcontent-ygs-c30="" class="row">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="col-md-12">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="row confirm-block-inner">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-4 right-text left-text-left">
+                                                                                    <label _ngcontent-ygs-c30="">
+                                                                                        Instructor Name: </label>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-8 left-text">
+                                                                                    <!----></div><!----></div>
+                                                                        </div>
+                                                                        <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="row confirm-block-inner">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-6 right-text">
+                                                                                    <label _ngcontent-ygs-c30="">
+                                                                                        Course Duration: </label>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-6 left-text">
+                                                                                    <!----></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="row confirm-block-inner">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-6 right-text">
+                                                                                    <label _ngcontent-ygs-c30="">
+                                                                                        Fee: </label></div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-6 left-text"><p
+                                                                                        _ngcontent-ygs-c30="">$ </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div _ngcontent-ygs-c30="" class="row">
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-12">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="confirm-table">
+                                                                            <table _ngcontent-ygs-c30=""
+                                                                                   class="table">
+                                                                                <thead _ngcontent-ygs-c30="">
+                                                                                <tr _ngcontent-ygs-c30="">
+                                                                                    <th _ngcontent-ygs-c30="">Date
+                                                                                    </th>
+                                                                                    <th _ngcontent-ygs-c30="">Time
+                                                                                    </th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                            </table>
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="table2">
+                                                                                <table _ngcontent-ygs-c30="">
+                                                                                    <tr _ngcontent-ygs-c30="">
+                                                                                        <td _ngcontent-ygs-c30="">
+                                                                                            2021-02-09
+                                                                                        </td>
+                                                                                        <td _ngcontent-ygs-c30="">
+                                                                                            -
+                                                                                        </td>
+                                                                                    </tr><!---->
+                                                                                    <tbody _ngcontent-ygs-c30="">
+                                                                                    <!----></tbody><!----></table>
+                                                                                <!----></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div _ngcontent-ygs-c30=""
+                                                         class="next-btn-div registration-form">
+                                                        <button _ngcontent-ygs-c30="" type="button">Pay</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div _ngcontent-ygs-c30="" id="payment_screen" style="display: none;">
+                                    <div _ngcontent-ygs-c30="" class="modal-content modal-lg payment">
+                                        <div _ngcontent-ygs-c30="" class="modal-header">
+                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                                                    aria-hidden="true" class="close btn-first">×
+                                            </button>
+                                            <h4 _ngcontent-ygs-c30="">Payment</h4>
+                                            <p _ngcontent-ygs-c30="">Chose payment methode</p></div>
+                                        <div _ngcontent-ygs-c30="" class="modal-body">
+                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                <div _ngcontent-ygs-c30="" class="form-bottom">
+                                                    <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
+                                                        <li _ngcontent-ygs-c30="" class="active"><a
+                                                                _ngcontent-ygs-c30="" data-toggle="tab"
+                                                                href="#pay1"><img _ngcontent-ygs-c30=""
+                                                                                  src="assets/img/card.png"
+                                                                                  alt="card" class="cardImage"></a>
+                                                            <div _ngcontent-ygs-c30="" class="active-tick"><i
+                                                                    _ngcontent-ygs-c30="" class="fa fa-check"></i>
+                                                            </div>
+                                                        </li>
+                                                        <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
+                                                                                     data-toggle="tab" href="#pay2"><img
+                                                                _ngcontent-ygs-c30="" src="assets/img/cashblue.png"
+                                                                alt="cash" class="cashImage"></a>
+                                                            <div _ngcontent-ygs-c30="" class="active-tick"><i
+                                                                    _ngcontent-ygs-c30="" class="fa fa-check"></i>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div _ngcontent-ygs-c30="" class="tab-content pay-form">
+                                                        <div _ngcontent-ygs-c30="" id="pay1"
+                                                             class="tab-pane fade in active">
+                                                            <div _ngcontent-ygs-c30="" class="block">
+                                                                <div _ngcontent-ygs-c30="" role="form"
+                                                                     class="form-horizontal">
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="col-md-6 left">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="head-pay cradit"></div>
+                                                                        <div _ngcontent-ygs-c30=""><img
+                                                                                _ngcontent-ygs-c30=""
+                                                                                src="./assets/img/card2.gif" alt=""
+                                                                                class="cardGif"></div>
+                                                                    </div>
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="col-md-6 right">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="head-pay cradit"><h3
+                                                                                _ngcontent-ygs-c30=""><span
+                                                                                _ngcontent-ygs-c30="">1</span>Card
+                                                                            Info.</h3></div>
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="confirm-block-div">
+                                                                            <div _ngcontent-ygs-c30="" class="row">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text left-text-left">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Instructor
+                                                                                                Name: </label></div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <!----></div><!---->
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Course
+                                                                                                Duration: </label>
+                                                                                        </div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Fee: </label></div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <p _ngcontent-ygs-c30="">
+                                                                                                <span _ngcontent-ygs-c30="">$</span>
+                                                                                            </p></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <form _ngcontent-ygs-c30="" novalidate=""
+                                                                              autocomplete="off" role="form"
+                                                                              class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="form-horizontal checkout">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-12">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="card_num">CARD
+                                                                                                NUMBER</label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter card number"
+                                                                                                id="card_num"
+                                                                                                formcontrolname="card_num"
+                                                                                                name="card_num"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="exp_month">EXPIRY
+                                                                                                MONTH </label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter expiry month"
+                                                                                                id="exp_month"
+                                                                                                formcontrolname="exp_month"
+                                                                                                name="exp_month"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="exp_year">
+                                                                                                EXPIRY
+                                                                                                YEAR </label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter expiry year"
+                                                                                                id="exp_year"
+                                                                                                formcontrolname="exp_year"
+                                                                                                name="exp_year"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="cvc">CVC </label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter cvc"
+                                                                                                id="cvc"
+                                                                                                formcontrolname="cvc"
+                                                                                                name="cvc"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="paid_amount">PAYABLE
+                                                                                                AMOUNT</label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter amount"
+                                                                                                id="paid_amount"
+                                                                                                formcontrolname="paid_amount"
+                                                                                                name="paid_amount"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group">
+                                                                                            <input _ngcontent-ygs-c30=""
+                                                                                                   type="hidden"
+                                                                                                   placeholder="payment type"
+                                                                                                   id="payment_type"
+                                                                                                   formcontrolname="payment_type"
+                                                                                                   name="payment_type"
+                                                                                                   class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                                   value="2"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="next-btn-div registration-form">
+                                                                                <button _ngcontent-ygs-c30=""
+                                                                                        type="submit" disabled="">
+                                                                                    Pay Now
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div _ngcontent-ygs-c30="" id="pay2" class="tab-pane fade">
+                                                            <div _ngcontent-ygs-c30="" class="block">
+                                                                <div _ngcontent-ygs-c30="" role="form"
+                                                                     class="form-horizontal">
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="col-md-6 left">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="head-pay cradit"></div>
+                                                                        <div _ngcontent-ygs-c30=""><img
+                                                                                _ngcontent-ygs-c30=""
+                                                                                src="./assets/img/cash.gif" alt=""
+                                                                                class="cardGif"></div>
+                                                                    </div>
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="col-md-6 right">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="head-pay cradit"><h3
+                                                                                _ngcontent-ygs-c30=""><span
+                                                                                _ngcontent-ygs-c30="">1</span>Cash
+                                                                            Info.</h3></div>
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="confirm-block-div">
+                                                                            <div _ngcontent-ygs-c30="" class="row">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text left-text-left">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Instructor
+                                                                                                Name: </label></div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <!----></div><!---->
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Course
+                                                                                                Duration: </label>
+                                                                                        </div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="col-md-12">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="row confirm-block-inner">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-5 right-text">
+                                                                                            <label _ngcontent-ygs-c30="">
+                                                                                                Fee: </label></div>
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="col-md-7 left-text">
+                                                                                            <p _ngcontent-ygs-c30="">
+                                                                                                <span _ngcontent-ygs-c30="">$</span>
+                                                                                            </p></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <form _ngcontent-ygs-c30="" novalidate=""
+                                                                              autocomplete="off" role="form"
+                                                                              class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="form-horizontal checkout">
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-ygs-c30=""
+                                                                                                   for="cash_amount">PAYABLE
+                                                                                                AMOUNT</label><input
+                                                                                                _ngcontent-ygs-c30=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter amount"
+                                                                                                id="cash_amount"
+                                                                                                formcontrolname="paid_amount"
+                                                                                                name="paid_amount"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!----></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-ygs-c30=""
+                                                                                             class="form-group">
+                                                                                            <input _ngcontent-ygs-c30=""
+                                                                                                   type="hidden"
+                                                                                                   placeholder="payment type"
+                                                                                                   id="paymentType"
+                                                                                                   formcontrolname="payment_type"
+                                                                                                   name="payment_type"
+                                                                                                   class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                                   value="1"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="next-btn-div registration-form">
+                                                                                <button _ngcontent-ygs-c30=""
+                                                                                        type="submit" disabled="">
+                                                                                    Pay Now
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div _ngcontent-ygs-c30="" id="paymentConfirm_data" style="display: none;">
+                                    <div _ngcontent-ygs-c30="" class="modal-content">
+                                        <div _ngcontent-ygs-c30="" class="modal-body">
+                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                <div _ngcontent-ygs-c30="" class="form-bottom">
+                                                    <div _ngcontent-ygs-c30="" class="confirm-block">
+                                                        <div _ngcontent-ygs-c30="" class="modal-body">
+                                                            <div _ngcontent-ygs-c30="" class="assessment-container">
+                                                                <div _ngcontent-ygs-c30="" class="form-bottom">
+                                                                    <div _ngcontent-ygs-c30=""
+                                                                         class="confirm-block">
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="last-step"><img
+                                                                                _ngcontent-ygs-c30=""
+                                                                                src="assets/img/last-step.png"
+                                                                                alt="image">
+                                                                            <h3 _ngcontent-ygs-c30="">PAYMENT DONE
+                                                                                SUCCESSFULLY</h3>
+                                                                            <p _ngcontent-ygs-c30="">Your booking is
+                                                                                confirmed. </p><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    data-dismiss="modal"
+                                                                                    onclick="window.location.reload()">DONE</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div _ngcontent-ygs-c30=""
+                                                             class="row paymentSuccessContainer">
+                                                            <div _ngcontent-ygs-c30="" class="col-md-12">
+                                                                <div _ngcontent-ygs-c30="" class="row dataContent">
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Transaction
+                                                                            ID: </label></div><!---->
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                                        <!----></div>
+                                                                </div>
+                                                                <div _ngcontent-ygs-c30="" class="row dataContent">
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Instructor
+                                                                            Name: </label></div><!---->
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                                        <!----></div>
+                                                                </div>
+                                                                <div _ngcontent-ygs-c30="" class="row dataContent">
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Course
+                                                                            Duration: </label><!----></div><!---->
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""></label></div>
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Time
+                                                                            Duration: </label><!----></div><!---->
+                                                                </div>
+                                                                <div _ngcontent-ygs-c30="" class="row dataContent">
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Total
+                                                                            Amount: </label><!----></div><!---->
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Paid
+                                                                            Amount: </label><!----></div><!---->
+                                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                                        <label _ngcontent-ygs-c30=""> Due
+                                                                            Amount: </label><!----></div><!---->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </app-dashboard>
+{% endblock %}

@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>{% block title_block %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="SwimTime Swim Instructor Dashboard" name="description"/>
+    <meta content="" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+    {% block exttra_style %}{% endblock %}
+    <!-- App css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/metisMenu.min.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css"/>
+    <style>
+        .top_alert_position {
+            position: fixed;
+            top: 2%;
+            right: 10px;
+            z-index: 9;
+            width: auto;
+            background: #fff;
+            padding: 20px 10px !important;
+        }
+
+        .alert .alert-close {
+            display: initial !important;
+        }
+
+        .profile_error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="{% url 'InstructorDashboard:dashboard_view' %}" class="logo">
+            <h3>Swim Time Instructor</h3>
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li>
+                <a href="{% url 'InstructorDashboard:dashboard_view' %}">
+                    <i data-feather="home" class="align-self-center menu-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <hr>
+            <li>
+                <a href="{% url 'InstructorDashboard:students' %}">
+                    <i data-feather="users" class="align-self-center menu-icon"></i>
+                    <span>Students</span>
+                </a>
+            </li>
+            <hr>
+            <li>
+                <a href="{% url 'InstructorDashboard:class_list' %}">
+                    <i data-feather="calendar" class="align-self-center menu-icon"></i>
+                    <span>Classes</span>
+                </a>
+            </li>
+            <hr>
+
+            <li>
+                <a href="{% url 'InstructorDashboard:booking_view' %}">
+                    <i data-feather="book-open" class="align-self-center menu-icon"></i>
+                    <span>Bookings</span>
+                </a>
+            </li>
+            <hr>
+            <li>
+                <a href="{% url 'InstructorDashboard:appointment_view' %}">
+                    <i data-feather="file-text" class="align-self-center menu-icon"></i>
+                    <span>Appointments</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="page-wrapper">
+    <div class="topbar">
+        <nav class="navbar-custom">
+            <ul class="list-unstyled topbar-nav float-right mb-0">
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
+                       href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        <span class="ml-1 nav-user-name hidden-sm">Welcome {{ request.user.get_full_name }}&nbsp;&nbsp;&nbsp;</span>
+                        <img src="{{ user.profile_img.url }}" alt="profile-user" class="rounded-circle thumb-xs"/>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="{% url 'InstructorDashboard:instructor_profile' %}">
+                            <i data-feather="user" class="align-self-center icon-xs icon-dual mr-1"></i>
+                            Profile
+                        </a>
+                        <div class="dropdown-divider mb-0"></div>
+                        <a class="dropdown-item" href="{% url 'InstructorDashboard:user_logout' %}"><i
+                                data-feather="power"
+                                class="align-self-center icon-xs icon-dual mr-1"></i>
+                            Logout</a>
+                    </div>
+                </li>
+            </ul><!--end topbar-nav-->
+
+            <ul class="list-unstyled topbar-nav mb-0">
+                <li>
+                    <button class="nav-link button-menu-mobile">
+                        <i data-feather="menu" class="align-self-center topbar-icon"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <!-- end navbar-->
+    </div>
+    {% block page_content %}
+    {% endblock %}
+    <footer class="footer text-center text-sm-left">
+        {#        &copy; 2021 SwimTime <span class="d-none d-sm-inline-block float-right">Crafted with <i#}
+        {#            class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>#}
+    </footer><!--end footer-->
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/metismenu.min.js' %}"></script>
+<script src="{% static 'js/waves.js' %}"></script>
+<script src="{% static 'js/feather.min.js' %}"></script>
+<script src="{% static 'js/simplebar.min.js' %}"></script>
+<script src="{% static 'js/moment.js' %}"></script>
+
+{% block extra_script %}{% endblock %}
+{#<script src="{% static 'pages/jquery.datatable.init.js' %}"></script>#}
+<script src="{% static 'js/app.js' %}"></script>
+
+
+</body>

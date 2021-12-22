@@ -1,0 +1,481 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Swim Time Solutions</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
+    <link rel="icon" type="image/x-icon" href={% static 'assets/img/logo2.png' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/style.css' %}>
+    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <link rel="stylesheet" href="styles.3ff695c00d717f2d2a11.css">
+    <style></style>
+    <script charset="utf-8"
+            src="https://js.stripe.com/v3/fingerprinted/js/trusted-types-checker-cda1635e27dc416e23614def05f39e01.js"></script>
+</head>
+<body>
+
+<script src={% static 'assets/js/jquery.js' %}></script>
+<script src={% static 'assets/js/jquery-ui.min.js' %}></script>
+<script src={% static 'assets/js/bootstrap.js' %}></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+
+
+<script type="text/javascript">
+
+    $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+
+        //>=, not <=
+        if (scroll >= 200) {
+            //clearHeader, not clearheader - caps H
+            $(".main-header").addClass("darkHeader");
+        } else {
+            $(".main-header").removeClass("darkHeader");
+        }
+    });
+
+    $(document).ready(function () {
+        $('.head-menu-tag a[href^="#"]').on('click', function (e) {
+            e.preventDefault();
+            var target = this.hash;
+            var $target = $(target);
+            $('html, body').stop().animate({
+                'scrollTop': $target.offset().top
+            }, 900, 'swing', function () {
+                // window.location.hash = target;
+            });
+        });
+    });
+
+    new WOW().init();
+
+</script>
+<script type="text/javascript">
+    // var stripe = Stripe('pk_live_51IVT80A0I9vN6C8r4VrS2F0MLEe9xZrYk965cSZOYkaJwaRnvPybJopC3KgwpmHNfoO5saCglOEnMxWBXp838PPA00f8GirMT2'); // use your test publishable key
+    var stripe = Stripe('pk_test_51J5PmZH2rThr3O6EHMRDvGq7alGnTjXyFHDXRaCHoGHCXOBAavHtbHIsK5tiZTkWLSlIsnZVF5fVX8KCyhjKBwwC00FpPDKYKJ');
+    var elements = stripe.elements();
+</script>
+<iframe name="__privateStripeController1801" frameborder="0" allowtransparency="true" scrolling="no" allow="payment *"
+        src="https://js.stripe.com/v3/controller-e6727eecb9bf9251cfcf1b2f6312b34e.html#apiKey=pk_test_51J5PmZH2rThr3O6EHMRDvGq7alGnTjXyFHDXRaCHoGHCXOBAavHtbHIsK5tiZTkWLSlIsnZVF5fVX8KCyhjKBwwC00FpPDKYKJ&amp;stripeJsId=cdd04ec0-eb82-4433-bbca-f3e9784855a5&amp;stripeJsLoadTime=1639552773453&amp;referrer=http%3A%2F%2Fswimtimesolutions.com%2F&amp;controllerId=__privateStripeController1801"
+        aria-hidden="true" tabindex="-1"
+        style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
+
+<app-root _nghost-bfh-c7="" ng-version="11.0.8">
+    <router-outlet _ngcontent-bfh-c7=""></router-outlet>
+    <app-landingpage _nghost-bfh-c38="">
+        <nav _ngcontent-bfh-c38="" class="navbar navbar-default main-header">
+            <div _ngcontent-bfh-c38="" class="container-fluid">
+                <div _ngcontent-bfh-c38="" class="navbar-header">
+                    <button _ngcontent-bfh-c38="" type="button" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+                            class="navbar-toggle collapsed"><span _ngcontent-bfh-c38="" class="sr-only">Toggle navigation</span><span
+                            _ngcontent-bfh-c38="" class="icon-bar"></span><span _ngcontent-bfh-c38=""
+                                                                                class="icon-bar"></span><span
+                            _ngcontent-bfh-c38="" class="icon-bar"></span></button>
+                    <img _ngcontent-bfh-c38="" src={% static 'assets/img/logo2.png' %} alt="logo" class="HomeLogo"></div>
+                <div _ngcontent-bfh-c38="" id="bs-example-navbar-collapse-1" class="navbar-collapse menu-head collapse"
+                     aria-expanded="false" style="height: 1px;">
+                    <ul _ngcontent-bfh-c38="" class="nav navbar-nav navbar-right head-menu-tag">
+                        <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#myCarousel">Home</a></li>
+                        <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#about-us">About Us</a></li>
+                        <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" data-toggle="modal" data-target="#login">Login</a>
+                        </li>
+                        <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="#contact">Contact
+                            Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div _ngcontent-bfh-c38="" id="login" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true" class="modal fade login login-pop">
+            <div _ngcontent-bfh-c38="" class="modal-dialog modal-lg">
+                <div _ngcontent-bfh-c38="" class="modal-content">
+                    <div _ngcontent-bfh-c38="" class="modal-header">
+                        <button _ngcontent-bfh-c38="" type="button" data-dismiss="modal" aria-hidden="true"
+                                onclick="window.location.reload()" class="close"> ×
+                        </button>
+                        <h4 _ngcontent-bfh-c38="">Login to Account</h4>
+                        <p _ngcontent-bfh-c38="">Please enter your email and password to continue</p></div>
+                    <div _ngcontent-bfh-c38="" class="modal-body">
+                        <div _ngcontent-bfh-c38="" class="row">
+                            <form _ngcontent-bfh-c38="" novalidate="" role="form"
+                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                <div _ngcontent-bfh-c38="" class="col-md-12">
+                                    <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
+                                                                                         for="email">Email
+                                        Address</label><input _ngcontent-bfh-c38="" type="text" id="email"
+                                                              placeholder="Enter email" formcontrolname="email"
+                                                              name="email" required=""
+                                                              class="form-control ng-untouched ng-pristine ng-invalid">
+                                        <!----></div>
+                                    <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
+                                                                                         for="password">Password</label><input
+                                            _ngcontent-bfh-c38="" formcontrolname="password" name="password" required=""
+                                            minlength="4" placeholder="Enter password" type="password" id="password"
+                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
+                                    <div _ngcontent-bfh-c38="" class="col-md-12 text-center mrT25">
+                                        <button _ngcontent-bfh-c38="" type="submit"
+                                                class="btn btn-primary btn-login btn-sm" disabled="">LOGIN
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div _ngcontent-bfh-c38="" class="row">
+                                <div _ngcontent-bfh-c38="" class="col-md-12 text-center"><p _ngcontent-bfh-c38=""><a
+                                        _ngcontent-bfh-c38="" data-toggle="modal" data-target="#forgetPassword"
+                                        data-dismiss="modal">Forgot your Password?</a></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div _ngcontent-bfh-c38="" id="forgetPassword" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true" class="modal fade login">
+            <div _ngcontent-bfh-c38="" class="modal-dialog modal-lg">
+                <div _ngcontent-bfh-c38="" class="modal-content">
+                    <div _ngcontent-bfh-c38="" class="modal-header">
+                        <button _ngcontent-bfh-c38="" type="button" data-dismiss="modal" aria-hidden="true"
+                                onclick="window.location.reload()" class="close"> ×
+                        </button>
+                        <h4 _ngcontent-bfh-c38="">Find Your Account</h4>
+                        <p _ngcontent-bfh-c38="">Please enter your email address to search for your account.</p></div>
+                    <div _ngcontent-bfh-c38="" class="modal-body">
+                        <div _ngcontent-bfh-c38="" class="row">
+                            <form _ngcontent-bfh-c38="" novalidate="" role="form"
+                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                <div _ngcontent-bfh-c38="" class="col-md-12">
+                                    <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
+                                                                                         for="e-mail">Email
+                                        Address</label><input _ngcontent-bfh-c38="" type="text" id="e-mail"
+                                                              placeholder="Enter email" formcontrolname="email"
+                                                              name="email" required=""
+                                                              class="form-control ng-untouched ng-pristine ng-invalid">
+                                        <!----></div>
+                                    <div _ngcontent-bfh-c38="" class="col-md-12 text-center mrT25">
+                                        <button _ngcontent-bfh-c38="" type="submit"
+                                                class="btn btn-primary btn-login btn-sm">Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div _ngcontent-bfh-c38="" class="row modal-body">
+                        <div _ngcontent-bfh-c38="" class="col-md-12 text-center"><p _ngcontent-bfh-c38="">Already have
+                            an account? <a _ngcontent-bfh-c38="" data-toggle="modal" data-target="#login"
+                                           data-dismiss="modal">Login</a></p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div _ngcontent-bfh-c38="" id="myCarousel" data-ride="carousel" class="carousel banner-slide slide autoHeight"
+             style="height: 668px;">
+            <ol _ngcontent-bfh-c38="" class="carousel-indicators">
+                <li _ngcontent-bfh-c38="" data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li _ngcontent-bfh-c38="" data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li _ngcontent-bfh-c38="" data-target="#myCarousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div _ngcontent-bfh-c38="" class="carousel-inner">
+                <div _ngcontent-bfh-c38="" class="item autoHeight slide1 active" style="height: 668px;">
+                    <div _ngcontent-bfh-c38="" class="content"><h3 _ngcontent-bfh-c38="">LEARN SWIMMING THE RIGHT WAY
+                        WITH US</h3>
+                        <p _ngcontent-bfh-c38="">LEARN SWIMMING WITH THE BEST FACILITIES AND WORLD CLASS
+                            INSTRUCTORS </p></div>
+                </div>
+                <div _ngcontent-bfh-c38="" class="item autoHeight slide2" style="height: 668px;">
+                    <div _ngcontent-bfh-c38="" class="content"><h3 _ngcontent-bfh-c38="">LEARN SWIMMING THE RIGHT WAY
+                        WITH US</h3>
+                        <p _ngcontent-bfh-c38="">LEARN SWIMMING WITH THE BEST FACILITIES AND WORLD CLASS
+                            INSTRUCTORS </p></div>
+                </div>
+                <div _ngcontent-bfh-c38="" class="item autoHeight slide3" style="height: 668px;">
+                    <div _ngcontent-bfh-c38="" class="content"><h3 _ngcontent-bfh-c38="">LEARN SWIMMING THE RIGHT WAY
+                        WITH US</h3>
+                        <p _ngcontent-bfh-c38="">LEARN SWIMMING WITH THE BEST FACILITIES AND WORLD CLASS
+                            INSTRUCTORS </p></div>
+                </div>
+            </div>
+        </div>
+        <section _ngcontent-bfh-c38="" id="about-us" class="about-us theme-7 section-padding">
+            <div _ngcontent-bfh-c38="" class="about-area page-padding wow bounceInLeft"
+                 style="visibility: hidden; animation-name: none;">
+                <div _ngcontent-bfh-c38="" class="container">
+                    <div _ngcontent-bfh-c38="" class="head-main"><h2 _ngcontent-bfh-c38="">About Us</h2></div>
+                    <div _ngcontent-bfh-c38="" class="row">
+                        <div _ngcontent-bfh-c38="" class="col-md-6 col-sm-6 col-xs-12">
+                            <div _ngcontent-bfh-c38="" class="about-image"><img _ngcontent-bfh-c38=""
+                                                                                src={% static 'assets/img/about-img.jpg' %} alt=""
+                                                                                class="imageContent"></div>
+                        </div>
+                        <div _ngcontent-bfh-c38="" class="col-md-6 col-sm-6 col-xs-12">
+                            <div _ngcontent-bfh-c38="" class="about-content"><h3 _ngcontent-bfh-c38="">A consulting or
+                                consultancy firm is a business of one or more experts that provides professional
+                                advice</h3>
+                                <p _ngcontent-bfh-c38="">The phrasal sequence of the Lorem Ipsum text is now so
+                                    widespread and commonplace that many DTP programmes can generate dummy text using
+                                    the starting sequence "Lorem ipsum". Fortunately, the phrase 'Lorem Ipsum' is now
+                                    recognized by electronic pre-press systems and, when found, an alarm can be
+                                    raised.</p>
+                                <div _ngcontent-bfh-c38="" class="about-details">
+                                    <ul _ngcontent-bfh-c38="" class="marker-list">
+                                        <li _ngcontent-bfh-c38="">The phrasal sequence of the Lorem Ipsum text.</li>
+                                        <li _ngcontent-bfh-c38="">ducimus adipisci voluptas consectetur adipisicing.
+                                        </li>
+                                        <li _ngcontent-bfh-c38="">consectetur adipisicing elit praesentium maxime.</li>
+                                        <li _ngcontent-bfh-c38="">programmes can generate dummy text using..</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div _ngcontent-bfh-c38="" class="about-feature-area bg-color area-padding">
+                <div _ngcontent-bfh-c38="" class="container">
+                    <div _ngcontent-bfh-c38="" class="row">
+                        <div _ngcontent-bfh-c38="" class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp"
+                             style="visibility: hidden; animation-name: none;">
+                            <div _ngcontent-bfh-c38="" class="feature-about">
+                                <div _ngcontent-bfh-c38="" class="feature-icon"><img _ngcontent-bfh-c38=""
+                                                                                     src={% static 'assets/img/mission.png' %}></div>
+                                <div _ngcontent-bfh-c38="" class="feature-text"><h4 _ngcontent-bfh-c38="">Our Mission
+                                    &amp; Vision</h4>
+                                    <p _ngcontent-bfh-c38="">Our mission at ELSA is to educate the public about water
+                                        safety, and the importance of getting swim lessons at a very young age. It is
+                                        our mission to teach as many kids as possible to swim, and learn how to save
+                                        themselves, if an accidental fall into water were to occur. It is our mission to
+                                        prevent as many drowning accidents as possible, by providing quality,
+                                        life-saving skills, all while maintaining appreciation for a safe and fun
+                                        aquatic environment. It is our mission to enable your child to save themselves,
+                                        develop a love for swimming, and provide the foundation for proper swimming
+                                        technique. Our vision is to make infant/toddler survival swim lessons so
+                                        mainstream that everyone who has a baby, from this point forward, knows that
+                                        their baby can swim! It is our vision to help transition the idea of a baby
+                                        swimming from a mysterious, taboo idea, to a household topic as commonplace as a
+                                        child learning to crawl or walk. We want every parent to make certain that their
+                                        child knows how to swim by their first birthday. It is our that other parents
+                                        will be inspired and encouraged by observing your child swimming , and in turn
+                                        get their child swimming as soon as possible. Lastly, it is our vision to never
+                                        see another water-wing or floatie on a child in a pool ever again! Early
+                                        Learning Swim Academy (ELSA) proudly supports and donates a portion of it's
+                                        proceeds to The Gift of Swimming. The Gift of Swimming is a non-profit that
+                                        provides access to drowning prevention resources and education to the
+                                        community's underprivileged, mentally or physically challenged, or otherwise
+                                        disadvantaged, so that every child may learn the skills required to save
+                                        themselves.</p></div>
+                            </div>
+                        </div>
+                        <div _ngcontent-bfh-c38="" class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp"
+                             style="visibility: hidden; animation-name: none;">
+                            <div _ngcontent-bfh-c38="" class="feature-about">
+                                <div _ngcontent-bfh-c38="" class="feature-icon"><img _ngcontent-bfh-c38=""
+                                                                                     src={% static 'assets/img/target.png' %}></div>
+                                <div _ngcontent-bfh-c38="" class="feature-text"><h4 _ngcontent-bfh-c38="">Our
+                                    Facility</h4>
+                                    <p _ngcontent-bfh-c38="">Our 25′ by 10′ backyard teaching pool is heated year-round
+                                        to 85 degrees for the comfort of even our youngest swimmers. We also have a 10’
+                                        round swimming lagoon that we keep at 90 degrees for the most temperature
+                                        sensitive infant swim students. Although we specialize in infant swimming
+                                        lessons, we offer swimming instruction for all levels and ages…primarily ranging
+                                        from six months to six years of age, but can teach students of any age,
+                                        including adults. Early Learning Swim Academy currently offers infant swimming
+                                        lessons in Cocoa, FL - Port Saint John, FL - and Rockledge, FL We are currently
+                                        working on expansion plans with a new indoor facility! Stay tuned!</p></div>
+                            </div>
+                        </div>
+                        <div _ngcontent-bfh-c38="" class="col-md-4 col-sm-4 col-xs-12 wow bounceInUp"
+                             style="visibility: hidden; animation-name: none;">
+                            <div _ngcontent-bfh-c38="" class="feature-about">
+                                <div _ngcontent-bfh-c38="" class="feature-icon"><img _ngcontent-bfh-c38=""
+                                                                                     src={% static 'assets/img/experience.png' %}>
+                                </div>
+                                <div _ngcontent-bfh-c38="" class="feature-text"><h4 _ngcontent-bfh-c38="">Our
+                                    Passion</h4>
+                                    <p _ngcontent-bfh-c38="">The number one cause of children’s accidental death in
+                                        Florida is drowning. Our instructors have hundreds of hours of hands-on swim
+                                        training with infants six months and up, as well as children and adults of any
+                                        age. We have obtained the skills and confidence needed to teach your child,
+                                        loved one, or even yourself how to independently swim face down in the water,
+                                        and then horizontally roll to their back to rest and float. This sequence is
+                                        known as ‘swim float swim’. With these skills, your swimmer will be taught to
+                                        have a healthy respect for water, lifetime swimming skills, self confidence, and
+                                        most importantly, how to self rescue from an accidental fall into the
+                                        water. </p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div _ngcontent-bfh-c38="" id="contact" class="layout-214 section-padding wow bounceInUp"
+             style="visibility: hidden; animation-name: none;">
+            <section _ngcontent-bfh-c38="" class="contact-section">
+                <div _ngcontent-bfh-c38="" class="container">
+                    <div _ngcontent-bfh-c38="" class="contact-info-tabs">
+                        <div _ngcontent-bfh-c38="" class="contact-tabs c-tabs-box">
+                            <div _ngcontent-bfh-c38="" class="tabs-content">
+                                <div _ngcontent-bfh-c38="" id="contact-tab-one" class="tab active-tab">
+                                    <div _ngcontent-bfh-c38="" class="row clearfix">
+                                        <div _ngcontent-bfh-c38=""
+                                             class="accordian-column col-md-4 col-sm-12 col-xs-12">
+                                            <div _ngcontent-bfh-c38="" class="column-inner">
+                                                <ul _ngcontent-bfh-c38="" class="accordion-box style-four">
+                                                    <li _ngcontent-bfh-c38="" class="accordion block active-block">
+                                                        <div _ngcontent-bfh-c38="" class="acc-btn active">
+                                                            <div _ngcontent-bfh-c38="" class="icon-outer"></div>
+                                                            Get In Touch
+                                                        </div>
+                                                        <div _ngcontent-bfh-c38="" class="acc-content current">
+                                                            <div _ngcontent-bfh-c38="" class="content">
+                                                                <ul _ngcontent-bfh-c38="" class="info-list">
+                                                                    <li _ngcontent-bfh-c38=""><span
+                                                                            _ngcontent-bfh-c38=""
+                                                                            class="fa fa-map-marker"></span><strong
+                                                                            _ngcontent-bfh-c38="">Address:</strong><br
+                                                                            _ngcontent-bfh-c38=""> Swim Instructor -
+                                                                        5235 Vance Place - Cocoa, FL 32927US
+                                                                    </li>
+                                                                    <li _ngcontent-bfh-c38=""><span
+                                                                            _ngcontent-bfh-c38=""
+                                                                            class="fa fa-phone"></span><strong
+                                                                            _ngcontent-bfh-c38="">Call Us:</strong><br
+                                                                            _ngcontent-bfh-c38="">(321) 223-8329
+                                                                    </li>
+                                                                    <li _ngcontent-bfh-c38=""><span
+                                                                            _ngcontent-bfh-c38=""
+                                                                            class="fa fa-envelope"></span><strong
+                                                                            _ngcontent-bfh-c38="">Mail Us:</strong><br
+                                                                            _ngcontent-bfh-c38=""> Support@abc.com
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div _ngcontent-bfh-c38="" class="form-column col-md-8 col-sm-12 col-xs-12">
+                                            <div _ngcontent-bfh-c38="" class="contact-form"><h2 _ngcontent-bfh-c38="">
+                                                Contact Us</h2>
+                                                <form _ngcontent-bfh-c38="" novalidate="novalidate"
+                                                      class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
+                                                    <div _ngcontent-bfh-c38="" class="row clearfix">
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-bfh-c38="" type="text"
+                                                                formcontrolname="full_name" name="full_name"
+                                                                placeholder="Full Name*" required=""
+                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                        </div>
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-bfh-c38="" type="email"
+                                                                formcontrolname="email" name="email"
+                                                                placeholder="Email Address*" required=""
+                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                        </div>
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-bfh-c38="" type="text"
+                                                                formcontrolname="phone" name="phone"
+                                                                placeholder="Phone Number*" required=""
+                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                        </div>
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-bfh-c38="" type="text"
+                                                                formcontrolname="subject" name="subject"
+                                                                placeholder="Subject" required=""
+                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                        </div>
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                            <textarea _ngcontent-bfh-c38="" formcontrolname="message"
+                                                                      name="message" placeholder="Your Message..."
+                                                                      class="ng-untouched ng-pristine ng-invalid"></textarea>
+                                                            <!----></div>
+                                                        <div _ngcontent-bfh-c38=""
+                                                             class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group formSubmit">
+                                                            <button _ngcontent-bfh-c38="" type="submit"
+                                                                    name="submit-form" class="theme-btn btn-style-one"
+                                                                    disabled="">Send
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <footer _ngcontent-bfh-c38="" id="footer" class="footer">
+            <div _ngcontent-bfh-c38="" class="footer-main bg-overlay">
+                <div _ngcontent-bfh-c38="" class="container footer-main-content">
+                    <div _ngcontent-bfh-c38="" class="row">
+                        <div _ngcontent-bfh-c38="" class="col-lg-8 col-md-12 footer-widget footer-about">
+                            <div _ngcontent-bfh-c38="" class="footer-logo"><a _ngcontent-bfh-c38=""><img
+                                    _ngcontent-bfh-c38="" src={% static 'assets/img/LOGO-white.png' %} alt=""></a></div>
+                            <p _ngcontent-bfh-c38="">The number one cause of children’s accidental death in Florida is
+                                drowning. Our team of Certified Survival Infant Swimming Lessons Instructors has
+                                hundreds of hours of hands-on in-water training with babies and children 6 months and up
+                                as well as adults. We have obtained the skills and confidence needed to teach your child
+                                how to perform independently survival swimming face down in the water and then
+                                horizontally roll to their back to rest and float, this sequence is known as ‘swim float
+                                swim’. We can also continue to develop your swimmer once their beginning skills are
+                                instilled. With these skills your child will be taught to have a healthy respect for
+                                water, life time swimming skills, self confidence and most importantly how to self
+                                rescue from an accidental fall into water. </p></div>
+                        <div _ngcontent-bfh-c38="" class="col-lg-4 col-md-12 footer-widget"><h3 _ngcontent-bfh-c38=""
+                                                                                                class="widget-title">
+                            Useful Links</h3>
+                            <ul _ngcontent-bfh-c38="" class="list-dash">
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#myCarousel">Home</a></li>
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#about-us">About Us</a></li>
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#contact">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div _ngcontent-bfh-c38="" class="copyright">
+                <div _ngcontent-bfh-c38="" class="container">
+                    <div _ngcontent-bfh-c38="" class="row">
+                        <div _ngcontent-bfh-c38="" class="col-lg-6 col-md-12 copyright-info"><span
+                                _ngcontent-bfh-c38="">Copyright © 2021 Swim Time Solutions - All Rights Reserved.</span>
+                        </div>
+                        <div _ngcontent-bfh-c38="" class="col-lg-6 col-md-12 footer-social">
+                            <ul _ngcontent-bfh-c38="" class="unstyled">
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38=""
+                                                             href="https://www.facebook.com/earlylearningswimacademy/"
+                                                             target="_blank"><i _ngcontent-bfh-c38=""
+                                                                                class="fa fa-facebook"></i></a></li>
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="https://twitter.com/EarlySwim"
+                                                             target="_blank"><i _ngcontent-bfh-c38=""
+                                                                                class="fa fa-twitter"></i></a></li>
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38=""
+                                                             href="https://www.instagram.com/earlylearningswimacademy/"
+                                                             target="_blank"><i _ngcontent-bfh-c38=""
+                                                                                class="fa fa-instagram"></i></a></li>
+                                <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" target="_blank"><i
+                                        _ngcontent-bfh-c38="" class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </app-landingpage><!----></app-root>
+</body>
+</html>

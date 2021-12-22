@@ -1,0 +1,108 @@
+{% extends 'InstructorDashboard/base/base.html' %}
+{% load static %}
+{% block exttra_style %}
+
+    <!-- DataTables -->
+    <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block title_block %}Swim Time Instructor{% endblock %}
+{% block page_content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Appointments</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a
+                                            href="javascript:void(0);">{{ user.first_name }}'s</a></li>
+                                    <li class="breadcrumb-item active">Appointments</li>
+                                </ol>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table
+                                               class="table dataTable table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
+                                               style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                               role="grid"
+                                               aria-describedby="datatable-buttons_info">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1" colspan="1"
+                                                    aria-sort="ascending" style="width: 100px;"
+                                                    aria-label="Name: activate to sort column descending">Booking ID
+                                                </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1" colspan="1" style="width: 143.8px;"
+                                                    aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending">Booked By
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1"
+                                                    colspan="1" style="width: 230.8px;"
+                                                    aria-label="Position: activate to sort column ascending">Starting
+                                                    Time
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1"
+                                                    colspan="1" style="width: 106.8px;"
+                                                    aria-label="Office: activate to sort column ascending">End Time
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1"
+                                                    colspan="1" style="width: 51.8px;"
+                                                    aria-label="Age: activate to sort column ascending">Remark
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                            {% for appointment in appointments %}
+                                                <tr role="row" class="odd">
+                                                    <td tabindex="0" class="sorting_1"
+                                                        style="">{{ appointment.booking.id }}</td>
+                                                    <td tabindex="0" class="sorting_1"
+                                                        style="">{{ appointment.booking.user }}</td>
+                                                    <td style="">{{ appointment.start_time|date:'M d Y h:i A' }}</td>
+                                                    <td>{{ appointment.end_time|date:'M d Y h:i A' }}</td>
+                                                    <td>{{ appointment.remark }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+    <!-- Required datatable js -->
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dataTable").DataTable()
+        });
+    </script>
+{% endblock %}

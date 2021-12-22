@@ -1,0 +1,32 @@
+{% extends 'admin/base.html' %}{% load static %}
+
+{% block extrastyle %}
+    <style>
+        #header{
+            background: #073B6A;
+            padding: 24px 40px;
+        }
+        #branding h1 {
+            font-weight: 600;
+            color: #fff ;
+        }
+        #user-tools{
+            color:#fff;
+        }
+        #user-tools a:focus, #user-tools a:hover{
+            color:#fff;
+        }
+        #content-main .module{
+            border: 1px solid #073B6A;
+            box-shadow:  2px 2px 5px 0px rgba(79, 202, 202,0.55);
+            -webkit-box-shadow:  2px 2px 5px 0px rgba(79, 202, 202,0.55);
+            -moz-box-shadow:  2px 2px 5px 0px rgba(79, 202, 202,0.55);
+        }
+
+    </style>
+{% endblock %}
+{% block branding %}
+    <h1 id="head">Swim Time Admin</h1>
+{% endblock %}
+{% block content %}
+{% endblock %}

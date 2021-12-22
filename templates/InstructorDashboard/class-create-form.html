@@ -1,0 +1,212 @@
+{% extends 'InstructorDashboard/base/base.html' %}
+{% block title_block %}Swim Time Instructor{% endblock %}
+{% load static %}
+{% block exttra_style %}
+    <!-- Plugins css -->
+    <link href="https://mannatthemes.com/dastone-1/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css"
+          rel="stylesheet"/>
+
+    <link href="{% static 'css/dropify.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <style>
+    .dropify-wrapper .dropify-message span.file-icon:before {
+    font-family: "Font Awesome 5 Brands";
+	font-weight: 400;
+	content: "\f093";
+}
+    </style>
+{% endblock %}
+{% block page_content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">All Classes</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);">Classes</a></li>
+                                    <li class="breadcrumb-item active">Create</li>
+                                </ol>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <!-- end page title end breadcrumb -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card border-dashed">
+                        <div class="card-header btn-gradient-dark">
+                            <h3 class="card-title  text-white">CLASS INFO...</h3>
+                        </div><!--end card-header-->
+                        <div class="card-body">
+                            <form method="post" action="{% url 'InstructorDashboard:class_create_form' %}"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="ti-notepad "></i></span>
+                                                </div>
+                                                <input name="title" type="text" class="form-control input_suggestion"
+                                                       maxlength="255" autocomplete="false"
+                                                       placeholder="Enter Title of class">
+                                            </div>
+                                        </div>
+                                        {% if errors.title %}
+                                            {% for error in errors.title %}
+                                                <div style="color: red">{{ error }} </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Time Slot</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="mdi mdi-calendar-clock"></i></span>
+                                                </div>
+                                                <input name="time_slot" type="number" class="form-control"
+                                                       placeholder="Enter Time Slot">
+                                                {% if errors.time_slot %}
+                                                    {% for error in errors.time_slot %}
+                                                        <div style="color: red">{{ error }} </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Total Days</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="mdi mdi-calendar-range"></i>
+                                                    </span>
+                                                </div>
+                                                <input name="total_days" type="number" class="form-control"
+                                                       placeholder="Enter Total Days">
+                                            </div>
+
+                                            {% if errors.total_days %}
+                                                {% for error in errors.total_days %}
+                                                    <div style="color: red">{{ error }} </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Fees</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">USD</span>
+                                                </div>
+                                                <input name="price" type="number" class="form-control"
+                                                       placeholder="Enter Fees">
+                                                {% if errors.price %}
+                                                    {% for error in errors.price %}
+                                                        <div style="color: red">{{ error }} </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea name="description" class="form-control input_suggestion"
+                                                      rows="7" maxlength="500"></textarea>
+                                            {% if errors.description %}
+                                                {% for error in errors.description %}
+                                                    <div style="color: red">{{ error }} </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Image</label>
+                                            <input type="file" required name="thumbnail_image" id="input-file-now"
+                                                   accept="image/*"
+                                                   class="dropify"/>
+                                            {% if errors.thumbnail_image %}
+                                                {% for error in errors.thumbnail_image %}
+                                                    <div style="color: red">{{ error }} </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br/>
+                                        <div class="form-group mb-0">
+                                            <button class="btn btn-primary btn-block waves-effect waves-light"
+                                                    type="submit">Add Class<i class=" ml-1"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--end card-body-->
+                    </div><!--end card-->
+                </div> <!-- end col -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_script %}
+    <!-- Plugins js -->
+    <script src="https://mannatthemes.com/dastone-1/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="https://mannatthemes.com/dastone-1/plugins/select2/select2.min.js"></script>
+    <script src="https://mannatthemes.com/dastone-1/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="https://mannatthemes.com/dastone-1/plugins/timepicker/bootstrap-material-datetimepicker.js"></script>
+    <script src="https://mannatthemes.com/dastone-1/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+    <script>
+        !(function (e) {
+            "use strict";
+            var t = function () {
+            };
+            (t.prototype.init = function () {
+                e("input.input_suggestion").maxlength({
+                    alwaysShow: !0,
+                    warningClass: "badge badge-success",
+                    limitReachedClass: "badge badge-danger",
+                    separator: " out of ",
+                    preText: "You typed ",
+                    postText: " chars available.",
+                    validate: !0
+                }),
+                    e("textarea.input_suggestion").maxlength({
+                        alwaysShow: !0,
+                        warningClass: "badge badge-success",
+                        limitReachedClass: "badge badge-danger",
+                        separator: " out of ",
+                        preText: "You typed ",
+                        postText: " chars available.",
+                        validate: !0
+                    });
+            }),
+                (e.AdvancedForm = new t()),
+                (e.AdvancedForm.Constructor = t);
+        })(window.jQuery),
+            (function (t) {
+                "use strict";
+                window.jQuery.AdvancedForm.init();
+            })();
+
+    </script>
+
+<script src="{% static 'js/dropify.min.js' %}"></script>
+
+    <script src="{% static 'pages/jquery.form-upload.init.js' %}"></script>
+{% endblock %}
