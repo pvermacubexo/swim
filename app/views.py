@@ -26,11 +26,15 @@ def SwimTimeView(request):
 #         except:
 #             return render(request,"register.html")
 
+
 def SwimTimeDashboard(request):
 
     user_id = request.session['slug_id']
+
+    first_name = User.objects.get(id=user_id)
+    print(first_name)
     classes = ClassInstructor.objects.filter(instructor_id=user_id)
-    return render(request, 'dashboard.html',{"data":classes})
+    return render(request, 'dashboard.html',{"data":classes,"first_name":first_name})
 
 
 

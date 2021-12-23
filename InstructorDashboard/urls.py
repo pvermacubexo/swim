@@ -13,10 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.urls import path
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
+from SharkDeck import settings
 from . import views
 
 
@@ -53,5 +55,6 @@ urlpatterns = [
     path('del-time/<int:id>', views.del_break_time, name='del_break_time'),
 ]
 urlpatterns += format_suffix_patterns(router.urls)
+
 # handler404 = 'InstructorDashboard.views.Page404'
 

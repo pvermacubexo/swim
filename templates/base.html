@@ -1,12 +1,9 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% load static %}
-        <html lang="en">
-        <head>
-        <meta charset="utf-8">
-        <title>Swim Time Solutions</title>
+    <title>
+        Swim Time</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
@@ -19,6 +16,11 @@
 
     <link rel="stylesheet" href="styles.3ff695c00d717f2d2a11.css">
     <style></style>
+    <script src={% static 'assets/js/jquery.js' %}></script>
+<script src={% static 'assets/js/jquery-ui.min.js' %}></script>
+<script src={% static 'assets/js/bootstrap.js' %}></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
+
     <script charset="utf-8"
             src="https://js.stripe.com/v3/fingerprinted/js/trusted-types-checker-cda1635e27dc416e23614def05f39e01.js"></script>
     <style>.tooltipContent[_ngcontent-uas-c28] .tooltiptext[_ngcontent-uas-c28] {
@@ -7562,13 +7564,9 @@
 
     </style>
 </head>
-<body class="modal-open" style="padding-right: 15px;">
 
-<script src={% static 'assets/js/jquery.js' %}></script>
-<script src={% static 'assets/js/jquery-ui.min.js' %}></script>
-<script src={% static 'assets/js/bootstrap.js' %}></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-<script src={% static 'assets/js/custom.js' %}></script>
+
+
 
 <script type="text/javascript">
     // var stripe = Stripe('pk_live_51IVT80A0I9vN6C8r4VrS2F0MLEe9xZrYk965cSZOYkaJwaRnvPybJopC3KgwpmHNfoO5saCglOEnMxWBXp838PPA00f8GirMT2'); // use your test publishable key
@@ -7579,6 +7577,8 @@
         src="https://js.stripe.com/v3/controller-7ca2ce412c6340533111665b1c57a0a9.html#apiKey=pk_test_51J5PmZH2rThr3O6EHMRDvGq7alGnTjXyFHDXRaCHoGHCXOBAavHtbHIsK5tiZTkWLSlIsnZVF5fVX8KCyhjKBwwC00FpPDKYKJ&amp;stripeJsId=4128a9e2-cb94-4568-8a78-031b60c3f600&amp;stripeJsLoadTime=1639468805552&amp;referrer=http%3A%2F%2Fswimtimesolutions.com%2F&amp;controllerId=__privateStripeController2481"
         aria-hidden="true" tabindex="-1"
         style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
+
+<body style="overflow: no-display">
 
 <app-root _nghost-uas-c7="" ng-version="11.0.8">
     <router-outlet _ngcontent-uas-c7=""></router-outlet>
@@ -7645,7 +7645,7 @@
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="first_name">First
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
-                                                                                placeholder="First Name"
+                                                                                placeholder=""
                                                                                 formcontrolname="first_name" type="text"
                                                                                 id="first_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
@@ -7753,9 +7753,8 @@
         });
     });
 </script>
-</html></title>
-</head>
-<body>
-
-</body>
 </html>
+
+
+
+
