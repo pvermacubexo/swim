@@ -298,6 +298,7 @@ $(function () {
 
   $("#calendar2").on("change", function () {
     CompleteDate = [$(this).val()];
+    localStorage.setItem('Date', JSON.stringify(CompleteDate[0]))
     console.log("Select complete date for complete course", CompleteDate)
     var class_instructor = window.localStorage.getItem('class_instructor_id')
     console.error("class_instructor",class_instructor)

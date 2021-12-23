@@ -29,8 +29,9 @@ def SwimTimeView(request):
 def SwimTimeDashboard(request):
 
     user_id = request.session['slug_id']
+    first_name = user_models.User.objects.get(id=user_id)
     classes = ClassInstructor.objects.filter(instructor_id=user_id)
-    return render(request, 'dashboard.html',{"data":classes})
+    return render(request, 'dashboard.html',{"data":classes,"first_name":first_name})
 
 
 
