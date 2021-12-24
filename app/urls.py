@@ -1,5 +1,7 @@
+from django.conf.urls.static import static
 from django.urls import path
 
+from SharkDeck import settings
 from app import views
 
 urlpatterns = [
@@ -10,9 +12,11 @@ urlpatterns = [
     path('registration/<str:id>', views.Registration,name='registration'),
 
     path('logout', views.LogoutView, name="LogoutView"),
+
     # path('register',views.Registration_view,name='registration_view'),
 
 
     # path('register', views.UserRegistrations, name="UserRegistrations"),
     # path('login', views.UserLogin, name="login"),
 ]
+
