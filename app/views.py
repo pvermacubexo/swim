@@ -26,44 +26,94 @@ def SwimTimeView(request):
 #         except:
 #             return render(request,"register.html")
 
+def register(request):
+
+    if request.method=="POST":
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        password = make_password(request.POST['password'])
+        mobile_no = request.POST['mobile_no']
+        DateOfBirth = request.POST['DateOfBirth']
+        father_name = request.POST['father_name']
+        mother_name = request.POST['mother_name']
+        address = request.POST['address']
+        obj = User(first_name=first_name,last_name=last_name,email=email,password=password,mobile_no=mobile_no,
+                   DateOfBirth=DateOfBirth,father_name=father_name,mother_name=mother_name,address=address)
+        request.session['email'] = email
+
+        obj.save()
+        user_id = request.session['slug_id']
+        first_name = User.objects.get(id=user_id)
+        user_details = User.objects.filter(email=email)
+        classes = ClassInstructor.objects.filter(instructor_id=user_id)
+        return redirect(SwimTimeDashboard)
+        # return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
 
 def SwimTimeDashboard(request):
+    if 'email' in request.session:
+        user_id = request.session['slug_id']
+        first_name = User.objects.get(id=user_id)
+        email = request.session['email']
+        user_details = User.objects.filter(email=email)
+        classes = ClassInstructor.objects.filter(instructor_id=user_id)
+        return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
+    else:
+        return render(request,"register.html")
 
-    user_id = request.session['slug_id']
-
-    first_name = User.objects.get(id=user_id)
-    print(first_name)
-    classes = ClassInstructor.objects.filter(instructor_id=user_id)
-    return render(request, 'dashboard.html',{"data":classes,"first_name":first_name})
-
-
-
+def update_profile(request,id):
+    if request.method == "POST":
+        obj = User.objects.get(id=id)
+        print(id)
+        obj.first_name = request.POST['first_name']
+        obj.last_name = request.POST['last_name']
+        obj.address = request.POST['address']
+        obj.mobile_no = request.POST['mobile_no']
+        obj.DateOfBirth = request.POST['DateOfBirth']
+        obj.mother_name = request.POST['mother_name']
+        obj.father_name = request.POST['father_name']
+        obj.profile_img = request.FILES['profile_img']
+        obj.save()
+        user_id = request.session['slug_id']
+        first_name = User.objects.get(id=user_id)
+        email = request.session['email']
+        user_details = User.objects.filter(email=email)
+        classes = ClassInstructor.objects.filter(instructor_id=user_id)
+        return render(request, 'dashboard.html',
+                      {"user_details": user_details, "data": classes, "first_name": first_name})
 # @login_required
 def MySchedule(request):
-
-    return render(request, 'my_shedule.html')
+    user_id = request.session['slug_id']
+    first_name = User.objects.get(id=user_id)
+    email = request.session['email']
+    user_details = User.objects.filter(email=email)
+    return render(request, 'my_shedule.html',{"user_details":user_details,"first_name":first_name})
 
 
 def Payment(request):
-
-    return render(request, 'payment.html')
+    user_id = request.session['slug_id']
+    first_name = User.objects.get(id=user_id)
+    email = request.session['email']
+    user_details = User.objects.filter(email=email)
+    return render(request, 'payment.html',{"user_details":user_details,"first_name":first_name})
 
 
 def Registration(request, id):
-    slug = user_models.Profile.objects.get(slug=id)
-    slug_id = slug.user_id
-    print(slug_id)
-    request.session['slug_id'] = slug_id
+    if 'email' in request.session:
+        # return render(request, 'register.html')
+        return redirect(SwimTimeDashboard)
+    else:
+        slug = user_models.Profile.objects.get(slug=id)
+        slug_id = slug.user_id
+        print(slug_id)
+        request.session['slug_id'] = slug_id
+        return render(request, 'register.html')
 
-
-
-
-    return render(request, 'register.html')
 
 
 def LogoutView(request):
     logout(request)
-    return render(request, "index.html")
+    return render(request, "register.html")
 
 #
 # def UserRegistrations(request):

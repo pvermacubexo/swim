@@ -6,11 +6,11 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
-    <link rel="icon" type="image/x-icon" href={% static 'assets/img/logo2.png' %}'>
+    <link rel="icon" type="image/x-icon" href={% static 'assets/img/logo2.png' %}>
     <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.css' %} >
     <link rel="stylesheet" type="text/css" href={% static 'assets/css/style.css' %}>
-    <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}">
     <script src="https://js.stripe.com/v3/"></script>
 
     <link rel="stylesheet" href="styles.3ff695c00d717f2d2a11.css">
@@ -39,8 +39,7 @@
     });
 
     $(document).ready(function () {
-        $(' .head-menu-tag a[href^="#" ]
-    ').on('click', function (e) {
+        $(' .head-menu-tag a[href^="#" ]').on('click', function (e) {
     e.preventDefault();
     var target = this.hash;
     var $target = $(target);
@@ -208,7 +207,7 @@
                             <p _ngcontent-jar-c34="">create an account to continue</p></div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                                <form action="user"  _ngcontent-jar-c34="" novalidate="" role="form" autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST"
+                                <form action="{% url 'register' %}"  _ngcontent-jar-c34="" novalidate="" role="form" autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST"
                                       >
                                     {% csrf_token %}
                                     <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
@@ -244,7 +243,7 @@
                                             class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
                                     <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                             _ngcontent-jar-c34="" for="DateOfBirth">Date of Birth</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="date_of_birth"
+                                            _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="DateOfBirth"
                                             type="date" id="DateOfBirth"
                                             class="form-control ng-untouched ng-pristine ng-invalid"
                                             style="padding: 0 0 0 10px;"><!----></div>
@@ -287,9 +286,13 @@
                     </div>
                 </div>
             </div>
+              {%  if msg  %}
+    <center><h1>{{ msg }}</h1></center>
+{% endif %}
             <div _ngcontent-jar-c34="" id="myCarousel" data-ride="carousel"
                  class="carousel banner-slide slide autoHeight"
                  style="height: 668px;">
+
                 <ol _ngcontent-jar-c34="" class="carousel-indicators">
                     <li _ngcontent-jar-c34="" data-target="#myCarousel" data-slide-to="0" class=""></li>
                     <li _ngcontent-jar-c34="" data-target="#myCarousel" data-slide-to="1" class="active"></li>
@@ -319,6 +322,7 @@
                     </div>
                 </div>
             </div>
+
             <section _ngcontent-jar-c34="" id="about-us" class="about-us theme-7 section-padding">
                 <div _ngcontent-jar-c34="" class="about-area page-padding wow bounceInLeft"
                      style="visibility: hidden; animation-name: none;">
