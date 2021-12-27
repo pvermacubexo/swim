@@ -2,7 +2,7 @@ import logging
 from datetime import datetime, timedelta
 
 import pytz
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -214,6 +214,207 @@ class AvailabilitySlots(APIView):
         return Response(time_slot_result)
 
 
+# def get_daily_timeslots(slot, day_list, profile_user):
+#     total_timeslot = []
+#     break_time = user_model.BreakTime.objects.filter(instructor=profile_user)
+#     # print('break_time', break_time)
+#     raw_start = datetime.strptime(str(profile_user.day_start_time), '%H:%M:%S')
+#     # print(raw_start)
+#     raw_end = datetime.strptime(str(profile_user.day_end_time), '%H:%M:%S')
+#     # print(raw_end)
+#     while raw_start <= raw_end:
+#         total_timeslot.append((raw_start + timedelta(minutes=1)).time())
+#         raw_start = raw_start + timedelta(minutes=slot)
+#
+#     total_timeslot1 = copy.copy(total_timeslot)
+#     # print(day_list)
+#     for day in day_list:
+#         day_str = day.strftime("%A").lower()
+#         # print(day_str)
+#         for i in break_time:
+#             # print(i.week_day)
+#             if day_str == 'monday' and i.week_day == '1':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'tuesday' and i.week_day == '2':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'wednesday' and i.week_day == '3':
+#                 # print('weekday', i.week_day)
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'thursday' and i.week_day == '4':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'friday' and i.week_day == '5':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'saturday' and i.week_day == '6':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'sunday' and i.week_day == '7':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#     if len(total_timeslot) == 1:
+#         print(total_timeslot)
+#         # total_timeslot.pop()
+#         # print(total_timeslot)
+#     if total_timeslot:
+#         return total_timeslot
+#     return False
+
+# def get_daily_timeslots(slot, day_list, profile_user):
+#     total_timeslot = []
+#     break_time = user_model.BreakTime.objects.filter(instructor=profile_user)
+#     raw_start = datetime.strptime(str(profile_user.day_start_time), '%H:%M:%S')
+#     raw_end = datetime.strptime(str(profile_user.day_end_time), '%H:%M:%S')
+#     while raw_start <= raw_end:
+#         total_timeslot.append((raw_start + timedelta(minutes=1)).time())
+#         raw_start = raw_start + timedelta(minutes=slot)
+#
+#     total_timeslot1 = copy.copy(total_timeslot)
+#     for day in day_list:
+#         day_str = day.strftime("%A").lower()
+#         for i in break_time:
+#             if day_str == 'monday' and i.week_day == '1':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'tuesday' and i.week_day == '2':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'wednesday' and i.week_day == '3':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'thursday' and i.week_day == '4':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'friday' and i.week_day == '5':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'saturday' and i.week_day == '6':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#             if day_str == 'sunday' and i.week_day == '7':
+#                 for remove_time in total_timeslot1:
+#                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
+#
+#                     if i.start_time <= remove_time <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#                     if i.start_time <= single_slot_end <= i.end_time:
+#                         if remove_time in total_timeslot:
+#                             total_timeslot.remove(remove_time)
+#
+#     if len(total_timeslot) == 1:
+#         total_timeslot.pop()
+#     if total_timeslot:
+#         return total_timeslot
+#     return False
+
 def get_daily_timeslots(slot, day_list, profile_user):
     total_timeslot = []
     break_time = user_model.BreakTime.objects.filter(instructor=profile_user)
@@ -311,6 +512,7 @@ def get_daily_timeslots(slot, day_list, profile_user):
     return False
 
 
+
 def get_common_slots(class_instructor, start_date, profile_user):
     # format = '%I:%M %p'
     day_list = []
@@ -345,8 +547,44 @@ def get_common_slots(class_instructor, start_date, profile_user):
     return day_list, pair_time
 
 
+# def get_common_slots(class_instructor, start_date, profile_user):
+#     # format = '%I:%M %p'
+#     day_list = []
+#     pair_time = []
+#     # print(class_instructor.instructor.id)
+#     available_week = week_available(class_instructor.instructor.id)
+#
+#     week_str = start_date.strftime("%A").lower()
+#
+#     if not (week_str in available_week):
+#         return False, False
+#     end_date = start_date + timedelta(days=class_instructor.total_days)
+#     while start_date < end_date:
+#         if start_date.strftime("%A").lower() in available_week:
+#             day_list.append(start_date)
+#         else:
+#             end_date += timedelta(days=1)
+#         start_date += timedelta(days=1)
+#     # print(start_date)
+#     time_list = get_daily_timeslots(class_instructor.time_slot, day_list, profile_user)
+#     if not time_list:
+#         return False, False
+#     time_list = (sorted(time_list))
+#     for day in day_list:
+#         for start_time in time_list:
+#             date_time = datetime.combine(day, start_time)
+#             if not check_availability(date_time, class_instructor.instructor):
+#                 time_list.remove(start_time)
+#     time_count = 1
+#     for single_time in time_list:
+#         if time_count < len(time_list):
+#             pair_time.append(
+#                 f"{(datetime.strptime(str(single_time), '%H:%M:%S')).time()} - "
+#                 f"{((datetime.strptime(str(single_time), '%H:%M:%S')) + timedelta(minutes=class_instructor.time_slot - 1)).time()}")
+#             time_count += 1
+#     return day_list, pair_time
+
 class GetDateTimeSlots(APIView):
-    @authorize([user_constants.Trainee])
     def get(self, request):
         serializer = GetDateTimeSerializer(data=request.query_params)
         if serializer.is_valid():
@@ -367,6 +605,35 @@ class GetDateTimeSlots(APIView):
             return Response({'date': day_result, 'time': time_result})
         else:
             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+# class GetDateTimeSlots(APIView):
+#     # @authorize([user_constants.Trainee])
+#     def get(self, request):
+#         # print(request)
+#         serializer = GetDateTimeSerializer(data=request.query_params)
+#         if serializer.is_valid():
+#             try:
+#                 # print(serializer.validated_data['class_instructor'].id)
+#                 class_instructor = ClassInstructor.objects.get(id=serializer.validated_data['class_instructor'].id)
+#
+#                 profile_user = user_model.Profile.objects.get(user=class_instructor.instructor)
+#             except user_model.Profile.DoesNotExist:
+#                 logger.warning(f"{serializer.validated_data['class_instructor'].instructor} has no Profile. Every "
+#                                f"Instructor must have own Profile.")
+#                 return Response({'error': 'Invalid Instructor ID.'})
+#             except ClassInstructor.DoesNotExist:
+#                 logger.warning(f"Class Does not Exist of this  ID = {serializer.validated_data['class_instructor'].id}")
+#                 return Response({'error': 'Invalid Class ID.'})
+#             # print(class_instructor)
+#             # print(type(class_instructor))
+#             # print(profile_user)
+#             day_result, time_result = get_common_slots(class_instructor, serializer.validated_data['start_date'],
+#                                                        profile_user)
+#
+#             if not (day_result or time_result):
+#                 return Response({'error': 'Instructor is Holiday on this day.'}, status=status.HTTP_400_BAD_REQUEST)
+#             return Response({'date': day_result, 'time': time_result})
+#         else:
+#             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 def CheckBooking(checking_time, class_instructor):

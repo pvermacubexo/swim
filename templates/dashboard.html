@@ -35,7 +35,7 @@
                                                     <div _ngcontent-ygs-c30="" class="col-md-12"><img
                                                             _ngcontent-ygs-c30="" alt=""
                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
-                                                        <!----><h3 _ngcontent-ygs-c30="">{{ first_name}}</h3>
+                                                        <!----><h3 _ngcontent-ygs-c30="">{{ first_name }}</h3>
                                                         <p _ngcontent-ygs-c30="" class="profileAddress"><i
                                                                 _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>USA
                                                         </p><!---->
@@ -68,61 +68,70 @@
                                                                     _ngcontent-ygs-c30="">COURSES AVAILABLE </h3>
                                                             </div>
                                                             <div _ngcontent-ygs-c30="" class="row">
-                                                            {% if data %}
-                                                                {% for classes in data %}
-                                                                    <div _ngcontent-ygs-c30=""
-                                                                         class="col-md-4 col-sm-6">
+                                                                {% if data %}
+                                                                    {% for classes in data %}
                                                                         <div _ngcontent-ygs-c30=""
-                                                                             class="profile-block">
-                                                                            <div _ngcontent-ygs-c30="" class="img-div">
-                                                                                <img _ngcontent-ygs-c30=""
-                                                                                     alt="thumbnail image"
-                                                                                     src="{{ classes.thumbnail_image }}">
-                                                                            </div>
+                                                                             class="col-md-4 col-sm-6">
                                                                             <div _ngcontent-ygs-c30=""
-                                                                                 class="content-div"><p
-                                                                                    _ngcontent-ygs-c30="" class="p-tag">
-                                                                                <span _ngcontent-ygs-c30="" class="tag">English</span>
-                                                                                <!----></p>
+                                                                                 class="profile-block">
                                                                                 <div _ngcontent-ygs-c30=""
-                                                                                     class="title">{{ classes.title }}
+                                                                                     class="img-div">
+                                                                                    <img _ngcontent-ygs-c30=""
+                                                                                         alt="thumbnail image"
+                                                                                         src="{{ classes.thumbnail_image }}">
                                                                                 </div>
-
-                                                                                <p _ngcontent-ygs-c30=""
-                                                                                   class="classTitle"><span
+                                                                                <div _ngcontent-ygs-c30=""
+                                                                                     class="content-div"><p
                                                                                         _ngcontent-ygs-c30=""
-                                                                                        class="text">{{ classes.description }}</span>
-                                                                                </p>
-                                                                                <p _ngcontent-ygs-c30="" class="date">
-                                                                                    Days: {{ classes.total_days }} <span
-                                                                                        _ngcontent-ygs-c30=""></span>
-                                                                                </p>
-                                                                                <p _ngcontent-ygs-c30="" class="date">
-                                                                                    Session
-                                                                                    Duration: {{ classes.time_slot }}
-                                                                                    minute <span
-                                                                                        _ngcontent-ygs-c30="">(per session)</span>
-                                                                                </p>
-                                                                                <h3 _ngcontent-ygs-c30="" class="price">
-                                                                                    Fee : <i _ngcontent-ygs-c30=""
-                                                                                             class="fa fa-dollar"></i>{{ classes.total_days }}
-                                                                                    <span _ngcontent-ygs-c30="">(Complete Course )</span>
-                                                                                </h3><a _ngcontent-ygs-c30=""
-                                                                                        data-toggle="modal"
-                                                                                        data-target="#appointment-popup"
-                                                                                        data = {{ classes.id }}
-                                                                                        class="btn-custom" onclick="classes(this)">BOOK A
-                                                                                    CLASS</a></div>
-                                                                            <script>function classes(event){
-                                                                                localStorage.setItem('class_instructor_id', event.getAttribute('data'))
-                                                                            }</script>
-                                                                        </div>
-                                                                    </div>
+                                                                                        class="p-tag">
+                                                                                    <span _ngcontent-ygs-c30=""
+                                                                                          class="tag">English</span>
+                                                                                    <!----></p>
+                                                                                    <div _ngcontent-ygs-c30=""
+                                                                                         class="title">{{ classes.title }}
+                                                                                    </div>
 
-                                                                {% endfor %}
+                                                                                    <p _ngcontent-ygs-c30=""
+                                                                                       class="classTitle"><span
+                                                                                            _ngcontent-ygs-c30=""
+                                                                                            class="text">{{ classes.description }}</span>
+                                                                                    </p>
+                                                                                    <p _ngcontent-ygs-c30=""
+                                                                                       class="date">
+                                                                                        Days: {{ classes.total_days }}
+                                                                                        <span
+                                                                                                _ngcontent-ygs-c30=""></span>
+                                                                                    </p>
+                                                                                    <p _ngcontent-ygs-c30=""
+                                                                                       class="date">
+                                                                                        Session
+                                                                                        Duration: {{ classes.time_slot }}
+                                                                                        minute <span
+                                                                                            _ngcontent-ygs-c30="">(per session)</span>
+                                                                                    </p>
+                                                                                    <h3 _ngcontent-ygs-c30=""
+                                                                                        class="price">
+                                                                                        Fee : <i _ngcontent-ygs-c30=""
+                                                                                                 class="fa fa-dollar"></i>{{ classes.total_days }}
+                                                                                        <span _ngcontent-ygs-c30="">(Complete Course )</span>
+                                                                                    </h3><a _ngcontent-ygs-c30=""
+                                                                                            data-toggle="modal"
+                                                                                            data-target="#appointment-popup"
+                                                                                            data={{ classes.id }}
+                                                                                                    class="btn-custom"
+                                                                                            onclick="classes(this)">BOOK
+                                                                                        A
+                                                                                        CLASS</a></div>
+                                                                                <script>function classes(event) {
+                                                                                    localStorage.setItem('class_instructor_id', event.getAttribute('data'))
+                                                                                }</script>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    {% endfor %}
                                                                 {% else %}
 
-                                                                {% endif%}
+                                                                {% endif %}
 
                                                                 <!----></div>
 
@@ -143,7 +152,7 @@
                                                                 </div><!---->
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 profileContent"><h3
-                                                                        _ngcontent-ygs-c30="">{{ first_name}}</h3>
+                                                                        _ngcontent-ygs-c30="">{{ first_name }}</h3>
                                                                     <p _ngcontent-ygs-c30=""><i
                                                                             _ngcontent-ygs-c30=""
                                                                             class="fa fa-map-marker"></i> USA </p>
@@ -231,8 +240,8 @@
                                                                             <div _ngcontent-ygs-c30=""
                                                                                  class="mbsc-grid">
                                                                                 <div
-                                                                                     id="calendar2"
-                                                                                class="calendar">
+                                                                                        id="calendar2"
+                                                                                        class="calendar">
 
                                                                                 </div>
                                                                             </div>
@@ -268,16 +277,13 @@
                                                                              style="text-align: center;">
                                                                             <button _ngcontent-ygs-c30=""
                                                                                     type="button"
-                                                                                    class="close btn exit" onclick="check()">Check
+                                                                                    class="close btn exit"
+                                                                                    onclick="check()">Check
                                                                                 Availability
                                                                             </button>
                                                                         </div><!----></div>
                                                                 </div>
-                                                                <script>
-                                                                    function check(){
 
-                                                                    }
-                                                                </script>
                                                                 <div _ngcontent-ygs-c30="" id="menu2"
                                                                      class="tab-pane fade">
                                                                     <div _ngcontent-ygs-c30="" class="row">
@@ -310,7 +316,7 @@
                                                                                                     <span class="ui-datepicker-month">December</span>&nbsp;<span
                                                                                                         class="ui-datepicker-year">2021</span>
                                                                                                 </div>
-                                                                                                </div>
+                                                                                            </div>
                                                                                             <table class="ui-datepicker-calendar">
                                                                                                 <thead>
                                                                                                 <tr>
@@ -1197,4 +1203,32 @@
             </div>
         </div>
     </app-dashboard>
+
+    <script>
+        function check() {
+
+            var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
+            var start_date = localStorage.getItem('Date')
+            var today = new Date(start_date);
+            {#console.log(today)#}
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            {#console.log(today);#}
+
+            $.ajax({
+                url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + 3 + '&start_date=' + today,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data)
+                    if (data.is_taken) {
+                        alert("A user with this username already exists.");
+                    }
+                }
+            });
+
+        }
+    </script>
 {% endblock %}
