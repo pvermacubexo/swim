@@ -24,7 +24,7 @@ urlpatterns = [
     path('/reset-password', views.forgot_password, name='reset_password'),
     path('/instructor-slug', views.InstructorSlug.as_view()),
     path('/get-slug', views.InstructorGetSlug.as_view()),
-    path('/profile_update', views.StudentProfileUpdateViewset.as_view()),
+    path('/profile_update', views.StudentProfileUpdateViewset.as_view(), name="update-user"),
     path('', include(router.urls))
 ]
 urlpatterns += router.urls

@@ -149,7 +149,8 @@ STATIC_URL = '/Images/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "Images"),
-os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR,"Images/profile"),
+    os.path.join(BASE_DIR, "static"),
 )
 
 REST_FRAMEWORK = {

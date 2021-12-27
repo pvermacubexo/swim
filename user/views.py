@@ -1,6 +1,6 @@
 import logging
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.views import APIView
@@ -43,10 +43,16 @@ class Authenticate(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            user_id = request.session['slug_id']
-            classes = ClassInstructor.objects.filter(instructor_id=user_id)
-            return render(request, "dashboard.html", {'datas': serializer.data,"data":classes})
-
+            try:
+                user_id = request.session['slug_id']
+                classes = ClassInstructor.objects.filter(instructor_id=user_id)
+                email = serializer.data.get('email')
+                request.session['email'] = email
+                user_details = User.objects.filter(email=email)
+                return render(request, "dashboard.html", {"user_details":user_details,'datas': serializer.data,"data":classes})
+            except:
+                msg = "Invalid URL"
+                return render(request,"register.html",{"msg":msg})
 
 def get_deactivated_user(email, username):
     # if User.objects.filter(deactivate=False, username=username):
@@ -78,6 +84,7 @@ class UserViewSet(ModelViewSet):
 
 
     def post(self, request, *args, **kwargs):
+
         try:
             delete_user_instance = User.objects.filter(deactivate=True, email=request.data['email'])
             if delete_user_instance:
@@ -108,9 +115,14 @@ class UserViewSet(ModelViewSet):
         if user.user_type == user_constants.Trainee:
             ser = StudentSerializer(data=request.data, context={'user': user})
             if ser.is_valid():
-                ser.save()
-                logger.info(f'New Student create successfully {serializer.data}')
-                return Response({'user': serializer.data, 'student_profile': ser.data}, status=status.HTTP_201_CREATED)
+                try:
+                    user_id = request.session['slug_id']
+                    ser.save()
+                    logger.info(f'New Student create successfully {serializer.data}')
+                    return render(request,"dashboard.html",{'user': serializer.data, 'student_profile':ser.data})
+                except:
+                    msg = "invalid URL"
+                    return render(request,"dashboard.html")
             else:
                 user.delete()
                 return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -142,6 +154,7 @@ class StudentUpdateProfileViewset(ModelViewSet):
 
     @authorize([user_constants.Trainee])
     def create(self, request, *args, **kwargs):
+
         user = User.objects.get(id=self.user.id)
         ser = studentUsererializer(data=request.data, context={'user_pass': user.password})
         ser.is_valid(raise_exception=True)
@@ -150,27 +163,29 @@ class StudentUpdateProfileViewset(ModelViewSet):
         student_profile.father_name = ser.data['father_name']
         student_profile.mother_name = ser.data['mother_name']
         student_profile.DateOfBirth = ser.data['DateOfBirth']
-        student_profile = student_profile.save()
+        student_profile.save()
         return Response({'message': 'success'}, status=status.HTTP_200_OK)
 
 
 class StudentProfileUpdateViewset(APIView):
 
-    @authorize([user_constants.Trainee])
-    def patch(self, request):
-        user_ser = StudentUpdateSerializer(data=request.data, context={'user': request.user})
-        try:
-            student_profile = StudentProfile.objects.get(user=request.user)
-        except StudentProfile.DoesNotExist:
-            return Response({'error': 'Invalid Student ID.'})
+    # @authorize([user_constants.Trainee])
+    def post(self, request):
+        print(self.request.data['method'])
+        if(self.request.data['method'] == 'PATCH'):
+            user_ser = StudentUpdateSerializer(data=request.data, context={'user': request.user})
+            try:
+                student_profile = StudentProfile.objects.get(user=request.user)
+            except StudentProfile.DoesNotExist:
+                return Response({'error': 'Invalid Student ID.'})
 
-        user_profile_ser = StudentProfileUpdateSerializer(data=request.data, context={'user': request.user})
-        user_ser.is_valid(raise_exception=True)
-        user_profile_ser.is_valid(raise_exception=True)
-        user_ser.update(request.user, user_ser.validated_data)
-        user_profile_ser.update(student_profile, user_profile_ser.validated_data)
-        return Response({'user': user_ser.data, 'student': user_profile_ser.data}, status=status.HTTP_200_OK)
-
+            user_profile_ser = StudentProfileUpdateSerializer(data=request.data, context={'user': request.user})
+            user_ser.is_valid(raise_exception=True)
+            user_profile_ser.is_valid(raise_exception=True)
+            user_ser.update(request.user, user_ser.validated_data)
+            user_profile_ser.update(student_profile, user_profile_ser.validated_data)
+            return Response({'user': user_ser.data, 'student': user_profile_ser.data}, status=status.HTTP_200_OK)
+        return HttpResponse({"Hello": "Bhai"})
 
 class ProfileViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
