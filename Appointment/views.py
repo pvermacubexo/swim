@@ -13,6 +13,7 @@ from rest_framework.viewsets import ModelViewSet
 from SharkDeck.constants import user_constants
 from user.decorators import authorize
 from user import models as user_model
+from user.models import User
 from .models import Appointment, ClassInstructor, BLOCKED_BY_INSTRUCTOR, BOOKED, Booking
 from .serializer import BookingPostSerializer, CheckAvailabilityPostSerializer, \
     GetSlotsSerializer, AppointmentSerializer, ClassInstructorSerializer, InstructorClassGetSerializer, \
@@ -724,7 +725,8 @@ class BookClassInstructor(APIView):
                 else:
                     start_time += timedelta(days=1)
 
-            booking = Booking.objects.create(class_instructor=class_instructor, user=request.user, booking_type=BOOKED,
+            reqested_user = User.objects.get(email=request.session["email"])
+            booking = Booking.objects.create(class_instructor=class_instructor, user=reqested_user, booking_type=BOOKED,
                                              paper_work=serializer.data['paper_work'])
             for day in day_list:
                 start_time = datetime.combine(day, serializer.validated_data['date_time'].time())

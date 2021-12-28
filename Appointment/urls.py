@@ -19,7 +19,7 @@ urlpatterns = [
     path('availabilityslots', views.AvailabilitySlots.as_view()),
     path('timeslots', views.GetDateTimeSlots.as_view()),
     path('individual-slot', views.GetIndividualTimeSlots.as_view()),
-    path('booking', views.BookClassInstructor.as_view()),
+    path('booking', views.BookClassInstructor.as_view(),name="booking"),
     path('instructor-available', views.CheckInstructorViewSet.as_view()),
     path('individual-booking', views.IndividualBookingViewSet.as_view()),
     path('appointment-schedule', views.AppointmentScheduleViewSet.as_view()),
