@@ -688,7 +688,7 @@ def week_available(instructor_id):
 
 
 class BookClassInstructor(APIView):
-    @authorize([user_constants.Trainee])
+    # @authorize([user_constants.Trainee])
     def get(self, request):
         serializer = BookClassInstructorSerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)

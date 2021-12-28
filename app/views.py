@@ -81,7 +81,7 @@ def update_profile(request,id):
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
         return render(request, 'dashboard.html',
                       {"user_details": user_details, "data": classes, "first_name": first_name})
->>>>>>> b17e544954c655cefdb79d7f74400fd7f8f4951f
+
 # @login_required
 def MySchedule(request):
     user_id = request.session['slug_id']

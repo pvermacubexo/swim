@@ -308,7 +308,14 @@ $(function () {
 
 //############################################################
 
-
+function funsd(event){
+  console.log()
+  className = $(event).attr("class")
+  console.log("hiii")
+  console.log(className)
+  $("."+className).css("background-color","red");
+  // document.getElementsByClassName("ttime"+i).style.backgroundColor = "";
+}
  function openModalSelectTime () {
    document.getElementById("calendar_popup").style.display = "none";
    document.getElementById("individual_date_time").style.display = "block";

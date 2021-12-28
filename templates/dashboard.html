@@ -37,8 +37,8 @@
                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
 
 
-
-                                                        <!----><h3 _ngcontent-ygs-c30="">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
+                                                        <!----><h3
+                                                                _ngcontent-ygs-c30="">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
 
                                                         <p _ngcontent-ygs-c30="" class="profileAddress"><i
                                                                 _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>USA
@@ -260,20 +260,20 @@
                                                                                     Time</h3><!---->
                                                                                     <div _ngcontent-ygs-c30=""
                                                                                          id="singleDate"></div>
-                                                                                    <div _ngcontent-ygs-c30=""
-                                                                                         class="block list">
-                                                                                        <div _ngcontent-ygs-c30=""
-                                                                                             class="check-box-list">
-                                                                                            <div _ngcontent-ygs-c30=""
-                                                                                                 class="col-md-12">
-                                                                                                <div _ngcontent-ygs-c30=""
-                                                                                                     class="div-block timeSelectContent">
-                                                                                                    <!----></div>
-                                                                                                <!----></div>
+                                                                                    <div class="block list">
+                                                                                        <div class="check-box-list">
+                                                                                            <div class="col-md-12">
+                                                                                                <div class="div-block timeSelectContent">
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div><!----></form>
+                                                                            </div>
+                                                                            <div id="checkbox_select">   <div _ngcontent-dbn-c30="" class="col-md-1" style="text-align: right;"><input _ngcontent-dbn-c30="" type="checkbox" id="terms" name="terms" value="1"></div>
+
+<label _ngcontent-dbn-c30="" for="terms"> Check here to indicate that you have read and agree to the terms &amp; condition of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span> Agreement. </label>
+</div><!----></form>
                                                                     </div>
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
@@ -1208,7 +1208,10 @@
         </div>
     </app-dashboard>
 
+
     <script>
+     {#$('#checkbox_select').hide();#}
+
         function check() {
 
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
@@ -1220,19 +1223,34 @@
             var yyyy = today.getFullYear();
 
             today = yyyy + '-' + mm + '-' + dd;
-            {#console.log(today);#}
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + 3 + '&start_date=' + today,
+                url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data)
-                    if (data.is_taken) {
-                        alert("A user with this username already exists.");
+                    console.log(data.time)
+                    var row1 = ''
+                    for (var i = 0; i < data.time.length; i++) {
+                        {#console.log(funsd())#}
+                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox"><input type="radio" id="radio_select" name="sample" _ngcontent-crr-c30="" value="ttime'+i+'" class="ttime'+i+'">'+ String(data.time[i]) + '</input></div>';
+
                     }
-                }
-            });
+                     $("#radio_select").click(function (){
+                         $('#checkbox_select').show();
+                     });
+                        {#$('#checkbox_select').show();#}
+
+
+                    $('.timeSelectContent').html(row1);
+                },
+        }
+
+        )
+
 
         }
+
+
     </script>
-{% endblock %}
+
+    </a>{% endblock %}
