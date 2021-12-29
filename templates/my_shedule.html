@@ -2,23 +2,143 @@
 {% load static %}
 
 {% block sidebar_content %}
+
     <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="">
-                        <div _ngcontent-nwk-c28="" class="tab-link first">
-                            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
-                            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="active">
-                        <div _ngcontent-nwk-c28="" class="tab-link">
-                        <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
-                        <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
-                    <div _ngcontent-nwk-c28="" class="tab-link">
-                        <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
-                        <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
-                </a>
+        <div _ngcontent-nwk-c28="" class="tab-link first">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="active">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+    </a>
 {% endblock %}
 
 {% block page_content %}
+
+    <div _ngcontent-uss-c31="" class="col-md-11 content">
+        <div _ngcontent-uss-c31="" class="main-content">
+            <div _ngcontent-uss-c31="" class="container">
+                <div _ngcontent-uss-c31="" class="main_container">
+                    <div _ngcontent-uss-c31="" class="row">
+                        <div _ngcontent-uss-c31="" class="col-md-12"></div>
+                        <div _ngcontent-uss-c31="" class="col-md-12">
+
+
+                            <div _ngcontent-uss-c31="" class="col-md-6 left-in head">
+                                <div _ngcontent-uss-c31="" class="session_heading"><h3 _ngcontent-uss-c31="">PREVIOUS
+                                    SESSION</h3></div>
+                                <div _ngcontent-uss-c31="" class="ScrollView">
+                                    {% if prev_session  %}<!---->
+                                        {% for data in prev_session %}
+                                            <div _ngcontent-uss-c31="">
+
+                                                <div _ngcontent-uss-c31="" class="appointment-div autoHeight-appo"
+                                                     style="height: 300px">
+
+                                                    <div _ngcontent-uss-c31="" class="block">
+                                                        <div _ngcontent-uss-c31="" class="top-block"><p
+                                                                _ngcontent-uss-c31=""
+                                                                class="classTitle"><span
+                                                                _ngcontent-uss-c31="">{{ data.total_days }} day class</span>
+                                                            <!----></p><h4
+                                                                _ngcontent-uss-c31="">{{ data.start_time }}</h4>
+                                                            <!----><p _ngcontent-uss-c31="">Your appointment has
+                                                                completed {{ data.instructor }}</p><!----></div>
+                                                        <div _ngcontent-uss-c31="" class="bottom-div">
+                                                            <div _ngcontent-uss-c31="" class="row">
+                                                                <div _ngcontent-uss-c31=""
+                                                                     class="col-md-4 ImageContent"><img
+                                                                        _ngcontent-uss-c31="" alt="instructor image"
+                                                                        src="{{ data.profile_img }}">
+                                                                </div>
+                                                                <div _ngcontent-uss-c31=""
+                                                                     class="col-md-8 bottom-div-right"><h3
+                                                                        _ngcontent-uss-c31="">{{ data.instructor }}</h3>
+                                                                    <p _ngcontent-uss-c31=""><i _ngcontent-uss-c31=""
+                                                                                                class="fa fa-map-marker"></i>{{ data.address }}
+                                                                    </p><!----><p _ngcontent-uss-c31=""><i
+                                                                            _ngcontent-uss-c31=""
+                                                                            class="fa fa-phone"></i>{{ data.mobile_no }}
+                                                                    </p><!----></div>
+                                                            </div>
+                                                        </div>
+                                                    </div><!----></div>
+                                                <!----></div>
+
+
+
+                                        {% endfor %}
+                                    {% else %}
+                                        <div _ngcontent-xmu-c31="" class="col-md-12">
+                                            <div _ngcontent-xmu-c31="" class="alert alert-info"><h1
+                                                    _ngcontent-xmu-c31="" class="text-center">There is no previous
+                                                appointment.</h1></div>
+                                        </div>
+                                    {% endif %}
+
+                                    <!----></div><!----></div>
+
+
+                            <div _ngcontent-uss-c31="" class="col-md-6 right-in head">
+                                <div _ngcontent-uss-c31="" class="session_heading"><h3 _ngcontent-uss-c31="">NEXT
+                                    SESSION</h3></div>
+                                <div _ngcontent-uss-c31="" class="ScrollView">
+                                    {% if next_session %}
+                                        {%  for data in next_session %}<!---->
+                                            <div _ngcontent-uss-c31="" class="appointment-div autoHeight-appo"
+                                                 style="height: 200px">
+                                                <div _ngcontent-uss-c31="" class="block">
+                                                    <div _ngcontent-uss-c31="" class="top-block"><p
+                                                            _ngcontent-uss-c31=""
+                                                            class="classTitle"><span
+                                                            _ngcontent-uss-c31="">{{ data.title }} class</span><!---->
+                                                    </p><h4
+                                                            _ngcontent-uss-c31="">{{ data.start_time }}</h4>
+                                                        <!----><p _ngcontent-uss-c31="">You got an appointment
+                                                            with {{ data.instructor }}</p><!----></div>
+                                                    <div _ngcontent-uss-c31="" class="bottom-div">
+                                                        <div _ngcontent-uss-c31="" class="row">
+                                                            <div _ngcontent-uss-c31="" class="col-md-4 ImageContent">
+                                                                <img
+                                                                        _ngcontent-uss-c31="" alt="instructor image"
+                                                                        src="{{ data.profile_img }}">
+                                                            </div>
+                                                            <div _ngcontent-uss-c31=""
+                                                                 class="col-md-8 bottom-div-right"><h3
+                                                                    _ngcontent-uss-c31="">{{ data.instructor }}</h3>
+                                                                <p _ngcontent-uss-c31=""><i _ngcontent-uss-c31=""
+                                                                                            class="fa fa-map-marker"></i>{{ data.address }}
+                                                                </p><!----><p _ngcontent-uss-c31=""><i
+                                                                        _ngcontent-uss-c31=""
+                                                                        class="fa fa-phone"></i>{{ data.mobile_no }}
+                                                                </p><!----></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div _ngcontent-xmu-c31="" class="col-md-12"><div _ngcontent-xmu-c31="" class="alert alert-info"><h1 _ngcontent-xmu-c31="" class="text-center">There is no next scheduled appointment.</h1></div></div>
+                                    {% endif %}
+                                    <!----></div><!----></div>
+
+
+                        </div><!---->
+                        <ngx-spinner _ngcontent-uss-c31="" bdcolor="rgba(50, 50, 50, 0.8)" size="default"
+                                     type="ball-spin-clockwise" _nghost-uss-c29=""><!----></ngx-spinner><!----></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
