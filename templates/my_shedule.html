@@ -1,0 +1,551 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block sidebar_content %}
+    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="">
+                        <div _ngcontent-nwk-c28="" class="tab-link first">
+                            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+                            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+                    </a>
+                    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="active">
+                        <div _ngcontent-nwk-c28="" class="tab-link">
+                        <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+                        <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+                    </a>
+                    <a _ngcontent-nwk-c28="" href={% url 'payment' %} class="">
+                    <div _ngcontent-nwk-c28="" class="tab-link">
+                        <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+                        <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+                </a>
+{% endblock %}
+
+{% block page_content %}
+
+<app-myschedule _nghost-oie-c31="">
+    ̥
+    <div _ngcontent-oie-c31="" class="col-md-11 content">
+        <div _ngcontent-oie-c31="" class="main-content">
+            <div _ngcontent-oie-c31="" class="container">
+                <div _ngcontent-oie-c31="" class="main_container">
+                    <div _ngcontent-oie-c31="" class="row">
+                        <div _ngcontent-oie-c31="" class="col-md-12"></div>
+                        <div _ngcontent-oie-c31="" class="col-md-12">
+                            <div _ngcontent-oie-c31="" class="col-md-6 left-in head">
+                                <div _ngcontent-oie-c31="" class="session_heading"><h3 _ngcontent-oie-c31="">
+                                    PREVIOUS SESSION</h3></div>
+                                <div _ngcontent-oie-c31="" class="ScrollView">
+                                    <div _ngcontent-oie-c31="" class="col-md-12">
+                                        <div _ngcontent-oie-c31="" class="alert alert-info"><h1
+                                                _ngcontent-oie-c31="" class="text-center">There is no previous
+                                            session</h1></div>
+                                    </div><!---->
+                                    <div _ngcontent-oie-c31=""><!----></div><!----></div><!----></div>
+                            <div _ngcontent-oie-c31="" class="col-md-6 right-in head">
+                                <div _ngcontent-oie-c31="" class="session_heading"><h3 _ngcontent-oie-c31="">
+                                    NEXT SESSION</h3></div>
+                                <div _ngcontent-oie-c31="" class="ScrollView"><!---->
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">regular class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 15 2021 12:01 PM - 12:50
+                                                PM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">regular class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 16 2021 12:01 PM - 12:50
+                                                PM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">regular class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 17 2021 12:01 PM - 12:50
+                                                PM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">regular class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 20 2021 12:01 PM - 12:50
+                                                PM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">regular class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 21 2021 12:01 PM - 12:50
+                                                PM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 22 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 23 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 23 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 24 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 24 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 27 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 27 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 28 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 28 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 29 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 29 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 30 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 30 2021 08:46 AM - 09:20
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div _ngcontent-oie-c31="" class="appointment-div autoHeight-appo">
+                                        <div _ngcontent-oie-c31="" class="block">
+                                            <div _ngcontent-oie-c31="" class="top-block"><p
+                                                    _ngcontent-oie-c31="" class="classTitle"><span
+                                                    _ngcontent-oie-c31="">7 day class</span><!----></p><h4
+                                                    _ngcontent-oie-c31="">December 31 2021 07:36 AM - 08:10
+                                                AM</h4><!----><p _ngcontent-oie-c31="">You got an appointment
+                                                with samar verma</p><!----></div>
+                                            <div _ngcontent-oie-c31="" class="bottom-div">
+                                                <div _ngcontent-oie-c31="" class="row">
+                                                    <div _ngcontent-oie-c31="" class="col-md-4 ImageContent">
+                                                        <img _ngcontent-oie-c31="" alt="instructor image"
+                                                             src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                    </div>
+                                                    <div _ngcontent-oie-c31=""
+                                                         class="col-md-8 bottom-div-right"><h3
+                                                            _ngcontent-oie-c31="">samar verma</h3>
+                                                        <p _ngcontent-oie-c31=""><i _ngcontent-oie-c31=""
+                                                                                    class="fa fa-map-marker"></i>indore
+                                                        </p><!----><p _ngcontent-oie-c31=""><i
+                                                                _ngcontent-oie-c31="" class="fa fa-phone"></i>8935387555
+                                                        </p><!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!----></div><!----></div>
+                        </div><!---->
+                        <ngx-spinner _ngcontent-oie-c31="" _nghost-oie-c29="" bdcolor="rgba(50, 50, 50, 0.8)"
+                                     size="default" type="ball-spin-clockwise"><!----></ngx-spinner><!---->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-myschedule>
+
+{% endblock %}

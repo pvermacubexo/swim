@@ -1,0 +1,196 @@
+{% extends 'InstructorDashboard/base/base.html' %}
+{% load static %}
+{% block title_block %}Swim Time Instructor{% endblock %}
+{% block exttra_style %}
+
+    <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
+
+    <style>
+        table.dataTable > tbody > tr.child ul.dtr-details {
+            width: 100%;
+        }
+
+        table.dataTable > tbody > tr.child span.dtr-title {
+            display: inline-block;
+            min-width: 75px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            background: #888;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        .border_col {
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 20px 0;
+            margin-bottom: 10px;
+        }
+
+        .scrollable_model_y {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+    </style>
+{% endblock %}
+{% block page_content %}
+    <!-- Page Content-->
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- Page-Title -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-box">
+                        <div class="row">
+                            <div class="col">
+                                <h4 class="page-title">Bookings</h4>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a
+                                            href="javascript:void(0);">{{ user.first_name }}'s</a></li>
+                                    <li class="breadcrumb-item active">Bookings</li>
+                                </ol>
+                            </div><!--end col-->
+                        </div><!--end row-->
+                    </div><!--end page-title-box-->
+                </div><!--end col-->
+            </div><!--end row-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table
+                                                class="table dataTable table-striped table-bordered"
+                                        >
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Booking ID</th>
+                                                <th>Booked By
+                                                </th>
+                                                <th>Start
+                                                    Date
+                                                </th>
+                                                <th>End Date
+                                                </th>
+                                                <th>Status
+                                                </th>
+                                                <th>
+                                                    View Transactions
+                                                </th>
+                                            </tr>
+                                            </thead>
+
+
+                                            <tbody>
+                                            {% for booking in bookings %}
+                                                <tr role="row" class="odd">
+                                                    <td tabindex="0" class="sorting_1" style="">{{ booking.id }}</td>
+                                                    <td tabindex="0" class="sorting_1" style="">{{ booking.user }}</td>
+                                                    <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
+                                                    <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
+                                                    <td>{% if booking.get_booking_payment_status %}
+                                                                    {{ booking.get_booking_payment_status }} {% else %}
+                                                                    -- {% endif %}</td>
+                                                    <td>
+                                                        <button type="button"
+                                                                class="btn btn-outline-info waves-effect waves-light"
+                                                                data-toggle="modal" data-target="#exampleModalInfo{{ booking.id }}">View Transactions
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+
+                                                <div class="modal fade" id="exampleModalInfo{{ booking.id }}" tabindex="-1"
+                                                     role="dialog" aria-labelledby="exampleModalInfo1"
+                                                     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                                    <div class="modal-dialog " style="width: 100%; max-width: 80%;"
+                                                         role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-info">
+                                                                <h4 class="modal-title m-0 text-white">Transactions</h4>
+                                                            </div><!--end modal-header-->
+                                                            <div class="modal-body scrollable_model_y">
+                                                                <div class="row">
+                                                                    {% if booking.transactions %}
+                                                                        {% for transaction in booking.transactions %}
+                                                                            <div class="col-md-6 ">
+                                                                                <div class="border_col">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-3 text-center align-self-center">
+                                                                                            {% if transaction.payment_type == '1' %}
+                                                                                                <i class="mdi mdi-cash-multiple"
+                                                                                                   style="font-size: 93px;"></i> {% else %}
+                                                                                                <i class="dripicons-card"
+                                                                                                   style="font-size: 93px;"></i> {% endif %}
+                                                                                        </div><!--end col-->
+                                                                                        <div class="col-md-9">
+                                                                                            <div>
+                                                                                                <p>Transactions ID
+                                                                                                    : {{ transaction.transaction_id }}</p>
+                                                                                                <p>Paid Amount
+                                                                                                    : ${{ transaction.paid_amount }}</p>
+                                                                                                <p>Due Amount
+                                                                                                    : ${{ transaction.due_amount }} $</p>
+                                                                                                <p>Payment Status :
+                                                                                                    {% if transaction.status == '1' %}PENDING{% endif %}
+                                                                                                    {% if transaction.status == '2' %}COMPLETED{% endif %}
+                                                                                                    {% if transaction.status == '3' %}REJECTED{% endif %}
+                                                                                                </p>
+                                                                                                <p>Payment Type :
+                                                                                                    {% if transaction.payment_type == '1' %}
+                                                                                                        CASH {% else %}
+                                                                                                        CARD {% endif %} </p>
+                                                                                                <hr>
+                                                                                            </div>
+                                                                                        </div><!--end col-->
+                                                                                    </div><!--end row-->
+                                                                                </div>
+                                                                            </div>
+                                                                        {% endfor %}
+                                                                    {% else %}
+                                                                        NOT DONE
+                                                                    {% endif %}
+                                                                </div>
+                                                            </div><!--end modal-body-->
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary btn-lg"
+                                                                        data-dismiss="modal">OK
+                                                                </button>
+                                                            </div><!--end modal-footer-->
+                                                        </div><!--end modal-content-->
+                                                    </div><!--end modal-dialog-->
+                                                </div><!--end modal-->
+
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_script %}
+    <!-- Required datatable js -->
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $(".dataTable").DataTable()
+        });
+
+
+    </script>
+{% endblock %}

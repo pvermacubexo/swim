@@ -1,0 +1,11 @@
+<form method="post">
+{{ form }}
+    {% csrf_token %}
+
+    Do you want to delete class?
+
+    <button type="submit">Delete</button>
+
+    <a href="/instructor/class-list">Cancel</a>
+
+</form>

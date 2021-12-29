@@ -1,0 +1,67 @@
+{% extends 'InstructorDashboard/base/base.html' %}
+{% block title_block %}Swim Time Instructor{% endblock %}
+{% block page_content %}
+
+
+    <div class="page-content">
+        <div class="container-fluid">
+                 <div class="nav-link">
+                     <a class=" btn btn-sm btn-soft-info" href="{% url 'InstructorDashboard:class_create_form' %}" role="button"><i class="fas fa-plus mr-2"></i>New Class</a>
+                    <div class="row">
+                        {% if classes %}
+                            {% for class in classes %}
+                                <div class="col-md-6">
+                                    <div class="card" style="margin-bottom:10px;">
+                                        <div class="card-body">
+                                            <div class="row ">
+                                                <div class="col-auto">
+                                                    <img src="{{ class.thumbnail_image.url }}" alt="user" width="250px" height="150px" class="align-self-center mb-3 mb-lg-0">
+                                                </div><!--end col-->
+                                                <div class="col align-self-center">
+                                                    <p class="font-18 font-weight-semibold mb-2">{{ class.title }}</p>
+                                                    <p class="text">{{ class.description | truncatechars:35 }}</p>
+                                                    <ul type="square">
+                                                        <li>{{ class.time_slot }} Min/Day</li><li>{{ class.total_days }} Days</li>
+                                                        <li>${{ class.price }}</li>
+                                                    </ul>
+                                                    <a href="{% url 'InstructorDashboard:class_delete' class.id %}" id="mySmallModalLabel" class="btn btn-soft-danger btn-sm" data-toggle="modal"data-target="#exampleModalSmall">Delete</a>
+                                                    <a href="{% url 'InstructorDashboard:class_update_form' class.id %}" class="btn btn-soft-primary btn-sm">Edit</a>
+                                                    <a href="{% url 'InstructorDashboard:class_detail_view' class.id %}" class="btn btn-soft-info btn-sm" >View</a>
+                                                </div><!--end col-->
+                                            </div> <!--end row-->
+                                        </div><!--end card-body-->
+                                    </div><!--end card-->
+                                </div><!--end col-->
+
+
+
+                                    <div class="modal fade bd-example-modal-sm" id="exampleModalSmall" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title m-0" id="mySmallModalLabel">Delete Confirm!</h6>
+                                                    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true"><i class="la la-times"></i></span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                    <img src="{{ class.thumbnail_image.url}}" alt="" class="thumb-lg rounded-circle">
+                                                    <h4 class="mb-1">{{ class.title }}</h4>
+                                                    <p class="mb-0" style="color: #7f1a30">Do You want to Delete it?</p>
+                                                </div><!--end modal-body-->
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary btn-xs " data-dismiss="modal">Close</button>
+                                                <a href="{% url 'InstructorDashboard:class_delete' class.id %}" ><button type="button" class="btn btn-gradient-danger btn-xs" >Delete</button></a>
+                                                </div><!--end modal-footer-->
+                                            </div><!--end modal-content-->
+                                        </div><!--end modal-dialog-->
+                                    </div><!--end modal-->
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                 </div>
+        </div>
+    </div>
+
+
+{% endblock %}
