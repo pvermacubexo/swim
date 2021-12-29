@@ -6,6 +6,7 @@ from app import views
 
 urlpatterns = [
     # path('', views.SwimTimeView),
+    path('', views.SwimTimeView, name='swimtime_view'),
     path('dashboard/', views.SwimTimeDashboard, name='dashboard_view'),
     path('update-profile/', views.update_profile, name='update-profile'),
     path('dashboard/myschedule/', views.MySchedule ,name='schedule'),

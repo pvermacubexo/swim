@@ -20,7 +20,7 @@ class ContactUsViewSet(ModelViewSet):
         email_body = f"Hi , {ser.validated_data['full_name']} want's to connect to you. \n Here is the details: " \
                      f"Phone Number: {ser.validated_data['phone']} and Message: {ser.validated_data['message']}"
         try:
-            data = {'email_body': ser.validated_data['message'], 'to_email': 'deepak.kumar@cubexo.io',
+            data = {'email_body': ser.validated_data['message'], 'to_email': 'vermapooja1197@gmail.com',
                     'email_subject': ser.validated_data['subject']}
 
             sent_mail(data)

@@ -104,8 +104,9 @@
                         <p _ngcontent-bfh-c38="">Please enter your email and password to continue</p></div>
                     <div _ngcontent-bfh-c38="" class="modal-body">
                         <div _ngcontent-bfh-c38="" class="row">
-                            <form _ngcontent-bfh-c38="" novalidate="" role="form"
-                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                            <form _ngcontent-jar-c34="" novalidate="" role="form"
+                                      class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST" action="user/login">
+                                    {% csrf_token %}
                                 <div _ngcontent-bfh-c38="" class="col-md-12">
                                     <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
                                                                                          for="email">Email
@@ -211,7 +212,7 @@
                     <div _ngcontent-bfh-c38="" class="row">
                         <div _ngcontent-bfh-c38="" class="col-md-6 col-sm-6 col-xs-12">
                             <div _ngcontent-bfh-c38="" class="about-image"><img _ngcontent-bfh-c38=""
-                                                                                src={% static 'assets/img/about-img.jpg' %} alt=""
+                                                                                src="http://swimtimesolutions.com/assets/img/about-img.jpg" alt=""
                                                                                 class="imageContent"></div>
                         </div>
                         <div _ngcontent-bfh-c38="" class="col-md-6 col-sm-6 col-xs-12">
@@ -365,7 +366,8 @@
                                             <div _ngcontent-bfh-c38="" class="contact-form"><h2 _ngcontent-bfh-c38="">
                                                 Contact Us</h2>
                                                 <form _ngcontent-bfh-c38="" novalidate="novalidate"
-                                                      class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
+                                                      class="contact-page-form-1 ng-untouched ng-pristine ng-invalid" method="POST" action="" id="registerSubmit">
+                                                    {% csrf_token %}
                                                     <div _ngcontent-bfh-c38="" class="row clearfix">
                                                         <div _ngcontent-bfh-c38=""
                                                              class="col-md-6 col-sm-6 col-xs-12 form-group"><input
@@ -405,7 +407,7 @@
                                                              class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group formSubmit">
                                                             <button _ngcontent-bfh-c38="" type="submit"
                                                                     name="submit-form" class="theme-btn btn-style-one"
-                                                                    disabled="">Send
+                                                                   onclick="contact_us()" >Send
                                                             </button>
                                                         </div>
                                                     </div>
@@ -425,8 +427,10 @@
                 <div _ngcontent-bfh-c38="" class="container footer-main-content">
                     <div _ngcontent-bfh-c38="" class="row">
                         <div _ngcontent-bfh-c38="" class="col-lg-8 col-md-12 footer-widget footer-about">
-                            <div _ngcontent-bfh-c38="" class="footer-logo"><a _ngcontent-bfh-c38=""><img
-                                    _ngcontent-bfh-c38="" src={% static 'assets/img/LOGO-white.png' %} alt=""></a></div>
+                            <div _ngcontent-bfh-c38="" class="footer-logo"><a _ngcontent-bfh-c38="">
+
+{#                            <img _ngcontent-bfh-c38="" src="http://swimtimesolutions.com/assets/img/LOGO-white.png" alt="">#}
+                            </a></div>
                             <p _ngcontent-bfh-c38="">The number one cause of children’s accidental death in Florida is
                                 drowning. Our team of Certified Survival Infant Swimming Lessons Instructors has
                                 hundreds of hours of hands-on in-water training with babies and children 6 months and up
@@ -478,4 +482,21 @@
         </footer>
     </app-landingpage><!----></app-root>
 </body>
+<script>
+    function contact_us() {
+         {#var $form = $( this ),#}
+         {#    term = $form.find( "input[name='subject']" ).val()#}
+         {#   console.log(term)#}
+            $.ajax({
+                    url: 'http://127.0.0.1:8000/contact-us/',
+                    dataType: 'json',
+                    data: ,
+
+                    success: function (data) {
+                        alert("Email send successfully ! ")
+                    }
+                }
+            )
+        }
+</script>
 </html>
