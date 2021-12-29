@@ -105,6 +105,8 @@ def Registration(request, id):
         return redirect(SwimTimeDashboard)
     else:
         slug = user_models.Profile.objects.get(slug=id)
+        print("slug name")
+        print(slug)
         slug_id = slug.user_id
         print(slug_id)
         request.session['slug_id'] = slug_id
