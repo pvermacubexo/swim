@@ -3,45 +3,183 @@
 
 {% block sidebar_content %}
     <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="">
-                        <div _ngcontent-nwk-c28="" class="tab-link first">
-                            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
-                            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
-                        <div _ngcontent-nwk-c28="" class="tab-link">
-                        <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
-                        <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'payment' %} class="active">
-                    <div _ngcontent-nwk-c28="" class="tab-link">
-                        <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
-                        <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
-                </a>
+        <div _ngcontent-nwk-c28="" class="tab-link first">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="active">
+        <div _ngcontent-nwk-c28="" class="tab-link">
+            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+    </a>
 {% endblock %}
 
 {% block page_content %}
-<app-repayment _nghost-oie-c32="">
-            <div _ngcontent-oie-c32="" class="col-md-11 content">
-                <div _ngcontent-oie-c32="" class="main-content">
-                    <div _ngcontent-oie-c32="" class="container">
-                        <div _ngcontent-oie-c32="" class="row">
-                            <div _ngcontent-oie-c32="" class="container-fluid">
-                                <div _ngcontent-oie-c32="" class="row">
-                                    <div _ngcontent-oie-c32="" class="content profile">
-                                        <div _ngcontent-oie-c32="" class="main-content profile-tab">
-                                            <div _ngcontent-oie-c32="" class="course-main-div">
-                                                <div _ngcontent-oie-c32="" class="ul-course-div"></div>
-                                                <div _ngcontent-oie-c32="" class="tab-content">
-                                                    <div _ngcontent-oie-c32="" id="course"
-                                                         class="tab-pane fade in active">
-                                                        <div _ngcontent-oie-c32="" class="container">
-                                                            <div _ngcontent-oie-c32="" class="col-md-12">
+    <app-repayment _nghost-oie-c32="">
+        <div _ngcontent-oie-c32="" class="col-md-11 content">
+            <div _ngcontent-oie-c32="" class="main-content">
+                <div _ngcontent-oie-c32="" class="container">
+                    <div _ngcontent-oie-c32="" class="row">
+                        <div _ngcontent-oie-c32="" class="container-fluid">
+                            <div _ngcontent-oie-c32="" class="row">
+                                <div _ngcontent-oie-c32="" class="content profile">
+                                    <div _ngcontent-oie-c32="" class="main-content profile-tab">
+                                        <div _ngcontent-oie-c32="" class="course-main-div">
+                                            <div _ngcontent-oie-c32="" class="ul-course-div"></div>
+                                            <div _ngcontent-oie-c32="" class="tab-content">
+                                                <div _ngcontent-oie-c32="" id="course"
+                                                     class="tab-pane fade in active">
+                                                    <div _ngcontent-oie-c32="" class="container">
+                                                        <div _ngcontent-oie-c32="" class="col-md-12">
+                                                            {% if data %}
+
+
+                                                                    <div _ngcontent-ojq-c32="" class="row" >
+
+                                                                        <div _ngcontent-ojq-c32=""
+                                                                             class="content profile">
+                                                                            <div _ngcontent-ojq-c32=""
+                                                                                 class="main-content profile-tab">
+                                                                                <div _ngcontent-ojq-c32=""
+                                                                                     class="course-main-div">
+
+                                                                                    <div _ngcontent-ojq-c32=""
+                                                                                         class="ul-course-div"></div>
+
+                                                                                    <div _ngcontent-ojq-c32=""
+                                                                                         class="tab-content">
+                                                                                        <div _ngcontent-ojq-c32=""
+                                                                                             id="course"
+                                                                                             class="tab-pane fade in active">
+                                                                                            <div _ngcontent-ojq-c32=""
+                                                                                                 class="container" >
+                                                                                                <!---->
+
+                                                                                                <div _ngcontent-ojq-c32=""
+                                                                                                     class="row">
+                                                                                                    {% for datas in data %}
+                                                                                                    <div _ngcontent-ojq-c32=""
+                                                                                                         class="col-md-4 col-sm-6" >
+
+                                                                                                        <div _ngcontent-ojq-c32=""
+                                                                                                             class="profile-block" >
+
+                                                                                                            <div _ngcontent-ojq-c32=""
+                                                                                                                 class="content-div">
+                                                                                                                <div _ngcontent-ojq-c32=""
+                                                                                                                     style="min-height: 300px;">
+                                                                                                                    <div _ngcontent-ojq-c32=""
+                                                                                                                         class="row">
+                                                                                                                        <!---->
+                                                                                                                        <!----></div>
+                                                                                                                    <p _ngcontent-ojq-c32=""
+                                                                                                                       class="date"
+                                                                                                                       style="margin-top: 10px;">
+                                                                                                                        Booking
+                                                                                                                        Id
+                                                                                                                        :
+                                                                                                                        {{ datas.id }}</p>
+                                                                                                                    <p _ngcontent-ojq-c32=""
+                                                                                                                       class="p-tag">
+                                                                                                                        <span _ngcontent-ojq-c32=""
+                                                                                                                              class="tag"></span><span
+                                                                                                                            _ngcontent-ojq-c32=""
+                                                                                                                            class="tag"></span><span
+                                                                                                                            _ngcontent-ojq-c32=""
+                                                                                                                            class="tag"></span>
+                                                                                                                    </p>
+                                                                                                                    <div _ngcontent-ojq-c32=""
+                                                                                                                         class="title">
+                                                                                                                        <span _ngcontent-ojq-c32=""> {{ datas.instuctor}}</span>
+                                                                                                                        |
+                                                                                                                        <span _ngcontent-ojq-c32="">{{ datas.class_name }} </span>
+                                                                                                                    </div>
+                                                                                                                    <div _ngcontent-ojq-c32="">
+                                                                                                                        <p _ngcontent-ojq-c32=""
+                                                                                                                           class="date">
+                                                                                                                            Days:
+                                                                                                                            {{ datas.total_days }}
+                                                                                                                            <span _ngcontent-ojq-c32="">days</span>
+                                                                                                                        </p>
+                                                                                                                        <p _ngcontent-ojq-c32=""
+                                                                                                                           class="date">
+                                                                                                                            Session
+                                                                                                                            Duration:
+                                                                                                                            {{ datas.time_slot }}
+                                                                                                                            minute</p>
+                                                                                                                    </div>
+                                                                                                                    <h5 _ngcontent-ojq-c32=""
+                                                                                                                        class="price">
+                                                                                                                        Total
+                                                                                                                        Amount
+                                                                                                                        :
+                                                                                                                        <i _ngcontent-ojq-c32=""
+                                                                                                                           class="fa fa-dollar"></i>
+                                                                                                                       {{ datas.total_amount }}
+                                                                                                                    </h5>
+                                                                                                                    <h5 _ngcontent-ojq-c32=""
+                                                                                                                        class="price">
+                                                                                                                        Paid
+                                                                                                                        Amount
+                                                                                                                        :
+                                                                                                                        <i _ngcontent-ojq-c32=""
+                                                                                                                           class="fa fa-dollar"></i>
+                                                                                                                        {{ datas.paid_amount }}
+                                                                                                                    </h5>
+                                                                                                                    <h3 _ngcontent-ojq-c32=""
+                                                                                                                        class="price">
+                                                                                                                        Due
+                                                                                                                        Amount
+                                                                                                                        :
+                                                                                                                        <i _ngcontent-ojq-c32=""
+                                                                                                                           class="fa fa-dollar"></i>
+                                                                                                                        {{ datas.due_amount }}
+                                                                                                                    </h3>
+                                                                                                                </div>
+                                                                                                                <a _ngcontent-ojq-c32=""
+                                                                                                                   data-toggle="modal"
+                                                                                                                   data-target="#appointment-popup"
+                                                                                                                   class="btn-custom pay-button">PAY</a>
+                                                                                                            </div>
+
+                                                                                                        </div>
+
+                                                                                                    </div>
+                                                                                                     {% endfor %}
+                                                                                                </div>
+
+
+
+
+
+
+
+
+                                                                                                <!----></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                            {% else %}
+
+
                                                                 <div _ngcontent-oie-c32="" class="alert alert-info"><h1
                                                                         _ngcontent-oie-c32="" class="text-center">No due
                                                                     amount for any booking.</h1></div>
-                                                            </div><!---->
-                                                            <div _ngcontent-oie-c32="" class="row"><!----></div><!---->
-                                                        </div>
+                                                                </div><!---->
+
+
+                                                            {% endif %}
+                                                        <div _ngcontent-oie-c32="" class="row"><!----></div><!---->
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,253 +187,318 @@
                                     </div>
                                 </div>
                             </div>
-                            <div _ngcontent-oie-c32="" id="appointment-popup" tabindex="-1" role="dialog"
-                                 aria-labelledby="myLargeModalLabel" data-backdrop="static" data-keyboard="false"
-                                 aria-hidden="true" class="modal fade login login-pop appointment">
-                                <div _ngcontent-oie-c32="" class="modal-dialog modal-lg">
-                                    <fieldset _ngcontent-oie-c32="" id="payment_screen"
-                                              class="first-step first-fieldset-section">
-                                        <div _ngcontent-oie-c32="" class="modal-content modal-lg payment">
-                                            <div _ngcontent-oie-c32="" class="modal-header registration">
-                                                <button _ngcontent-oie-c32="" type="button" data-dismiss="modal"
-                                                        aria-hidden="true" class="close btn-first">×
-                                                </button>
-                                                <h4 _ngcontent-oie-c32="">Payment</h4>
-                                                <p _ngcontent-oie-c32="">Chose payment methode</p></div>
-                                            <div _ngcontent-oie-c32="" class="modal-body">
-                                                <div _ngcontent-oie-c32="" class="assessment-container">
-                                                    <div _ngcontent-oie-c32="" class="form-bottom">
-                                                        <ul _ngcontent-oie-c32="" class="nav nav-tabs">
-                                                            <li _ngcontent-oie-c32="" class="active"><a
-                                                                    _ngcontent-oie-c32="" data-toggle="tab"
-                                                                    href="#pay1"><img _ngcontent-oie-c32=""
-                                                                                      src="assets/img/card.png"
-                                                                                      alt="card" class="cardImage"></a>
-                                                                <div _ngcontent-oie-c32="" class="active-tick"><i
-                                                                        _ngcontent-oie-c32="" class="fa fa-check"></i>
-                                                                </div>
-                                                            </li>
-                                                            <li _ngcontent-oie-c32=""><a _ngcontent-oie-c32=""
-                                                                                         data-toggle="tab" href="#pay2"><img
-                                                                    _ngcontent-oie-c32="" src="assets/img/cashblue.png"
-                                                                    alt="cash" class="cashImage"></a>
-                                                                <div _ngcontent-oie-c32="" class="active-tick"><i
-                                                                        _ngcontent-oie-c32="" class="fa fa-check"></i>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <div _ngcontent-oie-c32="" class="tab-content pay-form">
-                                                            <div _ngcontent-oie-c32="" id="pay1"
-                                                                 class="tab-pane fade in active">
-                                                                <div _ngcontent-oie-c32="" class="block">
-                                                                    <div _ngcontent-oie-c32="" role="form"
-                                                                         class="form-horizontal">
+                        </div>
+                        <div _ngcontent-oie-c32="" id="appointment-popup"
+                             tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel"
+                             data-backdrop="static" data-keyboard="false"
+                             aria-hidden="true"
+                             class="modal fade login login-pop appointment">
+                            <div _ngcontent-oie-c32=""
+                                 class="modal-dialog modal-lg">
+                                <fieldset _ngcontent-oie-c32="" id="payment_screen"
+                                          class="first-step first-fieldset-section">
+                                    <div _ngcontent-oie-c32=""
+                                         class="modal-content modal-lg payment">
+                                        <div _ngcontent-oie-c32=""
+                                             class="modal-header registration">
+                                            <button _ngcontent-oie-c32=""
+                                                    type="button"
+                                                    data-dismiss="modal"
+                                                    aria-hidden="true"
+                                                    class="close btn-first">×
+                                            </button>
+                                            <h4 _ngcontent-oie-c32="">Payment</h4>
+                                            <p _ngcontent-oie-c32="">Chose payment
+                                                methode</p></div>
+                                        <div _ngcontent-oie-c32=""
+                                             class="modal-body">
+                                            <div _ngcontent-oie-c32=""
+                                                 class="assessment-container">
+                                                <div _ngcontent-oie-c32=""
+                                                     class="form-bottom">
+                                                    <ul _ngcontent-oie-c32=""
+                                                        class="nav nav-tabs">
+                                                        <li _ngcontent-oie-c32=""
+                                                            class="active"><a
+                                                                _ngcontent-oie-c32=""
+                                                                data-toggle="tab"
+                                                                href="#pay1"><img
+                                                                _ngcontent-oie-c32=""
+                                                                src="assets/img/card.png"
+                                                                alt="card"
+                                                                class="cardImage"></a>
+                                                            <div _ngcontent-oie-c32=""
+                                                                 class="active-tick">
+                                                                <i
+                                                                        _ngcontent-oie-c32=""
+                                                                        class="fa fa-check"></i>
+                                                            </div>
+                                                        </li>
+                                                        <li _ngcontent-oie-c32=""><a
+                                                                _ngcontent-oie-c32=""
+                                                                data-toggle="tab"
+                                                                href="#pay2"><img
+                                                                _ngcontent-oie-c32=""
+                                                                src="assets/img/cashblue.png"
+                                                                alt="cash"
+                                                                class="cashImage"></a>
+                                                            <div _ngcontent-oie-c32=""
+                                                                 class="active-tick">
+                                                                <i
+                                                                        _ngcontent-oie-c32=""
+                                                                        class="fa fa-check"></i>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div _ngcontent-oie-c32=""
+                                                         class="tab-content pay-form">
+                                                        <div _ngcontent-oie-c32=""
+                                                             id="pay1"
+                                                             class="tab-pane fade in active">
+                                                            <div _ngcontent-oie-c32=""
+                                                                 class="block">
+                                                                <div _ngcontent-oie-c32=""
+                                                                     role="form"
+                                                                     class="form-horizontal">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-6 left">
                                                                         <div _ngcontent-oie-c32=""
-                                                                             class="col-md-6 left">
-                                                                            <div _ngcontent-oie-c32=""
-                                                                                 class="head-pay cradit"></div>
-                                                                            <div _ngcontent-oie-c32=""><img
+                                                                             class="head-pay cradit"></div>
+                                                                        <div _ngcontent-oie-c32="">
+                                                                            <img
                                                                                     _ngcontent-oie-c32=""
-                                                                                    src="./assets/img/card2.gif" alt=""
-                                                                                    class="cardGif"></div>
+                                                                                    src="./assets/img/card2.gif"
+                                                                                    alt=""
+                                                                                    class="cardGif">
                                                                         </div>
+                                                                    </div>
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-6 right">
                                                                         <div _ngcontent-oie-c32=""
-                                                                             class="col-md-6 right">
-                                                                            <div _ngcontent-oie-c32=""
-                                                                                 class="head-pay cradit"><h3
+                                                                             class="head-pay cradit">
+                                                                            <h3
                                                                                     _ngcontent-oie-c32=""><span
                                                                                     _ngcontent-oie-c32="">1</span>Card
-                                                                                Info.</h3></div>
-                                                                            <form _ngcontent-oie-c32="" novalidate=""
-                                                                                  autocomplete="off" role="form"
-                                                                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
-                                                                                <div _ngcontent-oie-c32=""
-                                                                                     class="form-horizontal checkout">
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-12">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="card_num">CARD
-                                                                                                    NUMBER</label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter card number"
-                                                                                                    id="card_num"
-                                                                                                    formcontrolname="card_num"
-                                                                                                    name="card_num"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row two-part">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6 left-part">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="exp_month">EXPIRY
-                                                                                                    MONTH </label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter expiry month"
-                                                                                                    id="exp_month"
-                                                                                                    formcontrolname="exp_month"
-                                                                                                    name="exp_month"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group right-part">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="exp_year">
-                                                                                                    EXPIRY YEAR </label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter expiry year"
-                                                                                                    id="exp_year"
-                                                                                                    formcontrolname="exp_year"
-                                                                                                    name="exp_year"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row two-part">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6 left-part">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="cvc">CVC </label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter cvc"
-                                                                                                    id="cvc"
-                                                                                                    formcontrolname="cvc"
-                                                                                                    name="cvc"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group right-part">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="paid_amount">PAYABLE
-                                                                                                    AMOUNT</label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter amount"
-                                                                                                    id="paid_amount"
-                                                                                                    formcontrolname="paid_amount"
-                                                                                                    name="paid_amount"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row two-part">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6 left-part">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group">
-                                                                                                <input _ngcontent-oie-c32=""
-                                                                                                       type="hidden"
-                                                                                                       placeholder="payment type"
-                                                                                                       id="payment_type"
-                                                                                                       formcontrolname="payment_type"
-                                                                                                       name="payment_type"
-                                                                                                       class="form-control ng-untouched ng-pristine ng-valid"
-                                                                                                       value="2"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div _ngcontent-oie-c32=""
-                                                                                     class="next-btn-div registration-form">
-                                                                                    <button _ngcontent-oie-c32=""
-                                                                                            type="submit" disabled="">
-                                                                                        Pay Now
-                                                                                    </button>
-                                                                                </div>
-                                                                            </form>
+                                                                                Info.
+                                                                            </h3>
                                                                         </div>
+                                                                        <form _ngcontent-oie-c32=""
+                                                                              novalidate=""
+                                                                              autocomplete="off"
+                                                                              role="form"
+                                                                              class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                                                            <div _ngcontent-oie-c32=""
+                                                                                 class="form-horizontal checkout">
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-12">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="card_num">CARD
+                                                                                                NUMBER</label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter card number"
+                                                                                                id="card_num"
+                                                                                                formcontrolname="card_num"
+                                                                                                name="card_num"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="exp_month">EXPIRY
+                                                                                                MONTH </label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter expiry month"
+                                                                                                id="exp_month"
+                                                                                                formcontrolname="exp_month"
+                                                                                                name="exp_month"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="exp_year">
+                                                                                                EXPIRY
+                                                                                                YEAR </label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter expiry year"
+                                                                                                id="exp_year"
+                                                                                                formcontrolname="exp_year"
+                                                                                                name="exp_year"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="cvc">CVC </label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter cvc"
+                                                                                                id="cvc"
+                                                                                                formcontrolname="cvc"
+                                                                                                name="cvc"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="paid_amount">PAYABLE
+                                                                                                AMOUNT</label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter amount"
+                                                                                                id="paid_amount"
+                                                                                                formcontrolname="paid_amount"
+                                                                                                name="paid_amount"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group">
+                                                                                            <input _ngcontent-oie-c32=""
+                                                                                                   type="hidden"
+                                                                                                   placeholder="payment type"
+                                                                                                   id="payment_type"
+                                                                                                   formcontrolname="payment_type"
+                                                                                                   name="payment_type"
+                                                                                                   class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                                   value="2">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div _ngcontent-oie-c32=""
+                                                                                 class="next-btn-div registration-form">
+                                                                                <button _ngcontent-oie-c32=""
+                                                                                        type="submit"
+                                                                                        disabled="">
+                                                                                    Pay
+                                                                                    Now
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div _ngcontent-oie-c32="" id="pay2" class="tab-pane fade">
-                                                                <div _ngcontent-oie-c32="" class="block">
-                                                                    <div _ngcontent-oie-c32="" role="form"
-                                                                         class="form-horizontal">
-                                                                        <div _ngcontent-oie-c32=""
-                                                                             class="col-md-6 left">
-                                                                            <div _ngcontent-oie-c32=""><img
+                                                        </div>
+                                                        <div _ngcontent-oie-c32=""
+                                                             id="pay2"
+                                                             class="tab-pane fade">
+                                                            <div _ngcontent-oie-c32=""
+                                                                 class="block">
+                                                                <div _ngcontent-oie-c32=""
+                                                                     role="form"
+                                                                     class="form-horizontal">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-6 left">
+                                                                        <div _ngcontent-oie-c32="">
+                                                                            <img
                                                                                     _ngcontent-oie-c32=""
-                                                                                    src="./assets/img/cash.gif" alt=""
-                                                                                    class="cardGif"></div>
+                                                                                    src="./assets/img/cash.gif"
+                                                                                    alt=""
+                                                                                    class="cardGif">
                                                                         </div>
+                                                                    </div>
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-6 right">
                                                                         <div _ngcontent-oie-c32=""
-                                                                             class="col-md-6 right">
-                                                                            <div _ngcontent-oie-c32=""
-                                                                                 class="head-pay cradit"><h3
+                                                                             class="head-pay cradit">
+                                                                            <h3
                                                                                     _ngcontent-oie-c32=""><span
                                                                                     _ngcontent-oie-c32="">1</span>Cash
-                                                                                Info.</h3></div>
-                                                                            <form _ngcontent-oie-c32="" novalidate=""
-                                                                                  autocomplete="off" role="form"
-                                                                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
-                                                                                <div _ngcontent-oie-c32=""
-                                                                                     class="form-horizontal checkout">
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row two-part">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group right-part">
-                                                                                                <label _ngcontent-oie-c32=""
-                                                                                                       for="cash_amount">PAYABLE
-                                                                                                    AMOUNT</label><input
-                                                                                                    _ngcontent-oie-c32=""
-                                                                                                    type="text"
-                                                                                                    placeholder="Enter amount"
-                                                                                                    id="cash_amount"
-                                                                                                    formcontrolname="paid_amount"
-                                                                                                    name="paid_amount"
-                                                                                                    class="form-control ng-untouched ng-pristine ng-invalid">
-                                                                                                <!----></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div _ngcontent-oie-c32=""
-                                                                                         class="row two-part">
-                                                                                        <div _ngcontent-oie-c32=""
-                                                                                             class="col-md-6 left-part">
-                                                                                            <div _ngcontent-oie-c32=""
-                                                                                                 class="form-group">
-                                                                                                <input _ngcontent-oie-c32=""
-                                                                                                       type="hidden"
-                                                                                                       placeholder="payment type"
-                                                                                                       id="paymentType"
-                                                                                                       formcontrolname="payment_type"
-                                                                                                       name="payment_type"
-                                                                                                       class="form-control ng-untouched ng-pristine ng-valid"
-                                                                                                       value="1"></div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div _ngcontent-oie-c32=""
-                                                                                     class="next-btn-div registration-form">
-                                                                                    <button _ngcontent-oie-c32=""
-                                                                                            type="submit" disabled="">
-                                                                                        Pay Now
-                                                                                    </button>
-                                                                                </div>
-                                                                            </form>
+                                                                                Info.
+                                                                            </h3>
                                                                         </div>
+                                                                        <form _ngcontent-oie-c32=""
+                                                                              novalidate=""
+                                                                              autocomplete="off"
+                                                                              role="form"
+                                                                              class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                                                            <div _ngcontent-oie-c32=""
+                                                                                 class="form-horizontal checkout">
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group right-part">
+                                                                                            <label _ngcontent-oie-c32=""
+                                                                                                   for="cash_amount">PAYABLE
+                                                                                                AMOUNT</label><input
+                                                                                                _ngcontent-oie-c32=""
+                                                                                                type="text"
+                                                                                                placeholder="Enter amount"
+                                                                                                id="cash_amount"
+                                                                                                formcontrolname="paid_amount"
+                                                                                                name="paid_amount"
+                                                                                                class="form-control ng-untouched ng-pristine ng-invalid">
+                                                                                            <!---->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div _ngcontent-oie-c32=""
+                                                                                     class="row two-part">
+                                                                                    <div _ngcontent-oie-c32=""
+                                                                                         class="col-md-6 left-part">
+                                                                                        <div _ngcontent-oie-c32=""
+                                                                                             class="form-group">
+                                                                                            <input _ngcontent-oie-c32=""
+                                                                                                   type="hidden"
+                                                                                                   placeholder="payment type"
+                                                                                                   id="paymentType"
+                                                                                                   formcontrolname="payment_type"
+                                                                                                   name="payment_type"
+                                                                                                   class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                                   value="1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div _ngcontent-oie-c32=""
+                                                                                 class="next-btn-div registration-form">
+                                                                                <button _ngcontent-oie-c32=""
+                                                                                        type="submit"
+                                                                                        disabled="">
+                                                                                    Pay
+                                                                                    Now
+                                                                                </button>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -304,73 +507,124 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </fieldset>
-                                    <div _ngcontent-oie-c32="" id="paymentConfirm_data" style="display: none;">
-                                        <div _ngcontent-oie-c32="" class="modal-content">
-                                            <div _ngcontent-oie-c32="" class="modal-body">
-                                                <div _ngcontent-oie-c32="" class="assessment-container">
-                                                    <div _ngcontent-oie-c32="" class="form-bottom">
-                                                        <div _ngcontent-oie-c32="" class="confirm-block">
-                                                            <div _ngcontent-oie-c32="" class="modal-body">
-                                                                <div _ngcontent-oie-c32="" class="assessment-container">
-                                                                    <div _ngcontent-oie-c32="" class="form-bottom">
+                                    </div>
+                                </fieldset>
+                                <div _ngcontent-oie-c32="" id="paymentConfirm_data"
+                                     style="display: none;">
+                                    <div _ngcontent-oie-c32=""
+                                         class="modal-content">
+                                        <div _ngcontent-oie-c32=""
+                                             class="modal-body">
+                                            <div _ngcontent-oie-c32=""
+                                                 class="assessment-container">
+                                                <div _ngcontent-oie-c32=""
+                                                     class="form-bottom">
+                                                    <div _ngcontent-oie-c32=""
+                                                         class="confirm-block">
+                                                        <div _ngcontent-oie-c32=""
+                                                             class="modal-body">
+                                                            <div _ngcontent-oie-c32=""
+                                                                 class="assessment-container">
+                                                                <div _ngcontent-oie-c32=""
+                                                                     class="form-bottom">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="confirm-block">
                                                                         <div _ngcontent-oie-c32=""
-                                                                             class="confirm-block">
-                                                                            <div _ngcontent-oie-c32=""
-                                                                                 class="last-step"><img
+                                                                             class="last-step">
+                                                                            <img
                                                                                     _ngcontent-oie-c32=""
                                                                                     src="assets/img/last-step.png"
                                                                                     alt="image">
-                                                                                <h3 _ngcontent-oie-c32="">PAYMENT DONE
-                                                                                    SUCCESSFULLY</h3>
-                                                                                <p _ngcontent-oie-c32="">Your booking is
-                                                                                    confirmed. </p><a
-                                                                                        _ngcontent-oie-c32=""
-                                                                                        data-dismiss="modal"
-                                                                                        onclick="window.location.reload()">DONE</a>
-                                                                            </div>
+                                                                            <h3 _ngcontent-oie-c32="">
+                                                                                PAYMENT
+                                                                                DONE
+                                                                                SUCCESSFULLY</h3>
+                                                                            <p _ngcontent-oie-c32="">
+                                                                                Your
+                                                                                booking
+                                                                                is
+                                                                                confirmed. </p>
+                                                                            <a
+                                                                                    _ngcontent-oie-c32=""
+                                                                                    data-dismiss="modal"
+                                                                                    onclick="window.location.reload()">DONE</a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        <div _ngcontent-oie-c32=""
+                                                             class="row paymentSuccessContainer">
                                                             <div _ngcontent-oie-c32=""
-                                                                 class="row paymentSuccessContainer">
-                                                                <div _ngcontent-oie-c32="" class="col-md-12">
-                                                                    <div _ngcontent-oie-c32="" class="row dataContent">
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Transaction
-                                                                                ID: </label></div><!---->
-                                                                        <div _ngcontent-oie-c32="" class="col-md-8">
-                                                                            <!----></div>
+                                                                 class="col-md-12">
+                                                                <div _ngcontent-oie-c32=""
+                                                                     class="row dataContent">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Transaction
+                                                                            ID: </label>
+                                                                    </div><!---->
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-8">
+                                                                        <!----></div>
+                                                                </div>
+                                                                <div _ngcontent-oie-c32=""
+                                                                     class="row dataContent">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Instructor
+                                                                            Name: </label>
+                                                                    </div><!---->
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-8">
+                                                                        <!----></div>
+                                                                </div>
+                                                                <div _ngcontent-oie-c32=""
+                                                                     class="row dataContent">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Course
+                                                                            Duration: </label>
+                                                                        <!---->
+                                                                    </div><!---->
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32=""></label>
                                                                     </div>
-                                                                    <div _ngcontent-oie-c32="" class="row dataContent">
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Instructor
-                                                                                Name: </label></div><!---->
-                                                                        <div _ngcontent-oie-c32="" class="col-md-8">
-                                                                            <!----></div>
-                                                                    </div>
-                                                                    <div _ngcontent-oie-c32="" class="row dataContent">
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Course
-                                                                                Duration: </label><!----></div><!---->
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""></label></div>
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Time
-                                                                                Duration: </label><!----></div><!---->
-                                                                    </div>
-                                                                    <div _ngcontent-oie-c32="" class="row dataContent">
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Total
-                                                                                Amount: </label><!----></div><!---->
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Paid
-                                                                                Amount: </label><!----></div><!---->
-                                                                        <div _ngcontent-oie-c32="" class="col-md-4">
-                                                                            <label _ngcontent-oie-c32=""> Due
-                                                                                Amount: </label><!----></div><!---->
-                                                                    </div>
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Time
+                                                                            Duration: </label>
+                                                                        <!---->
+                                                                    </div><!---->
+                                                                </div>
+                                                                <div _ngcontent-oie-c32=""
+                                                                     class="row dataContent">
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Total
+                                                                            Amount: </label>
+                                                                        <!---->
+                                                                    </div><!---->
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Paid
+                                                                            Amount: </label>
+                                                                        <!---->
+                                                                    </div><!---->
+                                                                    <div _ngcontent-oie-c32=""
+                                                                         class="col-md-4">
+                                                                        <label _ngcontent-oie-c32="">
+                                                                            Due
+                                                                            Amount: </label>
+                                                                        <!---->
+                                                                    </div><!---->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -385,5 +639,6 @@
                     </div>
                 </div>
             </div>
-        </app-repayment>
+        </div>
+    </app-repayment>
 {% endblock %}

@@ -83,20 +83,20 @@ def update_profile(request):
                       {"user_details": user_details, "data": classes, "first_name": first_name})
 
 # @login_required
-def MySchedule(request):
-    user_id = request.session['slug_id']
-    first_name = User.objects.get(id=user_id)
-    email = request.session['email']
-    user_details = User.objects.filter(email=email)
-    return render(request, 'my_shedule.html',{"user_details":user_details,"first_name":first_name})
+# def MySchedule(request):
+#     user_id = request.session['slug_id']
+#     first_name = User.objects.get(id=user_id)
+#     email = request.session['email']
+#     user_details = User.objects.filter(email=email)
+#     return render(request, 'my_shedule.html',{"user_details":user_details,"first_name":first_name})
 
-
-def Payment(request):
-    user_id = request.session['slug_id']
-    first_name = User.objects.get(id=user_id)
-    email = request.session['email']
-    user_details = User.objects.filter(email=email)
-    return render(request, 'payment.html',{"user_details":user_details,"first_name":first_name})
+#
+# def Payment(request):
+#     user_id = request.session['slug_id']
+#     first_name = User.objects.get(id=user_id)
+#     email = request.session['email']
+#     user_details = User.objects.filter(email=email)
+#     return render(request, 'payment.html',{"user_details":user_details,"first_name":first_name})
 
 
 def Registration(request, id):

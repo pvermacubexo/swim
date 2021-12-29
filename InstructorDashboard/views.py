@@ -572,6 +572,7 @@ def booking_view(request, booking_id=None):
         bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user).order_by(
             "-booked_at")
         context = {'bookings': bookings}
+
         return render(request, 'InstructorDashboard/bookings.html', context=context)
 
 

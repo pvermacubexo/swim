@@ -1,25 +1,25 @@
+import copy
 import logging
 from datetime import datetime, timedelta
 
 import pytz
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
+from django.shortcuts import render
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from SharkDeck.constants import user_constants
-from user.decorators import authorize
 from user import models as user_model
+from user.decorators import authorize
 from user.models import User
 from .models import Appointment, ClassInstructor, BLOCKED_BY_INSTRUCTOR, BOOKED, Booking
 from .serializer import BookingPostSerializer, CheckAvailabilityPostSerializer, \
     GetSlotsSerializer, AppointmentSerializer, ClassInstructorSerializer, InstructorClassGetSerializer, \
     GetDateTimeSerializer, BookClassInstructorSerializer, ClassGetSerializer, CheckInstructorAvailableSerializer, \
     IndividualTimeSlotsSerializer, IndividualBookingSerializer, AppointmentScheduleSerializer
-import copy
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -513,7 +513,6 @@ def get_daily_timeslots(slot, day_list, profile_user):
     return False
 
 
-
 def get_common_slots(class_instructor, start_date, profile_user):
     # format = '%I:%M %p'
     day_list = []
@@ -606,6 +605,8 @@ class GetDateTimeSlots(APIView):
             return Response({'date': day_result, 'time': time_result})
         else:
             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
 # class GetDateTimeSlots(APIView):
 #     # @authorize([user_constants.Trainee])
 #     def get(self, request):
@@ -807,7 +808,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
     for i in break_time:
         if week_day == 'monday' and i.week_day == '1':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -816,7 +818,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'tuesday' and i.week_day == '2':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -825,7 +828,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'wednesday' and i.week_day == '3':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -834,7 +838,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'thursday' and i.week_day == '4':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -843,7 +848,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'friday' and i.week_day == '5':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -852,7 +858,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'saturday' and i.week_day == '6':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -861,7 +868,8 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                         time_list.remove(remove_time)
         if week_day == 'sunday' and i.week_day == '7':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -1022,9 +1030,11 @@ class BookingDelete(APIView):
 #         return aop
 
 class AppointmentScheduleViewSet(APIView):
-    @authorize([user_constants.Trainee])
+    # @authorize([user_constants.Trainee])
+
     def get(self, request):
-        appointments = Appointment.objects.filter(booking__user=request.user).order_by('start_time')
+        appointments = Appointment.objects.filter(
+            booking__user=User.objects.get(email=request.session['email'])).order_by('start_time')
         if appointments:
             prev_appointment = AppointmentScheduleSerializer(
                 appointments.filter(start_time__lt=datetime.now()).order_by('-start_time'), many=True,
@@ -1032,11 +1042,12 @@ class AppointmentScheduleViewSet(APIView):
             next_appointment = AppointmentScheduleSerializer(appointments.filter(start_time__gt=datetime.now()),
                                                              many=True, context={'request': request})
             if prev_appointment.data or next_appointment.data:
+                print(prev_appointment.data)
+                print(next_appointment.data)
                 logger.info(f"Appointment Schedule details for {request.user}")
-                return Response({'prev_session': prev_appointment.data, 'next_session': next_appointment.data},
-                                status=status.HTTP_200_OK)
+                return render(request,"my_shedule.html",{'prev_session': prev_appointment.data, 'next_session': next_appointment.data})
             else:
                 logger.info(f"Getting error of Appointment Schedule details due")
-                return Response({'error': 'Appointment schedule failed'}, status=status.HTTP_400_BAD_REQUEST)
+                return render(request,"my_shedule.html",{'error': 'Appointment schedule failed'})
         else:
-            return Response({'message': 'There is no any Appointment Schedule.'}, status=status.HTTP_204_NO_CONTENT)
+            return render(request,"my_shedule.html",{'message': 'There is no any Appointment Schedule.'})

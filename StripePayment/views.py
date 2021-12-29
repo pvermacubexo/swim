@@ -1,9 +1,11 @@
+from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 import stripe
 from rest_framework.views import APIView
 
 from SharkDeck.constants import user_constants
+from user.models import User
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet
 from Appointment import models as appointment_model
@@ -146,11 +148,15 @@ class StripePayment(ModelViewSet):
 
 class RepaymentClasses(APIView):
 
-    @authorize([user_constants.Trainee])
+    # @authorize([user_constants.Trainee])
     def get(self, request):
+
         try:
-            bookings = appointment_model.Booking.objects.filter(user=self.user).exclude(booking_payment_status=appointment_model.BOOKING_COMPLETED).order_by('-id')
-            ser = RepaymentBookingSeralizer(bookings, many=True)
-            return Response(ser.data)
+            if 'email' in request.session:
+                print("hiiii")
+                print(request.session['email'])
+                bookings = appointment_model.Booking.objects.filter(user=User.objects.get(email=request.session['email'])).order_by('-id')
+                ser = RepaymentBookingSeralizer(bookings, many=True)
+                return render(request,"payment.html",{"data":ser.data})
         except Exception as e:
-            return Response({"message": "server not responding", "error": e}, status=status.HTTP_403_FORBIDDEN)
+            return render(request,"payment.html")

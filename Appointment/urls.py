@@ -9,9 +9,11 @@ from Appointment import views
 router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'appointment', views.AppointmentViewSet, basename='appoinment')
 router.register(r'classInstructor', views.ClassInstructorViewSet, basename='classInstructor')
-# router.register(r'appointment-schedule', views.AppointmentScheduleViewSet)
+# router.register(r'appointment-schedule', views.AppointmentScheduleViewSet,basename='appointment-schedule')
 urlpatterns = [
     path('', include('InstructorDashboard.urls')),
+    path('schedule', views.AppointmentScheduleViewSet.as_view(),name='schedule'),
+
     path('classes', views.InstructorClassGetViewSet.as_view()),
     path('booking-confirmation', views.ClassGetViewSet.as_view()),
     path('check-availablity', views.CheckAvailability.as_view()),
