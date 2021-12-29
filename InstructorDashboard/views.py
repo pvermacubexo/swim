@@ -1,28 +1,27 @@
 import logging
 import os
+from datetime import datetime, timedelta, date
 from random import randint
-
-from django.utils import timezone
-from datetime import datetime, timedelta
 
 import pytz
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
-from django.contrib.auth.hashers import make_password
+
 from Appointment import models as appointment_model
 from Appointment import utilities
 from Appointment.models import ClassInstructor, APPOINTMENT_STATUS
-from user import models as user_models
 from SharkDeck.constants import user_constants
+from user import models as user_models
+from user.email_services import sent_mail
 from . import seializer
 from . import serializer, utility
-
-from django.contrib.sites.shortcuts import get_current_site
-from user.email_services import sent_mail
 from .forms import BreakTimeFormSet
+
 logger = logging.getLogger(__name__)
 
 
@@ -365,7 +364,6 @@ def is_working_time(start_time, end_time, instructor):
 
 @login_required(redirect_field_name='login')
 def instructor_profile(request):
-
     formset = BreakTimeFormSet(queryset=user_models.BreakTime.objects.none())
     break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user)
     try:
@@ -375,7 +373,8 @@ def instructor_profile(request):
         return redirect('InstructorDashboard:page404')
     except user_models.Profile.DoesNotExist:
         return redirect('InstructorDashboard:page404')
-    context = {'instructor': instructor, 'break_time': formset, 'break_time_list': break_time_list, 'instructor_id': user.id}
+    context = {'instructor': instructor, 'break_time': formset, 'break_time_list': break_time_list,
+               'instructor_id': user.id}
     if request.method == 'POST':
         week_dict = {}
         ser = serializer.UserUpdateSerializer(data=request.POST)
@@ -536,14 +535,19 @@ def class_delete(request, id):
 
 @login_required(redirect_field_name='login')
 def students(request):
+    ages = {}
     students = []
     bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user)
     for booking in bookings:
         if not (booking.user in students):
             students.append(booking.user)
-
+            today = date.today()
+            age = today.year - booking.user.DateOfBirth.year - (
+                    (today.month, today.day) < (booking.user.DateOfBirth.month, booking.user.DateOfBirth.day))
+            ages[booking.user.mobile_no] = age
     context = {
-        'students': students
+        'students': students,
+        "ages": ages
     }
 
     return render(request, 'InstructorDashboard/students.html', context)

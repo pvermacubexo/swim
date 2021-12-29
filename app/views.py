@@ -55,16 +55,17 @@ def SwimTimeDashboard(request):
         user_id = request.session['slug_id']
         first_name = User.objects.get(id=user_id)
         email = request.session['email']
-        user_details = User.objects.filter(email=email)
+        # user_details = User.objects.filter(email=email)
+        user_details = User.objects.get(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
         return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
     else:
         return render(request,"register.html")
 
-def update_profile(request,id):
+def update_profile(request):
     if request.method == "POST":
-        obj = User.objects.get(id=id)
-        print(id)
+        email = request.session['email']
+        obj = User.objects.get(email=email)
         obj.first_name = request.POST['first_name']
         obj.last_name = request.POST['last_name']
         obj.address = request.POST['address']
@@ -76,7 +77,6 @@ def update_profile(request,id):
         obj.save()
         user_id = request.session['slug_id']
         first_name = User.objects.get(id=user_id)
-        email = request.session['email']
         user_details = User.objects.filter(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
         return render(request, 'dashboard.html',

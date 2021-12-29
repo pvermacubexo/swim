@@ -11997,8 +11997,9 @@
                                             <p _ngcontent-uas-c28="">update profile to continue</p></div>
                                         <div _ngcontent-uas-c28="" class="modal-body">
                                             <div _ngcontent-uas-c28="" class="row">
-                                                <form _ngcontent-uas-c28="" novalidate="" role="form"
-                                                      class="form-horizontal ng-untouched ng-pristine ng-valid">
+                                                <form _ngcontent-uas-c28="" novalidate="" role="form" enctype="multipart/form-data"
+                                                      class="form-horizontal ng-untouched ng-pristine ng-valid" method="POST" action="{% url 'update-profile' %}">
+                                                    {% csrf_token %}
                                                     <div _ngcontent-uas-c28="">
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-12 column_content"><!----><input
@@ -12011,7 +12012,7 @@
                                                                 _ngcontent-uas-c28="" for="first_name">First
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
                                                                                 placeholder="First Name"
-                                                                                formcontrolname="first_name" type="text"
+                                                                                formcontrolname="first_name" value="{{ user_details.first_name }}" type="text"
                                                                                 id="first_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
@@ -12020,7 +12021,7 @@
                                                                 _ngcontent-uas-c28="" for="last_name">Last Name </label><input
                                                                 _ngcontent-uas-c28="" name="last_name"
                                                                 placeholder="Last Name" formcontrolname="last_name"
-                                                                type="text" id="last_name"
+                                                                type="text" value="{{ user_details.last_name }}" id="last_name"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12028,7 +12029,7 @@
                                                                 _ngcontent-uas-c28="" for="email">Email Address </label><input
                                                                 _ngcontent-uas-c28="" name="email" placeholder="E-mail"
                                                                 formcontrolname="email" type="email" id="email"
-                                                                autocomplete="off" readonly="readonly"
+                                                                autocomplete="off" readonly="readonly" value="{{ user_details.email }}"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12037,7 +12038,7 @@
                                                                 for="address">Address </label><input
                                                                 _ngcontent-uas-c28="" name="address"
                                                                 placeholder="Full Address" formcontrolname="address"
-                                                                type="text" id="address"
+                                                                type="text" id="address" value="{{ user_details.address }}"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12045,7 +12046,7 @@
                                                                 _ngcontent-uas-c28="" for="mobile_no">Contact
                                                             Number </label><input _ngcontent-uas-c28="" name="mobile_no"
                                                                                   placeholder="Contact Number"
-                                                                                  formcontrolname="mobile_no"
+                                                                                  formcontrolname="mobile_no" value="{{ user_details.mobile_no }}"
                                                                                   type="text" id="mobile_no"
                                                                                   class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
@@ -12055,7 +12056,7 @@
                                                             Birth </label><input _ngcontent-uas-c28=""
                                                                                  name="DateOfBirth"
                                                                                  formcontrolname="DateOfBirth"
-                                                                                 type="date" id="DateOfBirth"
+                                                                                 type="date" value="{{ user_details.DateOfBirth }}" id="DateOfBirth"
                                                                                  class="form-control ng-untouched ng-pristine ng-valid"
                                                                                  style="padding: 0 0 0 10px;"><!---->
                                                         </div><!---->
@@ -12065,7 +12066,7 @@
                                                             Name </label><input _ngcontent-uas-c28="" name="father_name"
                                                                                 placeholder="Father Name"
                                                                                 formcontrolname="father_name"
-                                                                                type="text" id="father_name"
+                                                                                type="text" id="father_name" value="{{ user_details.father_name }}"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28=""
@@ -12073,7 +12074,7 @@
                                                                 _ngcontent-uas-c28="" for="mother_name">Mothers
                                                             Name </label><input _ngcontent-uas-c28="" name="mother_name"
                                                                                 placeholder="Mother Name"
-                                                                                formcontrolname="mother_name"
+                                                                                formcontrolname="mother_name" value="{{ user_details.mother_name }}"
                                                                                 type="text" id="mother_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div><!---->

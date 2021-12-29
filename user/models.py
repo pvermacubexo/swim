@@ -31,7 +31,7 @@ class User(AbstractUser):
     user_type = models.IntegerField(choices=user_type_choices, default=user_constants.Trainee)
     mother_name = models.CharField(max_length=300, blank=True, null=True)
     father_name = models.CharField(max_length=200, blank=True, null=True)
-    DateOfBirth = models.CharField(max_length=200,blank=True,null=True)
+    DateOfBirth = models.DateField(blank=True,null=True)
     address = models.CharField(max_length=150, null=False, blank=False)
     latitude = models.CharField(null=True, blank=True, max_length=50, validators=[
         RegexValidator(r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$',
