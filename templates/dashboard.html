@@ -274,14 +274,20 @@
                                                                                  class="termsconditions">
                                                                                 <div _ngcontent-dbn-c30=""
                                                                                      class="col-md-1"
-                                                                                     style="text-align: right;"><input
+                                                                                     style="    float: right;
+    margin-right: 323px !important
+;"><input
                                                                                         _ngcontent-dbn-c30=""
                                                                                         type="checkbox" id="terms"
-                                                                                        name="terms" value="1"></div>
+                                                                                        name="terms" value="1" style="    top: 29px;"></div>
 
                                                                                 <label _ngcontent-dbn-c30=""
                                                                                        for="terms"
-                                                                                       class="termsconditions"> Check
+                                                                                       class="termsconditions" style="    padding-left: 500px;
+    font-size: 16px !important;
+    text-align: justify;
+    color: black;
+    letter-spacing: 0.02em;"> Check
                                                                                     here to
                                                                                     indicate that you have read and
                                                                                     agree to the terms &amp; condition
@@ -2279,8 +2285,8 @@
                                 onclick="window.location.reload()" data-dismiss="modal"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
-                        <h4 _ngcontent-ygs-c30="">DATE / SCHEDULE</h4>
-                        <p _ngcontent-ygs-c30="">When you want to get an appointment?</p></div>
+                        <h4 _ngcontent-ygs-c30=""></h4>
+                        <p _ngcontent-ygs-c30=""></p></div>
                     <div _ngcontent-asr-c30="" class="modal-body confirm-pay"><h4 _ngcontent-asr-c30="">Confirm To
                         Pay</h4>
                         <div _ngcontent-asr-c30="" class="assessment-container">
@@ -2294,16 +2300,15 @@
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
                                                                  class="col-md-4 right-text left-text-left"><label
-                                                                    _ngcontent-asr-c30=""> Instructor Name: <span
-                                                                    id="instructor_name"> </span></label></div>
+                                                                    _ngcontent-asr-c30=""> Instructor Name:  </label></div>
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
-                                                                <!----></div><!----></div>
+                                                                <!----><p id="instructor_name"> </p></div><!----></div>
                                                     </div>
                                                     <div _ngcontent-asr-c30="" class="col-md-8">
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
-                                                            <div _ngcontent-asr-c30="" class="col-md-6 right-text">
+                                                            <div _ngcontent-asr-c30="" class="col-md-8 right-text">
                                                                 <label _ngcontent-asr-c30=""> Course
-                                                                    Duration: </label><span id="total_days">Days</span>
+                                                                    Duration: </label><div style="margin-left: 140px;margin-top: -28px"><span id="total_days"> </span><span>Days</span></div>
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-6 left-text">
                                                                 <!----></div>
@@ -2312,7 +2317,7 @@
                                                     <div _ngcontent-asr-c30="" class="col-md-4">
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
-                                                                <label _ngcontent-asr-c30=""> Fee: </label></div>
+                                                                <label _ngcontent-asr-c30=""> Fee:</label></div>
                                                             <div _ngcontent-asr-c30="" class="col-md-6 left-text"><p
                                                                     _ngcontent-asr-c30="" id="fee">$ </p></div>
                                                         </div>
@@ -2937,10 +2942,10 @@
         function bgchange(classname) {
             $(".times").removeAttr('id')
             console.log("hii", classname)
-            $(".times").css("background-color", "#d4d1d1");
-            $(".checkbox").css("background-color", "#d4d1d1");
-            $(".ttime" + classname).css("background-color", "#073767");
-            $(".checkbox" + classname).css("background-color", "#073767")
+            $(".times").css({"background-color": "#d4d1d1", "color": "black"});
+            $(".checkbox").css({"background-color": "#d4d1d1", "color": "black"});
+            $(".ttime" + classname).css({"background-color": "#073767", "color": "white"});
+            $(".checkbox" + classname).css({"background-color": "#073767", "color": "white"})
             $(".ttime" + classname).attr('id', 'selected_date');
 
         }
@@ -3003,7 +3008,7 @@
 
                         let time_for_table = ""
                         for (const [key1, value1] of Object.entries(value)) {
-                            time_for_table = time_for_table.slice(2,)+ " - " + value1
+                            time_for_table = time_for_table.slice(2,) + " - " + value1
 
 
                         }
