@@ -43,17 +43,17 @@ class Authenticate(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            # email = serializer
-            print(serializer)
-            user_id = request.session['slug_id']
-            classes = ClassInstructor.objects.filter(instructor_id=user_id)
-            email = serializer.data.get('email')
-            request.session['email'] = email
-            user_details = User.objects.filter(email=email)
-            return render(request, "dashboard.html", {"user_details":user_details,'datas': serializer.data,"data":classes})
-            # except:
-            #     msg = "Invalid URL"
-            #     return render(request,"register.html",{"msg":msg})
+            try:            # email = serializer
+
+                user_id = request.session['slug_id']
+                classes = ClassInstructor.objects.filter(instructor_id=user_id)
+                email = serializer.data.get('email')
+                request.session['email'] = email
+                user_details = User.objects.filter(email=email)
+                return render(request, "dashboard.html", {"user_details":user_details,'datas': serializer.data,"data":classes})
+            except:
+                msg = "Invalid URL"
+                return render(request,"register.html",{"msg":msg})
 
 def get_deactivated_user(email, username):
     # if User.objects.filter(deactivate=False, username=username):

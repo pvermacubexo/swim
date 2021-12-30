@@ -108,30 +108,36 @@
                             <p _ngcontent-jar-c34="">Please enter your email and password to continue</p></div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                                <form _ngcontent-jar-c34="" novalidate="" role="form"
-                                      class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST" action="user/login">
-                                    {% csrf_token %}
-                                    <div _ngcontent-jar-c34="" class="col-md-12">
-                                        <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
-                                                                                             for="email">Email
-                                            Address</label><input _ngcontent-jar-c34="" type="text" id="email"
-                                                                  placeholder="Enter email" formcontrolname="email"
-                                                                  name="email" required=""
-                                                                  class="form-control ng-untouched ng-pristine ng-invalid">
-                                            <!----></div>
-                                        <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
-                                                                                             for="password">Password</label><input
-                                                _ngcontent-jar-c34="" formcontrolname="password" name="password"
-                                                required=""
-                                                minlength="4" placeholder="Enter password" type="password" id="password"
-                                                class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                        <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
-                                            <button _ngcontent-jar-c34="" type="submit"
-                                                    class="btn btn-primary btn-login btn-sm" >LOGIN
-                                            </button>
-                                        </div>
+                                <form _ngcontent-jar-c34="" role="form"
+                                  class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST"
+                                  action="user/login">
+                                {% csrf_token %}
+                                <div _ngcontent-jar-c34="" class="col-md-12">
+                                    <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
+                                                                                         for="email">Email
+                                        Address</label><input _ngcontent-jar-c34="" type="email"
+                                                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                              title="Invalid Email Address" id="email"
+                                                              placeholder="Enter email" formcontrolname="email"
+                                                              name="email" required=""
+                                                              class="form-control ng-untouched ng-pristine ng-invalid">
+                                        <!----></div>
+                                    <div _ngcontent-jar-c34="" class="form-group">
+                                        <label _ngcontent-jar-c34="" for="password">Password</label>
+                                        <input _ngcontent-jar-c34="" formcontrolname="password" name="password"
+                                               minlength="4" placeholder="Enter password" type="password"
+                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                               title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+                                               id="password" class="form-control ng-untouched ng-pristine ng-invalid"
+                                               required>
+                                        <!----></div>
+                                    <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
+                                        <button _ngcontent-jar-c34="" type="submit"
+                                                class="btn btn-primary btn-login btn-sm">LOGIN
+                                        </button>
                                     </div>
-                                </form>
+                                </div>
+                            </form>
                                 <div _ngcontent-jar-c34="" class="row">
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center" style="margin-top: 20px;">
                                         <p
@@ -165,23 +171,27 @@
                         </div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                                <form _ngcontent-jar-c34="" novalidate="" role="form"
-                                      class="form-horizontal ng-untouched ng-pristine ng-invalid">
-                                    <div _ngcontent-jar-c34="" class="col-md-12">
-                                        <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
-                                                                                             for="e-mail">Email
-                                            Address</label><input _ngcontent-jar-c34="" type="text" id="e-mail"
-                                                                  placeholder="Enter email" formcontrolname="email"
-                                                                  name="email" required=""
-                                                                  class="form-control ng-untouched ng-pristine ng-invalid">
-                                            <!----></div>
-                                        <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
-                                            <button _ngcontent-jar-c34="" type="submit"
-                                                    class="btn btn-primary btn-login btn-sm">Submit
-                                            </button>
-                                        </div>
+                               <form _ngcontent-jar-c34="" role="form"
+                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                <div _ngcontent-jar-c34="" class="col-md-12">
+                                    <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
+                                                                                         for="e-mail">Email
+                                        Address</label><input _ngcontent-jar-c34="" type="text" id="e-mail"
+                                                              placeholder="Enter email" formcontrolname="email"
+                                                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                              title="Invalid Email Address example@example.com"
+                                                              id="email"
+                                                              name="email"
+                                                              class="form-control ng-untouched ng-pristine ng-invalid"
+                                                              required>
+                                        <!----></div>
+                                    <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
+                                        <button _ngcontent-jar-c34="" type="submit"
+                                                class="btn btn-primary btn-login btn-sm">Submit
+                                        </button>
                                     </div>
-                                </form>
+                                </div>
+                            </form>
                             </div>
                         </div>
                         <div _ngcontent-jar-c34="" class="row modal-body">
@@ -207,72 +217,85 @@
                             <p _ngcontent-jar-c34="">create an account to continue</p></div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                                <form action="{% url 'register' %}"  _ngcontent-jar-c34="" novalidate="" role="form" autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid" method="POST"
-                                      >
-                                    {% csrf_token %}
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="first_name">First Name</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="first_name" name="first_name"
-                                            placeholder=" First Name" type="text" id="first_name"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="last_name">Last Name</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="last_name" name="last_name"
-                                            placeholder="Last Name " type="text" id="last_name"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="mail">Email Address</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="email" name="email"
-                                            placeholder="E-mail"
-                                            type="text" id="mail" autocomplete="off"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="psw">Password</label><input _ngcontent-jar-c34=""
-                                                                                                   formcontrolname="password"
-                                                                                                   name="password"
-                                                                                                   placeholder="Password"
-                                                                                                   type="password"
-                                                                                                   id="psw"
-                                                                                                   autocomplete="off"
-                                                                                                   class="form-control ng-untouched ng-pristine ng-invalid">
-                                        <!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="mobile_no" name="mobile_no"
-                                            placeholder="Contact Number" type="text" id="mobile_no"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="DateOfBirth">Date of Birth</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="DateOfBirth"
-                                            type="date" id="DateOfBirth"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"
-                                            style="padding: 0 0 0 10px;"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="father_name">Fathers Name</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="father_name" name="father_name"
-                                            placeholder="Father Name" type="text" id="father_name"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="mother_name">Mothers Name</label><input
-                                            _ngcontent-jar-c34="" formcontrolname="mother_name" name="mother_name"
-                                            placeholder="Mother Name" type="text" id="mother_name"
-                                            class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
-                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                            _ngcontent-jar-c34="" for="address">Address</label><input
-                                            _ngcontent-jar-c34=""
-                                            formcontrolname="address"
-                                            name="address"
-                                            placeholder="Full Address"
-                                            id="address"
-                                            class="form-control ng-untouched ng-pristine ng-invalid">
-                                        <!----></div>
-                                    <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
-                                        <button _ngcontent-jar-c34="" type="submit"
-                                                class="btn btn-primary btn-login btn-sm"
-                                        >SIGN UP
-                                        </button>
-                                    </div>
-                                </form>
+                               <form action="{% url 'register' %}" _ngcontent-jar-c34="" role="form"
+                                  autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid"
+                                  method="POST"
+                            >
+                                {% csrf_token %}
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="first_name">First Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="first_name" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" name="first_name"
+                                        placeholder=" First Name" type="text" id="first_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="last_name">Last Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="last_name" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" name="last_name"
+                                        placeholder="Last Name " type="text" id="last_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="mail">Email Address</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="email" name="email"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        title="Invalid Email Address" id="email"
+                                        placeholder="E-mail"
+                                        type="text" id="mail" autocomplete="off"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="psw">Password</label><input _ngcontent-jar-c34=""
+                                                                                               formcontrolname="password"
+                                                                                               name="password"
+                                                                                               placeholder="Password"
+                                                                                               type="password"
+                                                                                               id="psw"
+                                                                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                                                               title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+                                                                                               autocomplete="off"
+                                                                                               class="form-control ng-untouched ng-pristine ng-invalid"
+                                                                                               required>
+                                    <!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9 ]{3,}"
+                                        title="Only Numeric Characters are allowed" name="mobile_no"
+                                        placeholder="Contact Number" type="text" id="mobile_no"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="DateOfBirth">Date of Birth</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="DateOfBirth"
+                                        type="date" id="DateOfBirth"
+                                        class="form-control ng-untouched ng-pristine ng-invalid"
+                                        style="padding: 0 0 0 10px;" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="father_name">Fathers Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="father_name" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" name="father_name"
+                                        placeholder="Father Name" type="text" id="father_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="mother_name">Mothers Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="mother_name" name="mother_name"
+                                        placeholder="Mother Name" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" type="text"
+                                        id="mother_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="address">Address</label><input
+                                        _ngcontent-jar-c34=""
+                                        formcontrolname="address"
+                                        name="address"
+                                        placeholder="Full Address"
+                                        id="address"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required>
+                                    <!----></div>
+                                <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
+                                    <button _ngcontent-jar-c34="" type="submit"
+                                            class="btn btn-primary btn-login btn-sm"
+                                    >SIGN UP
+                                    </button>
+                                </div>
+                            </form>
                             </div>
                         </div>
                         <div _ngcontent-jar-c34="" class="row modal-body">
@@ -512,53 +535,67 @@
                                                 <div _ngcontent-jar-c34="" class="contact-form"><h2
                                                         _ngcontent-jar-c34="">
                                                     Contact Us</h2>
-                                                    <form _ngcontent-jar-c34="" novalidate="novalidate"
-                                                          class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
-                                                        <div _ngcontent-jar-c34="" class="row clearfix">
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                    _ngcontent-jar-c34="" type="text"
-                                                                    formcontrolname="full_name" name="full_name"
-                                                                    placeholder="Full Name*" required=""
-                                                                    class="ng-untouched ng-pristine ng-invalid"><!---->
-                                                            </div>
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                    _ngcontent-jar-c34="" type="email"
-                                                                    formcontrolname="email" name="email"
-                                                                    placeholder="Email Address*" required=""
-                                                                    class="ng-untouched ng-pristine ng-invalid"><!---->
-                                                            </div>
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                    _ngcontent-jar-c34="" type="text"
-                                                                    formcontrolname="phone" name="phone"
-                                                                    placeholder="Phone Number*" required=""
-                                                                    class="ng-untouched ng-pristine ng-invalid"><!---->
-                                                            </div>
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                    _ngcontent-jar-c34="" type="text"
-                                                                    formcontrolname="subject" name="subject"
-                                                                    placeholder="Subject" required=""
-                                                                    class="ng-untouched ng-pristine ng-invalid"><!---->
-                                                            </div>
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                  <form _ngcontent-jar-c34="" action="contact-us/" method="post"
+                                                      class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
+                                                    {% csrf_token %}
+                                                    <div _ngcontent-jar-c34="" class="row clearfix">
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-jar-c34="" type="text"
+                                                                formcontrolname="full_name" name="full_name"
+                                                                pattern="[A-Za-z ]{3,}"
+                                                                title="Only Alphabet are allowed and min 3 characters"
+                                                                placeholder="Full Name*"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
+                                                        </div>
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-jar-c34="" type="email"
+                                                                formcontrolname="email" name="email"
+                                                                placeholder="Email Address*"
+                                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                title="Invalid Email Address"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
+                                                        </div>
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-jar-c34="" type="text"
+                                                                formcontrolname="phone" name="phone"
+                                                                placeholder="Phone Number*"
+                                                                pattern="[0-9 ]{3,}"
+                                                                title="Only Numeric Characters are allowed"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
+                                                        </div>
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-md-6 col-sm-6 col-xs-12 form-group"><input
+                                                                _ngcontent-jar-c34="" type="text"
+                                                                formcontrolname="subject" name="subject"
+                                                                placeholder="Subject"
+                                                                pattern="[A-Za-z ]{3,}"
+                                                                title="Only Alphabet are allowed and min 3 characters"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
+                                                        </div>
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
                                                             <textarea _ngcontent-jar-c34="" formcontrolname="message"
                                                                       name="message" placeholder="Your Message..."
-                                                                      class="ng-untouched ng-pristine ng-invalid"></textarea>
-                                                                <!----></div>
-                                                            <div _ngcontent-jar-c34=""
-                                                                 class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group formSubmit">
-                                                                <button _ngcontent-jar-c34="" type="submit"
-                                                                        name="submit-form"
-                                                                        class="theme-btn btn-style-one"
-                                                                        disabled="">Send
-                                                                </button>
-                                                            </div>
+                                                                      class="ng-untouched ng-pristine ng-invalid"
+                                                                      required></textarea>
+                                                            <!----></div>
+                                                        <div _ngcontent-jar-c34=""
+                                                             class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group formSubmit">
+                                                            <button _ngcontent-jar-c34="" type="submit"
+                                                                    name="submit-form"
+                                                                    class="theme-btn btn-style-one"
+                                                                    >Send
+                                                            </button>
                                                         </div>
-                                                    </form>
+                                                    </div>
+                                                </form>
                                                 </div>
                                             </div>
                                         </div>

@@ -365,48 +365,63 @@
                                         <div _ngcontent-bfh-c38="" class="form-column col-md-8 col-sm-12 col-xs-12">
                                             <div _ngcontent-bfh-c38="" class="contact-form"><h2 _ngcontent-bfh-c38="">
                                                 Contact Us</h2>
-                                                <form _ngcontent-bfh-c38="" novalidate="novalidate"
+                                <form _ngcontent-jar-c34="" action="contact-us/" method="post"
                                                       class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
-                                                    <div _ngcontent-bfh-c38="" class="row clearfix">
-                                                        <div _ngcontent-bfh-c38=""
+                                                    {% csrf_token %}
+                                                    <div _ngcontent-jar-c34="" class="row clearfix">
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                _ngcontent-bfh-c38="" type="text"
+                                                                _ngcontent-jar-c34="" type="text"
                                                                 formcontrolname="full_name" name="full_name"
-                                                                placeholder="Full Name*" required=""
-                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                                pattern="[A-Za-z ]{3,}"
+                                                                title="Only Alphabet are allowed and min 3 characters"
+                                                                placeholder="Full Name*"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
                                                         </div>
-                                                        <div _ngcontent-bfh-c38=""
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                _ngcontent-bfh-c38="" type="email"
+                                                                _ngcontent-jar-c34="" type="email"
                                                                 formcontrolname="email" name="email"
-                                                                placeholder="Email Address*" required=""
-                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                                placeholder="Email Address*"
+                                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                title="Invalid Email Address"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
                                                         </div>
-                                                        <div _ngcontent-bfh-c38=""
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                _ngcontent-bfh-c38="" type="text"
+                                                                _ngcontent-jar-c34="" type="text"
                                                                 formcontrolname="phone" name="phone"
-                                                                placeholder="Phone Number*" required=""
-                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                                placeholder="Phone Number*"
+                                                                pattern="[0-9 ]{3,}"
+                                                                title="Only Numeric Characters are allowed"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
                                                         </div>
-                                                        <div _ngcontent-bfh-c38=""
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-md-6 col-sm-6 col-xs-12 form-group"><input
-                                                                _ngcontent-bfh-c38="" type="text"
+                                                                _ngcontent-jar-c34="" type="text"
                                                                 formcontrolname="subject" name="subject"
-                                                                placeholder="Subject" required=""
-                                                                class="ng-untouched ng-pristine ng-invalid"><!---->
+                                                                placeholder="Subject"
+                                                                pattern="[A-Za-z ]{3,}"
+                                                                title="Only Alphabet are allowed and min 3 characters"
+                                                                class="ng-untouched ng-pristine ng-invalid" required>
+                                                            <!---->
                                                         </div>
-                                                        <div _ngcontent-bfh-c38=""
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
-                                                            <textarea _ngcontent-bfh-c38="" formcontrolname="message"
+                                                            <textarea _ngcontent-jar-c34="" formcontrolname="message"
                                                                       name="message" placeholder="Your Message..."
-                                                                      class="ng-untouched ng-pristine ng-invalid"></textarea>
+                                                                      class="ng-untouched ng-pristine ng-invalid"
+                                                                      required></textarea>
                                                             <!----></div>
-                                                        <div _ngcontent-bfh-c38=""
+                                                        <div _ngcontent-jar-c34=""
                                                              class="col-lg-4 col-md-6 col-sm-12 col-xs-12 form-group formSubmit">
-                                                            <button _ngcontent-bfh-c38="" type="submit"
-                                                                    name="submit-form" class="theme-btn btn-style-one"
-                                                                    disabled="">Send
+                                                            <button _ngcontent-jar-c34="" type="submit"
+                                                                    name="submit-form"
+                                                                    class="theme-btn btn-style-one"
+                                                                    >Send
                                                             </button>
                                                         </div>
                                                     </div>

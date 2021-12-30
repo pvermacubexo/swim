@@ -74,6 +74,7 @@
                                                             <div _ngcontent-ygs-c30="" class="row">
                                                                 {% if data %}
                                                                     {% for classes in data %}
+
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="col-md-4 col-sm-6">
                                                                             <div _ngcontent-ygs-c30=""
@@ -116,7 +117,7 @@
                                                                                     <h3 _ngcontent-ygs-c30=""
                                                                                         class="price">
                                                                                         Fee : <i _ngcontent-ygs-c30=""
-                                                                                                 class="fa fa-dollar"></i>{{ classes.total_days }}
+                                                                                                 class="fa fa-dollar"></i>{{ classes.price }}
                                                                                         <span _ngcontent-ygs-c30="">(Complete Course )</span>
                                                                                     </h3><a _ngcontent-ygs-c30=""
                                                                                             data-toggle="modal"
@@ -270,14 +271,15 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            <div id="checkbox_select"
-                                                                                 class="termsconditions">
+                                                                            <div
+                                                                                    class="termsconditions">
                                                                                 <div _ngcontent-dbn-c30=""
                                                                                      class="col-md-1"
                                                                                      style="text-align: right;"><input
                                                                                         _ngcontent-dbn-c30=""
-                                                                                        type="checkbox" id="terms"
-                                                                                        name="terms" value="1"></div>
+                                                                                        type="checkbox"
+                                                                                        id="checkbox_select" value="0"
+                                                                                        name="terms" required></div>
 
                                                                                 <label _ngcontent-dbn-c30=""
                                                                                        for="terms"
@@ -1306,14 +1308,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div id="checkbox_select"
-                                                             class="termsconditions">
+                                                        <div
+                                                                class="termsconditions">
                                                             <div _ngcontent-dbn-c30=""
                                                                  class="col-md-1"
                                                                  style="text-align: right;"><input
                                                                     _ngcontent-dbn-c30=""
-                                                                    type="checkbox" id="terms"
-                                                                    name="terms" value="1"></div>
+                                                                    type="checkbox" value="0" id="checkbox_select"
+                                                                    id="terms"
+                                                                    required></div>
 
                                                             <label _ngcontent-dbn-c30=""
                                                                    for="terms"
@@ -2929,7 +2932,16 @@
     <script>
         $("#nextbtn").hide();
         $('#checkbox_select').click(function () {
-            $("#nextbtn").show();
+            var checkbox_value = $('#checkbox_select').val()
+            console.log(checkbox_value)
+            if (checkbox_value === "0") {
+            if (checkbox_value === "0") {
+                $('#checkbox_select').val("1")
+                $("#nextbtn").show();
+            } else {
+                $('#checkbox_select').val("0")
+                $("#nextbtn").hide();
+            }
 
         });
         $(".termsconditions").hide();
@@ -2965,7 +2977,9 @@
                     url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                     dataType: 'json',
                     success: function (data) {
+                        {#console.log("hoo")#}
                         console.log(data.time)
+                        {#console.log("hoo")#}
                         var row1 = ''
                         for (var i = 0; i < data.time.length; i++) {
 
@@ -2975,6 +2989,14 @@
 
                         $('.timeSelectContent').html(row1);
                     },
+                    error: function (data) {
+                        if (data.responseJSON.error === undefined) {
+                            window.alert("Please select Upcoming date")
+                        } else {
+                            window.alert(data.responseJSON.error)
+                        }
+                    },
+
                 }
             )
 
@@ -3003,7 +3025,7 @@
 
                         let time_for_table = ""
                         for (const [key1, value1] of Object.entries(value)) {
-                            time_for_table = time_for_table.slice(2,)+ " - " + value1
+                            time_for_table = time_for_table.slice(2,) + " - " + value1
 
 
                         }
