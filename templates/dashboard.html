@@ -644,8 +644,6 @@
                                                             <div>
                                                                 <input type="button" value="Next"
                                                                        class="btn btn-primary"
-                                                                       data-toggle="modal"
-                                                                       data-target="#details-popup"
                                                                        id="nextbtn"
                                                                        style="background-color:#0A66C2;float: right">
                                                             </div>
@@ -1330,8 +1328,8 @@
                                         </div>
                                         <div>
                                             <input type="button" value="Next"
-                                                   data-toggle="modal"
-                                                   data-target="#details-popup"
+
+
                                                    class="btn btn-primary"
                                                    id="nextbtn"
                                                    style="background-color:#0A66C2;float: right">
@@ -1923,7 +1921,7 @@
                                                         <div _ngcontent-juj-c30="" class="head-pay cradit"><h3
                                                                 _ngcontent-juj-c30=""><span
                                                                 _ngcontent-juj-c30="">1</span>Payment for.</h3></div>
-                                                        <div class="confirm-block-div "style="padding: 5px;">
+                                                        <div class="confirm-block-div " style="padding: 5px;">
                                                             <div class="" style="padding-left: 15px;">
                                                                 <div><h4 style="float:left;">Instructor name : <span
                                                                         id="instructor_name1" style="font-size: 15px;"
@@ -1967,10 +1965,13 @@
                                                                                 <div class="form-control bg-secondary sr-input sr-card-element"
                                                                                      id="card-exp"></div>
                                                                             </div>
-                                                                            <div style="color:red;" class="sr-field-error"
+                                                                            <div style="color:red;"
+                                                                                 class="sr-field-error"
                                                                                  id="card-errors"
-                                                                                 role="alert"></div><br>
-                                                                            <button style="width: 100%;" id="submit" class="btn btn-primary">
+                                                                                 role="alert"></div>
+                                                                            <br>
+                                                                            <button style="width: 100%;" id="submit"
+                                                                                    class="btn btn-primary">
                                                                                 <div class="spinner-border  spinner-border-sm text-light hidden"
                                                                                      id="spinner" role="status">
                                                                                     <span class="sr-only">Loading...</span>
@@ -2395,43 +2396,52 @@
 
         $("#nextbtn").click(function () {
             console.log("button clicked")
+            console.log("hii")
             start_date = localStorage.getItem('Date')
+            console.log("hii")
             var time = $("#selected_date").val();
-            console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
-            var date_time = start_date.slice(1, -1) + "T" + time.slice(0, 8)
+            if (time === undefined) {
+                window.alert("please select time slot")
+            } else {
+                $('#nextbtn').attr('data-target', "#details-popup")
+                $('#nextbtn').attr('data-toggle',"modal")
 
-            var class_instructor = localStorage.getItem('class_instructor_id')
-            $.ajax({
-                url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1',
-                method: 'GET',
-                dataType: "JSON",
-                success: function (data) {
-                    console.log(data)
-                    $('#booking_id_span').text(data.booking);
-                    $('#instructor_name').text(data.instructor);
-                    $('#total_days').text(data.total_days);
-                    $('#fee').text("$" + data.fee);
-                    $('#amount_to_be_paid').text(data.fee)
-                    $('#instructor_name1').text(data.instructor)
-                    $('#total_days1').text(data.total_days)
-                    $('#fee1').text("$" + data.fee)
+                console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
+                var date_time = start_date.slice(1, -1) + "T" + time.slice(0, 8)
+
+                var class_instructor = localStorage.getItem('class_instructor_id')
+                $.ajax({
+                    url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1',
+                    method: 'GET',
+                    dataType: "JSON",
+                    success: function (data) {
+                        console.log(data)
+                        $('#booking_id_span').text(data.booking);
+                        $('#instructor_name').text(data.instructor);
+                        $('#total_days').text(data.total_days);
+                        $('#fee').text("$" + data.fee);
+                        $('#amount_to_be_paid').text(data.fee)
+                        $('#instructor_name1').text(data.instructor)
+                        $('#total_days1').text(data.total_days)
+                        $('#fee1').text("$" + data.fee)
 
 
-                    for (const [key, value] of Object.entries(data.appointments)) {
+                        for (const [key, value] of Object.entries(data.appointments)) {
 
-                        let time_for_table = ""
-                        for (const [key1, value1] of Object.entries(value)) {
-                            time_for_table = time_for_table.slice(2,) + " - " + value1
+                            let time_for_table = ""
+                            for (const [key1, value1] of Object.entries(value)) {
+                                time_for_table = time_for_table.slice(2,) + " - " + value1
 
 
+                            }
+                            $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
+                                '<td _ngcontent-asr-c30="" id="date_field">' + key + '</td>' +
+                                '<td _ngcontent-asr-c30="" id="time_field"> ' + time_for_table + ' </td></tr>')
                         }
-                        $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
-                            '<td _ngcontent-asr-c30="" id="date_field">' + key + '</td>' +
-                            '<td _ngcontent-asr-c30="" id="time_field"> ' + time_for_table + ' </td></tr>')
-                    }
 
-                },
-            });
+                    },
+                });
+            }
         });
 
 
