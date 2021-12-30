@@ -25,7 +25,9 @@ from . import views
 app_name = 'InstructorDashboard'
 router = routers.SimpleRouter(trailing_slash=False)
 urlpatterns = [
+
     path('register', views.signup_view, name='register'),
+    path('', views.home_view, name='home'),
     path('login', views.login_view, name='login'),
     path('logout', views.user_logout, name='user_logout'),
     path('generate-otp', views.generate_otp, name='forgot_password'),
@@ -39,7 +41,7 @@ urlpatterns = [
     path('update/transaction/<int:id>', views.update_transaction, name='update_transaction'),
     path('delete/transaction/<int:id>', views.delete_transaction, name='delete_transaction'),
 
-    path('', views.dashboard_view, name='dashboard_view'),
+    path('dashboard', views.dashboard_view, name='dashboard_view'),
 
     path('class/detail/<int:pk>', views.ClassDetailView.as_view(), name='class_detail_view'),
     path('class/list', views.class_list, name='class_list'),

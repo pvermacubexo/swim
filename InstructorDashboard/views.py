@@ -114,8 +114,10 @@ def login_view(request):
 def user_logout(request):
     logger.info(f"{request.user} Successfully Logged out")
     logout(request)
-    return redirect('InstructorDashboard:login')
+    return redirect('InstructorDashboard:home')
 
+def home_view(request):
+    return render(request,"index.html")
 
 @login_required(redirect_field_name='login')
 def dashboard_view(request):

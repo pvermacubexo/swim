@@ -48,6 +48,8 @@ def register(request):
         user_details = User.objects.filter(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
         return redirect(SwimTimeDashboard)
+    else:
+        return render(request,"new_register.html")
         # return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
 
 def SwimTimeDashboard(request):
