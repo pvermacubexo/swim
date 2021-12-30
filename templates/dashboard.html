@@ -2368,19 +2368,26 @@
                     dataType: 'json',
                     success: function (data) {
                         {#console.log("hoo")#}
-                        console.log(data.time)
-                        {#console.log("hoo")#}
-                        var row1 = ''
-                        for (var i = 0; i < data.time.length; i++) {
+                        if (data.time.length > 0) {
 
-                            row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
 
+                            console.log(data.time)
+                            {#console.log("hoo")#}
+                            var row1 = ''
+                            for (var i = 0; i < data.time.length; i++) {
+
+                                row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+
+                            }
+
+                            $('.timeSelectContent').html(row1);
                         }
-
-                        $('.timeSelectContent').html(row1);
+                        else{
+                            window.alert("no class Available")
+                        }
                     },
                     error: function (data) {
-                        if (data.responseJSON.error === undefined || data.responseJSON.error === null ) {
+                        if (data.responseJSON.error === undefined || data.responseJSON.error === null) {
                             window.alert("Please select Upcoming date")
                             $('.timeSelectContent').html("")
                         } else {
@@ -2402,11 +2409,12 @@
             start_date = localStorage.getItem('Date')
             console.log("hii")
             var time = $("#selected_date").val();
-            if (time === undefined || time === [] || time===null) {
+            console.log(time)
+            if (time === undefined || time === [] || time === null) {
                 window.alert("please select time slot")
             } else {
                 $('#nextbtn').attr('data-target', "#details-popup")
-                $('#nextbtn').attr('data-toggle',"modal")
+                $('#nextbtn').attr('data-toggle', "modal")
 
                 console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
                 var date_time = start_date.slice(1, -1) + "T" + time.slice(0, 8)
