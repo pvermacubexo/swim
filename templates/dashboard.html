@@ -2380,10 +2380,12 @@
                         $('.timeSelectContent').html(row1);
                     },
                     error: function (data) {
-                        if (data.responseJSON.error === undefined) {
+                        if (data.responseJSON.error === undefined || data.responseJSON.error === null ) {
                             window.alert("Please select Upcoming date")
+                            $('.timeSelectContent').html("")
                         } else {
                             window.alert(data.responseJSON.error)
+                            $('.timeSelectContent').html("")
                         }
                     },
 
@@ -2400,7 +2402,7 @@
             start_date = localStorage.getItem('Date')
             console.log("hii")
             var time = $("#selected_date").val();
-            if (time === undefined) {
+            if (time === undefined || time === [] || time===null) {
                 window.alert("please select time slot")
             } else {
                 $('#nextbtn').attr('data-target', "#details-popup")
