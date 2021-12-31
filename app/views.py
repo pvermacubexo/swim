@@ -1,34 +1,20 @@
-import threading
-
-from django.contrib.auth import authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
-from user import models as user_models
 
 # Create your views here.
-from Appointment.models import ClassInstructor, Appointment
-from user.models import Profile, User
+from Appointment.models import ClassInstructor
+from user import models as user_models
+from user.models import User
 
 
 def SwimTimeView(request):
     return render(request, 'index.html')
-#
-# def login(request):
-#     if request.method == "POST":
-#         email = request.POST['email']
-#         password = request.POST['password']
-#         try:
-#             if User.objects.get(email=email, password=password) is not None:
-#                 request.session['user_name'] = email
-#                 return render(request,"dashboard.html")
-#         except:
-#             return render(request,"register.html")
+
 
 def register(request):
-
-    if request.method=="POST":
+    if request.method == "POST":
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
         email = request.POST['email']
@@ -38,8 +24,10 @@ def register(request):
         father_name = request.POST['father_name']
         mother_name = request.POST['mother_name']
         address = request.POST['address']
-        obj = User(first_name=first_name,last_name=last_name,email=email,password=password,mobile_no=mobile_no,
-                   DateOfBirth=DateOfBirth,father_name=father_name,mother_name=mother_name,address=address)
+        slug = id
+
+        obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
+                   DateOfBirth=DateOfBirth, father_name=father_name, mother_name=mother_name, address=address)
         request.session['email'] = email
 
         obj.save()
@@ -49,20 +37,29 @@ def register(request):
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
         return redirect(SwimTimeDashboard)
     else:
-        return render(request,"new_register.html")
+        return render(request, "new_register.html")
         # return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
 
-def SwimTimeDashboard(request):
+
+def SwimTimeDashboard(request, ):
     if 'email' in request.session:
-        user_id = request.session['slug_id']
+        obj = User.objects.get(email=request.session['email'])
+        user_id = obj.inst_id
         first_name = User.objects.get(id=user_id)
         email = request.session['email']
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
-        classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
+        try:
+            classes = ClassInstructor.objects.filter(instructor_id=user_id)
+
+            return render(request, 'dashboard.html',
+                          {"user_details": user_details, "data": classes, "first_name": first_name})
+        except:
+            messages.error(request,"Invalid login details")
+            return render(request, "register.html")
     else:
-        return render(request,"register.html")
+        return render(request, "register.html")
+
 
 def update_profile(request):
     if request.method == "POST":
@@ -77,12 +74,27 @@ def update_profile(request):
         obj.father_name = request.POST['father_name']
         obj.profile_img = request.FILES['profile_img']
         obj.save()
-        user_id = request.session['slug_id']
+
+        obj = User.objects.get(email=request.session['email'])
+        user_id = obj.inst_id
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
+        messages.success(request,"updated successfully")
+        return redirect(SwimTimeDashboard)
+        # return render(request, 'dashboard.html',
+        #               {"user_details": user_details, "data": classes, "first_name": first_name})
+    else:
+        obj = User.objects.get(email=request.session['email'])
+        user_id = obj.inst_id
+        first_name = User.objects.get(id=user_id)
+        user_details = User.objects.filter(email=request.session['email'])
+        classes = ClassInstructor.objects.filter(instructor_id=user_id)
+        messages.error(request,"somthing went wrong")
+
         return render(request, 'dashboard.html',
                       {"user_details": user_details, "data": classes, "first_name": first_name})
+
 
 # @login_required
 # def MySchedule(request):
@@ -106,17 +118,41 @@ def Registration(request, id):
         # return render(request, 'register.html')
         return redirect(SwimTimeDashboard)
     else:
-        slug = user_models.Profile.objects.get(slug=id)
-        slug_id = slug.user_id
-        print(slug_id)
-        request.session['slug_id'] = slug_id
-        return render(request, 'register.html')
+        try:
+            if request.method == "POST":
+                slug = user_models.Profile.objects.get(slug=id)
+                slug_id = slug.user_id
+                print("hi")
+                print(slug_id)
+                first_name = request.POST['first_name']
+                last_name = request.POST['last_name']
+                email = request.POST['email']
+                password = make_password(request.POST['password'])
+                mobile_no = request.POST['mobile_no']
+                DateOfBirth = request.POST['DateOfBirth']
+                father_name = request.POST['father_name']
+                mother_name = request.POST['mother_name']
+                address = request.POST['address']
+                # instructor_id = slug_id
 
+                obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
+                           DateOfBirth=DateOfBirth, father_name=father_name, mother_name=mother_name, address=address,
+                           inst_id=slug_id)
+                obj.save()
+
+                request.session['slug_id'] = slug_id
+                request.session['email'] = email
+                return redirect(SwimTimeDashboard)
+        except:
+            messages.error(request,"Already Registered user")
+            return render(request, "register.html", {"id": id})
+        return render(request, "register.html", {"id": id})
 
 
 def LogoutView(request):
     logout(request)
-    return render(request, "register.html")
+    messages.success(request,"Logout Successfully")
+    return render(request, "new_register.html")
 
 #
 # def UserRegistrations(request):

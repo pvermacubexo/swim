@@ -25,33 +25,44 @@ logger = logging.getLogger(__name__)
 class AuthenticationSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
-        token = super().get_token(user)
-        return token
+        try:
+            token = super().get_token(user)
+            return token
+        except:
+            msg = "Invalid login Details"
+            return
 
     def validate(self, attrs):
         attrs['email'] = attrs['email'].lower()
-        data = super().validate(attrs)
         try:
-            student = StudentProfile.objects.filter(user__email=attrs['email']).first()
-            if student.instructor:
-                data['instructor_id'] = student.instructor.id
-                data['instructor_slug'] = student.get_instructor_slug
-            else:
-                data['instructor_slug'] = None
-                data['instructor_id'] = None
-        except Exception:
-            pass
-        refresh = self.get_token(self.user)
+            data = super().validate(attrs)
+            try:
+                student = StudentProfile.objects.filter(user__email=attrs['email']).first()
+                if student.instructor:
+                    data['instructor_id'] = student.instructor.id
+                    data['instructor_slug'] = student.get_instructor_slug
+                else:
+                    data['instructor_slug'] = None
+                    data['instructor_id'] = None
+            except Exception:
+                pass
+            refresh = self.get_token(self.user)
 
-        data['refresh'] = str(refresh)
-        data['access'] = str(refresh.access_token)
-        data['id'] = self.user.id
-        data['email'] = self.user.email
-        # data['username'] = self.user.username
-        data['user_type'] = self.user.user_type
-        # data['instructor_id'] = student.instructor.id
-        logger.info(f'User login successfully with this Credentials : {data}')
-        return data
+            data['refresh'] = str(refresh)
+            data['access'] = str(refresh.access_token)
+            data['id'] = self.user.id
+            data['email'] = self.user.email
+            # data['username'] = self.user.username
+            data['user_type'] = self.user.user_type
+            # data['instructor_id'] = student.instructor.id
+            logger.info(f'User login successfully with this Credentials : {data}')
+            if data:
+                return data
+        except:
+
+            msg = "Invalid login Details"
+            return msg
+
 
 
 class UserSerializer(serializers.ModelSerializer):

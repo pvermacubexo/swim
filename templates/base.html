@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-       Swim Time Solutions</title>
+        Swim Time Solutions</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
@@ -11965,10 +11965,12 @@
                             <div _ngcontent-uas-c28="" class="navbar-header">
                                 <button _ngcontent-uas-c28="" type="button" data-toggle="collapse"
                                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-                                        class="navbar-toggle collapsed"><span _ngcontent-uas-c28="" class="sr-only">Toggle navigation</span><span
-                                        _ngcontent-uas-c28="" class="icon-bar"></span><span _ngcontent-uas-c28=""
-                                                                                            class="icon-bar"></span><span
-                                        _ngcontent-uas-c28="" class="icon-bar"></span></button>
+                                        class="navbar-toggle collapsed">
+                                    <span _ngcontent-uas-c28="" class="sr-only">Toggle navigation</span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                </button>
                                 <a _ngcontent-uas-c28="" class="navbar-brand">Swim Time Solutions</a></div>
                             <div _ngcontent-uas-c28=""></div>
                             <div _ngcontent-uas-c28="" class="collapse navbar-collapse menu-hide-mobile">
@@ -11981,7 +11983,11 @@
                                     <li _ngcontent-uas-c28="" data-toggle="tooltip" title="Update Profile"><a
                                             _ngcontent-uas-c28="" data-toggle="modal" data-target="#profileEdit"
                                             class="img"><img _ngcontent-uas-c28="" alt="Profile"
-                                                             src="http://167.172.131.164/media/Images/profile/default.png">
+                                                             {% if user_details.profile_img %}
+                                                             src="{{ user_details.profile_img }}">
+                                                            {% else %}
+                                                            src="{% static 'assets/img/default.png'%}">
+                                                            {% endif %}
                                         <!----><!----></a></li><!----></ul>
                             </div>
                             <div _ngcontent-uas-c28="" id="profileEdit" tabindex="-1" role="dialog"
@@ -11997,8 +12003,10 @@
                                             <p _ngcontent-uas-c28="">update profile to continue</p></div>
                                         <div _ngcontent-uas-c28="" class="modal-body">
                                             <div _ngcontent-uas-c28="" class="row">
-                                                <form _ngcontent-uas-c28="" novalidate="" role="form" enctype="multipart/form-data"
-                                                      class="form-horizontal ng-untouched ng-pristine ng-valid" method="POST" action="{% url 'update-profile' %}">
+                                                <form _ngcontent-uas-c28="" novalidate="" role="form"
+                                                      enctype="multipart/form-data"
+                                                      class="form-horizontal ng-untouched ng-pristine ng-valid"
+                                                      method="POST" action="{% url 'update-profile' %}">
                                                     {% csrf_token %}
                                                     <div _ngcontent-uas-c28="">
                                                         <div _ngcontent-uas-c28=""
@@ -12012,7 +12020,9 @@
                                                                 _ngcontent-uas-c28="" for="first_name">First
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
                                                                                 placeholder="First Name"
-                                                                                formcontrolname="first_name" value="{{ user_details.first_name }}" type="text"
+                                                                                formcontrolname="first_name"
+                                                                                value="{{ user_details.first_name }}"
+                                                                                type="text"
                                                                                 id="first_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
@@ -12021,7 +12031,8 @@
                                                                 _ngcontent-uas-c28="" for="last_name">Last Name </label><input
                                                                 _ngcontent-uas-c28="" name="last_name"
                                                                 placeholder="Last Name" formcontrolname="last_name"
-                                                                type="text" value="{{ user_details.last_name }}" id="last_name"
+                                                                type="text" value="{{ user_details.last_name }}"
+                                                                id="last_name"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12029,7 +12040,8 @@
                                                                 _ngcontent-uas-c28="" for="email">Email Address </label><input
                                                                 _ngcontent-uas-c28="" name="email" placeholder="E-mail"
                                                                 formcontrolname="email" type="email" id="email"
-                                                                autocomplete="off" readonly="readonly" value="{{ user_details.email }}"
+                                                                autocomplete="off" readonly="readonly"
+                                                                value="{{ user_details.email }}"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12038,7 +12050,8 @@
                                                                 for="address">Address </label><input
                                                                 _ngcontent-uas-c28="" name="address"
                                                                 placeholder="Full Address" formcontrolname="address"
-                                                                type="text" id="address" value="{{ user_details.address }}"
+                                                                type="text" id="address"
+                                                                value="{{ user_details.address }}"
                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12046,7 +12059,8 @@
                                                                 _ngcontent-uas-c28="" for="mobile_no">Contact
                                                             Number </label><input _ngcontent-uas-c28="" name="mobile_no"
                                                                                   placeholder="Contact Number"
-                                                                                  formcontrolname="mobile_no" value="{{ user_details.mobile_no }}"
+                                                                                  formcontrolname="mobile_no"
+                                                                                  value="{{ user_details.mobile_no }}"
                                                                                   type="text" id="mobile_no"
                                                                                   class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div>
@@ -12056,7 +12070,9 @@
                                                             Birth </label><input _ngcontent-uas-c28=""
                                                                                  name="DateOfBirth"
                                                                                  formcontrolname="DateOfBirth"
-                                                                                 type="date" value="{{ user_details.DateOfBirth }}" id="DateOfBirth"
+                                                                                 type="date"
+                                                                                 value="{{ user_details.DateOfBirth }}"
+                                                                                 id="DateOfBirth"
                                                                                  class="form-control ng-untouched ng-pristine ng-valid"
                                                                                  style="padding: 0 0 0 10px;"><!---->
                                                         </div><!---->
@@ -12066,7 +12082,8 @@
                                                             Name </label><input _ngcontent-uas-c28="" name="father_name"
                                                                                 placeholder="Father Name"
                                                                                 formcontrolname="father_name"
-                                                                                type="text" id="father_name" value="{{ user_details.father_name }}"
+                                                                                type="text" id="father_name"
+                                                                                value="{{ user_details.father_name }}"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28=""
@@ -12074,7 +12091,8 @@
                                                                 _ngcontent-uas-c28="" for="mother_name">Mothers
                                                             Name </label><input _ngcontent-uas-c28="" name="mother_name"
                                                                                 placeholder="Mother Name"
-                                                                                formcontrolname="mother_name" value="{{ user_details.mother_name }}"
+                                                                                formcontrolname="mother_name"
+                                                                                value="{{ user_details.mother_name }}"
                                                                                 type="text" id="mother_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid">
                                                             <!----></div><!---->
@@ -12119,11 +12137,11 @@
         });
     });
 </script>
-<script src={% static 'assets/js/jquery.js' %}></script>
-<script src={% static 'assets/js/jquery-ui.min.js' %}></script>
-<script src={% static 'assets/js/bootstrap.js' %}></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-<script src={% static 'assets/js/custom.js' %}></script>
+{#<script src={% static 'assets/js/jquery.js' %}></script>#}
+{#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
+{#<script src={% static 'assets/js/bootstrap.js' %}></script>#}
+{#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>#}
+{#<script src={% static 'assets/js/custom.js' %}></script>#}
 
 </html>
 </title>

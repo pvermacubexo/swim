@@ -96,6 +96,7 @@
                     </div>
                 </div>
             </nav>
+
             <div _ngcontent-jar-c34="" id="login" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" class="modal fade login login-pop">
                 <div _ngcontent-jar-c34="" class="modal-dialog modal-lg">
@@ -144,6 +145,7 @@
                     </div>
                 </div>
             </div>
+
             <div _ngcontent-jar-c34="" id="forgetPassword" tabindex="-1" role="dialog"
                  aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" class="modal fade login">
@@ -188,6 +190,7 @@
                     </div>
                 </div>
             </div>
+
             <div _ngcontent-jar-c34="" id="signup" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" class="modal fade registration" style="display: none;">
                 <div _ngcontent-jar-c34="" class="modal-dialog modal-lg">
@@ -279,9 +282,7 @@
                     </div>
                 </div>
             </div>
-              {%  if msg  %}
-    <center><h1>{{ msg }}</h1></center>
-{% endif %}
+{% include 'message.html' %}
             <div _ngcontent-jar-c34="" id="myCarousel" data-ride="carousel"
                  class="carousel banner-slide slide autoHeight"
                  style="height: 668px;">
@@ -296,6 +297,7 @@
                         <div _ngcontent-jar-c34="" class="content"><h3 _ngcontent-jar-c34="">LEARN SWIMMING THE RIGHT
                             WAY
                             WITH US</h3>
+
                             <p _ngcontent-jar-c34="">LEARN SWIMMING WITH THE BEST FACILITIES AND WORLD CLASS
                                 INSTRUCTORS </p></div>
                     </div>
@@ -638,4 +640,11 @@
             aria-hidden="true" tabindex="-1"
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
     </body>
+<script>
+   setTimeout(function (){
+       if ($('#msg').length>0){
+           $('#msg').remove();
+       }
+   }, 2000)
+</script>
 </html>

@@ -1,35 +1,72 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block sidebar_content %}
-    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
-    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
-        <div _ngcontent-nwk-c28="" class="tab-link first">
-            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
-            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
-    </a>
-    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
-        <div _ngcontent-nwk-c28="" class="tab-link">
-            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
-            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
-    </a>
-    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
-        <div _ngcontent-nwk-c28="" class="tab-link">
-            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
-            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
-    </a>
+
+
+                    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+                    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+                        <div _ngcontent-nwk-c28="" class="tab-link first">
+                            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+                            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+                    </a>
+                    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
+                        <div _ngcontent-nwk-c28="" class="tab-link">
+                            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+                            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+                    </a>
+                    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
+                        <div _ngcontent-nwk-c28="" class="tab-link">
+                            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+                            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+                    </a>
+
+                   <a _ngcontent-nwk-c28="" id="logout_link"  data-toggle="tooltip" title="Log Out" href="{% url 'LogoutView' %}" class="">
+                        <div _ngcontent-nwk-c28=""  class="tab-link">
+                            <div _ngcontent-nwk-c28="" class="img-div ">
+                                <img
+                        _ngcontent-uas-c28=""
+                        src={% static 'assets/img/logout.png' %}
+                                alt="img">
+                            </div>
+                            <h3 _ngcontent-nwk-c28="">LOGOUT</h3></div>
+                    </a>
+
+
+                    <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile" class="">
+                        <div _ngcontent-nwk-c28="" class="tab-link">
+                            <div _ngcontent-nwk-c28="" class="img-div ">
+                                <img _ngcontent-uas-c28="" alt="Profile"
+                                             src="http://167.172.131.164/media/Images/profile/default.png">
+                            </div>
+                            <h3 _ngcontent-nwk-c28="">PROFILE</h3></div>
+                    </a></a>
+
+
+
+
+
+
 {% endblock %}
 {% block page_content %}
+{#     {% if msg %}#}
+{#    <h1 style="float:right;margin-top:-11px;">{{ msg }}</h1>#}
+{#    {% endif %}#}
+
     <app-dashboard _nghost-ygs-c30="">
+
         <div _ngcontent-ygs-c30="" class="col-md-11 content">
             <div _ngcontent-ygs-c30="" class="main-content">
                 <div _ngcontent-ygs-c30="" class="container">
                     <div _ngcontent-ygs-c30="" class="row">
+                     {% include 'message.html' %}
                         <div _ngcontent-ygs-c30="" class="container-fluid">
                             <div _ngcontent-ygs-c30="" class="row">
                                 <div _ngcontent-ygs-c30="" class="content profile">
                                     <div _ngcontent-ygs-c30="" class="profile-pic-section">
                                         <div _ngcontent-ygs-c30="" class="content-section">
+
                                             <div _ngcontent-ygs-c30="" class="container">
                                                 <div _ngcontent-ygs-c30="" class="row">
                                                     <div _ngcontent-ygs-c30="" class="col-md-12"><img
@@ -51,6 +88,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div _ngcontent-ygs-c30="" class="main-content profile-tab">
                                         <div _ngcontent-ygs-c30="" class="course-main-div">
                                             <div _ngcontent-ygs-c30="" class="ul-course-div">
@@ -2926,6 +2964,13 @@
         </div>
     </div>
     <script type="text/javascript" src="lib.js"></script>
+    <script>
+   setTimeout(function (){
+       if ($('#msg').length>0){
+           $('#msg').remove();
+       }
+   }, 2000)
+</script>
     <script>
         $("#nextbtn").hide();
         $('#checkbox_select').click(function () {

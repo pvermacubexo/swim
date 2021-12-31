@@ -13,6 +13,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from django.contrib import messages
+
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = '/static/'
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -185,3 +187,10 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 
 LOGIN_URL = '/login'
+MESSAGE_TAGS ={
+    messages.DEBUG:'alert-info',
+    messages.INFO:'alert-info',
+    messages.SUCCESS:'alert-success',
+    messages.WARNING:'alert-warring',
+    messages.ERROR:'alert-danger',
+}

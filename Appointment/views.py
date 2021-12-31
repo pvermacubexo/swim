@@ -1042,12 +1042,15 @@ class AppointmentScheduleViewSet(APIView):
             next_appointment = AppointmentScheduleSerializer(appointments.filter(start_time__gt=datetime.now()),
                                                              many=True, context={'request': request})
             if prev_appointment.data or next_appointment.data:
-                print(prev_appointment.data)
-                print(next_appointment.data)
+                email = request.session['email']
+                obj = User.objects.get(email=email)
+
                 logger.info(f"Appointment Schedule details for {request.user}")
-                return render(request,"my_shedule.html",{'prev_session': prev_appointment.data, 'next_session': next_appointment.data})
+                return render(request,"my_shedule.html",{"user_details": obj,'prev_session': prev_appointment.data, 'next_session': next_appointment.data})
             else:
                 logger.info(f"Getting error of Appointment Schedule details due")
                 return render(request,"my_shedule.html",{'error': 'Appointment schedule failed'})
         else:
-            return render(request,"my_shedule.html",{'message': 'There is no any Appointment Schedule.'})
+            email = request.session['email']
+            obj = User.objects.get(email=email)
+            return render(request,"my_shedule.html",{"user_details": obj,'message': 'There is no any Appointment Schedule.'})
