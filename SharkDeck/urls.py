@@ -27,5 +27,5 @@ urlpatterns = [
     path('swim/', include('app.urls')),
     path('contact-us/', include('ContactUs.urls')),
 
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

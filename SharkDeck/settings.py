@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 AUTH_USER_MODEL = 'user.User'
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +51,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.runserver_nostatic',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +64,6 @@ MIDDLEWARE = [
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 ROOT_URLCONF = 'SharkDeck.urls'
-
 
 TEMPLATES = [
     {
@@ -155,7 +154,7 @@ STATIC_URL = '/Images/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "Images"),
-    os.path.join(BASE_DIR,"Images/profile"),
+    os.path.join(BASE_DIR, "Images/profile"),
     os.path.join(BASE_DIR, "static"),
 )
 
@@ -198,10 +197,10 @@ EMAIL_USE_TLS = True
 # ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 
 LOGIN_URL = '/login'
-MESSAGE_TAGS ={
-    messages.DEBUG:'alert-info',
-    messages.INFO:'alert-info',
-    messages.SUCCESS:'alert-success',
-    messages.WARNING:'alert-warring',
-    messages.ERROR:'alert-danger',
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warring',
+    messages.ERROR: 'alert-danger',
 }
