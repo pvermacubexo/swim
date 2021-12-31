@@ -104,10 +104,10 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'swimtest',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'NAME': 'd6ecfhttf73ste',
+        'USER': 'nnrdlqzfkglpgg',
+        'PASSWORD': 'c2edb63965d64fa5a84b6574d74d0c7ea4c3dcf0f1207d6f358ff96b42dd1428',
+        'HOST': 'ec2-34-204-127-36.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
