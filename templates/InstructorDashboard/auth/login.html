@@ -212,7 +212,9 @@
                                         <div class="form-group mb-2">
                                             <label for="firstname">First Name </label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required value=""
+                                                <input pattern="[A-Za-z ]{3,}"
+                                                       title="Only Alphabetic characters are Allowed" type="text"
+                                                       class="form-control" required value=""
                                                        name="first_name" id="firstname"
                                                        placeholder="Enter First Name">
                                             </div>
@@ -220,7 +222,9 @@
                                         <div class="form-group mb-2">
                                             <label for="lastname">Last Name </label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required value=""
+                                                <input pattern="[A-Za-z ]{3,}"
+                                                       title="Only Alphabetic characters are Allowed" type="text"
+                                                       class="form-control" required value=""
                                                        name="last_name" id="lastname"
                                                        placeholder="Enter Last Name">
                                             </div>
@@ -229,7 +233,9 @@
                                         <div class="form-group mb-2">
                                             <label for="useremail">Email</label>
                                             <div class="input-group">
-                                                <input type="email" class="form-control" required value="" name="email"
+                                                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                       title="Invalid Email Address" class="form-control" required
+                                                       value="" name="email"
                                                        placeholder="Enter Email">
                                             </div>
                                         </div><!--end form-group-->
@@ -239,6 +245,8 @@
                                             <div class="input-group">
                                                 <input type="password" class="form-control" minlength="8" required
                                                        value="" name="password"
+                                                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                       title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                        id="userpassword" placeholder="Enter password">
                                             </div>
                                         </div><!--end form-group-->
@@ -248,6 +256,8 @@
                                             <div class="input-group">
                                                 <input type="password" value="" class="form-control" minlength="8"
                                                        required name="conf_password"
+                                                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                       title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                        id="conf_password" placeholder="Enter Confirm Password">
                                             </div>
                                         </div><!--end form-group-->
@@ -256,6 +266,8 @@
                                             <label for="mo_number">Mobile Number</label>
                                             <div class="input-group">
                                                 <input type="text" value="" class="form-control" required
+                                                       pattern="[0-9 ]{3,}"
+                                                       title="only numeric characters are allowed"
                                                        name="mobile_no"
                                                        id="mo_number" placeholder="Enter Mobile Number">
                                             </div>
