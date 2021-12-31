@@ -77,69 +77,73 @@ class StripePayment(ModelViewSet):
     # @authorize([user_constants.Trainee])
     def create(self, request, *args, **kwargs):
         if request.method == "POST":
-            data = json.loads(request.data["payload"])
-            if data["status"] == "succeeded":
-                # get Booking ID From The Intent Id That We Have Created Previously
-                intent_id = data["id"]
-                previous_intent = stripe.PaymentIntent.retrieve(intent_id)
-                booking = Booking.objects.get(id=int(previous_intent["metadata"]["booking_id"]))
-                payment_type = previous_intent["metadata"]["payment_type"]
-                transaction_id = data["id"]
-                payment_status = appointment_model.COMPLETED
-                paid_amount = (data["amount"])/100
-                due_amount = 0
-                print("Payment Success")
-                # payment_type = appointment_model.CARD
-                transaction_obj = appointment_model.Transaction.objects.create(
-                    booking=booking, transaction_id=transaction_id,
-                    status=payment_status, payment_type=payment_type,
-                    total_amount=booking.class_instructor.price,
-                    paid_amount=paid_amount,
-                    due_amount=due_amount
-                )
-                try:
-                    total_paid_amount = 0
-                    booking = appointment_model.Booking.objects.get(id=booking.id)
-                    for transaction in appointment_model.Transaction.objects.filter(booking=booking,
-                                                                                    payment_type=appointment_model.CARD):
-                        total_paid_amount = total_paid_amount + transaction.paid_amount
+            if "email" in request.session:
+                data = json.loads(request.data["payload"])
+                if data["status"] == "succeeded":
+                    # get Booking ID From The Intent Id That We Have Created Previously
+                    intent_id = data["id"]
+                    previous_intent = stripe.PaymentIntent.retrieve(intent_id)
+                    booking = Booking.objects.get(id=int(previous_intent["metadata"]["booking_id"]))
+                    payment_type = previous_intent["metadata"]["payment_type"]
+                    transaction_id = data["id"]
+                    payment_status = appointment_model.COMPLETED
+                    paid_amount = (data["amount"])/100
+                    due_amount = 0
+                    print("Payment Success")
+                    # payment_type = appointment_model.CARD
+                    transaction_obj = appointment_model.Transaction.objects.create(
+                        booking=booking, transaction_id=transaction_id,
+                        status=payment_status, payment_type=payment_type,
+                        total_amount=booking.class_instructor.price,
+                        paid_amount=paid_amount,
+                        due_amount=due_amount
+                    )
+                    try:
+                        total_paid_amount = 0
+                        booking = appointment_model.Booking.objects.get(id=booking.id)
+                        for transaction in appointment_model.Transaction.objects.filter(booking=booking,
+                                                                                        payment_type=appointment_model.CARD):
+                            total_paid_amount = total_paid_amount + transaction.paid_amount
 
-                    if booking.class_instructor.price == total_paid_amount:
-                        booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
-                    else:
-                        booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
-                    booking.save()
+                        if booking.class_instructor.price == total_paid_amount:
+                            booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
+                        else:
+                            booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
+                        booking.save()
 
-                except Exception:
-                    transaction_obj.delete()
-                    return Response({'error': 'Invalid Booking.'})
+                    except Exception:
+                        transaction_obj.delete()
+                        return Response({'error': 'Invalid Booking.'})
 
-                res_data = {
-                    'instructor': booking.class_instructor.instructor.get_full_name(),
-                    'total_day': booking.class_instructor.total_days,
-                    'time_slot': booking.class_instructor.time_slot,
-                    'transaction_id': transaction_id,
-                    'status': payment_status,
-                    'payment_type': payment_type,
-                    'total_amount': booking.class_instructor.price,
-                    'paid_amount': paid_amount,
-                    'due_amount': due_amount
+                    res_data = {
+                        'instructor': booking.class_instructor.instructor.get_full_name(),
+                        'total_day': booking.class_instructor.total_days,
+                        'time_slot': booking.class_instructor.time_slot,
+                        'transaction_id': transaction_id,
+                        'status': payment_status,
+                        'payment_type': payment_type,
+                        'total_amount': booking.class_instructor.price,
+                        'paid_amount': paid_amount,
+                        'due_amount': due_amount
 
-                }
-                # return render(request,"dashboard.html")
-                # for testing
-                user_id = request.session['slug_id']
-                first_name = User.objects.get(id=user_id)
-                email = request.session['email']
-                user_details = User.objects.filter(email=email)
-                classes = ClassInstructor.objects.filter(instructor_id=user_id)
-                return render(request, "dashboard.html",
-                              {"user_details": user_details, "data": classes, "first_name": first_name,
-                               "res_data": res_data})
-                # return Response(res_data, status=status.HTTP_200_OK)
+                    }
+                    # return render(request,"dashboard.html")
+                    # for testing
+                    user_id = request.session['slug_id']
+                    first_name = User.objects.get(id=user_id)
+                    email = request.session['email']
+                    user_details = User.objects.filter(email=email)
+                    classes = ClassInstructor.objects.filter(instructor_id=user_id)
+                    return render(request, "dashboard.html",
+                                  {"user_details": user_details, "data": classes, "first_name": first_name,
+                                   "res_data": res_data})
+                    # return Response(res_data, status=status.HTTP_200_OK)
+
+                else:
+                    print("payment Failed ")
 
             else:
-                print("payment Failed ")
+                return JsonResponse({'error': "You Are Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         # serializer = StripePaymentSerializer(data=request.data, context={'user': request.user})
         # serializer.is_valid(raise_exception=True)
         # if serializer.validated_data['payment_type'] == '2':
