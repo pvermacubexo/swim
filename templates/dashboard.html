@@ -23,7 +23,10 @@
 
 
     {% if res_data %}
-        <h4 style="color: green;">Bhai Payment Success Hogaya</h4>
+        <script>
+        alert("Payment Successful ! ")
+        window.location.href = 'http://127.0.0.1:8000/swim/dashboard/';
+        </script>
     {% endif %}
     <app-dashboard _nghost-ygs-c30="">
         <div _ngcontent-ygs-c30="" class="col-md-11 content">
@@ -280,15 +283,25 @@
                                                                                     class="termsconditions">
                                                                                 <div _ngcontent-dbn-c30=""
                                                                                      class="col-md-1"
-                                                                                     style="text-align: right;"><input
-                                                                                        _ngcontent-dbn-c30=""
-                                                                                        type="checkbox"
-                                                                                        id="checkbox_select" value="0"
-                                                                                        name="terms" required></div>
+                                                                                     style="   float: right;
+    margin-right: 323px !important
+;">
+                                                                                    <input
+                                                                                            _ngcontent-dbn-c30=""
+                                                                                            type="checkbox"
+                                                                                            id="checkbox_select"
+                                                                                            value="0"
+                                                                                            name="terms"
+                                                                                            style="    top: 29px;"
+                                                                                            required></div>
 
                                                                                 <label _ngcontent-dbn-c30=""
                                                                                        for="terms"
-                                                                                       class="termsconditions"> Check
+                                                                                       class="termsconditions" style="    padding-left: 500px;
+    font-size: 16px !important;
+    text-align: justify;
+    color: black;
+    letter-spacing: 0.02em;"> Check
                                                                                     here to
                                                                                     indicate that you have read and
                                                                                     agree to the terms &amp; condition
@@ -1583,8 +1596,8 @@
                                 onclick="window.location.reload()" data-dismiss="modal"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
-                        <h4 _ngcontent-ygs-c30="">DATE / SCHEDULE</h4>
-                        <p _ngcontent-ygs-c30="">When you want to get an appointment?</p></div>
+                        <h4 _ngcontent-ygs-c30=""></h4>
+                        <p _ngcontent-ygs-c30=""></p></div>
                     <div _ngcontent-asr-c30="" class="modal-body confirm-pay"><h4 _ngcontent-asr-c30="">Confirm To
                         Pay</h4>
                         <div _ngcontent-asr-c30="" class="assessment-container">
@@ -1598,13 +1611,13 @@
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
                                                                  class="col-md-4 right-text left-text-left"><label
-                                                                    _ngcontent-asr-c30=""> Instructor Name: <span
-                                                                    id="instructor_name"> </span>
+                                                                    _ngcontent-asr-c30=""> Instructor Name: </label></div> <div _ngcontent-asr-c30="" class="col-md-8 left-text"><p
+                                                                id="instructor_name"> </p></div>
                                                                 <span style="display: none;"
                                                                       id="booking_id_span"></span>
                                                                 <span style="display: none;"
                                                                       id="amount_to_be_paid"></span>
-                                                            </label></div>
+
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
                                                     </div>
@@ -1612,7 +1625,7 @@
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
                                                                 <label _ngcontent-asr-c30=""> Course
-                                                                    Duration: </label><span id="total_days">Days</span>
+                                                                    Duration: </label><div  style="margin-left: 140px;margin-top: -28px"><span id="total_days">Days</span></div>
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-6 left-text">
                                                                 <!----></div>
@@ -2339,10 +2352,10 @@
         function bgchange(classname) {
             $(".times").removeAttr('id')
             console.log("hii", classname)
-            $(".times").css("background-color", "#d4d1d1");
-            $(".checkbox").css("background-color", "#d4d1d1");
-            $(".ttime" + classname).css("background-color", "#073767");
-            $(".checkbox" + classname).css("background-color", "#073767")
+             $(".times").css({"background-color": "#d4d1d1", "color": "black"});
+            $(".checkbox").css({"background-color": "#d4d1d1", "color": "black"});
+            $(".ttime" + classname).css({"background-color": "#073767", "color": "white"});
+            $(".checkbox" + classname).css({"background-color": "#073767", "color": "white"})
             $(".ttime" + classname).attr('id', 'selected_date');
 
         }
@@ -2381,8 +2394,7 @@
                             }
 
                             $('.timeSelectContent').html(row1);
-                        }
-                        else{
+                        } else {
                             window.alert("no class Available")
                         }
                     },
