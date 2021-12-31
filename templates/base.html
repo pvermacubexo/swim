@@ -11983,10 +11983,12 @@
                             <div _ngcontent-uas-c28="" class="navbar-header">
                                 <button _ngcontent-uas-c28="" type="button" data-toggle="collapse"
                                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-                                        class="navbar-toggle collapsed"><span _ngcontent-uas-c28="" class="sr-only">Toggle navigation</span><span
-                                        _ngcontent-uas-c28="" class="icon-bar"></span><span _ngcontent-uas-c28=""
-                                                                                            class="icon-bar"></span><span
-                                        _ngcontent-uas-c28="" class="icon-bar"></span></button>
+                                        class="navbar-toggle collapsed">
+                                    <span _ngcontent-uas-c28="" class="sr-only">Toggle navigation</span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                    <span _ngcontent-uas-c28="" class="icon-bar"></span>
+                                </button>
                                 <a _ngcontent-uas-c28="" class="navbar-brand">Swim Time Solutions</a></div>
                             <div _ngcontent-uas-c28=""></div>
                             <div _ngcontent-uas-c28="" class="collapse navbar-collapse menu-hide-mobile">
@@ -11999,7 +12001,11 @@
                                     <li _ngcontent-uas-c28="" data-toggle="tooltip" title="Update Profile"><a
                                             _ngcontent-uas-c28="" data-toggle="modal" data-target="#profileEdit"
                                             class="img"><img _ngcontent-uas-c28="" alt="Profile"
-                                                             src="http://167.172.131.164/media/Images/profile/default.png">
+                                                             {% if user_details.profile_img %}
+                                                             src="{{ user_details.profile_img }}">
+                                                            {% else %}
+                                                            src="{% static 'assets/img/default.png'%}">
+                                                            {% endif %}
                                         <!----><!----></a></li><!----></ul>
                             </div>
                             <div _ngcontent-uas-c28="" id="profileEdit" tabindex="-1" role="dialog"
@@ -12016,6 +12022,7 @@
                                         <div _ngcontent-uas-c28="" class="modal-body">
                                             <div _ngcontent-uas-c28="" class="row">
                                                 <form _ngcontent-uas-c28="" role="form"
+
                                                       enctype="multipart/form-data"
                                                       class="form-horizontal ng-untouched ng-pristine ng-valid"
                                                       method="POST" action="{% url 'update-profile' %}">
@@ -12073,6 +12080,7 @@
                                                                 placeholder="Full Address" formcontrolname="address"
                                                                 type="text" id="address"
                                                                 value="{{ user_details.address }}"
+
                                                                 class="form-control ng-untouched ng-pristine ng-valid"
                                                                 required>
                                                             <!----></div>
@@ -12115,6 +12123,7 @@
                                                                                 value="{{ user_details.father_name }}"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid"
                                                                                 required>
+
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
@@ -12124,6 +12133,7 @@
                                                                                 formcontrolname="mother_name"
                                                                                 pattern="[A-Za-z ]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
+
                                                                                 value="{{ user_details.mother_name }}"
                                                                                 type="text" id="mother_name"
                                                                                 class="form-control ng-untouched ng-pristine ng-valid" required>
@@ -12169,11 +12179,11 @@
         });
     });
 </script>
-<script src={% static 'assets/js/jquery.js' %}></script>
-<script src={% static 'assets/js/jquery-ui.min.js' %}></script>
-<script src={% static 'assets/js/bootstrap.js' %}></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
-<script src={% static 'assets/js/custom.js' %}></script>
+{#<script src={% static 'assets/js/jquery.js' %}></script>#}
+{#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
+{#<script src={% static 'assets/js/bootstrap.js' %}></script>#}
+{#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>#}
+{#<script src={% static 'assets/js/custom.js' %}></script>#}
 
 </html>
 </title>

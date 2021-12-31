@@ -217,7 +217,8 @@
                             <p _ngcontent-jar-c34="">create an account to continue</p></div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                               <form action="{% url 'register' %}" _ngcontent-jar-c34="" role="form"
+
+                               <form action="{% url 'registration' id %}"  _ngcontent-jar-c34="" role="form"
                                   autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid"
                                   method="POST"
                             >
@@ -309,9 +310,7 @@
                     </div>
                 </div>
             </div>
-              {%  if msg  %}
-    <center><h1>{{ msg }}</h1></center>
-{% endif %}
+            {%  include 'message.html' %}
             <div _ngcontent-jar-c34="" id="myCarousel" data-ride="carousel"
                  class="carousel banner-slide slide autoHeight"
                  style="height: 668px;">
@@ -681,5 +680,12 @@
             src="https://js.stripe.com/v3/m-outer-f7902241893e7a497417843cb15dc858.html#url=http%3A%2F%2Fswimtimesolutions.com%2Fregistration%2Fcubexo5213&amp;title=Swim%20Time%20Solutions&amp;referrer=&amp;muid=fec93c1f-37c7-4ec7-b87e-3b14fc3d376d10c403&amp;sid=17060431-501f-4f37-8263-cd2f113971c53e5160&amp;version=6&amp;preview=false"
             aria-hidden="true" tabindex="-1"
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
+<script>
+   setTimeout(function (){
+       if ($('#msg').length>0){
+           $('#msg').remove();
+       }
+   }, 2000)
+</script>
     </body>
 </html>

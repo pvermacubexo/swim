@@ -1,36 +1,36 @@
 import logging
+from datetime import datetime, timedelta
+from random import randint
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
-from rest_framework.views import APIView
+from django.urls import reverse
+from django.utils.encoding import smart_str, smart_bytes, DjangoUnicodeDecodeError
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from rest_framework import status, generics
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from Appointment.models import Appointment, ClassInstructor, Booking
 from SharkDeck.constants import user_constants
+from app.views import SwimTimeDashboard
 from .decorators import authorize
+from .email_services import sent_mail
 from .models import User, ReviewRate, get_active_users, Profile, OTP, StudentProfile
 from .serializer import UserSerializer, AuthenticationSerializer, RateReviewSerializer, \
     ProfileSerializer, ResetPasswordEmailRequestSerializer, SetNewPasswordSerializer, GetBookedClass, \
     UserUpdateSerializer, UserDeletedSerializer, InstructorProfileSerializer, StudentSerializer, \
-    OTPSerializer, InstructorSlugSerializer, StudentProfileSerializer, studentUsererializer, GetStudentProfile, \
-    GetStudentUserProfile, StudentGetProfileSerializer, StudentUpdateSerializer, StudentProfileUpdateSerializer
-
-from .email_services import sent_mail
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import smart_str, smart_bytes, DjangoUnicodeDecodeError
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.decorators import action
-from random import randint
-from datetime import datetime, timedelta
-from django.contrib.auth.hashers import make_password
+    OTPSerializer, InstructorSlugSerializer, StudentProfileSerializer, studentUsererializer, StudentUpdateSerializer, \
+    StudentProfileUpdateSerializer
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -42,18 +42,34 @@ class Authenticate(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid():
-            try:            # email = serializer
 
-                user_id = request.session['slug_id']
+        if serializer.is_valid():
+            email = request.POST['email']
+            try:
+                obj = User.objects.get(email=email)
+                user_id = obj.inst_id
                 classes = ClassInstructor.objects.filter(instructor_id=user_id)
                 email = serializer.data.get('email')
                 request.session['email'] = email
                 user_details = User.objects.filter(email=email)
-                return render(request, "dashboard.html", {"user_details":user_details,'datas': serializer.data,"data":classes})
-            except:
-                msg = "Invalid URL"
-                return render(request,"register.html",{"msg":msg})
+                if user_details:
+                    messages.success(request,"User login successfully")
+                    return redirect(SwimTimeDashboard)
+                else:
+                    messages.error(request,"Invalid login Details")
+                    return render(request, "new_register.html")
+
+
+            except User.DoesNotExist:
+                messages.error(request,serializer.validated_data)
+                return render(request, "new_register.html")
+        else:
+            messages.error(request, serializer.validated_data)
+            return render(request, "new_register.html")
+
+
+
+
 
 def get_deactivated_user(email, username):
     # if User.objects.filter(deactivate=False, username=username):
@@ -66,13 +82,11 @@ def get_deactivated_user(email, username):
     #     return User.objects.filter(username=username).first()
 
 
-
-
 class UserViewSet(ModelViewSet):
     # permission_classes = (AllowAny,)
     serializer_class = UserSerializer
     queryset = get_active_users()
-    renderer_classes = (JSONRenderer,TemplateHTMLRenderer)
+    renderer_classes = (JSONRenderer, TemplateHTMLRenderer)
     template_name = "dashboard.html"
 
     @authorize(user_constants.All)
@@ -81,8 +95,6 @@ class UserViewSet(ModelViewSet):
             return get_active_users().filter(email=self.user.email).exclude(password=None)
         else:
             return get_active_users().all()
-
-
 
     def post(self, request, *args, **kwargs):
 
@@ -120,10 +132,10 @@ class UserViewSet(ModelViewSet):
                     user_id = request.session['slug_id']
                     ser.save()
                     logger.info(f'New Student create successfully {serializer.data}')
-                    return render(request,"dashboard.html",{'user': serializer.data, 'student_profile':ser.data})
+                    return render(request, "dashboard.html", {'user': serializer.data, 'student_profile': ser.data})
                 except:
                     msg = "invalid URL"
-                    return render(request,"dashboard.html")
+                    return render(request, "new_register.html")
             else:
                 user.delete()
                 return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -131,7 +143,7 @@ class UserViewSet(ModelViewSet):
         # return Response({'user': serializer.data}, status=status.HTTP_201_CREATED)
         # return render(request, self.template_name,{'user': serializer.data})
 
-        return render(request,"dashboard.html",{'data':serializer.data})
+        return render(request, "dashboard.html", {'data': serializer.data})
 
     @authorize([user_constants.Trainee, user_constants.Admin])
     def update(self, request, *args, **kwargs):
@@ -173,7 +185,7 @@ class StudentProfileUpdateViewset(APIView):
     # @authorize([user_constants.Trainee])
     def post(self, request):
         print(self.request.data['method'])
-        if(self.request.data['method'] == 'PATCH'):
+        if (self.request.data['method'] == 'PATCH'):
             user_ser = StudentUpdateSerializer(data=request.data, context={'user': request.user})
             try:
                 student_profile = StudentProfile.objects.get(user=request.user)
@@ -187,6 +199,7 @@ class StudentProfileUpdateViewset(APIView):
             user_profile_ser.update(student_profile, user_profile_ser.validated_data)
             return Response({'user': user_ser.data, 'student': user_profile_ser.data}, status=status.HTTP_200_OK)
         return HttpResponse({"Hello": "Bhai"})
+
 
 class ProfileViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)

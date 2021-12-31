@@ -33,6 +33,7 @@ class User(AbstractUser):
     father_name = models.CharField(max_length=200, blank=True, null=True)
     DateOfBirth = models.DateField(blank=True,null=True)
     address = models.CharField(max_length=150, null=False, blank=False)
+    inst_id = models.CharField(max_length=120,blank=True)
     latitude = models.CharField(null=True, blank=True, max_length=50, validators=[
         RegexValidator(r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$',
                        message='Not a valid latitude')])
