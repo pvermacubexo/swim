@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-       Swim Time Solutions</title>
+        Swim Time Solutions</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
@@ -11997,8 +11997,10 @@
                                             <p _ngcontent-uas-c28="">update profile to continue</p></div>
                                         <div _ngcontent-uas-c28="" class="modal-body">
                                             <div _ngcontent-uas-c28="" class="row">
-                                                <form _ngcontent-uas-c28="" novalidate="" role="form" enctype="multipart/form-data"
-                                                      class="form-horizontal ng-untouched ng-pristine ng-valid" method="POST" action="{% url 'update-profile' %}">
+                                                <form _ngcontent-uas-c28="" role="form"
+                                                      enctype="multipart/form-data"
+                                                      class="form-horizontal ng-untouched ng-pristine ng-valid"
+                                                      method="POST" action="{% url 'update-profile' %}">
                                                     {% csrf_token %}
                                                     <div _ngcontent-uas-c28="">
                                                         <div _ngcontent-uas-c28=""
@@ -12006,31 +12008,44 @@
                                                                 _ngcontent-uas-c28="" name="profile_img"
                                                                 formcontrolname="profile_img" type="file"
                                                                 id="profile_img" class="fileUpload"
-                                                                style="background: none;"></div>
+                                                                style="background: none;" required></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="first_name">First
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
+                                                                                pattern="[A-Za-z ]{3,}"
+                                                                                title="Alphabetic Characters are allowed"
                                                                                 placeholder="First Name"
-                                                                                formcontrolname="first_name" value="{{ user_details.first_name }}" type="text"
+                                                                                formcontrolname="first_name"
+                                                                                value="{{ user_details.first_name }}"
+                                                                                type="text"
                                                                                 id="first_name"
-                                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="last_name">Last Name </label><input
                                                                 _ngcontent-uas-c28="" name="last_name"
+                                                                pattern="[A-Za-z ]{3,}"
+                                                                title="Alphabetic Characters are allowed"
                                                                 placeholder="Last Name" formcontrolname="last_name"
-                                                                type="text" value="{{ user_details.last_name }}" id="last_name"
-                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                type="text" value="{{ user_details.last_name }}"
+                                                                id="last_name"
+                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="email">Email Address </label><input
                                                                 _ngcontent-uas-c28="" name="email" placeholder="E-mail"
                                                                 formcontrolname="email" type="email" id="email"
-                                                                autocomplete="off" readonly="readonly" value="{{ user_details.email }}"
-                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                title="Invalid Email Address" id="email"
+                                                                autocomplete="off" readonly="readonly"
+                                                                value="{{ user_details.email }}"
+                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
@@ -12038,17 +12053,24 @@
                                                                 for="address">Address </label><input
                                                                 _ngcontent-uas-c28="" name="address"
                                                                 placeholder="Full Address" formcontrolname="address"
-                                                                type="text" id="address" value="{{ user_details.address }}"
-                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                type="text" id="address"
+                                                                value="{{ user_details.address }}"
+                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="mobile_no">Contact
                                                             Number </label><input _ngcontent-uas-c28="" name="mobile_no"
+                                                                                  pattern="[0-9 ]{3,}"
+                                                                                  title="Invalid Mobile number"
+                                                                                  id="email"
                                                                                   placeholder="Contact Number"
-                                                                                  formcontrolname="mobile_no" value="{{ user_details.mobile_no }}"
+                                                                                  formcontrolname="mobile_no"
+                                                                                  value="{{ user_details.mobile_no }}"
                                                                                   type="text" id="mobile_no"
-                                                                                  class="form-control ng-untouched ng-pristine ng-valid">
+                                                                                  class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                  required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
@@ -12056,27 +12078,37 @@
                                                             Birth </label><input _ngcontent-uas-c28=""
                                                                                  name="DateOfBirth"
                                                                                  formcontrolname="DateOfBirth"
-                                                                                 type="date" value="{{ user_details.DateOfBirth }}" id="DateOfBirth"
+                                                                                 type="date"
+                                                                                 value="{{ user_details.DateOfBirth }}"
+                                                                                 id="DateOfBirth"
                                                                                  class="form-control ng-untouched ng-pristine ng-valid"
-                                                                                 style="padding: 0 0 0 10px;"><!---->
+                                                                                 style="padding: 0 0 0 10px;" required>
+                                                            <!---->
                                                         </div><!---->
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="father_name">Fathers
                                                             Name </label><input _ngcontent-uas-c28="" name="father_name"
                                                                                 placeholder="Father Name"
+                                                                                pattern="[A-Za-z ]{3,}"
+                                                                                title="Alphabetic Characters are allowed"
                                                                                 formcontrolname="father_name"
-                                                                                type="text" id="father_name" value="{{ user_details.father_name }}"
-                                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                                type="text" id="father_name"
+                                                                                value="{{ user_details.father_name }}"
+                                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                required>
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="mother_name">Mothers
                                                             Name </label><input _ngcontent-uas-c28="" name="mother_name"
                                                                                 placeholder="Mother Name"
-                                                                                formcontrolname="mother_name" value="{{ user_details.mother_name }}"
+                                                                                formcontrolname="mother_name"
+                                                                                pattern="[A-Za-z ]{3,}"
+                                                                                title="Alphabetic Characters are allowed"
+                                                                                value="{{ user_details.mother_name }}"
                                                                                 type="text" id="mother_name"
-                                                                                class="form-control ng-untouched ng-pristine ng-valid">
+                                                                                class="form-control ng-untouched ng-pristine ng-valid" required>
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
