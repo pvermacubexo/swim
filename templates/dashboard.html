@@ -2216,7 +2216,7 @@
                 currency: "usd",
                 amount: amt,
             };
-            fetch("http://127.0.0.1:8000/stripe/create-payment-intent", {
+            fetch("https://swim-instructor-time.herokuapp.com/stripe/create-payment-intent", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -2418,7 +2418,7 @@
             today = yyyy + '-' + mm + '-' + dd;
 
             $.ajax({
-                    url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
+                    url: 'https://swim-instructor-time.herokuapp.com/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                     dataType: 'json',
                     success: function (data) {
                         {#console.log("hoo")#}

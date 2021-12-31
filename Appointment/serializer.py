@@ -186,7 +186,7 @@ class BookClassInstructorSerializer(serializers.Serializer):
 
 
 # todo
-# Fix view details at http://127.0.0.1:8000/instructor/trainee/6
+# Fix view details at https://swim-instructor-time.herokuapp.com/instructor/trainee/6
 #
 
 

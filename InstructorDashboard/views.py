@@ -70,7 +70,7 @@ def signup_view(request):
             user_profile = user_models.Profile.objects.create(
                 user=user,
                 slug=slug,
-                url=('http://127.0.0.1:8000/swim/registration/' + slug).replace(' ', ''),
+                url=(request.build_absolute_uri("/") + 'swim/registration/' + slug).replace(' ', ''),
                 day_start_time=date_time.time(),
                 day_end_time=time_added.time()
             )
@@ -116,8 +116,10 @@ def user_logout(request):
     logout(request)
     return redirect('InstructorDashboard:home')
 
+
 def home_view(request):
-    return render(request,"index.html")
+    return render(request, "index.html")
+
 
 @login_required(redirect_field_name='login')
 def dashboard_view(request):
