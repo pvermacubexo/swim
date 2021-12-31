@@ -271,11 +271,11 @@ class RepaymentClasses(APIView):
 
         try:
             if 'email' in request.session:
-                print("hiiii")
-                print(request.session['email'])
+                email = request.session['email']
+                obj = User.objects.get(email=email)
                 bookings = appointment_model.Booking.objects.filter(
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
-                return render(request, "payment.html", {"data": ser.data})
+                return render(request, "payment.html", {"data": ser.data,"user_details": obj})
         except Exception as e:
             return render(request, "payment.html")

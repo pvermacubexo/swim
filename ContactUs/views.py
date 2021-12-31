@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -26,7 +27,8 @@ class ContactUsViewSet(APIView):
 
             sent_mail(data)
             ser.save()
+            messages.success(request,"message send successfully")
+            return render(request,"new_register.html")
         except Exception as e:
-            return Response({'error': 'Email service not working, please try after some time.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(ser.data, status=status.HTTP_200_OK)
+            messages.error(request, "something went wrong")
+            return render(request, "new_register.html")
