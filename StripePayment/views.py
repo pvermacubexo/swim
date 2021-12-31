@@ -25,7 +25,10 @@ logger = logging.getLogger(__name__)
 # stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 AP = "sk_test_51I5m0yEHlEuRL3ozIMJxb6pczvkic82sB7SOMqLsINQgVz1r7haG4zTk3knnHdOafC9WlsgkPmhV2D0dzYTwLKi900QKa1waJN"
 stripe.api_key = "sk_test_51I5m0yEHlEuRL3ozIMJxb6pczvkic82sB7SOMqLsINQgVz1r7haG4zTk3knnHdOafC9WlsgkPmhV2D0dzYTwLKi900QKa1waJN"
-
+Publisher_key = "pk_test_51I5m0yEHlEuRL3ozRkUrNrrBC4kXUXkOW2k5YH4gt2ifPCH2L3YXqj4hfoAs5ozRcq53VxR4FE4jIARw1SRkbxxb00jm1tgwlh"
+# STRIPE_SECRET_KEY= os.environ.get("STRIPE_SECRET_KEY")
+# Publisher_key= os.environ.get("STRIPE_PUBLISHER_KEY")
+# stripe.api_key = STRIPE_SECRET_KEY
 
 @csrf_exempt
 def createpayment(request):
@@ -59,7 +62,7 @@ def createpayment(request):
         print(intent.client_secret)
         try:
             return JsonResponse({
-                                    'publishableKey': 'pk_test_51I5m0yEHlEuRL3ozRkUrNrrBC4kXUXkOW2k5YH4gt2ifPCH2L3YXqj4hfoAs5ozRcq53VxR4FE4jIARw1SRkbxxb00jm1tgwlh',
+                                    'publishableKey': Publisher_key,
                                     'clientSecret': intent.client_secret})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
