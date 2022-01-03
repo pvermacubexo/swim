@@ -12036,7 +12036,7 @@
                                                                 style="background: none;" required></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="first_name">First
+                                                                _ngcontent-uas-c28="" for="first_name">UpdateFirst
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
                                                                                 pattern="[A-Za-z ]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
@@ -12105,7 +12105,7 @@
                                                                                  name="DateOfBirth"
                                                                                  formcontrolname="DateOfBirth"
                                                                                  type="date"
-                                                                                 value="{{ user_details.DateOfBirth }}"
+                                                                                 value="{{ user_details.DateOfBirth|date:"Y-m-d" }}"
                                                                                  id="DateOfBirth"
                                                                                  class="form-control ng-untouched ng-pristine ng-valid"
                                                                                  style="padding: 0 0 0 10px;" required>

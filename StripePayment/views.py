@@ -32,6 +32,7 @@ Publisher_key = "pk_test_51I5m0yEHlEuRL3ozRkUrNrrBC4kXUXkOW2k5YH4gt2ifPCH2L3YXqj
 
 @csrf_exempt
 def createpayment(request):
+    print(request.session['email'])
     if "email" in request.session:
         data = json.loads(request.body)
         # Create a PaymentIntent with the order amount and currency
