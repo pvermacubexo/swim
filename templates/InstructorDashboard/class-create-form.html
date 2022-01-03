@@ -56,7 +56,7 @@
                                                 </div>
                                                 <input name="title" type="text" class="form-control input_suggestion"
                                                        maxlength="255" autocomplete="false"
-                                                       placeholder="Enter Title of class">
+                                                       placeholder="Enter Title of class" required>
                                             </div>
                                         </div>
                                         {% if errors.title %}
@@ -73,8 +73,8 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-calendar-clock"></i></span>
                                                 </div>
-                                                <input name="time_slot" type="number" class="form-control"
-                                                       placeholder="Enter Time Slot">
+                                                <input name="time_slot" type="number" min="1" max="120" class="form-control"
+                                                       placeholder="Enter Time Slot" required>
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
                                                         <div style="color: red">{{ error }} </div>
@@ -92,8 +92,8 @@
                                                         <i class="mdi mdi-calendar-range"></i>
                                                     </span>
                                                 </div>
-                                                <input name="total_days" type="number" class="form-control"
-                                                       placeholder="Enter Total Days">
+                                                <input name="total_days" type="number" min="1" max="120" class="form-control"
+                                                       placeholder="Enter Total Days" required>
                                             </div>
 
                                             {% if errors.total_days %}
@@ -110,8 +110,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">USD</span>
                                                 </div>
-                                                <input name="price" type="number" class="form-control"
-                                                       placeholder="Enter Fees">
+                                                <input name="price" type="number" min="1" max="10000" class="form-control"
+                                                       placeholder="Enter Fees" required>
                                                 {% if errors.price %}
                                                     {% for error in errors.price %}
                                                         <div style="color: red">{{ error }} </div>
@@ -124,7 +124,7 @@
                                         <div class="form-group">
                                             <label>Description</label>
                                             <textarea name="description" class="form-control input_suggestion"
-                                                      rows="7" maxlength="500"></textarea>
+                                                      rows="7" maxlength="500" required></textarea>
                                             {% if errors.description %}
                                                 {% for error in errors.description %}
                                                     <div style="color: red">{{ error }} </div>
