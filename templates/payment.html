@@ -509,7 +509,7 @@
                 currency: "usd",
                 amount: amt,
             };
-            fetch("https://swim-instructor-time.herokuapp.com/stripe/create-payment-intent", {
+            fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
