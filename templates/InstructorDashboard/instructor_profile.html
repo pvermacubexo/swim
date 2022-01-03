@@ -1098,7 +1098,7 @@ $(document).ready(function(){
         var char = $(this).val();
         var charLength = $(this).val().length;
         if(charLength < minLength){
-           // alert('Length is short, minimum 10 required.');
+           alert('Length is short, minimum 10 required.');
         }else if(charLength > maxLength){
             alert('Length is not valid, maximum 25 allowed.');
             $(this).val(char.substring(0, maxLength));
