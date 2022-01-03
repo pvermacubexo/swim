@@ -1947,7 +1947,7 @@
                                 class="close btn-first">×
                         </button>
                         <h4 _ngcontent-fqp-c30="">Payment</h4>
-                        <p _ngcontent-fqp-c30="">Chose payment method</p>
+                        <p _ngcontent-fqp-c30="">Choose payment method</p>
                     </div>
                     <div _ngcontent-fqp-c30="" class="modal-body">
                         <div _ngcontent-fqp-c30="" class="assessment-container">
@@ -2216,7 +2216,7 @@
                 currency: "usd",
                 amount: amt,
             };
-            fetch("http://127.0.0.1:8000/stripe/create-payment-intent", {
+            fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -2418,7 +2418,7 @@
             today = yyyy + '-' + mm + '-' + dd;
 
             $.ajax({
-                    url: 'http://127.0.0.1:8000/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
+                    url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                     dataType: 'json',
                     success: function (data) {
                         {#console.log("hoo")#}

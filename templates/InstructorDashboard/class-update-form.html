@@ -53,7 +53,7 @@
                                                 </div>
                                                 <input name="title" type="text" class="form-control input_suggestion"
                                                        maxlength="255" autocomplete="false"
-                                                       value="{{ instance.title }}" placeholder="Enter Title of class">
+                                                       value="{{ instance.title }}" placeholder="Enter Title of class" required>
                                                 {% if errors.title %}
                                                     {% for error in errors.title %}
                                                         <div style="color: red">{{ error }} </div>
@@ -71,8 +71,9 @@
                                                             class="mdi mdi-calendar-clock"></i></span>
                                                 </div>
                                                 <input name="time_slot" type="number" class="form-control"
+                                                       min="1" max="120"
                                                        id="exampleFormControlInput1"
-                                                       value="{{ instance.time_slot }}" placeholder="Enter Time Slot">
+                                                       value="{{ instance.time_slot }}" placeholder="Enter Time Slot" required>
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
                                                         <div style="color: red">{{ error }} </div>
@@ -90,8 +91,8 @@
                                                             class="mdi mdi-calendar-range "></i></span>
                                                 </div>
                                                 <input name="total_days" type="number" class="form-control"
-                                                       id="exampleFormControlInput1"
-                                                       value="{{ instance.total_days }}" placeholder="Enter Total Days">
+                                                       id="exampleFormControlInput1" min="1" max="120"
+                                                       value="{{ instance.total_days }}" placeholder="Enter Total Days" required>
                                                 {% if errors.total_days %}
                                                     {% for error in errors.total_days %}
                                                         <div style="color: red">{{ error }} </div>
@@ -107,8 +108,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">USD</span>
                                                 </div>
-                                                <input name="price" type="number" class="form-control"
-                                                       value="{{ instance.price }}" placeholder="Enter Fees">
+                                                <input name="price" type="number" class="form-control" min="1" max="10000"
+                                                       value="{{ instance.price }}" placeholder="Enter Fees" required>
                                                 {% if errors.price %}
                                                     {% for error in errors.price %}
                                                         <div style="color: red">{{ error }} </div>
@@ -122,7 +123,7 @@
                                             <label>Description</label>
                                             <textarea name="description" class="form-control input_suggestion"
                                                       rows="7" maxlength="500"
-                                                      value="{{ instance.description }}">{{ instance.description }}</textarea>
+                                                      value="{{ instance.description }}" required>{{ instance.description }}</textarea>
                                             {% if errors.description %}
                                                 {% for error in errors.description %}
                                                     <div style="color: red">{{ error }} </div>

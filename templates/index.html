@@ -78,17 +78,18 @@
                             _ngcontent-bfh-c38="" class="icon-bar"></span><span _ngcontent-bfh-c38=""
                                                                                 class="icon-bar"></span><span
                             _ngcontent-bfh-c38="" class="icon-bar"></span></button>
-                    <img _ngcontent-bfh-c38="" src={% static 'assets/img/logo2.png' %} alt="logo" class="HomeLogo"></div>
+                    <img _ngcontent-bfh-c38="" src={% static 'assets/img/logo2.png' %} alt="logo" class="HomeLogo">
+                </div>
                 <div _ngcontent-bfh-c38="" id="bs-example-navbar-collapse-1" class="navbar-collapse menu-head collapse"
                      aria-expanded="false" style="height: 1px;">
                     <ul _ngcontent-bfh-c38="" class="nav navbar-nav navbar-right head-menu-tag">
                         <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#myCarousel">Home</a></li>
                         <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#about-us">About Us</a></li>
- <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#contact">Contact Us</a></li>
+                        <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#contact">Contact Us</a></li>
                         <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="login">INSTRUCTOR
-                            </a></li>
+                        </a></li>
                         <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="{% url 'register' %}">USER
-                            </a></li>
+                        </a></li>
                     </ul>
                 </div>
             </div>
@@ -105,24 +106,28 @@
                         <p _ngcontent-bfh-c38="">Please enter your email and password to continue</p></div>
                     <div _ngcontent-bfh-c38="" class="modal-body">
                         <div _ngcontent-bfh-c38="" class="row">
-                            <form _ngcontent-bfh-c38="" novalidate="" role="form"
+                            <form _ngcontent-bfh-c38="" role="form"
                                   class="form-horizontal ng-untouched ng-pristine ng-invalid">
                                 <div _ngcontent-bfh-c38="" class="col-md-12">
                                     <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
                                                                                          for="email">Email
                                         Address</label><input _ngcontent-bfh-c38="" type="text" id="email"
                                                               placeholder="Enter email" formcontrolname="email"
+                                                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                              title="Invalid Email Address example@example.com"
                                                               name="email" required=""
                                                               class="form-control ng-untouched ng-pristine ng-invalid">
                                         <!----></div>
                                     <div _ngcontent-bfh-c38="" class="form-group"><label _ngcontent-bfh-c38=""
                                                                                          for="password">Password</label><input
                                             _ngcontent-bfh-c38="" formcontrolname="password" name="password" required=""
+                                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                            title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                             minlength="4" placeholder="Enter password" type="password" id="password"
                                             class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
                                     <div _ngcontent-bfh-c38="" class="col-md-12 text-center mrT25">
                                         <button _ngcontent-bfh-c38="" type="submit"
-                                                class="btn btn-primary btn-login btn-sm" >LOGIN
+                                                class="btn btn-primary btn-login btn-sm">LOGIN
                                         </button>
                                     </div>
                                 </div>
@@ -245,7 +250,8 @@
                              style="visibility: hidden; animation-name: none;">
                             <div _ngcontent-bfh-c38="" class="feature-about">
                                 <div _ngcontent-bfh-c38="" class="feature-icon"><img _ngcontent-bfh-c38=""
-                                                                                     src={% static 'assets/img/mission.png' %}></div>
+                                                                                     src={% static 'assets/img/mission.png' %}>
+                                </div>
                                 <div _ngcontent-bfh-c38="" class="feature-text"><h4 _ngcontent-bfh-c38="">Our Mission
                                     &amp; Vision</h4>
                                     <p _ngcontent-bfh-c38="">Our mission at ELSA is to educate the public about water
@@ -277,7 +283,8 @@
                              style="visibility: hidden; animation-name: none;">
                             <div _ngcontent-bfh-c38="" class="feature-about">
                                 <div _ngcontent-bfh-c38="" class="feature-icon"><img _ngcontent-bfh-c38=""
-                                                                                     src={% static 'assets/img/target.png' %}></div>
+                                                                                     src={% static 'assets/img/target.png' %}>
+                                </div>
                                 <div _ngcontent-bfh-c38="" class="feature-text"><h4 _ngcontent-bfh-c38="">Our
                                     Facility</h4>
                                     <p _ngcontent-bfh-c38="">Our 25′ by 10′ backyard teaching pool is heated year-round
@@ -365,7 +372,7 @@
                                         <div _ngcontent-bfh-c38="" class="form-column col-md-8 col-sm-12 col-xs-12">
                                             <div _ngcontent-bfh-c38="" class="contact-form"><h2 _ngcontent-bfh-c38="">
                                                 Contact Us</h2>
-                                <form _ngcontent-jar-c34="" action="contact-us/" method="post"
+                                                <form _ngcontent-jar-c34="" action="contact-us/" method="post"
                                                       class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
                                                     {% csrf_token %}
                                                     <div _ngcontent-jar-c34="" class="row clearfix">
@@ -394,7 +401,7 @@
                                                                 _ngcontent-jar-c34="" type="text"
                                                                 formcontrolname="phone" name="phone"
                                                                 placeholder="Phone Number*"
-                                                                pattern="[0-9 ]{3,}"
+                                                                pattern="[0-9]{8,25}"
                                                                 title="Only Numeric Characters are allowed"
                                                                 class="ng-untouched ng-pristine ng-invalid" required>
                                                             <!---->
@@ -421,7 +428,7 @@
                                                             <button _ngcontent-jar-c34="" type="submit"
                                                                     name="submit-form"
                                                                     class="theme-btn btn-style-one"
-                                                                    >Send
+                                                            >Send
                                                             </button>
                                                         </div>
                                                     </div>
@@ -442,7 +449,8 @@
                     <div _ngcontent-bfh-c38="" class="row">
                         <div _ngcontent-bfh-c38="" class="col-lg-8 col-md-12 footer-widget footer-about">
                             <div _ngcontent-bfh-c38="" class="footer-logo"><a _ngcontent-bfh-c38=""><img
-                                    _ngcontent-bfh-c38="" src={% static 'assets/img/002-swimming-white.png' %} alt=""></a></div>
+                                    _ngcontent-bfh-c38=""
+                                    src={% static 'assets/img/002-swimming-white.png' %} alt=""></a></div>
                             <p _ngcontent-bfh-c38="">The number one cause of children’s accidental death in Florida is
                                 drowning. Our team of Certified Survival Infant Swimming Lessons Instructors has
                                 hundreds of hours of hands-on in-water training with babies and children 6 months and up
@@ -460,10 +468,11 @@
                                 <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#myCarousel">Home</a></li>
                                 <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#about-us">About Us</a></li>
                                 <li _ngcontent-bfh-c38=""><a _ngcontent-bfh-c38="" href="#contact">Contact Us</a></li>
-                                 <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="login" >INSTRUCTOR
-                            </a></li>
-                        <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="{% url 'register' %}">USER
-                            </a></li>
+                                <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38="" href="login">INSTRUCTOR
+                                </a></li>
+                                <li _ngcontent-bfh-c38="" class="contact"><a _ngcontent-bfh-c38=""
+                                                                             href="{% url 'register' %}">USER
+                                </a></li>
                             </ul>
                         </div>
                     </div>

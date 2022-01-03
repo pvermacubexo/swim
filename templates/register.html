@@ -88,7 +88,7 @@
                             <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" data-toggle="modal" data-target="#login">Login</a>
                             </li>
                             <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" data-toggle="modal"
-                                                         data-target="#signup">Sign
+                                                         data-target="#signup" onclick="checkdate()">Sign
                                 Up</a></li>
                             <li _ngcontent-jar-c34="" class="contact"><a _ngcontent-jar-c34="" href="#contact">Contact
                                 Us</a></li>
@@ -266,6 +266,7 @@
                                         _ngcontent-jar-c34="" for="DateOfBirth">Date of Birth</label><input
                                         _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="DateOfBirth"
                                         type="date" id="DateOfBirth"
+
                                         class="form-control ng-untouched ng-pristine ng-invalid"
                                         style="padding: 0 0 0 10px;" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
@@ -686,6 +687,23 @@
            $('#msg').remove();
        }
    }, 2000)
+
+   function checkdate(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate()-1;
+        var year = dtToday.getFullYear()-2;
+        console.log(month,day,year)
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        console.log(month,day,year)
+        var maxDate = year + '-' + month + '-' + day;
+        $('#DateOfBirth').attr('max', maxDate);
+   }
+
 </script>
     </body>
 </html>

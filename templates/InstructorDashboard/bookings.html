@@ -116,6 +116,7 @@
                                                                 <h4 class="modal-title m-0 text-white">Transactions</h4>
                                                             </div><!--end modal-header-->
                                                             <div class="modal-body scrollable_model_y">
+                                                            <center>
                                                                 <div class="row">
                                                                     {% if booking.transactions %}
                                                                         {% for transaction in booking.transactions %}
@@ -154,9 +155,10 @@
                                                                             </div>
                                                                         {% endfor %}
                                                                     {% else %}
-                                                                        NOT DONE
+                                                                        <h3>Transaction is Not Done Yet</h3>
                                                                     {% endif %}
                                                                 </div>
+                                                            </center>
                                                             </div><!--end modal-body-->
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-primary btn-lg"
