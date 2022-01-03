@@ -213,8 +213,7 @@
                                                                                                class="form-control update_appointment"
                                                                                                date_min={{ booking.class_instructor.time_slot }}
                                                                                                        value="{{ appointment.start_time|date:'m-d-Y H:m:s' }}">
-                                                                                        <label>End Date
-                                                                                            Time </label>
+                                                                                        <label>End Date- Time </label>
                                                                                         <input type="text"
                                                                                                name="end_time"
                                                                                                class="form-control update_endDate"
@@ -253,9 +252,9 @@
                                                                                             class="form-control"
                                                                                             maxlength="225" rows="3"
                                                                                             placeholder="This textarea has a limit of 225 chars.">
-                                                                                            {% if appointment.remark != 'None' %}
-                                                                                                {{ appointment.remark }}
-                                                                                            {% endif %}
+{#                                                                                            {% if appointment.remark != 'None' %}#}
+{#                                                                                                {{ appointment.remark }}#}
+{#                                                                                            {% endif %}#}
                                                                                     </textarea>
                                                                                 </div>
                                                                             </div><!--end col-->
