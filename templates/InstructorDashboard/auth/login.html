@@ -181,7 +181,7 @@
                                             </div>
                                             <div class="col-sm-6 text-right">
                                                 <a href="{% url 'InstructorDashboard:forgot_password' %}"
-                                                   class="text-muted font-13"><i
+                                                 style="color: blue !important;"  class="text-muted font-13"><i
                                                         class="dripicons-lock"></i> Forgot password?</a>
                                             </div>
                                         </div>
@@ -350,7 +350,7 @@
     var a = [];
     var k = e.which;
 
-    for (i = 48; i < 58; i++)
+    for (i = 48; i < 58; i++)language
         a.push(i);
 
     if (!(a.indexOf(k)>=0))
