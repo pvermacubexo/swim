@@ -345,6 +345,8 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control"
+                                                                       pattern="[A-Za-z]{3,}"
+                                                                       title="only alphabetic characters are allowed"
                                                                        name="first_name"
                                                                        value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
@@ -364,6 +366,8 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control" name="last_name"
+                                                                        pattern="[A-Za-z]{3,}"
+                                                                       title="only alphabetic characters are allowed"
                                                                        value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>

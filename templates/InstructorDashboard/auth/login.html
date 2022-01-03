@@ -170,10 +170,10 @@
                                                 {#                                                           for="customSwitchSuccess">Remember me</label>#}
                                                 {#                                                </div>#}
                                             </div>
-                                            <div class="col-sm-6 text-right">
+                                            <div class="col-sm-6 text-right" >
                                                 <a href="{% url 'InstructorDashboard:forgot_password' %}"
-                                                   class="text-muted font-13"><i
-                                                        class="dripicons-lock"></i> Forgot password?</a>
+                                                   class="text-muted font-13" > <i
+                                                        class="dripicons-lock" style="color: #0A66C2" ></i><span style="color: #0A66C2"> Forgot password?</span></a>
                                             </div>
                                         </div>
 
@@ -266,8 +266,8 @@
                                             <label for="mo_number">Mobile Number</label>
                                             <div class="input-group">
                                                 <input type="text" value="" class="form-control" required
-                                                       pattern="[0-9 ]{3,}"
-                                                       title="only numeric characters are allowed"
+                                                       pattern="[0-9 ]{8,20}"
+                                                       title="only numeric characters are allowed of range between 8 to 20"
                                                        name="mobile_no"
                                                        id="mo_number" placeholder="Enter Mobile Number">
                                             </div>
