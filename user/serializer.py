@@ -30,7 +30,7 @@ class AuthenticationSerializer(TokenObtainPairSerializer):
             return token
         except:
             msg = "Invalid login Details"
-            return
+            return msg
 
     def validate(self, attrs):
         attrs['email'] = attrs['email'].lower()
