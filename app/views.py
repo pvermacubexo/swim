@@ -41,7 +41,8 @@ def register(request):
         # return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
 
 
-def SwimTimeDashboard(request, ):
+def SwimTimeDashboard(request ):
+
     if 'email' in request.session:
         obj = User.objects.get(email=request.session['email'])
         user_id = obj.inst_id
@@ -58,7 +59,7 @@ def SwimTimeDashboard(request, ):
             messages.error(request,"Invalid login details")
             return render(request, "register.html")
     else:
-        return render(request, "register.html")
+        return render(request, "index.html")
 
 
 def update_profile(request):

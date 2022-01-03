@@ -191,11 +191,21 @@
                                                             <div _ngcontent-ygs-c30="" class="row">
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 imageProfile">
+
+                                                                    {%  if first_name.profile_img %}
                                                                     <div _ngcontent-ygs-c30=""><img
                                                                             _ngcontent-ygs-c30="" alt=""
                                                                             class="imageIcon"
-                                                                            src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                                            src="{{ first_name.profile_img }}">
                                                                     </div>
+                                                                        {% else %}
+                                                                         <div _ngcontent-ygs-c30=""><img
+                                                                            _ngcontent-ygs-c30="" alt=""
+                                                                            class="imageIcon"
+                                                                            src="Images/profile/default.png">
+                                                                    </div>
+                                                                    {% endif %}
+
                                                                 </div><!---->
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 profileContent"><h3
