@@ -353,6 +353,8 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control"
+                                                                       pattern="[A-Za-z]{3,}"
+                                                                       title="only alphabetic characters are allowed"
                                                                        name="first_name"
                                                                        value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
@@ -372,6 +374,8 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control" name="last_name"
+                                                                        pattern="[A-Za-z]{3,}"
+                                                                       title="only alphabetic characters are allowed"
                                                                        value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
@@ -391,8 +395,10 @@
                                                                 <div class="input-group-prepend"><span
                                                                         class="input-group-text"><i
                                                                         class="las la-phone"></i></span></div>
-                                                                <input type="number" class="form-control" minlength="10" maxlength="25"
-                                                                       name="mobile_no" id="name"
+                                                                <input type="number" class="form-control"
+                                                                       name="mobile_no"
+                                                                       pattern="[0-9]{8,20}"
+                                                                       title="Invalid Mobile number , range should be 8 to 20"
                                                                        value="{% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
                                                                        placeholder="Phone"
                                                                        aria-describedby="basic-addon1">
@@ -413,6 +419,8 @@
                                                                         class="input-group-text"><i
                                                                         class="far fa-envelope-open "></i></span></div>
                                                                 <input type="email" class="form-control" name="email"
+                                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                       title="Invalid Email Address example@example.com"
                                                                        value="{% if user.email %}{{ user.email }}{% endif %}"
                                                                        placeholder="Email"
                                                                        aria-describedby="basic-addon1">
@@ -845,6 +853,8 @@
                                                             <input type="password" class="form-control"
                                                                    name="new_password"
                                                                    placeholder="New Password"
+                                                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                                   title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                                    required="required">
                                                         </div>
                                                     </div>
@@ -860,6 +870,8 @@
                                                                     class="typcn typcn-key-outline "></i></span></div>
                                                             <input type="password" class="form-control"
                                                                    name="confirm_password"
+                                                                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                                   title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                                    placeholder="Confirm-Password"
                                                                    required="required">
                                                         </div>

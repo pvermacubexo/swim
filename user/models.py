@@ -18,7 +18,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=100, null=False, blank=False, validators=[
         RegexValidator(r'[A-Za-z0-9@#$%^&+=]{8,}',
                        message='The password must contain at least one in  A-Z and a-z, 0-9 and special character.')])
-    mobile_no = models.CharField(unique=True, null=False, blank=False, max_length=15)
+    mobile_no = models.CharField(unique=True, null=False, blank=False, max_length=25)
     profile_img = models.ImageField(upload_to='Images/profile', default='Images/profile/default.png', blank=True,
                                     null=False)
     deactivate = models.BooleanField(default=False)
