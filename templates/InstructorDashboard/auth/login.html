@@ -29,6 +29,14 @@
         right: 30px;
         z-index: 9;
     }
+    .toggle-password {
+    float: right;
+    cursor: pointer;
+    margin-right: 16px;
+    margin-top: 11px;
+    margin-left: 393px;
+    position: absolute;
+}
 </style>
 {% if error %}
     <div class="top_alert_position alert custom-alert custom-alert-danger icon-custom-alert alert-secondary-shadow fade show"
@@ -159,6 +167,7 @@
                                                        title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                        class="form-control" name="password"
                                                        id="userpassword" placeholder="Enter password" required>
+                                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                             </div>
                                         </div>
                                         <div class="form-group row my-3">
@@ -248,6 +257,7 @@
                                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                        title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                        id="userpassword" placeholder="Enter password">
+                                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                             </div>
                                         </div><!--end form-group-->
 
@@ -259,6 +269,7 @@
                                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                        title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                        id="conf_password" placeholder="Enter Confirm Password">
+                                                <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                             </div>
                                         </div><!--end form-group-->
 
@@ -266,7 +277,7 @@
                                             <label for="mo_number">Mobile Number</label>
                                             <div class="input-group">
                                                 <input type="text" value="" class="form-control" required
-                                                       pattern="[0-9 ]{3,}"
+                                                       pattern="[0-9 ]{3,}" maxlength="25"
                                                        title="only numeric characters are allowed"
                                                        name="mobile_no"
                                                        id="mo_number" placeholder="Enter Mobile Number">
@@ -320,6 +331,34 @@
 <script src="{% static 'js/feather.min.js' %}"></script>
 <script src="{% static 'js/simplebar.min.js' %}"></script>
 
+<script>
+//javascript for eye toggle icon
+
+    $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    input = $(this).parent().find("input");
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
+
+
+//javascript for mobile no validation
+    $('#mo_number').keypress(function(e) {
+    var a = [];
+    var k = e.which;
+
+    for (i = 48; i < 58; i++)
+        a.push(i);
+
+    if (!(a.indexOf(k)>=0))
+        e.preventDefault();
+
+    $('span').text('KeyCode: '+k);
+});
+</script>
 
 </body>
 
