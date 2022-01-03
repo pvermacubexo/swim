@@ -16,6 +16,14 @@
         .display_none{
             display: none !important;
         }
+
+        #clipboardParagraph:hover{
+    overflow: visible;
+    white-space: normal;
+    width: auto;
+    position: absolute;
+    background-color:#FFF;
+}
     </style>
 
 {% endblock %}
@@ -252,7 +260,7 @@
                                                                      class="hr_scroll_hide">{{ user.get_profile.url }}</span>
                                                 <span class="btn btn-secondary btn-xs" data-clipboard-action="copy"
                                                       data-clipboard-target="#clipboardParagraph"><i
-                                                        class="mdi mdi-content-copy"></i></span>
+                                                        class="mdi mdi-content-copy" title="copy"></i></span>
                                             </li>
                                         </ul>
 
@@ -1091,7 +1099,26 @@
             });
         });
         */
-     */
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    var minLength = 10;
+var maxLength = 25;
+$(document).ready(function(){
+    $('#name').on('keydown keyup change', function(){
+        var char = $(this).val();
+        var charLength = $(this).val().length;
+        if(charLength < minLength){
+           alert('Length is short, minimum 10 required.');
+        }else if(charLength > maxLength){
+            alert('Length is not valid, maximum 25 allowed.');
+            $(this).val(char.substring(0, maxLength));
+        }else{
+            $('#warning-message').text('');
+        }
+    });
+});
     </script>
 {% endblock %}
 
