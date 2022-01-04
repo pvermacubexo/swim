@@ -34,7 +34,7 @@
                     </a>
 
 
-                    <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile" class="">
+                    <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile" class="" onclick="checkdate()">
                         <div _ngcontent-nwk-c28="" class="tab-link">
                             <div _ngcontent-nwk-c28="" class="img-div ">
                                 <img _ngcontent-uas-c28="" alt="Profile"
@@ -191,11 +191,21 @@
                                                             <div _ngcontent-ygs-c30="" class="row">
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 imageProfile">
+
+                                                                    {%  if first_name.profile_img %}
                                                                     <div _ngcontent-ygs-c30=""><img
                                                                             _ngcontent-ygs-c30="" alt=""
                                                                             class="imageIcon"
-                                                                            src="http://167.172.131.164/media/Images/profile/download_2.jpg">
+                                                                            src="{{ first_name.profile_img }}">
                                                                     </div>
+                                                                        {% else %}
+                                                                         <div _ngcontent-ygs-c30=""><img
+                                                                            _ngcontent-ygs-c30="" alt=""
+                                                                            class="imageIcon"
+                                                                            src="Images/profile/default.png">
+                                                                    </div>
+                                                                    {% endif %}
+
                                                                 </div><!---->
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 profileContent"><h3
@@ -2201,6 +2211,22 @@
 
 
     <script type="text/javascript" src="lib.js"></script>
+    <script>   function checkdate(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate()-1;
+        var year = dtToday.getFullYear()-8;
+        console.log(month,day,year)
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        console.log(month,day,year)
+        var maxDate = year + '-' + month + '-' + day;
+        $('#DateOfBirth').attr('max', maxDate);
+   }
+</script>
     <script>
 
         // Used to handle Pay
@@ -2519,4 +2545,5 @@
         });
         //end
     </script>
+
     </a>{% endblock %}

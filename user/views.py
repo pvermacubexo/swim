@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from random import randint
 
 from django.contrib import messages
+from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
@@ -41,33 +42,40 @@ class Authenticate(TokenObtainPairView):
     serializer_class = AuthenticationSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
 
-        if serializer.is_valid():
-            email = request.POST['email']
-            try:
-                obj = User.objects.get(email=email)
-                user_id = obj.inst_id
-                classes = ClassInstructor.objects.filter(instructor_id=user_id)
-                email = serializer.data.get('email')
-                request.session['email'] = email
-                user_details = User.objects.filter(email=email)
-                if user_details:
-                    messages.success(request,"User login successfully")
-                    return redirect(SwimTimeDashboard)
-                else:
-                    messages.error(request,"Invalid login Details")
+        if authenticate(email=request.POST['email'],password=request.POST['password']):
+            serializer = self.get_serializer(data=request.data)
+
+            if serializer.is_valid():
+                email = request.POST['email']
+                try:
+                    obj = User.objects.get(email=email)
+                    if obj.inst_id:
+                        user_id = obj.inst_id
+                        classes = ClassInstructor.objects.filter(instructor_id=user_id)
+                        email = serializer.data.get('email')
+                        request.session['email'] = email
+                        user_details = User.objects.filter(email=email)
+                        if user_details:
+                            messages.success(request,"User login successfully")
+                            return redirect(SwimTimeDashboard)
+                        else:
+                            messages.error(request,"Invalid login Details")
+                            return render(request, "new_register.html")
+                    else:
+                        messages.error(request,"Invalid User details")
+                        return render(request, "new_register.html")
+
+
+                except User.DoesNotExist:
+                    messages.error(request,serializer.validated_data)
                     return render(request, "new_register.html")
-
-
-            except User.DoesNotExist:
-                messages.error(request,serializer.validated_data)
+            else:
+                messages.error(request, serializer.validated_data)
                 return render(request, "new_register.html")
         else:
-            messages.error(request, serializer.validated_data)
+            messages.error(request,"Invalid login Details")
             return render(request, "new_register.html")
-
-
 
 
 

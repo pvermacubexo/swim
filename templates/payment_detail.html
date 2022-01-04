@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block sidebar_content %}
+
+
+    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+        <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+            <div _ngcontent-nwk-c28="" class="tab-link first">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+                <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+        </a>
+        <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+                <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+        </a>
+        <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+                <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+        </a>
+
+        <a _ngcontent-nwk-c28="" id="logout_link" data-toggle="tooltip" title="Log Out" href="{% url 'LogoutView' %}"
+           class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div ">
+                    <img
+                            _ngcontent-uas-c28=""
+                            src={% static 'assets/img/logout.png' %}
+                                    alt="img">
+                </div>
+                <h3 _ngcontent-nwk-c28="">LOGOUT</h3></div>
+        </a>
+
+
+        <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile"
+           class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div ">
+                    <img _ngcontent-uas-c28="" alt="Profile"
+                         src="http://167.172.131.164/media/Images/profile/default.png">
+                </div>
+                <h3 _ngcontent-nwk-c28="">PROFILE</h3></div>
+        </a></a>
+
+
+
+
+
+
+{% endblock %}
+{% block page_content %}
+    <style>
+        .shadow {
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+        }
+    </style>
+    <br><br>
+    <div class="container " style="max-width: 700px;">
+        <div _ngcontent-jgl-c30="" class="shadow confirm-block">
+            <div _ngcontent-jgl-c30="" class="modal-body ">
+                <div _ngcontent-jgl-c30="" class="assessment-container">
+                    <div _ngcontent-jgl-c30="" class="form-bottom">
+                        <div _ngcontent-jgl-c30="" class="confirm-block">
+                            <div _ngcontent-jgl-c30="" class="last-step">
+                                {% if data.status == "COMPLETED" %}
+                                    <img _ngcontent-jgl-c30=""
+                                         src="{% static 'assets/img/last-step.png' %}"
+                                         alt="image">
+                                {% else %}
+                                    <img _ngcontent-jgl-c30=""
+                                         src="{% static 'assets/img/payment-failed.png' %}"
+                                         alt="image">
+                                {% endif %}
+
+                                <h3 _ngcontent-jgl-c30="">
+                                    {% if data.status == "COMPLETED" %}
+                                        PAYMENT DONE SUCCESSFULLY
+                                    {% else %}
+                                        YOUR PAYMENT IS FAILED
+                                    {% endif %}
+                                </h3>
+                                <p _ngcontent-jgl-c30="">
+                                    {% if data.status == "COMPLETED" %}
+                                        Your booking is confirmed.
+                                    {% else %}
+                                        we can not confirm your booking please note your transection id
+                                    {% endif %}<br><br>
+                                </p><a href="{% url 'dashboard_view' %}" class="btn btn-primary">BACK TO HOME </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div _ngcontent-jgl-c30="" class="row  paymentSuccessContainer" style="margin: 30px;">
+                <div _ngcontent-jgl-c30="" class="col-md-12">
+                    <h3 _ngcontent-jgl-c30="">
+                        Payment Detail :-
+                    </h3>
+                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Transaction
+                            ID: </label></div><!---->
+                        <div _ngcontent-jgl-c30="" class="col-md-8"><p _ngcontent-jgl-c30="">
+                            {{ data.transaction_id }}</p><!----></div>
+                    </div>
+                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Instructor
+                            Name: </label></div><!---->
+                        <div _ngcontent-jgl-c30="" class="col-md-8"><p _ngcontent-jgl-c30="">{{ data.instructor }}</p>
+                            <!---->
+                        </div>
+                    </div>
+                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Course
+                            Duration: </label>
+                            <p _ngcontent-jgl-c30="">{{ data.total_day }} Days</p><!----></div><!---->
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""></label></div>
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Time
+                            Duration: </label>
+                            <p _ngcontent-jgl-c30="">{{ data.time_slot }} minute</p><!----></div><!----></div>
+                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Total
+                            Amount: </label>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.total_amount }} </p>
+                            <!----></div>
+                        <!---->
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Paid
+                            Amount: </label>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.paid_amount }} </p>
+                            <!----></div>
+                        <!---->
+                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Due
+                            Amount: </label>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.due_amount }}</p>
+                            <!----></div>
+                        <!----></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
