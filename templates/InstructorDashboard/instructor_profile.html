@@ -362,8 +362,7 @@
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        name="first_name"
-                                                                       value="
-                                                                               {% if user.first_name %}{{ user.first_name }}{% endif %}"
+                                                                       value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.first_name %}
@@ -740,8 +739,7 @@
 
                                                                 <input name="day_start_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="
-                                                                               {% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
+                                                                       value="{% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
                                                                        placeholder="Start Time">
                                                             </div>
                                                         </div>
@@ -757,8 +755,7 @@
                                                                 </div>
                                                                 <input name="day_end_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="
-                                                                               {% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
+                                                                       value="{% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
                                                                        placeholder="End Time">
                                                             </div>
                                                         </div>
