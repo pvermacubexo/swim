@@ -76,7 +76,7 @@ def signup_view(request):
             user_profile = user_models.Profile.objects.create(
                 user=user,
                 slug=slug,
-                url=( request.build_absolute_uri('/')[:-1] + 'swim/registration/' + slug).replace(' ', ''),
+                url=( request.build_absolute_uri('/')[:-1] + '/swim/registration/' + slug).replace(' ', ''),
                 day_start_time=date_time.time(),
                 day_end_time=time_added.time()
             )
