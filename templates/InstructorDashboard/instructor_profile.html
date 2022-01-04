@@ -362,8 +362,7 @@
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        name="first_name"
-                                                                       value="
-                                                                               {% if user.first_name %}{{ user.first_name }}{% endif %}"
+                                                                       value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.first_name %}
@@ -453,8 +452,7 @@
                                                                         class=" typcn typcn-globe "></i></span></div>
                                                                 <input type="text" class="form-control" name="address"
                                                                        pattern="[A-Za-z ]{3,}"
-                                                                       value="
-                                                                               {% if user.address %}{{ user.address }}{% endif %}"
+                                                                       value="{% if user.address %}{{ user.address }}{% endif %}"
                                                                        placeholder="Address"
                                                                        aria-describedby="basic-addon1">
 
@@ -475,8 +473,7 @@
                                                                         class="typcn typcn-clipboard  "></i></span>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="language"
-                                                                       value="
-                                                                               {% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
+                                                                       value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
                                                                        placeholder="Language"
                                                                        aria-describedby="basic-addon1">
 
@@ -496,8 +493,7 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="latitude"
-                                                                       value="
-                                                                               {% if user.latitude %}{{ user.latitude }}{% endif %}"
+                                                                       value="{% if user.latitude %}{{ user.latitude }}{% endif %}"
                                                                        placeholder="Latitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -517,8 +513,7 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="longitude"
-                                                                       value="
-                                                                               {% if user.longitude %}{{ user.longitude }}{% endif %}"
+                                                                       value="{% if user.longitude %}{{ user.longitude }}{% endif %}"
                                                                        placeholder="Longitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -623,9 +618,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <br/>
-                                                        <div class="form-group " style="
-    padding-left: 810px;
-">
+                                                        <div class="form-group ">
                                                             <input type="submit" class="btn btn-primary btn-sm"
 
                                                                    value="Submit" style="width:250px;">
@@ -752,8 +745,7 @@
 
                                                                 <input name="day_start_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="
-                                                                               {% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
+                                                                       value="{% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
                                                                        placeholder="Start Time">
                                                             </div>
                                                         </div>
@@ -769,8 +761,7 @@
                                                                 </div>
                                                                 <input name="day_end_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="
-                                                                               {% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
+                                                                       value="{% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
                                                                        placeholder="End Time">
                                                             </div>
                                                         </div>
@@ -854,9 +845,9 @@
                                                                 {#                                                        {{form.as_p}}#}
                                                             </div>
                                                         {% endfor %}
-                                                        <button id="add-form" type="button" class="btn btn-info">Add
-                                                            Another
-                                                        </button>
+{#                                                        <button id="add-form" type="button" class="btn btn-info">Add#}
+{#                                                            Another#}
+{#                                                        </button>#}
                                                         <button type="submit" class="btn btn-success">Submit</button>
                                                     </form>
                                                 </div>
