@@ -32,7 +32,6 @@ Publisher_key = "pk_test_51I5m0yEHlEuRL3ozRkUrNrrBC4kXUXkOW2k5YH4gt2ifPCH2L3YXqj
 
 @csrf_exempt
 def createpayment(request):
-    print(request.session['email'])
     if "email" in request.session:
         data = json.loads(request.body)
         # Create a PaymentIntent with the order amount and currency
@@ -71,12 +70,34 @@ def createpayment(request):
         return JsonResponse({'error': "You Are Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-class StripePayment(ModelViewSet):
-    # serializer_class = StripePaymentSerializer()
-    http_method_names = ['post']
+class PaymentDetail(APIView):
+    def get(self,request,id):
+        if appointment_model.Transaction.objects.filter(id=id).exists():
+            transection_data = appointment_model.Transaction.objects.get(id=id)
+            status = transection_data.booking.payment_status
+            booking = transection_data.booking
+            res_data = {
+                'instructor': booking.class_instructor.instructor.get_full_name(),
+                'total_day': booking.class_instructor.total_days,
+                'time_slot': booking.class_instructor.time_slot,
+                'transaction_id': transection_data.transaction_id,
+                'status': status,
+                'payment_type': booking.payment_type,
+                'total_amount': booking.class_instructor.price,
+                'paid_amount': booking.get_total_paid,
+                'due_amount': booking.get_total_due,
+            }
+            return render(request, "payment_detail.html", {"data": res_data})
+        else:
+            return redirect("dashboard_view")
 
-    # @authorize([user_constants.Trainee])
-    def create(self, request, *args, **kwargs):
+
+class StripePayment(APIView):
+    # serializer_class = StripePaymentSerializer()
+    http_method_names = ['post',]
+
+
+    def post(self, request, *args, **kwargs):
         if request.method == "POST":
             if "email" in request.session:
                 data = json.loads(request.data["payload"])
@@ -128,23 +149,13 @@ class StripePayment(ModelViewSet):
                         'due_amount': due_amount
 
                     }
-                    # return render(request,"dashboard.html")
-                    # for testing
-                    user_id = request.session['slug_id']
-                    first_name = User.objects.get(id=user_id)
-                    email = request.session['email']
-                    user_details = User.objects.filter(email=email)
-                    classes = ClassInstructor.objects.filter(instructor_id=user_id)
-                    return render(request, "dashboard.html",
-                                  {"user_details": user_details, "data": classes, "first_name": first_name,
-                                   "res_data": res_data})
-                    # return Response(res_data, status=status.HTTP_200_OK)
-
+                    return redirect("payment_detail",id=transaction_obj.id)
                 else:
-                    print("payment Failed ")
-
+                    print("payment Failed")
             else:
                 return JsonResponse({'error': "You Are Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return  redirect(request,"dashboard_view")
         # serializer = StripePaymentSerializer(data=request.data, context={'user': request.user})
         # serializer.is_valid(raise_exception=True)
         # if serializer.validated_data['payment_type'] == '2':
