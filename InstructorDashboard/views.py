@@ -632,6 +632,7 @@ def add_break_time(request):
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
 
         if formset.is_valid():
+            print("hiiiii")
             formset.save()
             return redirect('InstructorDashboard:instructor_profile')
     return redirect('InstructorDashboard:instructor_profile')
