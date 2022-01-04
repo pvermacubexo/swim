@@ -25,12 +25,18 @@ from .forms import BreakTimeFormSet
 logger = logging.getLogger(__name__)
 
 
-def generate_slug(first_name):
-    if not user_models.Profile.objects.filter(slug=first_name).exists():
-        slug = (first_name + str(randint(0000, 9999))).lower()
-        return slug
+def generate_slug(first_name,last_name):
+    obj = len(user_models.Profile.objects.all())
+    if user_models.Profile.objects.filter(slug=first_name).exists():
+        if user_models.Profile.objects.filter(slug=first_name+last_name).exists():
+            slug = (first_name + last_name + str(obj))
+            return slug
+        else:
+            slug = (first_name + last_name)
+            return slug
     else:
-        generate_slug(first_name)
+        slug = first_name
+        return slug
 
 
 def signup_view(request):
@@ -57,7 +63,7 @@ def signup_view(request):
         if not (password == conf_password):
             context.update({'error': 'Password must equal.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)
-        slug = generate_slug(first_name)
+        slug = generate_slug(first_name,last_name)
         user = user_models.User.objects.create(email=email.lower(), first_name=first_name, last_name=last_name,
                                                password=make_password(password), mobile_no=mobile_no,
                                                user_type=user_constants.Instructor)
