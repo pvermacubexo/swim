@@ -1,5 +1,6 @@
 import json
 
+from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -136,19 +137,6 @@ class StripePayment(APIView):
                     except Exception:
                         transaction_obj.delete()
                         return Response({'error': 'Invalid Booking.'})
-
-                    res_data = {
-                        'instructor': booking.class_instructor.instructor.get_full_name(),
-                        'total_day': booking.class_instructor.total_days,
-                        'time_slot': booking.class_instructor.time_slot,
-                        'transaction_id': transaction_id,
-                        'status': payment_status,
-                        'payment_type': payment_type,
-                        'total_amount': booking.class_instructor.price,
-                        'paid_amount': paid_amount,
-                        'due_amount': due_amount
-
-                    }
                     return redirect("payment_detail",id=transaction_obj.id)
                 else:
                     print("payment Failed")
@@ -275,6 +263,37 @@ class StripePayment(APIView):
         #     }
         #     return Response(res_data, status=status.HTTP_200_OK)
 
+class CashPayment(ModelViewSet):
+    serializer_class = StripePaymentSerializer()
+    http_method_names = ['post']
+
+    # @authorize([user_constants.Trainee])
+    def create(self, request, *args, **kwargs):
+        serializer = StripePaymentSerializer(data=request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        if 'email' in request.session:
+            if serializer.validated_data['payment_type'] == '2':
+                messages.error(request,"This URL only support cash payment")
+                return redirect("dashboard_view")
+            else:
+                transaction_id = 'txn_' + get_random_string(30)
+                payment_status = appointment_model.PENDING
+                payment_type = appointment_model.CASH
+                booking = serializer.validated_data['booking']
+                paid_amount = float(serializer.validated_data['paid_amount'])
+                appointment_model.Transaction.objects.create(
+                    booking=booking, transaction_id=transaction_id,
+                    status=payment_status, payment_type=payment_type,
+                    total_amount=booking.class_instructor.price,
+                    paid_amount=paid_amount,
+                    due_amount=serializer.validated_data['due_amount']
+                )
+                booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
+                booking.save()
+                messages.success(request, "Cash Payment of "+str(paid_amount)+" is Done ")
+                return redirect("dashboard_view")
+        else:
+            return redirect("dashboard_view")
 
 class RepaymentClasses(APIView):
 
@@ -289,5 +308,7 @@ class RepaymentClasses(APIView):
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
                 return render(request, "payment.html", {"data": ser.data,"user_details": obj})
+            else:
+                return redirect("dashboard_view")
         except Exception as e:
             return render(request, "payment.html")

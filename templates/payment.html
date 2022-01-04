@@ -73,6 +73,26 @@
                                                                                                                  class="content-div">
                                                                                                                 <div _ngcontent-ojq-c32=""
                                                                                                                      style="min-height: 300px;">
+                                                                                                                    {% if not datas.pending_amount|stringformat:"i" == "0" %}
+                                                                                                                    <div _ngcontent-nrd-c32=""
+                                                                                                                         class="row">
+                                                                                                                        <div _ngcontent-nrd-c32=""
+                                                                                                                             class="col-md-6 pendingStatus">
+                                                                                                                            <h5 _ngcontent-nrd-c32=""
+                                                                                                                                class="price">
+                                                                                                                                Pending
+                                                                                                                                for
+                                                                                                                                approval
+                                                                                                                                :
+                                                                                                                                <i _ngcontent-nrd-c32=""
+                                                                                                                                   class="fa fa-dollar"></i>
+                                                                                                                                {{ datas.pending_amount }}
+                                                                                                                            </h5>
+                                                                                                                        </div>
+                                                                                                                        <!---->
+                                                                                                                        <!---->
+                                                                                                                    </div>
+                                                                                                                    {% endif %}
                                                                                                                     <div _ngcontent-ojq-c32=""
                                                                                                                          class="row">
                                                                                                                         <!---->
@@ -95,7 +115,8 @@
                                                                                                                     </p>
                                                                                                                     <div _ngcontent-ojq-c32=""
                                                                                                                          class="title">
-                                                                                                                        <span _ngcontent-ojq-c32="" id ="instructorname_1"> {{ datas.instuctor }}</span>
+                                                                                                                        <span _ngcontent-ojq-c32=""
+                                                                                                                              id="instructorname_1"> {{ datas.instuctor }}</span>
                                                                                                                         |
                                                                                                                         <span _ngcontent-ojq-c32="">{{ datas.class_name }} </span>
                                                                                                                     </div>
@@ -143,12 +164,16 @@
                                                                                                                 </div>
                                                                                                                 {% if datas.due_amount <= 0 %}
                                                                                                                     <button _ngcontent-ojq-c32=""
-                                                                                                                   class="btn-custom pay-button" disabled="true">PAID</button>
+                                                                                                                            class="btn-custom pay-button"
+                                                                                                                            disabled="true">
+                                                                                                                        PAID
+                                                                                                                    </button>
                                                                                                                 {% else %}
-                                                                                                                <a _ngcontent-ojq-c32=""
-                                                                                                                   data-toggle="modal"
-                                                                                                                   data-target="#appointment-popup"
-                                                                                                                   class="btn-custom pay-button" onclick="CreateIntent( {{ datas.id }},{{ datas.due_amount }} ,  {{ datas.total_days }})" >PAY</a>
+                                                                                                                    <a _ngcontent-ojq-c32=""
+                                                                                                                       data-toggle="modal"
+                                                                                                                       data-target="#appointment-popup"
+                                                                                                                       class="btn-custom pay-button"
+                                                                                                                       onclick="CreateIntent( {{ datas.id }},{{ datas.due_amount }} ,  {{ datas.total_days }})">PAY</a>
                                                                                                                 {% endif %}
                                                                                                             </div>
 
@@ -491,11 +516,11 @@
 
     <script>
         // start
-        function CreateIntent(booking_id,Amount,course_duration) {
+        function CreateIntent(booking_id, Amount, course_duration) {
             // Calling Intent API using fetch
             {#var instructor_name = $('#instructor_name').text();#}
             {#console.log(booking_id,Amount);#}
-            if (Amount<=0){
+            if (Amount <= 0) {
                 alert("Cant't Pay if amount is equal to 0");
             }
             var booking_id = booking_id;
@@ -535,11 +560,11 @@
                 });
 
         }
+
         //end
 
 
-
-// Stripe API Code From Here
+        // Stripe API Code From Here
 
 
         // Set up Stripe.js and Elements to use in checkout form

@@ -1,4 +1,7 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import make_password
+from django.apps import apps
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.core.validators import RegexValidator
 from django.db import models
 import datetime
@@ -6,6 +9,46 @@ from django.utils.timezone import now as timezone_now
 from SharkDeck.constants import user_constants
 from django.shortcuts import render, redirect
 from datetime import date
+
+
+
+
+class CustomManager(BaseUserManager):
+
+    def _create_user(self,  email, password, **extra_fields):
+        """
+        Create and save a user with the given username, email, and password.
+        """
+        if not email:
+            raise ValueError('The given email must be set')
+        email = self.normalize_email(email)
+        # Lookup the real model class from the global app registry so this
+        # manager method can be used in migrations. This is fine because
+        # managers are by definition working on the real model.
+        GlobalUserModel = apps.get_model(self.model._meta.app_label, self.model._meta.object_name)
+        # username = GlobalUserModel.normalize_username(username)
+        user = self.model(email=email, **extra_fields)
+        user.password = make_password(password)
+        user.save()
+        return user
+
+    def create_user(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active',True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+        if extra_fields.get('is_active') is not True:
+            raise ValueError('Superuser must have is_active=True.')
+
+        return self._create_user(email, password, **extra_fields)
 
 
 class User(AbstractUser):
@@ -41,7 +84,8 @@ class User(AbstractUser):
         RegexValidator(r'^\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$',
                        message='Not a valid longitude')])
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['username', 'password', 'user_type']
+    REQUIRED_FIELDS = ['password', 'user_type']
+    objects = CustomManager()
 
     # def delete(self, *args, **kwargs):
     #     self.deactivate = True
