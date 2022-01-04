@@ -13,17 +13,19 @@
     <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
 
     <style>
-        .display_none{
+        .display_none {
             display: none !important;
         }
 
-        #clipboardParagraph:hover{
-    overflow: visible;
-    white-space: normal;
-    width: auto;
-    position: absolute;
-    background-color:#FFF;
-}
+        #clipboardParagraph:hover {
+            overflow: visible;
+            white-space: normal;
+            width: auto;
+            position: absolute;
+            background-color: #FFF;
+        }
+
+
     </style>
 
 {% endblock %}
@@ -57,9 +59,10 @@
                 </button>
             </div>
         </div>
+
     {% endif %}
     {% if errors %}
-{#                        <p>{{ errors }}</p>#}
+        {#                        <p>{{ errors }}</p>#}
         <div class="top_alert_position">
             {% if errors.items %}
                 {% for key,value in errors.items %}
@@ -272,6 +275,7 @@
 
 
 
+
                                                         {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-primary btn-icon-circle-sm mb-2">
@@ -284,6 +288,7 @@
 
 
 
+
                                                         {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-info btn-icon-circle-sm mb-2">
@@ -293,6 +298,7 @@
                                             </div><!--end col-->
                                             <div class="col-auto text-center">
                                                 <a href="
+
 
 
 
@@ -356,7 +362,8 @@
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        name="first_name"
-                                                                       value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.first_name %}
@@ -377,6 +384,7 @@
                                                                         pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
+
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.last_name %}
@@ -400,7 +408,9 @@
                                                                        pattern="[0-9]{8,20}"
                                                                        title="Invalid Mobile number , range should be 8 to 20"
                                                                        value="{% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
+
                                                                        placeholder="Phone"
+                                                                       onkeydown="return ((event.keyCode !== 69) && (event.keyCode !== 187) && (event.keyCode !== 189))"
                                                                        aria-describedby="basic-addon1">
 
                                                             </div>
@@ -422,6 +432,7 @@
                                                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                                        title="Invalid Email Address example@example.com"
                                                                        value="{% if user.email %}{{ user.email }}{% endif %}"
+
                                                                        placeholder="Email"
                                                                        aria-describedby="basic-addon1">
 
@@ -441,7 +452,9 @@
                                                                         class="input-group-text"><i
                                                                         class=" typcn typcn-globe "></i></span></div>
                                                                 <input type="text" class="form-control" name="address"
-                                                                       value="{% if user.address %}{{ user.address }}{% endif %}"
+                                                                       pattern="[A-Za-z ]{3,}"
+                                                                       value="
+                                                                               {% if user.address %}{{ user.address }}{% endif %}"
                                                                        placeholder="Address"
                                                                        aria-describedby="basic-addon1">
 
@@ -462,7 +475,8 @@
                                                                         class="typcn typcn-clipboard  "></i></span>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="language"
-                                                                       value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
                                                                        placeholder="Language"
                                                                        aria-describedby="basic-addon1">
 
@@ -482,7 +496,8 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="latitude"
-                                                                       value="{% if user.latitude %}{{ user.latitude }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.latitude %}{{ user.latitude }}{% endif %}"
                                                                        placeholder="Latitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -502,7 +517,8 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="longitude"
-                                                                       value="{% if user.longitude %}{{ user.longitude }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.longitude %}{{ user.longitude }}{% endif %}"
                                                                        placeholder="Longitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -525,7 +541,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="about"
-                                                                           value="{% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
                                                                            placeholder="About"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -543,7 +560,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="facebook_link"
-                                                                           value="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                                            placeholder="Facebook"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -566,7 +584,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="instagram_link"
-                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
                                                                            placeholder="Instagram"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -589,7 +608,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="twitter_link"
-                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                                            placeholder="Twitter"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -603,9 +623,13 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <br/>
-                                                        <div class="form-group ">
+                                                        <div class="form-group " style="
+    padding-left: 810px;
+">
                                                             <input type="submit" class="btn btn-primary btn-sm"
-                                                                   value="Submit">
+
+                                                                   value="Submit" style="width:250px;">
+
                                                         </div>
                                                     </div>
 
@@ -665,7 +689,8 @@
                                                                     {% if user.get_profile.thursday %}
                                                                    checked="checked" {% endif %}
                                                             >
-                                                            <label class="custom-control-label text-dark" for="thursday_switch"> Thursday</label>
+                                                            <label class="custom-control-label text-dark"
+                                                                   for="thursday_switch"> Thursday</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -686,7 +711,8 @@
                                                                     {% if user.get_profile.saturday %}
                                                                    checked="checked" {% endif %}
                                                             >
-                                                            <label class="custom-control-label text-dark" for="saturday_switch"> Saturday</label>
+                                                            <label class="custom-control-label text-dark"
+                                                                   for="saturday_switch"> Saturday</label>
                                                         </div>
 
                                                     </div>
@@ -726,7 +752,8 @@
 
                                                                 <input name="day_start_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="{% if instructor.get_day_start_time %}{{instructor.get_day_start_time}}{% endif %}"
+                                                                       value="
+                                                                               {% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
                                                                        placeholder="Start Time">
                                                             </div>
                                                         </div>
@@ -742,7 +769,8 @@
                                                                 </div>
                                                                 <input name="day_end_time" type="text"
                                                                        class="timepicker form-control"
-                                                                       value="{% if instructor.get_day_end_time %}{{instructor.get_day_end_time}}{% endif %}"
+                                                                       value="
+                                                                               {% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
                                                                        placeholder="End Time">
                                                             </div>
                                                         </div>
@@ -765,10 +793,11 @@
                                                     <h4 class="card-title" style="display: inline-block">break time</h4>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <h4 class="card-title" style="display: inline-block">Add break time</h4>
+                                                    <h4 class="card-title" style="display: inline-block">Add break
+                                                        time</h4>
                                                 </div>
                                             </div>
-{#                                            <a href="javascript:void(0);" class="btn btn-success add_button" style="float: right;" title="Add field"> add more</a>#}
+                                            {#                                            <a href="javascript:void(0);" class="btn btn-success add_button" style="float: right;" title="Add field"> add more</a>#}
 
                                         </div><!--end card-header-->
                                         <div class="card-body">
@@ -776,23 +805,26 @@
                                                 <div class="col-md-7">
                                                     <div class="table-responsive">
                                                         <table class="table dataTable table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-                                                            style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-                                                            role="grid" aria-describedby="datatable_info">
+                                                               style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
+                                                               role="grid" aria-describedby="datatable_info">
                                                             <thead>
-                                                                <tr>
-                                                                    <th>Week Day</th>
-                                                                    <th>Start time</th>
-                                                                    <th>End time</th>
-                                                                    <th>Action</th>
-                                                                </tr>
+                                                            <tr>
+                                                                <th>Week Day</th>
+                                                                <th>Start time</th>
+                                                                <th>End time</th>
+                                                                <th>Action</th>
+                                                            </tr>
                                                             </thead>
                                                             <tbody>
-                                                                {% for time in break_time_list %}
+                                                            {% for time in break_time_list %}
                                                                 <tr>
                                                                     <td>{{ time.get_week_string }}</td>
                                                                     <td>{{ time.get_start_time|time:'h:i A' }}</td>
                                                                     <td>{{ time.get_end_time|time:'h:i A' }}</td>
-                                                                    <td><a href="{% url 'InstructorDashboard:del_break_time' time.id %}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a> </td>
+                                                                    <td>
+                                                                        <a href="{% url 'InstructorDashboard:del_break_time' time.id %}"
+                                                                           class="btn btn-danger btn-sm"><i
+                                                                                class="fa fa-trash"></i></a></td>
                                                                 </tr>
                                                             {% endfor %}
                                                             </tbody>
@@ -800,28 +832,32 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-5">
-                                                    <form id="form-container" action="{% url 'InstructorDashboard:add_break_time' %}" method="POST">
+                                                    <form id="form-container"
+                                                          action="{% url 'InstructorDashboard:add_break_time' %}"
+                                                          method="POST">
                                                         {% csrf_token %}
-                                                        {{break_time.management_form}}
+                                                        {{ break_time.management_form }}
                                                         {% for form in break_time %}
-                                                        <div class="break-time-form">
-                                                            <div class="form-group">
-                                                                {{ form.instructor }}
+                                                            <div class="break-time-form">
+                                                                <div class="form-group">
+                                                                    {{ form.instructor }}
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {{ form.week_day }}
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {{ form.start_time }}
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    {{ form.end_time }}
+                                                                </div>
+                                                                {#                                                        {{form.as_p}}#}
                                                             </div>
-                                                            <div class="form-group">
-                                                                {{ form.week_day }}
-                                                            </div>
-                                                            <div class="form-group">
-                                                                {{ form.start_time }}
-                                                            </div>
-                                                            <div class="form-group">
-                                                                {{ form.end_time }}
-                                                            </div>
-{#                                                        {{form.as_p}}#}
-                                                        </div>
                                                         {% endfor %}
-                                                            <button id="add-form" type="button" class="btn btn-info">Add Another</button>
-                                                            <button type="submit" class="btn btn-success">Submit</button>
+                                                        <button id="add-form" type="button" class="btn btn-info">Add
+                                                            Another
+                                                        </button>
+                                                        <button type="submit" class="btn btn-success">Submit</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -907,7 +943,7 @@
     <script src="{% static 'js/jquery.clipboard.init.js' %}"></script>
     <script src="{% static 'js/leaflet.js' %}"></script>
     <script src="{% static 'js/lightpick.js' %}"></script>
-{#    <script src="https://mannatthemes.com/dastone-1/plugins/leaflet/leaflet.js"></script>#}
+    {#    <script src="https://mannatthemes.com/dastone-1/plugins/leaflet/leaflet.js"></script>#}
     <script src="https://mannatthemes.com/dastone/default/assets/pages/jquery.profile.init.js"></script>
     <script>
         var cities = L.layerGroup();
@@ -930,15 +966,15 @@
 
     <!-- Plugins js -->
 
-<script src="{% static 'js/daterangepicker.js' %}"></script>
-<script src="{% static 'js/select2.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-colorpicker.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-material-datetimepicker.js' %}"></script>
-<script src="{% static 'js/bootstrap-maxlength.min.js' %}"></script>
-<script src="{% static 'js/jquery.bootstrap-touchspin.min.js' %}"></script>
+    <script src="{% static 'js/daterangepicker.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-colorpicker.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-material-datetimepicker.js' %}"></script>
+    <script src="{% static 'js/bootstrap-maxlength.min.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap-touchspin.min.js' %}"></script>
 
- <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
     <script>
         $(document).ready(function () {
             $(".dataTable").DataTable()
@@ -963,13 +999,13 @@
 
 
     </script>
-    <script type="text/javascript" >
-    var json_string = unescape({{instructor_id | safe | escapejs}});
-    var instructor_id = JSON.parse(json_string);
-        $(".break_time_profile option").each(function(){
+    <script type="text/javascript">
+        var json_string = unescape({{instructor_id | safe | escapejs}});
+        var instructor_id = JSON.parse(json_string);
+        $(".break_time_profile option").each(function () {
             let optin_val = $(this).val();
-          if (optin_val == 9) {
-              $(this).attr("selected", "selected");
+            if (optin_val == 9) {
+                $(this).attr("selected", "selected");
             }
         });
     </script>
@@ -981,28 +1017,28 @@
         let addButton = document.querySelector("#add-form")
         let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
 
-        let formNum = birdForm.length-1
+        let formNum = birdForm.length - 1
         addButton.addEventListener('click', addForm)
 
-        function addForm(e){
+        function addForm(e) {
             e.preventDefault()
 
             let newForm = birdForm[0].cloneNode(true)
-            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+            let formRegex = RegExp(`form-(\\d){1}-`, 'g')
 
             formNum++
             newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
             container.insertBefore(newForm, addButton)
 
-            totalForms.setAttribute('value', `${formNum+1}`)
+            totalForms.setAttribute('value', `${formNum + 1}`)
 
             // select default user
 
             var json_string = unescape({{instructor_id | safe | escapejs}});
             var instructor_id = JSON.parse(json_string);
-            $(".break_time_profile option").each(function(){
-              if ($(this).val() == instructor_id) {
-                  $(this).attr("selected", "selected");
+            $(".break_time_profile option").each(function () {
+                if ($(this).val() == instructor_id) {
+                    $(this).attr("selected", "selected");
                 }
             });
 
@@ -1017,108 +1053,114 @@
                     (e.AdvancedForm = new t()),
                     (e.AdvancedForm.Constructor = t);
             })(window.jQuery),
-            (function (t) {
-                "use strict";
-                window.jQuery.AdvancedForm.init();
-            })();
+                (function (t) {
+                    "use strict";
+                    window.jQuery.AdvancedForm.init();
+                })();
         }
     </script>
 
     <script type="text/javascript">
-    /*
-        $(document).ready(function(){
-            var addButton = $('.add_button'); //Add button selector
-            var wrapper = $('.field_wrapper'); //Input field wrapper
-            var fieldHTML = '<div class="col-md-4 added_container">' +
-                '<div class="form-group">' +
-                '<select class="form-control" name="select_week_day">' +
-                '<option>Select a day</option>' +
-                '<option>Monday</option>' +
-                '<option>Tuesday</option>' +
-                '<option>Wednesday</option>' +
-                '<option>Thursday</option>' +
-                '<option>Friday</option>' +
-                '<option>Saturday</option>' +
-                '<option>Sunday</option>' +
-                '</select>' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<label>Start Time</label>' +
-                '<div class="input-group">' +
-                '<div class="input-group-prepend">' +
-                '<span class="input-group-text">' +
-                '<i class="mdi mdi-calendar-clock"></i>' +
-                '</span>' +
-                '</div>' +
-                '<input name="day_start_time" type="text"class="add_more_timepicker form-control" placeholder="Start Time">' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-6">' +
-                '<label>End Time</label>' +
-                '<div class="input-group">' +
-                '<div class="input-group-prepend">' +
-                '<span class="input-group-text">' +
-                '<i class="mdi mdi-calendar-clock"></i>' +
-                '</span>' +
-                '</div>' +
-                '<input name="day_end_time" type="text"class="add_more_timepicker form-control"placeholder="Start Time">' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<a class="btn btn-danger remove_button">Remove field</a>' +
-                '</div>'//New input field html
+        /*
+            $(document).ready(function(){
+                var addButton = $('.add_button'); //Add button selector
+                var wrapper = $('.field_wrapper'); //Input field wrapper
+                var fieldHTML = '<div class="col-md-4 added_container">' +
+                    '<div class="form-group">' +
+                    '<select class="form-control" name="select_week_day">' +
+                    '<option>Select a day</option>' +
+                    '<option>Monday</option>' +
+                    '<option>Tuesday</option>' +
+                    '<option>Wednesday</option>' +
+                    '<option>Thursday</option>' +
+                    '<option>Friday</option>' +
+                    '<option>Saturday</option>' +
+                    '<option>Sunday</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    '<div class="row">' +
+                    '<div class="col-md-6">' +
+                    '<label>Start Time</label>' +
+                    '<div class="input-group">' +
+                    '<div class="input-group-prepend">' +
+                    '<span class="input-group-text">' +
+                    '<i class="mdi mdi-calendar-clock"></i>' +
+                    '</span>' +
+                    '</div>' +
+                    '<input name="day_start_time" type="text"class="add_more_timepicker form-control" placeholder="Start Time">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                    '<label>End Time</label>' +
+                    '<div class="input-group">' +
+                    '<div class="input-group-prepend">' +
+                    '<span class="input-group-text">' +
+                    '<i class="mdi mdi-calendar-clock"></i>' +
+                    '</span>' +
+                    '</div>' +
+                    '<input name="day_end_time" type="text"class="add_more_timepicker form-control"placeholder="Start Time">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<a class="btn btn-danger remove_button">Remove field</a>' +
+                    '</div>'//New input field html
 
-            //Once add button is clicked
-            $(addButton).click(function(){
-                $(wrapper).append(fieldHTML); //Add field html
-                !(function (e) {
-                    "use strict";
-                    var t = function () {
-                    };
-                    (t.prototype.init = function () {
-                        e(".add_more_timepicker").bootstrapMaterialDatePicker({format: "HH:mm:ss", time: !0, date: !1});
-                    }),
-                    (e.AdvancedForm = new t()),
-                    (e.AdvancedForm.Constructor = t);
-                    })(window.jQuery),
-                    (function (t) {
+                //Once add button is clicked
+                $(addButton).click(function(){
+                    $(wrapper).append(fieldHTML); //Add field html
+                    !(function (e) {
                         "use strict";
-                        window.jQuery.AdvancedForm.init();
-                    })();
+                        var t = function () {
+                        };
+                        (t.prototype.init = function () {
+                            e(".add_more_timepicker").bootstrapMaterialDatePicker({format: "HH:mm:ss", time: !0, date: !1});
+                        }),
+                        (e.AdvancedForm = new t()),
+                        (e.AdvancedForm.Constructor = t);
+                        })(window.jQuery),
+                        (function (t) {
+                            "use strict";
+                            window.jQuery.AdvancedForm.init();
+                        })();
 
 
+                });
+
+                //Once remove button is clicked
+                $(wrapper).on('click', '.remove_button', function(e){
+                    e.preventDefault();
+                    $(this).parent('.added_container').remove(); //Remove field html
+                });
             });
-
-            //Once remove button is clicked
-            $(wrapper).on('click', '.remove_button', function(e){
-                e.preventDefault();
-                $(this).parent('.added_container').remove(); //Remove field html
-            });
-        });
-        */
+            */
 
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-    var minLength = 10;
-var maxLength = 25;
-$(document).ready(function(){
-    $('#name').on('keydown keyup change', function(){
-        var char = $(this).val();
-        var charLength = $(this).val().length;
-        if(charLength < minLength){
-           alert('Length is short, minimum 10 required.');
-        }else if(charLength > maxLength){
-            alert('Length is not valid, maximum 25 allowed.');
-            $(this).val(char.substring(0, maxLength));
-        }else{
-            $('#warning-message').text('');
-        }
-    });
-});
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var minLength = 10;
+        var maxLength = 25;
+        $(document).ready(function () {
+            $('#mobile_no').on('keydown keyup change', function () {
+                var char = $(this).val();
+                var charLength = $(this).val().length;
+                if (charLength < minLength) {
+                    alert('Length is short, minimum 10 required.');
+                } else if (charLength > maxLength) {
+                    alert('Length is not valid, maximum 25 allowed.');
+                    $(this).val(char.substring(0, maxLength));
+                } else {
+                    $('#warning-message').text('');
+                }
+            });
+        });
+    </script>
+    <script>
+        setTimeout(function () {
+            $("[data-dismiss=alert]").click();
+        }, 2000);
     </script>
 {% endblock %}
 
