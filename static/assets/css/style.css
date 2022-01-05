@@ -629,6 +629,7 @@ button:focus {
 .main_container {
   padding: 0 0 0 20px;
 }
+
 @media (min-width: 768px) {
 
 
@@ -637,11 +638,13 @@ button:focus {
 
   }
 
+
   #profile_link {
     display: none;
 
   }
 }
+
 
 .navbar-collapse.collapse.left-sidebar {
   background: #063264;

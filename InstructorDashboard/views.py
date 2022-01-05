@@ -634,18 +634,27 @@ def terms_conditions(request):
     return render(request, 'InstructorDashboard/terms_conditions.html')
 
 
+# def add_break_time(request):
+#     if request.method == "POST":
+#         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
+#
+#         if formset.is_valid():
+#             formset.save()
+#             return redirect('InstructorDashboard:instructor_profile')
+#     return redirect('InstructorDashboard:instructor_profile')
+
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
         print(request.POST['form-0-start_time'])
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
-            messages.error(request, "Anivesh wala Dal lena")
+            messages.error(request,"Please select valid timeSlot!")
+            return redirect('InstructorDashboard:instructor_profile')
         else:
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
     return redirect('InstructorDashboard:instructor_profile')
-
 
 def del_break_time(request, id):
     try:

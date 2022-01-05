@@ -1,75 +1,163 @@
 {% load static %}
-{#{% if messages %}#}
+<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" type="text/css">
+{#<div style="float:right;position:fixed;width:90%;min-height:200px;z-index:2;margin-top: 70px;">#}
+{#<!-- Flexbox container for aligning the toasts -->#}
+{#<div aria-live="polite" id="msg" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="position:relative;float:right; ">#}
 {##}
-{#{% for message in messages %}#}
-{#    <div aria-live="polite" id="msg"  aria-atomic="true" style="position: relative; z-index:2; min-height: 200px;">#}
+{#  <!-- Then put toasts within -->#}
+{#  <div class="toast {{ message.tags }}" role="alert" aria-live="assertive" aria-atomic="true" style="text-align:center;">#}
 {##}
-{#  <div style="position: fixed; top: 20px; right: 20px;">#}
+{#        <div class="toast-header" >#}
+{#      <img src="{% static 'assets/img/logo2.png' %}" class="rounded mr-2" alt="..." style="width:40px;height:30px;">#}
+{#      <strong class="mr-auto">Swim Time Solutions &nbsp;&nbsp; </strong>#}
 {##}
-{#    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast {{ message.tags }} container-fluid" data-autohide="false" style="z-index:-1;margin-top: 20%;">#}
-{#      <div class="toast-header">#}
-{#          <br>#}
-{##}
-{#       <img src="{% static 'assets/img/logo2.png' %}" style="width:40px;height:30px;"/>#}
-{##}
-{#        <strong class="mr-auto">Swim Time Solution</strong>#}
-{#        <small></small>#}
-{##}
-{##}
-{#    </button>#}
-{#      </div><br>#}
-{#      <div class="toast-body container-fluid" align="center" style="color: #0c0f26">#}
-{#          <b>{{ message }}</b>#}
-{#          <br><br>#}
-{#      </div>#}
+{#      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">#}
+{#        <span aria-hidden="true">&nbsp;&nbsp; &times; &nbsp;&nbsp;</span>#}
+{#      </button>#}
+{#        </div>#}
+{#    <div class="toast-body" >#}
+{#      {{ message }}#}
+{#        <br><br>#}
 {#    </div>#}
-{##}
-{##}
-{##}
 {#  </div>#}
 {#</div>#}
-{##}
-{#    <script type="text/javascript">#}
-{#setTimeout(function (){#}
-{#       if ($('#msg').length>0){#}
-{#           $('#msg').remove();#}
-{#       }#}
-{#   }, 4000)#}
-{##}
-{#    </script>#}
-{#{% endfor %}#}
-{#{% endif %}#}
+{#</div>#}
 
+<style>
+    * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px
+}
+{##}
+{#body {#}
+{#    background-color: #f9f9f9#}
+{#}#}
+
+.wrapper {
+    width: 380px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%
+}
+
+.toast {
+    width: 100%;
+    height: 80px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 1.3fr 6fr 0.5fr;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08)
+}
+
+.success {
+    border-left: 3px solid #47D764
+}
+
+.error {
+    border-left: 3px solid #ff355b
+}
+
+.info {
+    border-left: 3px solid #2F86EB
+}
+
+.warning {
+    border-left: 3px solid #FFC021
+}
+
+.error i {
+    color: #ff355b
+}
+
+.info i {
+    color: #2F86EB
+}
+
+.warning i {
+    color: #FFC021
+}
+
+.toast:not(:last-child) {
+    margin-bottom: 20px
+}
+
+.outer-container,
+.inner-container {
+    align-self: center
+}
+
+.outer-container i {
+    font-size: 35px
+}
+
+.success i {
+    color: #47D764
+}
+
+.inner-container p:first-child {
+    color: #101020;
+    font-weight: 600;
+    font-size: 16px
+}
+
+.inner-container p:last-child {
+    font-size: 12px;
+    font-weight: 400;
+    color: #656565
+}
+
+.toast button {
+    align-self: flex-start;
+    background-color: transparent;
+    font-size: 20px;
+    color: #656565;
+    line-height: 0;
+    cursor: pointer;
+    margin-right: -30px
+}
+</style>
 {% for message in messages %}
-<div style="float:right;position:fixed;width:80%;min-height:200px;z-index:2;margin-top: 70px;">
+ <div style="float:right;position:fixed;width:90%;min-height:200px;z-index:2;margin-top: 70px;">
 <!-- Flexbox container for aligning the toasts -->
 <div aria-live="polite" id="msg" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="position:relative;float:right; ">
 
   <!-- Then put toasts within -->
-  <div class="toast {{ message.tags }}" role="alert" aria-live="assertive" aria-atomic="true" style="text-align:center;">
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="text-align: center;">
 
         <div class="toast-header" >
-      <img src="{% static 'assets/img/logo2.png' %}" class="rounded mr-2" alt="..." style="width:40px;height:30px;">
-      <strong class="mr-auto">Swim Time Solutions &nbsp;&nbsp; </strong>
+      <img src="{% static 'assets/img/logo2.png' %}" class="rounded mr-2" alt="..." style="width:60px;height:50px;margin-top:-7px;">
+
+
 
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&nbsp;&nbsp; &times; &nbsp;&nbsp;</span>
+        <span aria-hidden="true"></span>
       </button>
         </div>
-    <div class="toast-body" >
+    <div class="toast-body" style="margin-top:10px;color:black;">
+
       {{ message }}
-        <br><br>
+
     </div>
   </div>
 </div>
 </div>
+
 {% endfor %}
+
   <script type="text/javascript">
 setTimeout(function (){
        if ($('#msg').length>0){
            $('#msg').remove();
        }
-   }, 4000)
+   }, 5000)
+
 
     </script>
 

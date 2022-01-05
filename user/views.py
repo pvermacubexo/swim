@@ -57,13 +57,13 @@ class Authenticate(TokenObtainPairView):
                         request.session['email'] = email
                         user_details = User.objects.filter(email=email)
                         if user_details:
-                            messages.success(request,"User login successfully")
+                            messages.success(request,"User Login Successfully!")
                             return redirect(SwimTimeDashboard)
                         else:
-                            messages.error(request,"Invalid login Details")
+                            messages.error(request,"Invalid Login Details!")
                             return render(request, "new_register.html")
                     else:
-                        messages.error(request,"Invalid User details")
+                        messages.error(request,"Invalid User Details!")
                         return render(request, "new_register.html")
 
 
@@ -74,7 +74,7 @@ class Authenticate(TokenObtainPairView):
                 messages.error(request, serializer.validated_data)
                 return render(request, "new_register.html")
         else:
-            messages.error(request,"Invalid login Details")
+            messages.error(request,"Invalid login Details!")
             return render(request, "new_register.html")
 
 

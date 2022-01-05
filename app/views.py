@@ -1,3 +1,5 @@
+
+
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password
@@ -6,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from Appointment.models import ClassInstructor
 from user import models as user_models
-from user.models import User
+from user.models import User, Profile
 
 
 def SwimTimeView(request):
@@ -48,15 +50,16 @@ def SwimTimeDashboard(request ):
         user_id = obj.inst_id
         first_name = User.objects.get(id=user_id)
         email = request.session['email']
+        links = Profile.objects.filter(user_id=user_id)
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
-                          {"user_details": user_details, "data": classes, "first_name": first_name})
+                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links})
         except:
-            messages.error(request,"Invalid login details")
+            messages.error(request,"Invalid Login Details!")
             return render(request, "register.html")
     else:
         return render(request, "index.html")
@@ -81,7 +84,7 @@ def update_profile(request):
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.success(request,"updated successfully")
+        messages.success(request,"Updated Successfully!")
         return redirect(SwimTimeDashboard)
         # return render(request, 'dashboard.html',
         #               {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -91,7 +94,7 @@ def update_profile(request):
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=request.session['email'])
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.error(request,"somthing went wrong")
+        messages.error(request,"Somthing Went Wrong!")
 
         return render(request, 'dashboard.html',
                       {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -145,14 +148,14 @@ def Registration(request, id):
                 request.session['email'] = email
                 return redirect(SwimTimeDashboard)
         except:
-            messages.error(request,"Already Registered user")
+            messages.error(request,"Already Registered User!")
             return render(request, "register.html", {"id": id})
         return render(request, "register.html", {"id": id})
 
 
 def LogoutView(request):
     logout(request)
-    messages.success(request,"Logout Successfully")
+    messages.success(request,"Logout Successfully!")
     return render(request, "new_register.html")
 
 #

@@ -258,7 +258,7 @@
                                     <!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9 ]{3,}"
+                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9]{8,20}"
                                         title="Only Numeric Characters are allowed" name="mobile_no"
                                         placeholder="Contact Number" type="text" id="mobile_no"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
@@ -535,7 +535,7 @@
                                                 <div _ngcontent-jar-c34="" class="contact-form"><h2
                                                         _ngcontent-jar-c34="">
                                                     Contact Us</h2>
-                                                  <form _ngcontent-jar-c34="" action="contact-us/" method="post"
+                                                        <form _ngcontent-jar-c34="" action="contact-us/" method="post"
                                                       class="contact-page-form-1 ng-untouched ng-pristine ng-invalid">
                                                     {% csrf_token %}
                                                     <div _ngcontent-jar-c34="" class="row clearfix">
@@ -564,7 +564,7 @@
                                                                 _ngcontent-jar-c34="" type="text"
                                                                 formcontrolname="phone" name="phone"
                                                                 placeholder="Phone Number*"
-                                                                pattern="[0-9 ]{3,}"
+                                                                pattern="[0-9]{8,20}"
                                                                 title="Only Numeric Characters are allowed"
                                                                 class="ng-untouched ng-pristine ng-invalid" required>
                                                             <!---->
@@ -591,7 +591,7 @@
                                                             <button _ngcontent-jar-c34="" type="submit"
                                                                     name="submit-form"
                                                                     class="theme-btn btn-style-one"
-                                                                    >Send
+                                                            >Send
                                                             </button>
                                                         </div>
                                                     </div>
