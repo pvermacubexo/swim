@@ -2255,9 +2255,12 @@
     //
     $("#cash_payment_btn").click(function (){
         var amt = $('#amount_to_be_paid1').val();
-            if (amt <= 0) {
+            {#if#}
+            var x =  $('#fee').text();
+            console.log(parseInt(x.substring(1,)));
+            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) ) ) {
 
-            $("#error_meesage").text("Amount Should not Be zero");
+            $("#error_meesage").text("Enter valid amount !! ");
 
             }
             else{

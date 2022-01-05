@@ -76,24 +76,24 @@
                                                                                                                 <div _ngcontent-ojq-c32=""
                                                                                                                      style="min-height: 300px;">
                                                                                                                     {% if not datas.pending_amount|stringformat:"i" == "0" %}
-                                                                                                                    <div _ngcontent-nrd-c32=""
-                                                                                                                         class="row">
                                                                                                                         <div _ngcontent-nrd-c32=""
-                                                                                                                             class="col-md-6 pendingStatus">
-                                                                                                                            <h5 _ngcontent-nrd-c32=""
-                                                                                                                                class="price">
-                                                                                                                                Pending
-                                                                                                                                for
-                                                                                                                                approval
-                                                                                                                                :
-                                                                                                                                <i _ngcontent-nrd-c32=""
-                                                                                                                                   class="fa fa-dollar"></i>
-                                                                                                                                {{ datas.pending_amount }}
-                                                                                                                            </h5>
+                                                                                                                             class="row">
+                                                                                                                            <div _ngcontent-nrd-c32=""
+                                                                                                                                 class="col-md-6 pendingStatus">
+                                                                                                                                <h5 _ngcontent-nrd-c32=""
+                                                                                                                                    class="price">
+                                                                                                                                    Pending
+                                                                                                                                    for
+                                                                                                                                    approval
+                                                                                                                                    :
+                                                                                                                                    <i _ngcontent-nrd-c32=""
+                                                                                                                                       class="fa fa-dollar"></i>
+                                                                                                                                    {{ datas.pending_amount }}
+                                                                                                                                </h5>
+                                                                                                                            </div>
+                                                                                                                            <!---->
+                                                                                                                            <!---->
                                                                                                                         </div>
-                                                                                                                        <!---->
-                                                                                                                        <!---->
-                                                                                                                    </div>
                                                                                                                     {% endif %}
                                                                                                                     <div _ngcontent-ojq-c32=""
                                                                                                                          class="row">
@@ -298,30 +298,36 @@
                                                                                 _ngcontent-juj-c30=""><span
                                                                                 _ngcontent-juj-c30="">2</span>Payment
                                                                             Method</h3></div>
-                                                                        <form method="POST" action="stripe/cash-payment/">
+                                                                        <form id="Cash_pay" method="POST"
+                                                                              action="stripe/cash-payment/">
                                                                             <input class="form-control"
                                                                                    type="hidden" value=""
                                                                                    id="bkid1"
                                                                                    name="booking" required>
-                                                                            <span style="color: red;" id="error_meesage"></span>
-                                                                            <input type="hidden" value="1" name="payment_type">
+                                                                            <span style="color: red;"
+                                                                                  id="error_meesage"></span>
+                                                                            <input type="hidden" value="1"
+                                                                                   name="payment_type">
                                                                             <input class="form-control"
                                                                                    placeholder="Enter Amount to Be paid"
                                                                                    type="text" pattern="[0-9]{1,}"
                                                                                    id="amount_to_be_paid"
+                                                                                    {#                                                                                   onchange="maxamount()"#}
                                                                                    name="paid_amount" required>
                                                                             <br>
-                                                                            <button type="submit" value="Cash_Payment"
+                                                                            <button type="button" value="Cash_Payment"
+                                                                                    onclick="maxamount()"
                                                                                     class="btn btn-primary"
+                                                                                    id="cash_payment"
                                                                                     style="width: 48%">Cash Payment
                                                                             </button>
 
-                                                                            <a _ngcontent-ojq-c32=""
+                                                                            <button type="button" _ngcontent-ojq-c32=""
                                                                                style="width: 48%"
                                                                                data-toggle="modal"
-{#                                                                               data-target="#appointment-popup"#}
+                                                                                    {#                                                                               data-target="#appointment-popup"#}
                                                                                class="btn btn-primary btn-custom pay-button"
-                                                                               onclick="CreateIntent()">PAY</a>
+                                                                               onclick="CreateIntent()">PAY</button>
                                                                         </form>
 
                                                                     </div>
@@ -772,7 +778,7 @@
                         </div>
 
                         <script>
-                            function send_details(id,due_amount,total_days) {
+                            function send_details(id, due_amount, total_days) {
                                 var inst_name = $("#instructorname_1").text();
                                 var due_amount_fee = due_amount
                                 var session_duration = total_days
@@ -791,7 +797,26 @@
         </div>
     </app-repayment>
 
+    <script>
 
+        function maxamount() {
+
+            console.log("button clicked")
+            var maxamt = $('#fee2').text()
+            var inputamt = $("#amount_to_be_paid").val()
+            console.log(maxamt, inputamt);
+            if (((parseInt(inputamt)) <= 0) ||( inputamt === "") ) {
+                $("#error_meesage").text(" Amount should not be zero ");
+            } else if (parseInt(maxamt) < parseInt(inputamt)) {
+                console.log("d");
+                $("#error_meesage").text("Amount should be less then or equal $" + (maxamt));
+            } else {
+                document.getElementById("Cash_pay").submit();
+                {#$('#cash_payment').prop('disabled', false);#}
+
+            }
+        }
+    </script>
     <script>
 
         // Code For Model
@@ -815,11 +840,9 @@
 
                 {#alert("Cant't Pay if amount is equal to 0");#}
                 {#$('#appointment-popup').hide();#}
-                 $("#error_meesage").text("Amount Should not Be zero");
+                $("#error_meesage").text("Amount Should not Be zero");
 
-            }
-            else {
-
+            } else {
 
 
                 $('#instructor_name1').text($("#instructorname_1").text());
@@ -840,18 +863,16 @@
                     body: JSON.stringify(orderData)
                 })
                     .then(function (result) {
-                        if (result.status == 200){
+                        if (result.status == 200) {
                             $("#appointment-popup").modal('show');
-                             $("#choose_payment_popup").modal('hide');
-                                 return result.json();
+                            $("#choose_payment_popup").modal('hide');
+                            return result.json();
 
-                            }
-                        else if (result.status === 422){
+                        } else if (result.status === 422) {
                             {#console.log(result.error())#}
                             $("#error_meesage").text("Amount should not grater then due amount ");
                             console.log("Error");
-                        }
-                        else{
+                        } else {
                             $("#error_meesage").text("Please recheck the details you have provided")
                             console.log("Error");
                         }
