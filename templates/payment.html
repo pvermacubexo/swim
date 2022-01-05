@@ -833,13 +833,10 @@
             {#console.log(booking_id,Amount);#}
             var Amount = $('#amount_to_be_paid').val()
             var booking_id = $('#bkid1').val()
+            var maxamt = $('#fee2').text()
             var course_duration = $('#total_days2').text()
-            if (Amount <= 0) {
+            if ((Amount <= 0)||(Amount > parseInt(maxamt))) {
 
-                {#$('#choose_payment_popup').show();#}
-
-                {#alert("Cant't Pay if amount is equal to 0");#}
-                {#$('#appointment-popup').hide();#}
           $("#error_meesage").text("Amount Should not Be zero");
 
             }

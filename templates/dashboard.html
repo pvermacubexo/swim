@@ -2281,11 +2281,11 @@
             // Calling Intent API using fetch
             var instructor_name = $('#instructor_name').text();
             var booking_id = $('#booking_id_span').text();
-
+            var x =  $('#fee').text();
             var amt = $('#amount_to_be_paid1').val();
-            if (amt <= 0) {
+            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) )) {
 
-                $("#error_meesage").text("Amount Should not Be zero");
+                $("#error_meesage").text("Enter Valid Amount");
 
             } else {
                 $('#fee1').text("$" + amt);
