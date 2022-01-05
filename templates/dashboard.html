@@ -5,43 +5,45 @@
 {% block sidebar_content %}
 
 
-                    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
-                    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
-                        <div _ngcontent-nwk-c28="" class="tab-link first">
-                            <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
-                            <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
-                        <div _ngcontent-nwk-c28="" class="tab-link">
-                            <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
-                            <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
-                    </a>
-                    <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
-                        <div _ngcontent-nwk-c28="" class="tab-link">
-                            <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
-                            <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
-                    </a>
+    <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+        <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
+            <div _ngcontent-nwk-c28="" class="tab-link first">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-one"></div>
+                <h3 _ngcontent-nwk-c28="">INSTRUCTOR</h3></div>
+        </a>
+        <a _ngcontent-nwk-c28="" href={% url 'schedule' %} class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-two"></div>
+                <h3 _ngcontent-nwk-c28="">MY SCHEDULE</h3></div>
+        </a>
+        <a _ngcontent-nwk-c28="" href={% url 'repayment_classes' %} class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div img-div-four"></div>
+                <h3 _ngcontent-nwk-c28="">PAYMENT</h3></div>
+        </a>
 
-                   <a _ngcontent-nwk-c28="" id="logout_link"  data-toggle="tooltip" title="Log Out" href="{% url 'LogoutView' %}" class="">
-                        <div _ngcontent-nwk-c28=""  class="tab-link">
-                            <div _ngcontent-nwk-c28="" class="img-div ">
-                                <img
-                        _ngcontent-uas-c28=""
-                        src={% static 'assets/img/logout.png' %}
-                                alt="img">
-                            </div>
-                            <h3 _ngcontent-nwk-c28="">LOGOUT</h3></div>
-                    </a>
+        <a _ngcontent-nwk-c28="" id="logout_link" data-toggle="tooltip" title="Log Out" href="{% url 'LogoutView' %}"
+           class="">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div ">
+                    <img
+                            _ngcontent-uas-c28=""
+                            src={% static 'assets/img/logout.png' %}
+                                    alt="img">
+                </div>
+                <h3 _ngcontent-nwk-c28="">LOGOUT</h3></div>
+        </a>
 
 
-                    <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile" class="" onclick="checkdate()">
-                        <div _ngcontent-nwk-c28="" class="tab-link">
-                            <div _ngcontent-nwk-c28="" class="img-div ">
-                                <img _ngcontent-uas-c28="" alt="Profile"
-                                             src="http://167.172.131.164/media/Images/profile/default.png">
-                            </div>
-                            <h3 _ngcontent-nwk-c28="">PROFILE</h3></div>
-                    </a></a>
+        <a _ngcontent-nwk-c28="" id="profile_link" data-toggle="modal" data-target="#profileEdit" title="Update Profile"
+           class="" onclick="checkdate()">
+            <div _ngcontent-nwk-c28="" class="tab-link">
+                <div _ngcontent-nwk-c28="" class="img-div ">
+                    <img _ngcontent-uas-c28="" alt="Profile"
+                         src="http://167.172.131.164/media/Images/profile/default.png">
+                </div>
+                <h3 _ngcontent-nwk-c28="">PROFILE</h3></div>
+        </a></a>
 
 
 
@@ -54,8 +56,8 @@
 
     {% if res_data %}
         <script>
-        alert("Payment Successful ! ")
-        window.location.href = "{%  url 'dashboard_view' %}";
+            alert("Payment Successful ! ")
+            window.location.href = "{%  url 'dashboard_view' %}";
         </script>
     {% endif %}
     <app-dashboard _nghost-ygs-c30="">
@@ -64,7 +66,7 @@
             <div _ngcontent-ygs-c30="" class="main-content">
                 <div _ngcontent-ygs-c30="" class="container">
                     <div _ngcontent-ygs-c30="" class="row">
-                     {% include 'message.html' %}
+                        {% include 'message.html' %}
                         <div _ngcontent-ygs-c30="" class="container-fluid">
                             <div _ngcontent-ygs-c30="" class="row">
                                 <div _ngcontent-ygs-c30="" class="content profile">
@@ -192,18 +194,18 @@
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 imageProfile">
 
-                                                                    {%  if first_name.profile_img %}
-                                                                    <div _ngcontent-ygs-c30=""><img
-                                                                            _ngcontent-ygs-c30="" alt=""
-                                                                            class="imageIcon"
-                                                                            src="{{ first_name.profile_img }}">
-                                                                    </div>
-                                                                        {% else %}
-                                                                         <div _ngcontent-ygs-c30=""><img
-                                                                            _ngcontent-ygs-c30="" alt=""
-                                                                            class="imageIcon"
-                                                                            src="Images/profile/default.png">
-                                                                    </div>
+                                                                    {% if first_name.profile_img %}
+                                                                        <div _ngcontent-ygs-c30=""><img
+                                                                                _ngcontent-ygs-c30="" alt=""
+                                                                                class="imageIcon"
+                                                                                src="{{ first_name.profile_img }}">
+                                                                        </div>
+                                                                    {% else %}
+                                                                        <div _ngcontent-ygs-c30=""><img
+                                                                                _ngcontent-ygs-c30="" alt=""
+                                                                                class="imageIcon"
+                                                                                src="Images/profile/default.png">
+                                                                        </div>
                                                                     {% endif %}
 
                                                                 </div><!---->
@@ -1655,12 +1657,14 @@
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
                                                                  class="col-md-4 right-text left-text-left"><label
-                                                                    _ngcontent-asr-c30=""> Instructor Name: </label></div> <div _ngcontent-asr-c30="" class="col-md-8 left-text"><p
-                                                                id="instructor_name"> </p></div>
-                                                                <span style="display: none;"
-                                                                      id="booking_id_span"></span>
-                                                                <span style="display: none;"
-                                                                      id="amount_to_be_paid"></span>
+                                                                    _ngcontent-asr-c30=""> Instructor Name: </label>
+                                                            </div>
+                                                            <div _ngcontent-asr-c30="" class="col-md-8 left-text"><p
+                                                                    id="instructor_name"></p></div>
+                                                            <span style="display: none;"
+                                                                  id="booking_id_span"></span>
+                                                            <span style="display: none;"
+                                                                  id="amount_to_be_paid"></span>
 
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
@@ -1669,7 +1673,9 @@
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
                                                                 <label _ngcontent-asr-c30=""> Course
-                                                                    Duration: </label><div  style="margin-left: 140px;margin-top: -28px"><span id="total_days">Days</span></div>
+                                                                    Duration: </label>
+                                                                <div style="margin-left: 140px;margin-top: -28px"><span
+                                                                        id="total_days">Days</span></div>
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-6 left-text">
                                                                 <!----></div>
@@ -1686,273 +1692,272 @@
                                                 </div>
                                             </div>
                                             <form id="form_to_be" method="get" action="stripe/cash-payment/">
-                                            <div>
-                                                 <input type="hidden" value="" id="bid" name="booking">
+                                                <div>
+                                                    <input type="hidden" value="" id="bid" name="booking">
 
-                                        <input type="hidden" value="1" id="payment_type1" name="payment_type">
-                                                <input class="form-control"
-                                                                                   placeholder="Enter Amount to Be paid"
-                                                                                   type="text" pattern="[0-9]"
-                                                                                   id="amount_to_be_paid1"
-                                                                                   name="paid_amount" required>
-                                                 <span style="color: red;" id="error_meesage"></span>
+                                                    <input type="hidden" value="1" id="payment_type1"
+                                                           name="payment_type">
+                                                    <input class="form-control"
+                                                           placeholder="Enter Amount to Be paid"
+                                                           type="text" pattern="[0-9]"
+                                                           id="amount_to_be_paid1"
+                                                           name="paid_amount" required>
+                                                    <span style="color: red;" id="error_meesage"></span>
 
                                             </form>
-                                                                            <br></div>
-                                            <div _ngcontent-asr-c30="" class="row">
-                                                <div _ngcontent-asr-c30="" class="col-md-12">
-                                                    <div _ngcontent-asr-c30="" class="confirm-table">
-                                                        <table _ngcontent-asr-c30="" class="table">
-                                                            <thead _ngcontent-asr-c30="">
-                                                            <tr _ngcontent-asr-c30="">
-                                                                <th _ngcontent-asr-c30="">Date</th>
-                                                                <th _ngcontent-asr-c30="">Time</th>
-                                                            </tr>
-                                                            </thead>
-                                                        </table>
-                                                        <div _ngcontent-asr-c30="" class="table2">
-                                                            <table _ngcontent-asr-c30=""><!---->
-                                                                <tbody _ngcontent-asr-c30="" id="date_time_table">
-                                                                <!----></tbody><!----></table><!----></div>
-                                                    </div>
+                                            <br></div>
+                                        <div _ngcontent-asr-c30="" class="row">
+                                            <div _ngcontent-asr-c30="" class="col-md-12">
+                                                <div _ngcontent-asr-c30="" class="confirm-table">
+                                                    <table _ngcontent-asr-c30="" class="table">
+                                                        <thead _ngcontent-asr-c30="">
+                                                        <tr _ngcontent-asr-c30="">
+                                                            <th _ngcontent-asr-c30="">Date</th>
+                                                            <th _ngcontent-asr-c30="">Time</th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div _ngcontent-asr-c30="" class="table2">
+                                                        <table _ngcontent-asr-c30=""><!---->
+                                                            <tbody _ngcontent-asr-c30="" id="date_time_table">
+                                                            <!----></tbody><!----></table><!----></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div _ngcontent-asr-c30="" class="next-btn-div registration-form">
-
-
-
-  <button _ngcontent-asr-c30="" id="cash_payment_btn"
-                                            type="button">Cash Payment
-                                    </button>
-                                    <button _ngcontent-asr-c30="" id="procced_to_pay"
-                                            type="button">Card Pay
-                                    </button>
-                                </div>
-
                             </div>
+                            <div _ngcontent-asr-c30="" class="next-btn-div registration-form">
+
+
+                                <button _ngcontent-asr-c30="" id="cash_payment_btn"
+                                        type="button">Cash Payment
+                                </button>
+                                <button _ngcontent-asr-c30="" id="procced_to_pay"
+                                        type="button">Card Pay
+                                </button>
+                            </div>
+
                         </div>
                     </div>
-
-
                 </div>
-            </fieldset>
 
-            <div _ngcontent-ygs-c30="" id="individual_date_time" style="display: none;">
-                <div _ngcontent-ygs-c30="" class="modal-content">
-                    <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                        <button _ngcontent-ygs-c30="" type="button"
-                                onclick="window.location.reload()" data-dismiss="modal"
-                                aria-hidden="true" class="close btn-first exit"> ×
-                        </button>
-                    </div>
-                    <div _ngcontent-ygs-c30="" class="modal-body select-time"><h4
-                            _ngcontent-ygs-c30="">Select Time</h4>
-                        <div _ngcontent-ygs-c30="" class="assessment-container">
-                            <div _ngcontent-ygs-c30="" class="form-bottom">
-                                <div _ngcontent-ygs-c30="" class="div-block"
-                                     style="min-height: 50vh;">
-                                    <div _ngcontent-ygs-c30="" class="row">
-                                        <div _ngcontent-ygs-c30="" class="col-md-4">
-                                            <div _ngcontent-ygs-c30="" class="dropdown"><label
-                                                    _ngcontent-ygs-c30="">2021-02-26</label><select
-                                                    _ngcontent-ygs-c30=""
-                                                    class="btn btn-primary dropdownSelect ng-untouched ng-pristine ng-valid">
-                                                <option _ngcontent-ygs-c30="" disabled="">Select
-                                                    Time
-                                                </option><!----></select></div><!----></div>
-                                        <!----></div><!----></div>
-                                <div _ngcontent-ygs-c30="" class="row termCondition">
-                                    <div _ngcontent-ygs-c30="" class="col-md-1"
-                                         style="text-align: right;"><input _ngcontent-ygs-c30=""
-                                                                           type="checkbox"
-                                                                           id="termsCondition"
-                                                                           name="terms"
-                                                                           value="1"></div>
-                                    <div _ngcontent-ygs-c30="" class="col-md-10 labelContent">
-                                        <label _ngcontent-ygs-c30="" for="termsCondition"> Check
-                                            here to indicate that you have read and agree to the
-                                            terms &amp; condition of the <span
-                                                    _ngcontent-ygs-c30="">Swim Time Solutions </span>
-                                            Agreement. </label></div>
-                                </div><!----></div>
-                        </div>
+
+        </div>
+        </fieldset>
+
+        <div _ngcontent-ygs-c30="" id="individual_date_time" style="display: none;">
+            <div _ngcontent-ygs-c30="" class="modal-content">
+                <div _ngcontent-ygs-c30="" class="modal-header registration-form">
+                    <button _ngcontent-ygs-c30="" type="button"
+                            onclick="window.location.reload()" data-dismiss="modal"
+                            aria-hidden="true" class="close btn-first exit"> ×
+                    </button>
+                </div>
+                <div _ngcontent-ygs-c30="" class="modal-body select-time"><h4
+                        _ngcontent-ygs-c30="">Select Time</h4>
+                    <div _ngcontent-ygs-c30="" class="assessment-container">
+                        <div _ngcontent-ygs-c30="" class="form-bottom">
+                            <div _ngcontent-ygs-c30="" class="div-block"
+                                 style="min-height: 50vh;">
+                                <div _ngcontent-ygs-c30="" class="row">
+                                    <div _ngcontent-ygs-c30="" class="col-md-4">
+                                        <div _ngcontent-ygs-c30="" class="dropdown"><label
+                                                _ngcontent-ygs-c30="">2021-02-26</label><select
+                                                _ngcontent-ygs-c30=""
+                                                class="btn btn-primary dropdownSelect ng-untouched ng-pristine ng-valid">
+                                            <option _ngcontent-ygs-c30="" disabled="">Select
+                                                Time
+                                            </option><!----></select></div><!----></div>
+                                    <!----></div><!----></div>
+                            <div _ngcontent-ygs-c30="" class="row termCondition">
+                                <div _ngcontent-ygs-c30="" class="col-md-1"
+                                     style="text-align: right;"><input _ngcontent-ygs-c30=""
+                                                                       type="checkbox"
+                                                                       id="termsCondition"
+                                                                       name="terms"
+                                                                       value="1"></div>
+                                <div _ngcontent-ygs-c30="" class="col-md-10 labelContent">
+                                    <label _ngcontent-ygs-c30="" for="termsCondition"> Check
+                                        here to indicate that you have read and agree to the
+                                        terms &amp; condition of the <span
+                                                _ngcontent-ygs-c30="">Swim Time Solutions </span>
+                                        Agreement. </label></div>
+                            </div><!----></div>
                     </div>
                 </div>
             </div>
-            <div _ngcontent-ygs-c30="" id="booking_confirm" class="confirm-section"
-                 style="display: none;">
-                <div _ngcontent-ygs-c30="" class="modal-content">
-                    <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                        <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
-                                aria-hidden="true" class="close btn-first"> ×
-                        </button>
-                    </div>
-                    <div _ngcontent-ygs-c30="" class="modal-body confirm-pay"><h4
-                            _ngcontent-ygs-c30="">Confirm To Pay</h4>
-                        <div _ngcontent-ygs-c30="" class="assessment-container">
-                            <div _ngcontent-ygs-c30="" class="form-bottom">
-                                <div _ngcontent-ygs-c30="" class="confirm-block">
-                                    <div _ngcontent-ygs-c30="" class="row">
+        </div>
+        <div _ngcontent-ygs-c30="" id="booking_confirm" class="confirm-section"
+             style="display: none;">
+            <div _ngcontent-ygs-c30="" class="modal-content">
+                <div _ngcontent-ygs-c30="" class="modal-header registration-form">
+                    <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                            aria-hidden="true" class="close btn-first"> ×
+                    </button>
+                </div>
+                <div _ngcontent-ygs-c30="" class="modal-body confirm-pay"><h4
+                        _ngcontent-ygs-c30="">Confirm To Pay</h4>
+                    <div _ngcontent-ygs-c30="" class="assessment-container">
+                        <div _ngcontent-ygs-c30="" class="form-bottom">
+                            <div _ngcontent-ygs-c30="" class="confirm-block">
+                                <div _ngcontent-ygs-c30="" class="row">
+                                    <div _ngcontent-ygs-c30=""
+                                         class="col-md-8 col-md-offset-2">
                                         <div _ngcontent-ygs-c30=""
-                                             class="col-md-8 col-md-offset-2">
-                                            <div _ngcontent-ygs-c30=""
-                                                 class="confirm-block-div">
-                                                <div _ngcontent-ygs-c30="" class="row">
+                                             class="confirm-block-div">
+                                            <div _ngcontent-ygs-c30="" class="row">
+                                                <div _ngcontent-ygs-c30=""
+                                                     class="col-md-12">
                                                     <div _ngcontent-ygs-c30=""
-                                                         class="col-md-12">
+                                                         class="row confirm-block-inner">
                                                         <div _ngcontent-ygs-c30=""
-                                                             class="row confirm-block-inner">
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-4 right-text left-text-left">
-                                                                <label _ngcontent-ygs-c30="">
-                                                                    Instructor Name: </label>
-                                                            </div>
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-8 left-text">
-                                                                <!----></div><!----></div>
-                                                    </div>
-                                                    <div _ngcontent-ygs-c30="" class="col-md-8">
-                                                        <div _ngcontent-ygs-c30=""
-                                                             class="row confirm-block-inner">
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-6 right-text">
-                                                                <label _ngcontent-ygs-c30="">
-                                                                    Course Duration: </label>
-                                                            </div>
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-6 left-text">
-                                                                <!----></div>
+                                                             class="col-md-4 right-text left-text-left">
+                                                            <label _ngcontent-ygs-c30="">
+                                                                Instructor Name: </label>
                                                         </div>
-                                                    </div>
-                                                    <div _ngcontent-ygs-c30="" class="col-md-4">
                                                         <div _ngcontent-ygs-c30=""
-                                                             class="row confirm-block-inner">
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-6 right-text">
-                                                                <label _ngcontent-ygs-c30="">
-                                                                    Fee: </label></div>
-                                                            <div _ngcontent-ygs-c30=""
-                                                                 class="col-md-6 left-text"><p
-                                                                    _ngcontent-ygs-c30="">$ </p>
-                                                            </div>
+                                                             class="col-md-8 left-text">
+                                                            <!----></div><!----></div>
+                                                </div>
+                                                <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                    <div _ngcontent-ygs-c30=""
+                                                         class="row confirm-block-inner">
+                                                        <div _ngcontent-ygs-c30=""
+                                                             class="col-md-6 right-text">
+                                                            <label _ngcontent-ygs-c30="">
+                                                                Course Duration: </label>
+                                                        </div>
+                                                        <div _ngcontent-ygs-c30=""
+                                                             class="col-md-6 left-text">
+                                                            <!----></div>
+                                                    </div>
+                                                </div>
+                                                <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                    <div _ngcontent-ygs-c30=""
+                                                         class="row confirm-block-inner">
+                                                        <div _ngcontent-ygs-c30=""
+                                                             class="col-md-6 right-text">
+                                                            <label _ngcontent-ygs-c30="">
+                                                                Fee: </label></div>
+                                                        <div _ngcontent-ygs-c30=""
+                                                             class="col-md-6 left-text"><p
+                                                                _ngcontent-ygs-c30="">$ </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div _ngcontent-ygs-c30="" class="row">
-                                                <div _ngcontent-ygs-c30="" class="col-md-12">
+                                        </div>
+                                        <div _ngcontent-ygs-c30="" class="row">
+                                            <div _ngcontent-ygs-c30="" class="col-md-12">
+                                                <div _ngcontent-ygs-c30=""
+                                                     class="confirm-table">
+                                                    <table _ngcontent-ygs-c30=""
+                                                           class="table">
+                                                        <thead _ngcontent-ygs-c30="">
+                                                        <tr _ngcontent-ygs-c30="">
+                                                            <th _ngcontent-ygs-c30="">Date
+                                                            </th>
+                                                            <th _ngcontent-ygs-c30="">Time
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
                                                     <div _ngcontent-ygs-c30=""
-                                                         class="confirm-table">
-                                                        <table _ngcontent-ygs-c30=""
-                                                               class="table">
-                                                            <thead _ngcontent-ygs-c30="">
+                                                         class="table2">
+                                                        <table _ngcontent-ygs-c30="">
                                                             <tr _ngcontent-ygs-c30="">
-                                                                <th _ngcontent-ygs-c30="">Date
-                                                                </th>
-                                                                <th _ngcontent-ygs-c30="">Time
-                                                                </th>
-                                                            </tr>
-                                                            </thead>
-                                                        </table>
-                                                        <div _ngcontent-ygs-c30=""
-                                                             class="table2">
-                                                            <table _ngcontent-ygs-c30="">
-                                                                <tr _ngcontent-ygs-c30="">
-                                                                    <td _ngcontent-ygs-c30="">
-                                                                        2021-02-09
-                                                                    </td>
-                                                                    <td _ngcontent-ygs-c30="">
-                                                                        -
-                                                                    </td>
-                                                                </tr><!---->
-                                                                <tbody _ngcontent-ygs-c30="">
-                                                                <!----></tbody><!----></table>
-                                                            <!----></div>
-                                                    </div>
+                                                                <td _ngcontent-ygs-c30="">
+                                                                    2021-02-09
+                                                                </td>
+                                                                <td _ngcontent-ygs-c30="">
+                                                                    -
+                                                                </td>
+                                                            </tr><!---->
+                                                            <tbody _ngcontent-ygs-c30="">
+                                                            <!----></tbody><!----></table>
+                                                        <!----></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div _ngcontent-ygs-c30=""
+                                 class="next-btn-div registration-form">
+                                <button _ngcontent-ygs-c30="" type="button">Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div _ngcontent-ygs-c30="" id="paymentConfirm_data" style="display: none;">
+            <div _ngcontent-ygs-c30="" class="modal-content">
+                <div _ngcontent-ygs-c30="" class="modal-body">
+                    <div _ngcontent-ygs-c30="" class="assessment-container">
+                        <div _ngcontent-ygs-c30="" class="form-bottom">
+                            <div _ngcontent-ygs-c30="" class="confirm-block">
+                                <div _ngcontent-ygs-c30="" class="modal-body">
+                                    <div _ngcontent-ygs-c30="" class="assessment-container">
+                                        <div _ngcontent-ygs-c30="" class="form-bottom">
+                                            <div _ngcontent-ygs-c30=""
+                                                 class="confirm-block">
+                                                <div _ngcontent-ygs-c30=""
+                                                     class="last-step"><img
+                                                        _ngcontent-ygs-c30=""
+                                                        src="assets/img/last-step.png"
+                                                        alt="image">
+                                                    <h3 _ngcontent-ygs-c30="">PAYMENT DONE
+                                                        SUCCESSFULLY</h3>
+                                                    <p _ngcontent-ygs-c30="">Your booking is
+                                                        confirmed. </p><a
+                                                            _ngcontent-ygs-c30=""
+                                                            data-dismiss="modal"
+                                                            onclick="window.location.reload()">DONE</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div _ngcontent-ygs-c30=""
-                                     class="next-btn-div registration-form">
-                                    <button _ngcontent-ygs-c30="" type="button">Pay</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div _ngcontent-ygs-c30="" id="paymentConfirm_data" style="display: none;">
-                <div _ngcontent-ygs-c30="" class="modal-content">
-                    <div _ngcontent-ygs-c30="" class="modal-body">
-                        <div _ngcontent-ygs-c30="" class="assessment-container">
-                            <div _ngcontent-ygs-c30="" class="form-bottom">
-                                <div _ngcontent-ygs-c30="" class="confirm-block">
-                                    <div _ngcontent-ygs-c30="" class="modal-body">
-                                        <div _ngcontent-ygs-c30="" class="assessment-container">
-                                            <div _ngcontent-ygs-c30="" class="form-bottom">
-                                                <div _ngcontent-ygs-c30=""
-                                                     class="confirm-block">
-                                                    <div _ngcontent-ygs-c30=""
-                                                         class="last-step"><img
-                                                            _ngcontent-ygs-c30=""
-                                                            src="assets/img/last-step.png"
-                                                            alt="image">
-                                                        <h3 _ngcontent-ygs-c30="">PAYMENT DONE
-                                                            SUCCESSFULLY</h3>
-                                                        <p _ngcontent-ygs-c30="">Your booking is
-                                                            confirmed. </p><a
-                                                                _ngcontent-ygs-c30=""
-                                                                data-dismiss="modal"
-                                                                onclick="window.location.reload()">DONE</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                     class="row paymentSuccessContainer">
+                                    <div _ngcontent-ygs-c30="" class="col-md-12">
+                                        <div _ngcontent-ygs-c30="" class="row dataContent">
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Transaction
+                                                    ID: </label></div><!---->
+                                            <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                <!----></div>
                                         </div>
-                                    </div>
-                                    <div _ngcontent-ygs-c30=""
-                                         class="row paymentSuccessContainer">
-                                        <div _ngcontent-ygs-c30="" class="col-md-12">
-                                            <div _ngcontent-ygs-c30="" class="row dataContent">
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Transaction
-                                                        ID: </label></div><!---->
-                                                <div _ngcontent-ygs-c30="" class="col-md-8">
-                                                    <!----></div>
-                                            </div>
-                                            <div _ngcontent-ygs-c30="" class="row dataContent">
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Instructor
-                                                        Name: </label></div><!---->
-                                                <div _ngcontent-ygs-c30="" class="col-md-8">
-                                                    <!----></div>
-                                            </div>
-                                            <div _ngcontent-ygs-c30="" class="row dataContent">
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Course
-                                                        Duration: </label><!----></div><!---->
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""></label></div>
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Time
-                                                        Duration: </label><!----></div><!---->
-                                            </div>
-                                            <div _ngcontent-ygs-c30="" class="row dataContent">
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Total
-                                                        Amount: </label><!----></div><!---->
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Paid
-                                                        Amount: </label><!----></div><!---->
-                                                <div _ngcontent-ygs-c30="" class="col-md-4">
-                                                    <label _ngcontent-ygs-c30=""> Due
-                                                        Amount: </label><!----></div><!---->
-                                            </div>
+                                        <div _ngcontent-ygs-c30="" class="row dataContent">
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Instructor
+                                                    Name: </label></div><!---->
+                                            <div _ngcontent-ygs-c30="" class="col-md-8">
+                                                <!----></div>
+                                        </div>
+                                        <div _ngcontent-ygs-c30="" class="row dataContent">
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Course
+                                                    Duration: </label><!----></div><!---->
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""></label></div>
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Time
+                                                    Duration: </label><!----></div><!---->
+                                        </div>
+                                        <div _ngcontent-ygs-c30="" class="row dataContent">
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Total
+                                                    Amount: </label><!----></div><!---->
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Paid
+                                                    Amount: </label><!----></div><!---->
+                                            <div _ngcontent-ygs-c30="" class="col-md-4">
+                                                <label _ngcontent-ygs-c30=""> Due
+                                                    Amount: </label><!----></div><!---->
                                         </div>
                                     </div>
                                 </div>
@@ -1962,6 +1967,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -2231,38 +2237,37 @@
 
 
     <script type="text/javascript" src="lib.js"></script>
-    <script>   function checkdate(){
+    <script>   function checkdate() {
         var dtToday = new Date();
 
         var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate()-1;
-        var year = dtToday.getFullYear()-8;
-        console.log(month,day,year)
-        if(month < 10)
+        var day = dtToday.getDate() - 1;
+        var year = dtToday.getFullYear() - 8;
+        console.log(month, day, year)
+        if (month < 10)
             month = '0' + month.toString();
-        if(day < 10)
+        if (day < 10)
             day = '0' + day.toString();
-        console.log(month,day,year)
+        console.log(month, day, year)
         var maxDate = year + '-' + month + '-' + day;
         $('#DateOfBirth').attr('max', maxDate);
-   }
-</script>
+    }
+    </script>
     <script>
 
-    //
-    $("#cash_payment_btn").click(function (){
-        var amt = $('#amount_to_be_paid1').val();
+        //
+        $("#cash_payment_btn").click(function () {
+            var amt = $('#amount_to_be_paid1').val();
             if (amt <= 0) {
 
-            $("#error_meesage").text("Amount Should not Be zero");
+                $("#error_meesage").text("Amount Should not Be zero");
+
+            } else {
+                $("#form_to_be").submit()
 
             }
-            else{
-                       $("#form_to_be").submit()
-
-            }
-    });
-    //
+        });
+        //
 
         // Used to handle Pay
         // start
@@ -2274,12 +2279,11 @@
             var amt = $('#amount_to_be_paid1').val();
             if (amt <= 0) {
 
-            $("#error_meesage").text("Amount Should not Be zero");
+                $("#error_meesage").text("Amount Should not Be zero");
 
-            }
-            else {
+            } else {
                 $('#fee1').text("$" + amt);
-                 $("#payment-popup").modal('show');
+                $("#payment-popup").modal('show');
 
 
                 var payment_type = 2;
@@ -2441,12 +2445,11 @@
         // End Stripe Api code
 
 
-
-   setTimeout(function (){
-       if ($('#msg').length>0){
-           $('#msg').remove();
-       }
-   }, 2000)
+        setTimeout(function () {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        }, 2000)
 
         $("#nextbtn").hide();
         $('#checkbox_select').click(function () {
@@ -2467,7 +2470,7 @@
         function bgchange(classname) {
             $(".times").removeAttr('id')
             console.log("hii", classname)
-             $(".times").css({"background-color": "#d4d1d1", "color": "black"});
+            $(".times").css({"background-color": "#d4d1d1", "color": "black"});
             $(".checkbox").css({"background-color": "#d4d1d1", "color": "black"});
             $(".ttime" + classname).css({"background-color": "#073767", "color": "white"});
             $(".checkbox" + classname).css({"background-color": "#073767", "color": "white"})
@@ -2477,19 +2480,35 @@
 
         {#$('#checkbox_select').hide();#}
 
+        function get_today_date() {
+            var d = new Date();
+            month = '' + (d.getMonth() + 1);
+            day = '' + d.getDate();
+            year = d.getFullYear();
+
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
+
+            return [year, month, day].join('-');
+
+        }
+
         function check() {
             $(".termsconditions").show();
 
 
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
             var start_date = localStorage.getItem('Date')
-            var today = new Date(start_date);
-            {#console.log(today)#}
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
 
-            today = yyyy + '-' + mm + '-' + dd;
+            var todayd = new Date(start_date);
+            var dd = String(todayd.getDate()).padStart(2, '0');
+            var mm = String(todayd.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = todayd.getFullYear();
+            var today = yyyy + '-' + mm + '-' + dd;
+            var todays_date = get_today_date()
+            console.log(today, todays_date)
 
             $.ajax({
                     url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
@@ -2497,18 +2516,36 @@
                     success: function (data) {
                         {#console.log("hoo")#}
                         if (data.time.length > 0) {
-
-
                             console.log(data.time)
-                            {#console.log("hoo")#}
+                            console.log("hoo")
                             var row1 = ''
+
+
                             for (var i = 0; i < data.time.length; i++) {
 
-                                row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+
+                                if (today === todays_date) {
+
+                                    var ctime = new Date();
+                                    console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
+
+
+                                    if (((data.time[i]).substring(0, 2)) > ctime.getHours()) {
+
+                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+                                        $('.timeSelectContent').html(row1);
+
+                                    }
+
+                                }
+                                else{
+                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+                                        $('.timeSelectContent').html(row1);
+                                }
+
 
                             }
 
-                            $('.timeSelectContent').html(row1);
                         } else {
                             window.alert("no class Available")
                         }
@@ -2561,7 +2598,6 @@
                         $('#amount_to_be_paid').text(data.fee)
                         $('#instructor_name1').text(data.instructor)
                         $('#total_days1').text(data.total_days)
-
 
 
                         for (const [key, value] of Object.entries(data.appointments)) {
