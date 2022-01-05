@@ -20,6 +20,8 @@
 {% endblock %}
 
 {% block page_content %}
+    <br><br>
+    {% include 'message.html' %}
     <app-repayment _nghost-oie-c32="">
         <div _ngcontent-oie-c32="" class="col-md-11 content">
             <div _ngcontent-oie-c32="" class="main-content">
@@ -103,7 +105,9 @@
                                                                                                                         Booking
                                                                                                                         Id
                                                                                                                         :
-                                                                                                                        {{ datas.id }}</p>
+                                                                                                                        <span style="color: black;font-size: 18px"
+                                                                                                                              id="bkid">{{ datas.id }}</span>
+                                                                                                                    </p>
                                                                                                                     <p _ngcontent-ojq-c32=""
                                                                                                                        class="p-tag">
                                                                                                                         <span _ngcontent-ojq-c32=""
@@ -124,7 +128,8 @@
                                                                                                                         <p _ngcontent-ojq-c32=""
                                                                                                                            class="date">
                                                                                                                             Days:
-                                                                                                                            {{ datas.total_days }}
+                                                                                                                            <span id="session_duration"
+                                                                                                                                  style="color: black;font-size:20px ">{{ datas.total_days }}</span>
                                                                                                                             <span _ngcontent-ojq-c32="">days</span>
                                                                                                                         </p>
                                                                                                                         <p _ngcontent-ojq-c32=""
@@ -158,8 +163,10 @@
                                                                                                                         Amount
                                                                                                                         :
                                                                                                                         <i _ngcontent-ojq-c32=""
-                                                                                                                           class="fa fa-dollar"></i>
-                                                                                                                        {{ datas.due_amount }}
+                                                                                                                           class="fa fa-dollar">
+                                                                                                                            <span id="due_amount_fee"
+                                                                                                                                  style="color: #0c213a;font-size: 20px;font-family:bold">{{ datas.due_amount }}</span>
+                                                                                                                        </i>
                                                                                                                     </h3>
                                                                                                                 </div>
                                                                                                                 {% if datas.due_amount <= 0 %}
@@ -171,9 +178,9 @@
                                                                                                                 {% else %}
                                                                                                                     <a _ngcontent-ojq-c32=""
                                                                                                                        data-toggle="modal"
-                                                                                                                       data-target="#appointment-popup"
+                                                                                                                       data-target="#choose_payment_popup"
                                                                                                                        class="btn-custom pay-button"
-                                                                                                                       onclick="CreateIntent( {{ datas.id }},{{ datas.due_amount }} ,  {{ datas.total_days }})">PAY</a>
+                                                                                                                       onclick="send_details({{ datas.id }},{{ datas.due_amount }},{{ datas.total_days }} )">PAY</a>
                                                                                                                 {% endif %}
                                                                                                             </div>
 
@@ -210,6 +217,262 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div _ngcontent-oie-c32="" id="choose_payment_popup"
+                             tabindex="-1" role="dialog"
+                             aria-labelledby="myLargeModalLabel"
+                             data-backdrop="static" data-keyboard="false"
+                             aria-hidden="true"
+                             class="modal fade login login-pop appointment">
+                            <div _ngcontent-ygs-c30="" class="modal-dialog modal-lg">
+                                <fieldset _ngcontent-ygs-c30="" id="calendar_popup"
+                                          class="first-step first-fieldset-section">
+                                    <div _ngcontent-ygs-c30="" class="modal-content">
+                                        <div _ngcontent-fqp-c30="" class="modal-header">
+                                            <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal"
+                                                    aria-hidden="true"
+                                                    class="close btn-first">×
+                                            </button>
+                                            <h4 _ngcontent-fqp-c30="">Payment</h4>
+                                            <p _ngcontent-fqp-c30="">Choose payment method</p>
+                                        </div>
+                                        <div _ngcontent-fqp-c30="" class="modal-body">
+                                            <div _ngcontent-fqp-c30="" class="assessment-container">
+                                                <div _ngcontent-fqp-c30="" class="form-bottom">
+                                                    <div _ngcontent-fqp-c30="" class="tab-content pay-form">
+                                                        <div _ngcontent-fqp-c30="" id="pay2"
+                                                             class="tab-pane fade in active">
+                                                            <div _ngcontent-fqp-c30="" class="block">
+                                                                <div _ngcontent-fqp-c30="" role="form"
+                                                                     class="form-horizontal">
+                                                                    <div _ngcontent-fqp-c30="" class="col-md-6 left">
+                                                                        <div _ngcontent-fqp-c30=""
+                                                                             class="head-pay cradit"></div>
+                                                                        <div _ngcontent-fqp-c30=""><img
+                                                                                _ngcontent-fqp-c30=""
+                                                                                src="{% static 'assets/img/card2.gif' %}"
+                                                                                alt=""
+                                                                                class="cardGif"></div>
+                                                                    </div>
+                                                                    <div _ngcontent-fqp-c30="" class="col-md-6 right">
+                                                                        <div>
+                                                                            <div _ngcontent-juj-c30=""
+                                                                                 class="head-pay cradit"><h3
+                                                                                    _ngcontent-juj-c30=""><span
+                                                                                    _ngcontent-juj-c30="">1</span>Payment
+                                                                                for.</h3></div>
+                                                                            <div class="confirm-block-div "
+                                                                                 style="padding: 5px;">
+                                                                                <div class=""
+                                                                                     style="padding-left: 15px;">
+                                                                                    <div><h4 style="float:left;">
+                                                                                        Instructor name : <span
+                                                                                            id="instructor_name2"
+                                                                                            style="font-size: 15px;"
+                                                                                            class="text-secondary"></span>
+                                                                                    </h4></div>
+                                                                                </div>
+                                                                                <br> <br>
+                                                                                <div class=""
+                                                                                     style="padding-left: 15px;">
+                                                                                    <div><h4>Course Duration :<span
+                                                                                            id="total_days2"
+                                                                                            style="font-size: 15px;"
+                                                                                            class="text-secondary"></span>
+                                                                                    </h4></div>
+                                                                                </div>
+                                                                                <br>
+                                                                                <div class=""
+                                                                                     style="padding-left: 15px;">
+                                                                                    <div><h4>Fee : <span
+                                                                                            id="fee2"
+                                                                                            style="font-size: 15px;"
+                                                                                            class="text-secondary"></span>
+                                                                                    </h4></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div _ngcontent-juj-c30=""
+                                                                             class="head-pay cradit"><h3
+                                                                                _ngcontent-juj-c30=""><span
+                                                                                _ngcontent-juj-c30="">2</span>Payment
+                                                                            Method</h3></div>
+                                                                        <form method="POST" action="stripe/cash-payment/">
+                                                                            <input class="form-control"
+                                                                                   type="hidden" value=""
+                                                                                   id="bkid1"
+                                                                                   name="booking" required>
+                                                                            <span style="color: red;" id="error_meesage"></span>
+                                                                            <input type="hidden" value="1" name="payment_type">
+                                                                            <input class="form-control"
+                                                                                   placeholder="Enter Amount to Be paid"
+                                                                                   type="text" pattern="[0-9]{1,}"
+                                                                                   id="amount_to_be_paid"
+                                                                                   name="paid_amount" required>
+                                                                            <br>
+                                                                            <button type="submit" value="Cash_Payment"
+                                                                                    class="btn btn-primary"
+                                                                                    style="width: 48%">Cash Payment
+                                                                            </button>
+
+                                                                            <a _ngcontent-ojq-c32=""
+                                                                               style="width: 48%"
+                                                                               data-toggle="modal"
+{#                                                                               data-target="#appointment-popup"#}
+                                                                               class="btn btn-primary btn-custom pay-button"
+                                                                               onclick="CreateIntent()">PAY</a>
+                                                                        </form>
+
+                                                                    </div>
+                                                                    {#                                                    <div _ngcontent-fqp-c30="" class="head-pay cradit"><h3#}
+                                                                    {#                                                            _ngcontent-fqp-c30=""><span _ngcontent-fqp-c30="">1</span>Payment#}
+                                                                    {#                                                        Info.</h3></div>#}
+                                                                    {#                                                    <div _ngcontent-fqp-c30="" class="confirm-block-div">#}
+                                                                    {#                                                        <div _ngcontent-fqp-c30="" class="row">#}
+                                                                    {#                                                            <div _ngcontent-fqp-c30="" class="col-md-12">#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                     class="row confirm-block-inner">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-5 right-text left-text-left">#}
+                                                                    {#                                                                        <label _ngcontent-fqp-c30=""> Instructor#}
+                                                                    {#                                                                            Name: </label></div>#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-7 left-text"><p#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="">samar verma</p><!---->#}
+                                                                    {#                                                                    </div><!----></div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {#                                                            <div _ngcontent-fqp-c30="" class="col-md-12">#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                     class="row confirm-block-inner">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-5 right-text"><label#}
+                                                                    {#                                                                            _ngcontent-fqp-c30=""> Course#}
+                                                                    {#                                                                        Duration: </label></div>#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-7 left-text"><p#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="">2 days</p><!---->#}
+                                                                    {#                                                                    </div>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {#                                                            <div _ngcontent-fqp-c30="" class="col-md-12">#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                     class="row confirm-block-inner">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-5 right-text"><label#}
+                                                                    {#                                                                            _ngcontent-fqp-c30=""> Fee: </label></div>#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="col-md-7 left-text"><p#}
+                                                                    {#                                                                            _ngcontent-fqp-c30=""><span#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="">$</span> 8000</p>#}
+                                                                    {#                                                                    </div>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {#                                                        </div>#}
+                                                                    {#                                                    </div>#}
+                                                                    {#                                                    <form _ngcontent-fqp-c30="" id="payment-form" novalidate=""#}
+                                                                    {#                                                          autocomplete="off"#}
+                                                                    {#                                                          role="form"#}
+                                                                    {#                                                          class="form-horizontal sr-payment-form ng-untouched ng-pristine ng-invalid">#}
+                                                                    {#                                                        <div _ngcontent-fqp-c30="" class="form-horizontal checkout">#}
+                                                                    {##}
+                                                                    {#                                                            <div class="text-center">#}
+                                                                    {#                                                                <div class="sr-field-error" style="color: red;" id="card-errors"#}
+                                                                    {#                                                                 role="alert"></div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {#                                                            <div _ngcontent-fqp-c30="" class="row">#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30="" class="col-md-12">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30="" class="form-group"><label#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="" for="card_num">CARD#}
+                                                                    {#                                                                        NUMBER</label>#}
+                                                                    {#                                                                        <div class="form-control ng-untouched ng-pristine ng-invalid sr-input sr-card-element"#}
+                                                                    {#                                                                             id="card-number">#}
+                                                                    {#                                                                            <!-- Stripe ccard element will inserted here -->#}
+                                                                    {#                                                                        </div>#}
+                                                                    {#                                                                    </div>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {#                                                            <div _ngcontent-fqp-c30="" class="row two-part">#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30="" class="col-md-6 left-part">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30="" class="form-group"><label#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="" for="exp_month">EXPIRY#}
+                                                                    {#                                                                        DATE MM/YY </label>#}
+                                                                    {#                                                                        <div class="form-control ng-untouched ng-pristine ng-invalid  sr-input sr-card-element"#}
+                                                                    {#                                                                             id="card-exp">#}
+                                                                    {#                                                                            <!-- Stripe exp element will inserted here -->#}
+                                                                    {#                                                                        </div>#}
+                                                                    {#                                                                    </div>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                                <div _ngcontent-fqp-c30="" class="col-md-6">#}
+                                                                    {#                                                                    <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                                         class="form-group right-part"><label#}
+                                                                    {#                                                                            _ngcontent-fqp-c30="" for="exp_year"> CVV#}
+                                                                    {#                                                                         </label>#}
+                                                                    {#                                                                        <div class="form-control ng-untouched ng-pristine ng-invalid   sr-input sr-card-element from-control"#}
+                                                                    {#                                                                             id="card-cvc">#}
+                                                                    {#                                                                            <!-- stripe cvv element will inserted here  -->#}
+                                                                    {#                                                                        </div>#}
+                                                                    {#                                                                    </div>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                            </div>#}
+                                                                    {##}
+                                                                    {##}
+                                                                    {#                                                        </div>#}
+                                                                    {#                                                        <div _ngcontent-fqp-c30=""#}
+                                                                    {#                                                             class="next-btn-div registration-form">#}
+                                                                    {##}
+                                                                    {#                                                            <button id="submit" class="btn btn-dark">#}
+                                                                    {#                                                                <div class="spinner-border  spinner-border-sm text-light hidden"#}
+                                                                    {#                                                                     id="spinner" role="status">#}
+                                                                    {#                                                                    <span class="sr-only">Loading...</span>#}
+                                                                    {#                                                                </div>#}
+                                                                    {#                                                                <span id="button-text">Pay Now</span>#}
+                                                                    {##}
+                                                                    {#                                                            </button>#}
+                                                                    {#                                                        </div>#}
+                                                                    {#                                                        <div class="sr-result hidden">#}
+                                                                    {#                                                            <p>Payment completed<br></p>#}
+                                                                    {#                                                            <pre>#}
+                                                                    {#                                                            <code></code>#}
+                                                                    {#                                                          </pre>#}
+                                                                    {#                                                        </div>#}
+                                                                    {#                                                        <div class="form-main">#}
+                                                                    {#                                                            <form id="payload" class="hidden" action="stripe/payment/"#}
+                                                                    {#                                                                  method="post">#}
+                                                                    {#                                                                {% csrf_token %}#}
+                                                                    {#                                                                <input id="data-payload" type="hidden" name="payload"/>#}
+                                                                    {#                                                            </form>#}
+                                                                    {#                                                        </div>#}
+                                                                    {##}
+                                                                    {#                                                    </form>#}
+                                                                    {#                                                    <div class="sr-result hidden">#}
+                                                                    {#                                                            <p>Payment completed<br></p>#}
+                                                                    {#                                                            <pre>#}
+                                                                    {#                                                            <code></code>#}
+                                                                    {#                                                          </pre>#}
+                                                                    {#                                                        </div>#}
+                                                                    {##}
+                                                                    {#                                                </div>#}
+                                                                    {#                                                <div class="form-main">#}
+                                                                    {#                                                            <form id="payload" class="hidden" action="stripe/payment/"#}
+                                                                    {#                                                                  method="post">#}
+                                                                    {#                                                                {% csrf_token %}#}
+                                                                    {#                                                                <input id="data-payload" type="hidden" name="payload"/>#}
+                                                                    {#                                                            </form>#}
+                                                                    {#                                                        </div>#}
+                                                                    {#                                            </div>#}
+                                                                    {#                                        </div>#}
+                                                                    {#                                    </div>#}
+                                                                    {##}
+                                                                    {#                                </div>#}
+                                                                    {#                            </div>#}
+                                                                    {#                        </div>#}
+                                                                    {#                    </div>#}
+
+
+                                                                </div>
+                                </fieldset>
+
                             </div>
                         </div>
                         <div _ngcontent-oie-c32="" id="appointment-popup"
@@ -507,6 +770,21 @@
 
                             </div>
                         </div>
+
+                        <script>
+                            function send_details(id,due_amount,total_days) {
+                                var inst_name = $("#instructorname_1").text();
+                                var due_amount_fee = due_amount
+                                var session_duration = total_days
+
+                                console.log(id)
+                                $("#bkid1").val(id)
+                                $("#instructor_name2").text(inst_name)
+                                $("#total_days2").text(session_duration)
+                                $("#fee2").text(due_amount_fee)
+                            }
+                        </script>
+
                     </div>
                 </div>
             </div>
@@ -515,49 +793,87 @@
 
 
     <script>
+
+        // Code For Model
+
+        // end code for model
+
+
         // start
-        function CreateIntent(booking_id, Amount, course_duration) {
+        function CreateIntent() {
+
+
             // Calling Intent API using fetch
             {#var instructor_name = $('#instructor_name').text();#}
             {#console.log(booking_id,Amount);#}
+            var Amount = $('#amount_to_be_paid').val()
+            var booking_id = $('#bkid1').val()
+            var course_duration = $('#total_days2').text()
             if (Amount <= 0) {
-                alert("Cant't Pay if amount is equal to 0");
-            }
-            var booking_id = booking_id;
-            $('#instructor_name1').text($("#instructorname_1").text());
-            $('#total_days1').text(course_duration);
-            $('#fee1').text(Amount);
-            var amt = Amount;
-            var payment_type = 2;
-            var orderData = {
-                items: [{booking: booking_id, payment_type: payment_type}],
-                currency: "usd",
-                amount: amt,
-            };
-            fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(orderData)
-            })
-                .then(function (result) {
-                    return result.json();
-                })
-                .then(function (data) {
-                    return setupElements(data);
-                })
-                .then(function ({stripe, card, clientSecret}) {
-                    document.getElementById("submit").disabled = false;
 
-                    // Handle form submission.
-                    var form = document.getElementById("payment-form");
-                    form.addEventListener("submit", function (event) {
-                        event.preventDefault();
-                        // Initiate payment when the submit button is clicked
-                        pay(stripe, card, clientSecret);
+                {#$('#choose_payment_popup').show();#}
+
+                {#alert("Cant't Pay if amount is equal to 0");#}
+                {#$('#appointment-popup').hide();#}
+                 $("#error_meesage").text("Amount Should not Be zero");
+
+            }
+            else {
+
+
+
+                $('#instructor_name1').text($("#instructorname_1").text());
+                $('#total_days1').text(course_duration);
+                $('#fee1').text(Amount);
+                var amt = Amount;
+                var payment_type = 2;
+                var orderData = {
+                    items: [{booking: booking_id, payment_type: payment_type}],
+                    currency: "usd",
+                    amount: amt,
+                };
+                fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                    .then(function (result) {
+                        if (result.status == 200){
+                            $("#appointment-popup").modal('show');
+                             $("#choose_payment_popup").modal('hide');
+                                 return result.json();
+
+                            }
+                        else if (result.status === 422){
+                            {#console.log(result.error())#}
+                            $("#error_meesage").text("Amount should not grater then due amount ");
+                            console.log("Error");
+                        }
+                        else{
+                            $("#error_meesage").text("Please recheck the details you have provided")
+                            console.log("Error");
+                        }
+
+                    })
+                    .then(function (data) {
+                        console.log(data.status);
+                        return setupElements(data);
+                    })
+                    .then(function ({stripe, card, clientSecret}) {
+                        document.getElementById("submit").disabled = false;
+
+                        // Handle form submission.
+                        var form = document.getElementById("payment-form");
+                        form.addEventListener("submit", function (event) {
+                            event.preventDefault();
+                            // Initiate payment when the submit button is clicked
+                            pay(stripe, card, clientSecret);
+                        });
                     });
-                });
+
+            }
 
         }
 

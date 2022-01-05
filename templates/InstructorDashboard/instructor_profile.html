@@ -740,7 +740,8 @@
                                                                 <input name="day_start_time" type="text"
                                                                        class="timepicker form-control"
                                                                        value="{% if instructor.get_day_start_time %}{{ instructor.get_day_start_time }}{% endif %}"
-                                                                       placeholder="Start Time">
+                                                                       placeholder="Start Time"
+                                                                required>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -756,7 +757,7 @@
                                                                 <input name="day_end_time" type="text"
                                                                        class="timepicker form-control"
                                                                        value="{% if instructor.get_day_end_time %}{{ instructor.get_day_end_time }}{% endif %}"
-                                                                       placeholder="End Time">
+                                                                       placeholder="End Time" required>
                                                             </div>
                                                         </div>
                                                     </div>

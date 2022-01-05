@@ -7,10 +7,10 @@ logger = logging.getLogger(__name__)
 
 
 class StripePaymentSerializer(serializers.ModelSerializer):
-    card_num = serializers.CharField(required=False)
-    exp_month = serializers.CharField(required=False)
-    exp_year = serializers.CharField(required=False)
-    cvc = serializers.CharField(required=False)
+    # card_num = serializers.CharField(required=False)
+    # exp_month = serializers.CharField(required=False)
+    # exp_year = serializers.CharField(required=False)
+    # cvc = serializers.CharField(required=False)
     transaction_id = serializers.CharField(required=False)
     booking = serializers.CharField(required=True)
     status = serializers.CharField(required=False)
@@ -30,6 +30,12 @@ class StripePaymentSerializer(serializers.ModelSerializer):
             booking = appointment_model.Booking.objects.get(id=attrs['booking'])
             transaction = appointment_model.Transaction.objects.filter(booking=booking).exclude(
                 status=appointment_model.REJECTED).last()
+            # booking = appointment_model.Booking.objects.get(id=booking_id)
+            ser = RepaymentBookingSeralizer(booking)
+            pending_amount = ser.get_pending_amount(booking)
+            due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
+            if int(attrs['paid_amount']) > due_amount :
+                raise Exception('Paid amount is grater then due amount ')
             trns = appointment_model.Transaction.objects.filter(booking=booking).exclude(status='3')
             for i in trns:
                 amount += i.paid_amount

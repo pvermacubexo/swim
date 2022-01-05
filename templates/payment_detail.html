@@ -52,6 +52,7 @@
 
 {% endblock %}
 {% block page_content %}
+    {% include 'message.html' %}
     <style>
         .shadow {
             box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
@@ -65,7 +66,7 @@
                     <div _ngcontent-jgl-c30="" class="form-bottom">
                         <div _ngcontent-jgl-c30="" class="confirm-block">
                             <div _ngcontent-jgl-c30="" class="last-step">
-                                {% if data.status == "COMPLETED" %}
+                                {% if data.status == "COMPLETED" or data.status == "PENDING" %}
                                     <img _ngcontent-jgl-c30=""
                                          src="{% static 'assets/img/last-step.png' %}"
                                          alt="image">
@@ -76,7 +77,7 @@
                                 {% endif %}
 
                                 <h3 _ngcontent-jgl-c30="">
-                                    {% if data.status == "COMPLETED" %}
+                                    {% if data.status == "COMPLETED" or data.status == "PENDING" %}
                                         PAYMENT DONE SUCCESSFULLY
                                     {% else %}
                                         YOUR PAYMENT IS FAILED
@@ -85,6 +86,8 @@
                                 <p _ngcontent-jgl-c30="">
                                     {% if data.status == "COMPLETED" %}
                                         Your booking is confirmed.
+                                    {% elif data.status == "PENDING" %}
+                                        Transection is completed but amount of ${{ data.pending_amount }} waiting for approval
                                     {% else %}
                                         we can not confirm your booking please note your transection id
                                     {% endif %}<br><br>
@@ -123,17 +126,22 @@
                     <div _ngcontent-jgl-c30="" class="row dataContent">
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Total
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.total_amount }} </p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.total_amount }} </p>
                             <!----></div>
                         <!---->
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Paid
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.paid_amount }} </p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.paid_amount }} </p>
                             <!----></div>
                         <!---->
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Due
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span> {{ data.due_amount }}</p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.due_amount }}</p>
+                            <!----></div>
+                        <!----></div>
+                        <div _ngcontent-jgl-c30=""   ><label _ngcontent-jgl-c30=""> Pending
+                            Amount : </label>
+                            <p _ngcontent-jgl-c30="" ><span  _ngcontent-jgl-c30="">$</span>{{ data.pending_amount }}</p>
                             <!----></div>
                         <!----></div>
                 </div>

@@ -1685,6 +1685,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <form id="form_to_be" method="POST" action="stripe/cash-payment/">
+                                            <div>
+                                                 <input type="hidden" value="" id="bid" name="booking">
+
+                                        <input type="hidden" value="1" id="payment_type1" name="payment_type">
+                                                <input class="form-control"
+                                                                                   placeholder="Enter Amount to Be paid"
+                                                                                   type="number" pattern="[0-9]"
+                                                                                   id="amount_to_be_paid1"
+                                                                                   name="paid_amount"
+                                                       max=10
+
+                                                       required>
+                                                 <span style="color: red;" id="error_meesage"></span>
+
+                                            </form>
+                                                                            <br></div>
                                             <div _ngcontent-asr-c30="" class="row">
                                                 <div _ngcontent-asr-c30="" class="col-md-12">
                                                     <div _ngcontent-asr-c30="" class="confirm-table">
@@ -1707,11 +1724,17 @@
                                     </div>
                                 </div>
                                 <div _ngcontent-asr-c30="" class="next-btn-div registration-form">
-                                    <button _ngcontent-asr-c30="" id="procced_to_pay" data-toggle="modal"
-                                            data-target="#payment-popup"
-                                            type="button">Pay
+
+
+
+  <button _ngcontent-asr-c30="" id="cash_payment_btn"
+                                            type="button">Cash Payment
+                                    </button>
+                                    <button _ngcontent-asr-c30="" id="procced_to_pay"
+                                            type="button">Card Pay
                                     </button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -2229,43 +2252,90 @@
 </script>
     <script>
 
+    //
+    $("#cash_payment_btn").click(function (){
+        var amt = $('#amount_to_be_paid1').val();
+            if (amt <= 0) {
+
+            $("#error_meesage").text("Amount Should not Be zero");
+
+            }
+            else{
+                       $("#form_to_be").submit()
+
+            }
+    });
+    //
+
         // Used to handle Pay
         // start
         $("#procced_to_pay").click(function () {
             // Calling Intent API using fetch
             var instructor_name = $('#instructor_name').text();
             var booking_id = $('#booking_id_span').text();
-            var amt = $('#amount_to_be_paid').text();
-            var payment_type = 2;
-            var orderData = {
-                items: [{booking: booking_id, payment_type: payment_type}],
-                currency: "usd",
-                amount: amt,
-            };
-            fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(orderData)
-            })
-                .then(function (result) {
-                    return result.json();
-                })
-                .then(function (data) {
-                    return setupElements(data);
-                })
-                .then(function ({stripe, card, clientSecret}) {
-                    document.getElementById("submit").disabled = false;
 
-                    // Handle form submission.
-                    var form = document.getElementById("payment-form");
-                    form.addEventListener("submit", function (event) {
-                        event.preventDefault();
-                        // Initiate payment when the submit button is clicked
-                        pay(stripe, card, clientSecret);
+            var amt = $('#amount_to_be_paid1').val();
+            if (amt <= 0) {
+
+            $("#error_meesage").text("Amount Should not Be zero");
+
+            }
+            else {
+                $('#fee1').text("$" + amt);
+                 $
+
+
+                var payment_type = 2;
+                var orderData = {
+                    items: [{booking: booking_id, payment_type: payment_type}],
+                    currency: "usd",
+                    amount: amt,
+                };
+                fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                    .then(function (result) {
+                        if (result.status == 200){
+                            {#$("#appointment-popup").modal('show');#}
+                            {# $("#choose_payment_popup").modal('hide');#}
+                            $("#payment-popup").modal('show');
+                            return result.json();
+
+
+                            }
+                        else if (result.status === 422){
+                            {#console.log(result.error())#}
+                            $("#error_meesage").text("Amount should not grater then due amount ");
+                            console.log("Error");
+                        }
+                        else{
+                            $("#error_meesage").text("Please recheck the details you have provided")
+                            console.log("Error");
+                        }
+
+                    })
+                    .then(function (data) {
+                        console.log(data);
+                        return setupElements(data);
+                    })
+                    .then(function ({stripe, card, clientSecret}) {
+
+                        document.getElementById("submit").disabled = false;
+
+                        // Handle form submission.
+                        var form = document.getElementById("payment-form");
+                        form.addEventListener("submit", function (event) {
+                            event.preventDefault();
+                            // Initiate payment when the submit button is clicked
+                            pay(stripe, card, clientSecret);
+                        });
                     });
-                });
+
+            }
 
         });
         //end
@@ -2494,7 +2564,6 @@
             } else {
                 $('#nextbtn').attr('data-target', "#details-popup")
                 $('#nextbtn').attr('data-toggle', "modal")
-
                 console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
                 var date_time = start_date.slice(1, -1) + "T" + time.slice(0, 8)
 
@@ -2505,6 +2574,7 @@
                     dataType: "JSON",
                     success: function (data) {
                         console.log(data)
+                        $('#bid').val(data.booking);
                         $('#booking_id_span').text(data.booking);
                         $('#instructor_name').text(data.instructor);
                         $('#total_days').text(data.total_days);
@@ -2512,7 +2582,8 @@
                         $('#amount_to_be_paid').text(data.fee)
                         $('#instructor_name1').text(data.instructor)
                         $('#total_days1').text(data.total_days)
-                        $('#fee1').text("$" + data.fee)
+                        {#$("#amount_to_be_paid1").max = data.fee;#}
+
 
 
                         for (const [key, value] of Object.entries(data.appointments)) {
