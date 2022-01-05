@@ -365,8 +365,7 @@
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        name="first_name"
-                                                                       value="
-                                                                               {% if user.first_name %}{{ user.first_name }}{% endif %}"
+                                                                       value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.first_name %}
@@ -378,7 +377,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group ">
-                                                            <label>LastName</label>
+                                                            <label>Last Name</label>
                                                             <div class="input-group">
                                                                 <div class="input-group-prepend"><span
                                                                         class="input-group-text"><i
@@ -386,8 +385,7 @@
                                                                 <input type="text" class="form-control" name="last_name"
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
-                                                                       value="
-                                                                               {% if user.last_name %}{{ user.last_name }}{% endif %}"
+                                                                       value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
 
                                                                        aria-describedby="basic-addon1">
                                                             </div>
@@ -411,8 +409,7 @@
                                                                        name="mobile_no"
                                                                        pattern="[0-9]{8,20}"
                                                                        title="Invalid Mobile number , range should be 8 to 20"
-                                                                       value="
-                                                                               {% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
+                                                                       value="{% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
 
                                                                        placeholder="Phone"
                                                                        onkeydown="return ((event.keyCode !== 69) && (event.keyCode !== 187) && (event.keyCode !== 189))"
@@ -436,8 +433,7 @@
                                                                 <input type="email" class="form-control" name="email"
                                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                                        title="Invalid Email Address example@example.com"
-                                                                       value="
-                                                                               {% if user.email %}{{ user.email }}{% endif %}"
+                                                                       value="{% if user.email %}{{ user.email }}{% endif %}"
 
                                                                        placeholder="Email"
                                                                        aria-describedby="basic-addon1">
@@ -459,8 +455,7 @@
                                                                         class=" typcn typcn-globe "></i></span></div>
                                                                 <input type="text" class="form-control" name="address"
                                                                        pattern="[A-Za-z ]{3,}"
-                                                                       value="
-                                                                               {% if user.address %}{{ user.address }}{% endif %}"
+                                                                       value="{% if user.address %}{{ user.address }}{% endif %}"
                                                                        placeholder="Address"
                                                                        aria-describedby="basic-addon1">
 
@@ -481,8 +476,7 @@
                                                                         class="typcn typcn-clipboard  "></i></span>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="language"
-                                                                       value="
-                                                                               {% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
+                                                                       value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
                                                                        placeholder="Language"
                                                                        aria-describedby="basic-addon1">
 
@@ -502,8 +496,7 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="latitude"
-                                                                       value="
-                                                                               {% if user.latitude %}{{ user.latitude }}{% endif %}"
+                                                                       value="{% if user.latitude %}{{ user.latitude }}{% endif %}"
                                                                        placeholder="Latitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -523,8 +516,7 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="longitude"
-                                                                       value="
-                                                                               {% if user.longitude %}{{ user.longitude }}{% endif %}"
+                                                                       value="{% if user.longitude %}{{ user.longitude }}{% endif %}"
                                                                        placeholder="Longitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -547,8 +539,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="about"
-                                                                           value="
-                                                                                   {% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
+                                                                           value="{% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
                                                                            placeholder="About"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -566,8 +557,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="facebook_link"
-                                                                           value="
-                                                                                   {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                                            placeholder="Facebook"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -590,8 +580,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="instagram_link"
-                                                                           value="
-                                                                                   {% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
                                                                            placeholder="Instagram"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -614,8 +603,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="twitter_link"
-                                                                           value="
-                                                                                   {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                                            placeholder="Twitter"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
