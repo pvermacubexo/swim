@@ -60,7 +60,7 @@ class AuthenticationSerializer(TokenObtainPairSerializer):
                 return data
         except:
 
-            msg = "Invalid login Details"
+            msg = "Invalid login Details!"
             return msg
 
 

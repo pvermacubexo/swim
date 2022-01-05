@@ -58,7 +58,7 @@
         window.location.href = "{%  url 'dashboard_view' %}";
         </script>
     {% endif %}
-    <app-dashboard _nghost-ygs-c30="">
+    <app-dashboard _nghost-ygs-c30="" style="z-index: 2;">
 
         <div _ngcontent-ygs-c30="" class="col-md-11 content">
             <div _ngcontent-ygs-c30="" class="main-content">
@@ -79,10 +79,10 @@
 
 
                                                         <!----><h3
-                                                                _ngcontent-ygs-c30="">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
+                                                                _ngcontent-ygs-c30="" style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
 
                                                         <p _ngcontent-ygs-c30="" class="profileAddress"><i
-                                                                _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>USA
+                                                                _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>{{ first_name.address }}
                                                         </p><!---->
                                                         <!--  <div _ngcontent-ygs-c30="" class="btn-div"><a
                                                                   _ngcontent-ygs-c30="" class="unverified"><i
@@ -159,7 +159,7 @@
                                                                                     <h3 _ngcontent-ygs-c30=""
                                                                                         class="price">
                                                                                         Fee : <i _ngcontent-ygs-c30=""
-                                                                                                 class="fa fa-dollar"></i>{{ classes.price }}
+                                                                                                 class="fa fa-dollar">{{ classes.price }}</i>
                                                                                         <span _ngcontent-ygs-c30="">(Complete Course )</span>
                                                                                     </h3><a _ngcontent-ygs-c30=""
                                                                                             data-toggle="modal"
@@ -209,35 +209,37 @@
                                                                 </div><!---->
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 profileContent"><h3
-                                                                        _ngcontent-ygs-c30="">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
+                                                                        _ngcontent-ygs-c30="" style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
                                                                     <p _ngcontent-ygs-c30=""><i
                                                                             _ngcontent-ygs-c30=""
                                                                             class="fa fa-map-marker"></i> USA </p>
                                                                     <!----><p _ngcontent-ygs-c30=""
                                                                               class="aboutDescription">class for
                                                                         swimming</p><!---->
+                                                                    {% for i in links %}
                                                                     <ul _ngcontent-ygs-c30="">
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="https://www.facebook.com/"><i
+                                                                                href="{{ i.facebook_link }}"><i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-facebook"></i></a></li>
                                                                         <!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="https://www.instagram.com/"><i
+                                                                                href="{{ i.instagram_link }}"><i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-instagram"></i></a>
                                                                         </li><!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="https://twitter.com/i/flow/login"><i
+                                                                                href="{{ i.twitter_link}}"><i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-twitter"></i></a></li>
                                                                         <!----></ul>
+                                                                    {% endfor %}
                                                                 </div>
                                                             </div><!----></div>
                                                     </div>
@@ -323,9 +325,10 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+
                                                                             <div
                                                                                     class="termsconditions">
-                                                                                <div _ngcontent-dbn-c30=""
+                                                                                 <div _ngcontent-dbn-c30=""
                                                                                      class="col-md-1"
                                                                                      style="   float: right;
     margin-right: 323px !important
@@ -861,6 +864,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div _ngcontent-ygs-c30="" id="paymentConfirm_data" style="display: none;">
                                     <div _ngcontent-ygs-c30="" class="modal-content">

@@ -43,6 +43,28 @@
 
     </style>
 
+    {%  for message in messages %}
+
+
+   <div class=" alert custom-alert custom-alert-danger icon-custom-alert alert-secondary-shadow fade show"
+                                 role="alert">
+                                <i class="la la-skull-crossbones alert-icon alert-icon text-danger align-self-center font-30 mr-3"></i>
+                                <div class="alert-text my-1">
+                                    <h5 class="mb-1 font-weight-bold mt-0">Error</h5>
+                                    <p>Please Select Valid TimeSlot</p>
+                                </div>
+                                <div class="alert-close ">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <strong aria-hidden="true" class="text-danger">
+                                            <i class="mdi mdi-close font-16"></i>
+                                        </strong>
+                                    </button>
+                                </div>
+                            </div>
+
+
+    {% endfor %}
+
     {% if password_updated or user_update %}
         <div class="top_alert_position alert custom-alert custom-alert-success icon-custom-alert alert-secondary-shadow fade show"
              role="alert">
@@ -271,12 +293,7 @@
                                     <div class="col-lg-4 align-self-center">
                                         <div class="row">
                                             <div class="col-auto text-center border-right">
-                                                <a href="
-
-
-
-
-                                                        {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                <a href="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-primary btn-icon-circle-sm mb-2">
                                                     <i class="fab fa-facebook-f"></i>
@@ -284,12 +301,7 @@
                                                 <p class="mb-0 font-weight-semibold">Facebook</p>
                                             </div><!--end col-->
                                             <div class="col-auto text-center border-right">
-                                                <a href="
-
-
-
-
-                                                        {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
+                                                <a href="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-info btn-icon-circle-sm mb-2">
                                                     <i class="fab fa-twitter"></i>
@@ -297,12 +309,7 @@
                                                 <p class="mb-0 font-weight-semibold">Twitter</p>
                                             </div><!--end col-->
                                             <div class="col-auto text-center">
-                                                <a href="
-
-
-
-
-                                                        {% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
+                                                <a href="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-danger btn-icon-circle-sm mb-2">
                                                     <i class="fab fa-instagram-square"></i>
@@ -329,6 +336,9 @@
                     <li class="nav-item">
                         <a class="nav-link" id="password_update_tab" data-toggle="pill" href="#Password_update_tab">Change
                             Password</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="connect_stripe_tab" data-toggle="pill" href="#connect_stripe">Connect Stripe</a>
                     </li>
                 </ul>
             </div><!--end card-body-->
@@ -380,7 +390,7 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control" name="last_name"
-                                                                        pattern="[A-Za-z]{3,}"
+                                                                       pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
 
@@ -428,7 +438,7 @@
                                                                         class="input-group-text"><i
                                                                         class="far fa-envelope-open "></i></span></div>
                                                                 <input type="email" class="form-control" name="email"
-                                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                                        title="Invalid Email Address example@example.com"
                                                                        value="{% if user.email %}{{ user.email }}{% endif %}"
 
@@ -615,7 +625,8 @@
                                                     <div class="col-md-6">
                                                         <br/>
                                                         <div class="form-group ">
-                                                            <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="width:250px;">
+                                                            <input type="submit" class="btn btn-primary btn-sm"
+                                                                   value="Submit" style="width:250px;">
 
                                                         </div>
                                                     </div>
@@ -912,6 +923,31 @@
                                 </div> <!-- end col -->
                             </div>
                         </div>
+                    <div class="tab-pane fade" id="connect_stripe" role="tabpanel" >
+                        <div class="row">
+
+
+                                <div class="col-md-12 text-center">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">
+                                                <span class="">Complete your stripe on-boarding process to accept payments.</span>
+                                            </h4>
+                                        </div><!--end card-header-->
+                                        <div class="card-body">
+                                            <a href="/account/" class="btn btn-primary btn-lg">Connect Stripe</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                        </div>
+
+                    </div>
+
+
+
                     </div>
                 </div>
             </div>
