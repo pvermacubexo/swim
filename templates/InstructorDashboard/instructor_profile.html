@@ -276,6 +276,7 @@
 
 
 
+
                                                         {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-primary btn-icon-circle-sm mb-2">
@@ -289,6 +290,7 @@
 
 
 
+
                                                         {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-info btn-icon-circle-sm mb-2">
@@ -298,6 +300,7 @@
                                             </div><!--end col-->
                                             <div class="col-auto text-center">
                                                 <a href="
+
 
 
 
@@ -362,7 +365,8 @@
                                                                        pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
                                                                        name="first_name"
-                                                                       value="{% if user.first_name %}{{ user.first_name }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.first_name %}{{ user.first_name }}{% endif %}"
                                                                        aria-describedby="basic-addon1">
                                                             </div>
                                                             {% if errors.first_name %}
@@ -380,9 +384,10 @@
                                                                         class="input-group-text"><i
                                                                         class="dripicons-user "></i></span></div>
                                                                 <input type="text" class="form-control" name="last_name"
-                                                                        pattern="[A-Za-z]{3,}"
+                                                                       pattern="[A-Za-z]{3,}"
                                                                        title="only alphabetic characters are allowed"
-                                                                       value="{% if user.last_name %}{{ user.last_name }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.last_name %}{{ user.last_name }}{% endif %}"
 
                                                                        aria-describedby="basic-addon1">
                                                             </div>
@@ -406,7 +411,8 @@
                                                                        name="mobile_no"
                                                                        pattern="[0-9]{8,20}"
                                                                        title="Invalid Mobile number , range should be 8 to 20"
-                                                                       value="{% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
 
                                                                        placeholder="Phone"
                                                                        onkeydown="return ((event.keyCode !== 69) && (event.keyCode !== 187) && (event.keyCode !== 189))"
@@ -428,9 +434,10 @@
                                                                         class="input-group-text"><i
                                                                         class="far fa-envelope-open "></i></span></div>
                                                                 <input type="email" class="form-control" name="email"
-                                                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                                        title="Invalid Email Address example@example.com"
-                                                                       value="{% if user.email %}{{ user.email }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.email %}{{ user.email }}{% endif %}"
 
                                                                        placeholder="Email"
                                                                        aria-describedby="basic-addon1">
@@ -452,7 +459,8 @@
                                                                         class=" typcn typcn-globe "></i></span></div>
                                                                 <input type="text" class="form-control" name="address"
                                                                        pattern="[A-Za-z ]{3,}"
-                                                                       value="{% if user.address %}{{ user.address }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.address %}{{ user.address }}{% endif %}"
                                                                        placeholder="Address"
                                                                        aria-describedby="basic-addon1">
 
@@ -473,7 +481,8 @@
                                                                         class="typcn typcn-clipboard  "></i></span>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="language"
-                                                                       value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
                                                                        placeholder="Language"
                                                                        aria-describedby="basic-addon1">
 
@@ -493,7 +502,8 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="latitude"
-                                                                       value="{% if user.latitude %}{{ user.latitude }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.latitude %}{{ user.latitude }}{% endif %}"
                                                                        placeholder="Latitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -513,7 +523,8 @@
                                                                         class="input-group-text"><i
                                                                         class="fas fa-map-marker-alt "></i></span></div>
                                                                 <input type="text" class="form-control" name="longitude"
-                                                                       value="{% if user.longitude %}{{ user.longitude }}{% endif %}"
+                                                                       value="
+                                                                               {% if user.longitude %}{{ user.longitude }}{% endif %}"
                                                                        placeholder="Longitude"
                                                                        aria-describedby="basic-addon1">
 
@@ -536,7 +547,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="about"
-                                                                           value="{% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.about %}{{ user.get_profile.about }}{% endif %}"
                                                                            placeholder="About"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -554,7 +566,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="facebook_link"
-                                                                           value="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
                                                                            placeholder="Facebook"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -577,7 +590,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="instagram_link"
-                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
                                                                            placeholder="Instagram"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -600,7 +614,8 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="twitter_link"
-                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
+                                                                           value="
+                                                                                   {% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                                            placeholder="Twitter"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -615,7 +630,8 @@
                                                     <div class="col-md-6">
                                                         <br/>
                                                         <div class="form-group ">
-                                                            <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="width:250px;">
+                                                            <input type="submit" class="btn btn-primary btn-sm"
+                                                                   value="Submit" style="width:250px;">
 
                                                         </div>
                                                     </div>
@@ -840,9 +856,9 @@
                                                                 {#                                                        {{form.as_p}}#}
                                                             </div>
                                                         {% endfor %}
-                                                        <button id="add-form" type="button" class="btn btn-info">Add
-                                                            Another
-                                                        </button>
+{#                                                        <button id="add-form" type="button" class="btn btn-info">Add#}
+{#                                                            Another#}
+{#                                                        </button>#}
                                                         <button type="submit" class="btn btn-success">Submit</button>
                                                     </form>
                                                 </div>
@@ -1148,5 +1164,7 @@
             $("[data-dismiss=alert]").click();
         }, 2000);
     </script>
+
+
 {% endblock %}
 

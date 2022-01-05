@@ -778,7 +778,7 @@
                         </div>
 
                         <script>
-                            function send_details(id, due_amount, total_days) {
+                            function send_details(id,due_amount,total_days) {
                                 var inst_name = $("#instructorname_1").text();
                                 var due_amount_fee = due_amount
                                 var session_duration = total_days
@@ -840,10 +840,13 @@
 
                 {#alert("Cant't Pay if amount is equal to 0");#}
                 {#$('#appointment-popup').hide();#}
-                $("#error_meesage").text("Amount Should not Be zero");
+          $("#error_meesage").text("Amount Should not Be zero");
 
-            } else {
+            }
+            else {
 
+                $("#appointment-popup").modal('show');
+                $("#choose_payment_popup").modal('hide');
 
                 $('#instructor_name1').text($("#instructorname_1").text());
                 $('#total_days1').text(course_duration);

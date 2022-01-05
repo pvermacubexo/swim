@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, date
 from random import randint
 
 import pytz
+from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -25,10 +26,10 @@ from .forms import BreakTimeFormSet
 logger = logging.getLogger(__name__)
 
 
-def generate_slug(first_name,last_name):
+def generate_slug(first_name, last_name):
     obj = len(user_models.Profile.objects.all())
     if user_models.Profile.objects.filter(slug=first_name).exists():
-        if user_models.Profile.objects.filter(slug=first_name+last_name).exists():
+        if user_models.Profile.objects.filter(slug=first_name + last_name).exists():
             slug = (first_name + last_name + str(obj))
             return slug
         else:
@@ -63,7 +64,7 @@ def signup_view(request):
         if not (password == conf_password):
             context.update({'error': 'Password must equal.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)
-        slug = generate_slug(first_name,last_name)
+        slug = generate_slug(first_name, last_name)
         user = user_models.User.objects.create(email=email.lower(), first_name=first_name, last_name=last_name,
                                                password=make_password(password), mobile_no=mobile_no,
                                                user_type=user_constants.Instructor)
@@ -76,7 +77,7 @@ def signup_view(request):
             user_profile = user_models.Profile.objects.create(
                 user=user,
                 slug=slug,
-                url=( request.build_absolute_uri('/')[:-1] + '/swim/registration/' + slug).replace(' ', ''),
+                url=(request.build_absolute_uri('/')[:-1] + '/swim/registration/' + slug).replace(' ', ''),
                 day_start_time=date_time.time(),
                 day_end_time=time_added.time()
             )
@@ -636,10 +637,13 @@ def terms_conditions(request):
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
-
-        if formset.is_valid():
-            formset.save()
-            return redirect('InstructorDashboard:instructor_profile')
+        print(request.POST['form-0-start_time'])
+        if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
+            messages.error(request, "Anivesh wala Dal lena")
+        else:
+            if formset.is_valid():
+                formset.save()
+                return redirect('InstructorDashboard:instructor_profile')
     return redirect('InstructorDashboard:instructor_profile')
 
 
