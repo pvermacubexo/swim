@@ -1680,7 +1680,7 @@
                                                             <span style="display: none;"
                                                                   id="booking_id_span"></span>
                                                             <span style="display: none;"
-                                                                  id="amount_to_be_paid"></span>
+                                                                  class="" id="amount_to_be_paid"></span>
 
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
@@ -1725,7 +1725,7 @@
                                                        max=10
 
                                                        required>
-                                                 <span style="color: red;" id="error_meesage"></span>
+                                                 <span style="color: red;" class="amount1" id="error_meesage"></span>
 
                                             </form>
                                                                             <br></div>
@@ -2259,7 +2259,12 @@
 
 
     <script type="text/javascript" src="lib.js"></script>
-    <script>   function checkdate() {
+    <script>
+    $('#amount_to_be_paid1').on('click', () => {
+           $(".amount1").text("");
+       })
+
+        function checkdate() {
         var dtToday = new Date();
 
         var month = dtToday.getMonth() + 1;
@@ -2285,7 +2290,7 @@
             console.log(parseInt(x.substring(1,)));
             if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) ) ) {
 
-            $("#error_meesage").text("Enter valid amount  ");
+            $("#error_meesage").text("Enter Valid Amount  ");
 
             }
             else{

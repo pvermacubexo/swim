@@ -322,16 +322,20 @@
                                                                                    type="hidden" value=""
                                                                                    id="bkid1"
                                                                                    name="booking" required>
-                                                                            <span style="color: red;"
+                                                                            <span style="color: red;" class="amount1"
                                                                                   id="error_meesage"></span>
                                                                             <input type="hidden" value="1"
                                                                                    name="payment_type">
-                                                                            <input class="form-control"
+                                                                            <input class=" form-control"
                                                                                    placeholder="Enter Amount to Be paid"
                                                                                    type="text" pattern="[0-9]{1,}"
                                                                                    id="amount_to_be_paid"
+{#                                                                                       onchange="RemoveError()"#}
+{#                                                                                   onkeypress="RemoveError()"#}
+{#                                                                                   keydown="RemoveError()"#}
+{#                                                                                   keyup="RemoveError()"#}
                                                                                     {#                                                                                   onchange="maxamount()"#}
-                                                                                   name="paid_amount" required>
+                                                                                   name="paid_amount" type="number" required>
                                                                             <br>
                                                                             <button type="button" value="Cash_Payment"
                                                                                     onclick="maxamount()"
@@ -817,6 +821,17 @@
 
     <script>
 
+    {#setTimeout(()=>{#}
+    {#    if ($(".amount1").length > 0){#}
+    {#        console.log("MAx");#}
+    {#    }#}
+        {#$(".amount1").hide();#}
+    $('#amount_to_be_paid').on('click', () => {
+           $(".amount1").text("");
+       })
+
+
+
         function maxamount() {
 
             console.log("button clicked")
@@ -824,7 +839,7 @@
             var inputamt = $("#amount_to_be_paid").val()
             console.log(maxamt, inputamt);
             if (((parseInt(inputamt)) <= 0) ||( inputamt === "") ) {
-                $("#error_meesage").text(" Amount should not be zero ");
+                $("#error_meesage").text(" Amount Should Not Be Zero ");
             } else if (parseInt(maxamt) < parseInt(inputamt)) {
                 console.log("d");
                 $("#error_meesage").text("Amount should be less than or equal $" + (maxamt));
@@ -855,7 +870,7 @@
             var course_duration = $('#total_days2').text()
             if ((Amount <= 0)||(Amount > parseInt(maxamt))) {
 
-          $("#error_meesage").text("Amount Should not Be zero");
+          $("#error_meesage").text("Amount Should Not Be Zero");
 
             }
             else {
