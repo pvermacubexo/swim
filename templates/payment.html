@@ -839,10 +839,10 @@
             var inputamt = $("#amount_to_be_paid").val()
             console.log(maxamt, inputamt);
             if (((parseInt(inputamt)) <= 0) ||( inputamt === "") ) {
-                $("#error_meesage").text(" Amount Should Not Be Zero ");
+                $("#error_meesage").text(" Enter Valid Amount  ");
             } else if (parseInt(maxamt) < parseInt(inputamt)) {
                 console.log("d");
-                $("#error_meesage").text("Amount should be less than or equal $" + (maxamt));
+                $("#error_meesage").text("Enter Valid Amount ");
             } else {
                 document.getElementById("Cash_pay").submit();
                 {#$('#cash_payment').prop('disabled', false);#}
@@ -870,7 +870,7 @@
             var course_duration = $('#total_days2').text()
             if ((Amount <= 0)||(Amount > parseInt(maxamt))) {
 
-          $("#error_meesage").text("Amount Should Not Be Zero");
+          $("#error_meesage").text("Enter Valid Amount");
 
             }
             else {
