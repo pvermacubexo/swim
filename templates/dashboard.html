@@ -218,25 +218,41 @@
                                                                               class="aboutDescription">class for
                                                                         swimming</p><!---->
                                                                     {% for i in links %}
+
                                                                     <ul _ngcontent-ygs-c30="">
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="{{ i.facebook_link }}"><i
+                                                                                {% if i.facebook_link is not None %}
+                                                                                href="{{ i.facebook_link }}">
+                                                                            {% else %}
+                                                                            href="https://www.facebook.com/">
+                                                                            {% endif %}
+                                                                            <i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-facebook"></i></a></li>
                                                                         <!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="{{ i.instagram_link }}"><i
+                                                                                {% if i.instagram_link is not None %}
+                                                                                href="{{ i.instagram_link }}">
+                                                                            {% else %}
+                                                                            href="https://www.instagram.com/">
+                                                                            {% endif %}
+                                                                            <i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-instagram"></i></a>
                                                                         </li><!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
                                                                                 target="_blank"
-                                                                                href="{{ i.twitter_link}}"><i
+                                                                                {% if i.twitter_link is not None %}
+                                                                                href="{{ i.twitter_link}}">
+                                                                            {% else %}
+                                                                            href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D">
+                                                                            {% endif %}
+                                                                            <i
                                                                                 _ngcontent-ygs-c30=""
                                                                                 class="fa fa-twitter"></i></a></li>
                                                                         <!----></ul>
@@ -327,36 +343,32 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div
+                                                                           </form>
+                                                                        <br><br>
+                                                                      <!---->
+                                                                    </div>
+                                                                    <br><br>
+                                                                       <div
                                                                                     class="termsconditions">
-                                                                                 <div _ngcontent-dbn-c30=""
-                                                                                     class="col-md-1"
-                                                                                     style="   float: right;
-    margin-right: 323px !important
-;">
+                                                                                 <div
+                                                                                     class="">
                                                                                     <input
                                                                                             _ngcontent-dbn-c30=""
                                                                                             type="checkbox"
                                                                                             id="checkbox_select"
                                                                                             value="0"
                                                                                             name="terms"
-                                                                                            style="    top: 29px;"
                                                                                             required></div>
 
                                                                                 <label _ngcontent-dbn-c30=""
-                                                                                       for="terms"
-                                                                                       class="termsconditions" style="    padding-left: 500px;
-    font-size: 16px !important;
-    text-align: justify;
-    color: black;
-    letter-spacing: 0.02em;"> Check
+                                                                                       for="terms"  style="margin-top:-20px;margin-left:20px;"
+                                                                                       class="termsconditions"> Check
                                                                                     here to
                                                                                     indicate that you have read and
                                                                                     agree to the terms &amp; condition
                                                                                     of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
                                                                                     Agreement. </label>
-                                                                            </div><!----></form>
-                                                                    </div>
+                                                                            </div>
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="next-btn-div registration-form col-md-6"
@@ -1022,11 +1034,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div
+                                                       <!----></form>
+                                                     <div
                                                                 class="termsconditions">
                                                             <div _ngcontent-dbn-c30=""
                                                                  class="col-md-1"
-                                                                 style="text-align: right;"><input
+                                                                 ><input
                                                                     _ngcontent-dbn-c30=""
                                                                     type="checkbox" value="0" id="checkbox_select"
                                                                     id="terms"
@@ -1041,7 +1054,7 @@
                                                                 of the <span
                                                                         _ngcontent-dbn-c30="">Swim Time Solutions </span>
                                                                 Agreement. </label>
-                                                        </div><!----></form>
+                                                        </div>
                                                 </div>
                                                 <div _ngcontent-ygs-c30="" class="row">
                                                     <div _ngcontent-ygs-c30=""
