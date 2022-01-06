@@ -54,6 +54,12 @@
 {% block page_content %}
     {% include 'message.html' %}
     <style>
+    .larg-text{
+        font-size:18px;
+    }
+    .mb-10{
+            margin-bottom: 8px;
+    }
         .shadow {
             box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
         }
@@ -97,51 +103,48 @@
                     </div>
                 </div>
             </div>
-            <div _ngcontent-jgl-c30="" class="row  paymentSuccessContainer" style="margin: 30px;">
+            <div _ngcontent-jgl-c30="" class="row  paymentSuccessContainer " style="margin: 30px;">
                 <div _ngcontent-jgl-c30="" class="col-md-12">
                     <h3 _ngcontent-jgl-c30="">
                         Payment Detail :-
                     </h3>
-                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                    <div _ngcontent-jgl-c30="" class="row dataContent mb-10">
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Transaction
                             ID: </label></div><!---->
                         <div _ngcontent-jgl-c30="" class="col-md-8"><p _ngcontent-jgl-c30="">
                             {{ data.transaction_id }}</p><!----></div>
                     </div>
-                    <div _ngcontent-jgl-c30="" class="row dataContent">
-                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Instructor
-                            Name: </label></div><!---->
-                        <div _ngcontent-jgl-c30="" class="col-md-8"><p _ngcontent-jgl-c30="">{{ data.instructor }}</p>
-                            <!---->
-                        </div>
-                    </div>
-                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                    <div _ngcontent-jgl-c30="" class="row dataContent mb-10">
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Course
                             Duration: </label>
                             <p _ngcontent-jgl-c30="">{{ data.total_day }} Days</p><!----></div><!---->
-                        <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""></label></div>
+                        <div _ngcontent-jgl-c30="" class="col-md-4">
+                            <label _ngcontent-jgl-c30="">Instructor Name : </label>
+                            <p _ngcontent-jgl-c30=""> {{ data.instructor }} </p>
+                        </div>
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Time
                             Duration: </label>
                             <p _ngcontent-jgl-c30="">{{ data.time_slot }} minute</p><!----></div><!----></div>
-                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                    <div _ngcontent-jgl-c30="" class="row dataContent mb-10">
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Total
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.total_amount }} </p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="" class="larg-text">$</span>{{ data.total_amount }} </p>
                             <!----></div>
                         <!---->
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Paid
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.paid_amount }} </p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="" class="larg-text">$</span>{{ data.paid_amount }} </p>
                             <!----></div>
                         <!---->
                         <div _ngcontent-jgl-c30="" class="col-md-4"><label _ngcontent-jgl-c30=""> Due
                             Amount: </label>
-                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="">$</span>{{ data.due_amount }}</p>
+                            <p _ngcontent-jgl-c30=""><span _ngcontent-jgl-c30="" class="larg-text">$</span>{{ data.due_amount }}</p>
                             <!----></div>
                         <!----></div>
-                        <div _ngcontent-jgl-c30=""   ><label _ngcontent-jgl-c30=""> Pending
+                    <div _ngcontent-jgl-c30="" class="row dataContent">
+                        <div _ngcontent-jgl-c30=""   class="col-md-12"   ><label _ngcontent-jgl-c30=""> Pending
                             Amount : </label>
-                            <p _ngcontent-jgl-c30="" ><span  _ngcontent-jgl-c30="">$</span>{{ data.pending_amount }}</p>
+                            <p _ngcontent-jgl-c30="" ><span  _ngcontent-jgl-c30="" class="larg-text">$</span>{{ data.pending_amount }}</p>
                             <!----></div>
                         <!----></div>
                 </div>

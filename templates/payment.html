@@ -20,6 +20,25 @@
 {% endblock %}
 
 {% block page_content %}
+    <style>
+    .modal {
+  overflow-y:auto;
+}
+    .btn-disable{
+        background: #bebebe;
+        padding-left: 28px;
+        padding-right: 28px;
+        color: black;
+    }
+        .Scroll-if-max {
+      text-align: left;
+      font-size: 1.5rem;
+      min-height: 400px;
+      max-height: 400px;
+      overflow-y: auto;
+      {#border: 1px solid red;#}
+    }
+    </style>
     <br><br>
     {% include 'message.html' %}
     <app-repayment _nghost-oie-c32="">
@@ -72,7 +91,7 @@
                                                                                                              class="profile-block">
 
                                                                                                             <div _ngcontent-ojq-c32=""
-                                                                                                                 class="content-div">
+                                                                                                                 class="content-div Scroll-if-max">
                                                                                                                 <div _ngcontent-ojq-c32=""
                                                                                                                      style="min-height: 300px;">
                                                                                                                     {% if not datas.pending_amount|stringformat:"i" == "0" %}
@@ -163,15 +182,14 @@
                                                                                                                         Amount
                                                                                                                         :
                                                                                                                         <i _ngcontent-ojq-c32=""
-                                                                                                                           class="fa fa-dollar">
-                                                                                                                            <span id="due_amount_fee"
+                                                                                                                           class="fa fa-dollar"><span id="due_amount_fee"
                                                                                                                                   style="color: #0c213a;font-size: 20px;font-family:bold">{{ datas.due_amount }}</span>
                                                                                                                         </i>
                                                                                                                     </h3>
                                                                                                                 </div>
                                                                                                                 {% if datas.due_amount <= 0 %}
                                                                                                                     <button _ngcontent-ojq-c32=""
-                                                                                                                            class="btn-custom pay-button"
+                                                                                                                            class="btn btn-secondary btn-disable"
                                                                                                                             disabled="true">
                                                                                                                         PAID
                                                                                                                     </button>
@@ -266,26 +284,26 @@
                                                                                  style="padding: 5px;">
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4 style="float:left;">
+                                                                                    <div><h4 >
                                                                                         Instructor name : <span
                                                                                             id="instructor_name2"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
                                                                                     </h4></div>
                                                                                 </div>
-                                                                                <br> <br>
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4>Course Duration :<span
+                                                                                    <div><h4>Course Duration : <span
                                                                                             id="total_days2"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
+                                                                                        <span class=" text-secondary" style="color: gray; font-size: 10px;" >Days</span>
                                                                                     </h4></div>
                                                                                 </div>
-                                                                                <br>
+
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4>Fee : <span
+                                                                                    <div><h4>Fee : $<span
                                                                                             id="fee2"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
@@ -327,7 +345,7 @@
                                                                                data-toggle="modal"
                                                                                     {#                                                                               data-target="#appointment-popup"#}
                                                                                class="btn btn-primary btn-custom pay-button"
-                                                                               onclick="CreateIntent()">PAY</button>
+                                                                               onclick="CreateIntent()">Pay By Card</button>
                                                                         </form>
 
                                                                     </div>
@@ -497,7 +515,7 @@
                                                     class="close btn-first">×
                                             </button>
                                             <h4 _ngcontent-fqp-c30="">Payment</h4>
-                                            <p _ngcontent-fqp-c30="">Chose payment method</p>
+                                            <p _ngcontent-fqp-c30="">Choose payment method</p>
                                         </div>
                                         <div _ngcontent-fqp-c30="" class="modal-body">
                                             <div _ngcontent-fqp-c30="" class="assessment-container">
@@ -528,26 +546,26 @@
                                                                                  style="padding: 5px;">
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4 style="float:left;">
+                                                                                    <div><h4>
                                                                                         Instructor name : <span
                                                                                             id="instructor_name1"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
                                                                                     </h4></div>
                                                                                 </div>
-                                                                                <br> <br>
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4>Course Duration :<span
+                                                                                    <div><h4>Course Duration : <span
                                                                                             id="total_days1"
                                                                                             style="font-size: 15px;"
-                                                                                            class="text-secondary"></span>
+                                                                                            class="text-secondary">
+                                                                                    </span>
+                                                                                          <span class=" text-secondary" style="color: gray; font-size: 10px;" >Days</span>
                                                                                     </h4></div>
                                                                                 </div>
-                                                                                <br>
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4>Fee : <span
+                                                                                    <div><h4>Fee : $<span
                                                                                             id="fee1"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
