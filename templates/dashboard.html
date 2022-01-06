@@ -2285,7 +2285,7 @@
             console.log(parseInt(x.substring(1,)));
             if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) ) ) {
 
-            $("#error_meesage").text("Enter valid amount !! ");
+            $("#error_meesage").text("Enter valid amount  ");
 
             }
             else{
@@ -2335,7 +2335,7 @@
                             }
                         else if (result.status === 422){
                             {#console.log(result.error())#}
-                            $("#error_meesage").text("Amount should not grater then due amount ");
+                            $("#error_meesage").text("Amount should not grater than due amount ");
                             console.log("Error");
                         }
                         else{

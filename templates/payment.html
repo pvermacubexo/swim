@@ -827,7 +827,7 @@
                 $("#error_meesage").text(" Amount should not be zero ");
             } else if (parseInt(maxamt) < parseInt(inputamt)) {
                 console.log("d");
-                $("#error_meesage").text("Amount should be less then or equal $" + (maxamt));
+                $("#error_meesage").text("Amount should be less than or equal $" + (maxamt));
             } else {
                 document.getElementById("Cash_pay").submit();
                 {#$('#cash_payment').prop('disabled', false);#}
