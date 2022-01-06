@@ -119,6 +119,7 @@
                                                                 {% if data %}
                                                                     {% for classes in data %}
 
+
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="col-md-4 col-sm-6">
                                                                             <div _ngcontent-ygs-c30=""
@@ -134,7 +135,15 @@
                                                                                         _ngcontent-ygs-c30=""
                                                                                         class="p-tag">
                                                                                     <span _ngcontent-ygs-c30=""
-                                                                                          class="tag">English</span>
+
+                                                                                    {% for i in links %}
+                                                                                          {% if i.language is not None %}
+                                                                                          class="tag">{{ i.language }}
+                                                                                          {% else %}
+                                                                                          class="tag">English
+                                                                                          {% endif %}
+                                                                                        </span>
+                                                                                          {% endfor %}
                                                                                     <!----></p>
                                                                                     <div _ngcontent-ygs-c30=""
                                                                                          class="title">{{ classes.title }}
@@ -215,7 +224,7 @@
                                                                             _ngcontent-ygs-c30=""
                                                                             class="fa fa-map-marker"></i> USA </p>
                                                                     <!----><p _ngcontent-ygs-c30=""
-                                                                              class="aboutDescription">class for
+                                                                              class="" >class for
                                                                         swimming</p><!---->
                                                                     {% for i in links %}
 
@@ -2545,7 +2554,7 @@
         }
 
         function check() {
-            $(".termsconditions").show();
+
 
 
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
@@ -2563,6 +2572,8 @@
                     url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                     dataType: 'json',
                     success: function (data) {
+                        $(".termsconditions").show();
+                         localStorage.removeItem("Date");
                         {#console.log("hoo")#}
                         if (data.time.length > 0) {
                             console.log(data.time)
@@ -2600,6 +2611,7 @@
                         }
                     },
                     error: function (data) {
+                        localStorage.removeItem("Date");
                         if (data.responseJSON.error === undefined || data.responseJSON.error === null) {
                             window.alert("Please select Upcoming date")
                             $('.timeSelectContent').html("")
