@@ -12,6 +12,7 @@ from rest_framework.views import APIView
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
 from user.models import User
+from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet
 from Appointment import models as appointment_model
@@ -214,3 +215,64 @@ class RepaymentClasses(APIView):
                 return redirect("dashboard_view")
         except Exception as e:
             return render(request, "payment.html")
+
+
+
+
+# For Connecting strip api a
+
+# To Create a URL
+class ConnectStripUrl(APIView):
+    def get(self,request):
+        '''
+            Creating a account id , Note that we are using standard ,,
+            we have Two options Standard and express
+        '''
+        if StripeAccount.objects.filter(Instructor__email=request.session["instructor_email"]).exists():
+            return  redirect('InstructorDashboard:dashboard_view')
+            # return JsonResponse({"error": "An Stripe Account Is Already Linked To This Instructor"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+        # Create URL With this account id
+        account_data = stripe.Account.create(type="standard")
+        account_id = account_data["id"]
+        create_strip_url = stripe.AccountLink.create(
+                      account = account_id,
+                      refresh_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/1/",
+                      return_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
+                      type = "account_onboarding",
+                    )
+        if "account_id" in request.session:
+            try:
+                stripe.Account.delete(request.session["account_id"])
+            except:
+                pass
+        request.session["account_id"] = account_id
+        url_to_create_account = create_strip_url["url"]
+        return redirect(url_to_create_account)
+        # return JsonResponse({"url":url_to_create_account},status=status.HTTP_200_OK)
+
+
+# To Handle A URL
+class HandleRedirect(APIView):
+    def get(self,request):
+        # Checking if completed
+        if "account_id" in request.session:
+            account_id = request.session["account_id"]
+            account = stripe.Account.retrieve(account_id)
+            if account["business_profile"]["mcc"] :
+                instructor = request.session["instructor_email"]
+                save_stripe = StripeAccount(Instructor=User.objects.get(email=instructor),Account_ID=account_id)
+                save_stripe.save()
+                messages.success(request,"Account Created Successfully")
+            else:
+                # perform Delete action
+                try:
+                    if account_id:
+                        stripe.Account.delete(account_id)
+                    else:
+                        pass
+                except:
+                    pass
+                messages.error(request,"Can't Create Account")
+        else:
+            messages.error(request, "Please Stay In The Same Window . Failed To Create Account ")
+        return  redirect('InstructorDashboard:dashboard_view')

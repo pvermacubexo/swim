@@ -12,7 +12,11 @@ urlpatterns = [
     path('repayment-classes/', stripe_views.RepaymentClasses.as_view(), name="repayment_classes"),
     path('payment/', stripe_views.StripePayment.as_view(), name="make_payment"),
     # path('cash-payment/', stripe_views.CashPayment.as_view(), name="make_cash_payment"),
-    path('payment-detail/<id>', stripe_views.PaymentDetail.as_view(), name="payment_detail")
+    path('payment-detail/<id>', stripe_views.PaymentDetail.as_view(), name="payment_detail"),
+
+    # APIs for connect strip account
+    path('strip-connect-url/', stripe_views.ConnectStripUrl.as_view(), name="Connect_StripUrl"),
+    path('handle-redirect/', stripe_views.HandleRedirect.as_view(), name="handle_redirect")
 
 ]
 urlpatterns += router.urls

@@ -17,6 +17,7 @@ from Appointment import models as appointment_model
 from Appointment import utilities
 from Appointment.models import ClassInstructor, APPOINTMENT_STATUS
 from SharkDeck.constants import user_constants
+from StripePayment.models import StripeAccount
 from user import models as user_models
 from user.email_services import sent_mail
 from . import seializer
@@ -375,6 +376,7 @@ def is_working_time(start_time, end_time, instructor):
 
 @login_required(redirect_field_name='login')
 def instructor_profile(request):
+    request.session["instructor_email"] = request.user.email
     formset = BreakTimeFormSet(queryset=user_models.BreakTime.objects.none())
     break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user)
     try:
@@ -386,6 +388,10 @@ def instructor_profile(request):
         return redirect('InstructorDashboard:page404')
     context = {'instructor': instructor, 'break_time': formset, 'break_time_list': break_time_list,
                'instructor_id': user.id}
+    if StripeAccount.objects.filter(Instructor__email=request.user.email).exists():
+        context.update({"stripe_account": StripeAccount.objects.filter(
+            Instructor__email=request.user.email).values("Account_ID", "Instructor__email",
+                                                               "Instructor__first_name", "Instructor__last_name")[0] })
     if request.method == 'POST':
         week_dict = {}
         ser = serializer.UserUpdateSerializer(data=request.POST)

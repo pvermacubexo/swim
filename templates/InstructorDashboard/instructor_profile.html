@@ -935,11 +935,28 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">
-                                                <span class="">Complete your stripe on-boarding process to accept payments.</span>
+                                                <span class="">
+                                                    {% if stripe_account %}
+                                                        Account Details of Connected Stripe Account
+                                                    {% else %}
+                                                         Complete your stripe on-boarding process to accept payments.
+                                                    {% endif %}
+                                                </span>
                                             </h4>
                                         </div><!--end card-header-->
                                         <div class="card-body">
-                                            <a href="/account/" class="btn btn-primary btn-lg">Connect Stripe</a>
+                                            {% if stripe_account %}
+                                                <div class="row" style="padding: 8px;" >
+                                                    <div class="col-12">
+                                                        <p><h4> Instructor Name : <span style="color: lightslategray;"> {{ stripe_account.Instructor__first_name }} {{ stripe_account.Instructor__last_name }}</span></h4> </p>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <p><h4> Accout ID :  <span style="color: lightslategray;"> {{ stripe_account.Account_ID }}</span></h4> </p>
+                                                    </div>
+                                                </div>
+                                                  {% else %}
+                                                 <a href="{% url 'Connect_StripUrl' %}" class="btn btn-primary btn-lg">Connect Stripe</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
