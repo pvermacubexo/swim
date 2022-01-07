@@ -32,17 +32,53 @@
 
 {% block page_content %}
     <style>
-        .hr_scroll_hide {
-            max-width: 220px;
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            vertical-align: middle;
-            margin-right: 15px;
-        }
+    {# body{#}
+    {#overflow: hidden;#}
+    {#}#}
+    {#    .hr_scroll_hide {#}
+    {#        max-width: 220px;#}
+    {#        display: inline-block;#}
+    {#        overflow: hidden;#}
+    {#        white-space: nowrap;#}
+    {#        vertical-align: middle;#}
+    {#        margin-right: 15px;#}
+    {#    }#}
+#cover-spin {
+    position:fixed;
+    width:100%;
+    left:0;right:0;top:0;bottom:0;
+    background-color: rgba(255,255,255,0.7);
+    z-index:9999;
+    display:none;
+}
+
+@-webkit-keyframes spin {
+	from {-webkit-transform:rotate(0deg);}
+	to {-webkit-transform:rotate(360deg);}
+}
+
+@keyframes spin {
+	from {transform:rotate(0deg);}
+	to {transform:rotate(360deg);}
+}
+
+#cover-spin::after {
+    content:'';
+    display:block;
+    position:absolute;
+    left:48%;top:40%;
+    width:40px;height:40px;
+    border-style:solid;
+    border-color: #1761fd;
+    border-top-color:transparent;
+    border-width: 4px;
+    border-radius:50%;
+    -webkit-animation: spin .8s linear infinite;
+    animation: spin .8s linear infinite;
+}
 
     </style>
-
+    <div id="cover-spin"></div>
     {%  for message in messages %}
 
 
@@ -341,7 +377,7 @@
                             Password</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="connect_stripe_tab" data-toggle="pill" href="#connect_stripe">Connect Stripe</a>
+                        <a class="nav-link" id="connect_stripe_tab"   data-toggle="pill" href="#connect_stripe">Connect Stripe</a>
                     </li>
                 </ul>
             </div><!--end card-body-->
@@ -955,7 +991,7 @@
                                                     </div>
                                                 </div>
                                                   {% else %}
-                                                 <a href="{% url 'Connect_StripUrl' %}" class="btn btn-primary btn-lg">Connect Stripe</a>
+                                                 <a href="{% url 'Connect_StripUrl' %}" onclick="$('#cover-spin').show(0)" class="btn btn-primary btn-lg">Connect Stripe</a>
                                             {% endif %}
                                         </div>
                                     </div>
