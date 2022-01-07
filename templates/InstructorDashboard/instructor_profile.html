@@ -451,12 +451,11 @@
                                                                 <div class="input-group-prepend"><span
                                                                         class="input-group-text"><i
                                                                         class="las la-phone"></i></span></div>
-                                                                <input type="number" class="form-control"
+                                                                <input type="text" class="form-control"
                                                                        name="mobile_no"
                                                                        pattern="[0-9]{8,20}"
                                                                        title="Invalid Mobile number , range should be 8 to 20"
                                                                        value="{% if user.mobile_no %}{{ user.mobile_no }}{% endif %}"
-
                                                                        placeholder="Phone"
                                                                        onkeydown="return ((event.keyCode !== 69) && (event.keyCode !== 187) && (event.keyCode !== 189))"
                                                                        aria-describedby="basic-addon1">
@@ -523,6 +522,8 @@
                                                                 </div>
                                                                 <input type="text" class="form-control" name="language"
                                                                        value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
+                                                                       pattern="[A-Za-z]{3,}"
+                                                                       title="only alphabetic characters are allowed"
                                                                        placeholder="Language"
                                                                        aria-describedby="basic-addon1">
 
@@ -915,7 +916,7 @@
                                                   method="post">
                                                 {% csrf_token %}
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">New
+                                                    <label class="col-xl-3 col-lg-3 text-left mb-lg-0 align-self-center">New
                                                         Password</label>
                                                     <div class="col-lg-9 col-xl-8">
                                                         <div class="input-group">
@@ -927,7 +928,7 @@
                                                                    placeholder="New Password"
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                                    title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-                                                                   required="required">
+                                                                   required="required"><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:15px "></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -945,7 +946,7 @@
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                                    title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                                    placeholder="Confirm-Password"
-                                                                   required="required">
+                                                                   required="required"><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:15px "></i>
                                                         </div>
                                                         <span class="form-text text-muted font-12">Never share your password.</span>
                                                     </div>
@@ -1234,6 +1235,15 @@
                 }
             });
         });
+         $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    input = $(this).parent().find("input");
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
     </script>
     <script>
         setTimeout(function () {

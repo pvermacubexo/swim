@@ -237,9 +237,7 @@
                                                                             {% else %}
                                                                             href="https://www.facebook.com/">
                                                                             {% endif %}
-                                                                            <i
-                                                                                _ngcontent-ygs-c30=""
-                                                                                class="fa fa-facebook"></i></a></li>
+                                                                            <i class="fab fa-facebook-square" style="font-size:30px;"></i></a></li>
                                                                         <!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
@@ -249,9 +247,7 @@
                                                                             {% else %}
                                                                             href="https://www.instagram.com/">
                                                                             {% endif %}
-                                                                            <i
-                                                                                _ngcontent-ygs-c30=""
-                                                                                class="fa fa-instagram"></i></a>
+                                                                            <i class="fab fa-instagram" style="font-size:30px;"></i></a>
                                                                         </li><!---->
                                                                         <li _ngcontent-ygs-c30=""><a
                                                                                 _ngcontent-ygs-c30=""
@@ -261,9 +257,7 @@
                                                                             {% else %}
                                                                             href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D">
                                                                             {% endif %}
-                                                                            <i
-                                                                                _ngcontent-ygs-c30=""
-                                                                                class="fa fa-twitter"></i></a></li>
+                                                                            <i class="fab fa-twitter-square" style="font-size:30px;"></i></a></li>
                                                                         <!----></ul>
                                                                     {% endfor %}
                                                                 </div>
@@ -2573,7 +2567,7 @@
                     dataType: 'json',
                     success: function (data) {
                         $(".termsconditions").show();
-                         localStorage.removeItem("Date");
+
                         {#console.log("hoo")#}
                         if (data.time.length > 0) {
                             console.log(data.time)
@@ -2611,7 +2605,7 @@
                         }
                     },
                     error: function (data) {
-                        localStorage.removeItem("Date");
+
                         if (data.responseJSON.error === undefined || data.responseJSON.error === null) {
                             window.alert("Please select Upcoming date")
                             $('.timeSelectContent').html("")
@@ -2678,6 +2672,16 @@
             }
         });
 
+        if (window.performance) {
+  console.info("window.performance works fine on this browser");
+}
+console.info(performance.navigation.type);
+if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+    localStorage.removeItem("Date");
+  console.info( "This page is reloaded" );
+} else {
+  console.info( "This page is not reloaded");
+}
 
     </script>
     <script>
