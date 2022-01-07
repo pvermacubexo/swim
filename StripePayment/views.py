@@ -236,7 +236,7 @@ class ConnectStripUrl(APIView):
         account_id = account_data["id"]
         create_strip_url = stripe.AccountLink.create(
                       account = account_id,
-                      refresh_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/1/",
+                      refresh_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
                       return_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
                       type = "account_onboarding",
                     )
