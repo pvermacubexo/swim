@@ -11942,6 +11942,26 @@
     box-shadow: none;
     border: 0;
 }
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: darkblue;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: deepskyblue;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: deepskyblue;
+}
+
+
 
     </style>
 </head>
@@ -11987,7 +12007,7 @@
                 <div _ngcontent-nwk-c28="" id="bs-example-navbar-collapse-1"
                      class="col-md-1 left-sidebar collapse navbar-collapse" style="z-index: 1;">
                     <div _ngcontent-nwk-c28="" class="row logo-div">
-                        <a _ngcontent-nwk-c28="" href="{% url 'dashboard_view' %}"><img
+                        <a _ngcontent-nwk-c28="" ><img
                                 _ngcontent-nwk-c28="" src={% static 'assets/img/logo2.png' %} alt="logo"></a>
                     </div>
                     {% block sidebar_content %}
@@ -12024,9 +12044,9 @@
                                                             {% endif %}
                                         <!----><!----></a></li><!----></ul>
                             </div>
-                            <div _ngcontent-uas-c28="" id="profileEdit" tabindex="-1" role="dialog"
-                                 aria-labelledby="myLargeModalLabel" aria-hidden="true" class="modal fade registration" style="z-index: 2;">
-                                <div _ngcontent-uas-c28="" class="modal-dialog modal-lg">
+                            <div _ngcontent-uas-c28="" id="profileEdit"  role="dialog"
+                                 aria-labelledby="myLargeModalLabel" aria-hidden="true" class="modal fade registration" >
+                                <div _ngcontent-uas-c28="" class="modal-dialog modal-lg" role="document">
                                     <div _ngcontent-uas-c28="" class="modal-content">
                                         <div _ngcontent-uas-c28="" class="modal-header">
                                             <button _ngcontent-uas-c28="" type="button" data-dismiss="modal"
@@ -12104,8 +12124,8 @@
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="mobile_no">Contact
                                                             Number </label><input _ngcontent-uas-c28="" name="mobile_no"
-                                                                                  pattern="[0-9 ]{3,}"
-                                                                                  title="Invalid Mobile number"
+                                                                                  pattern="[0-9]{8,20}"
+                                                                                  title="Only 8-20 Numeric Characters are allowed"
                                                                                   id="email"
                                                                                   placeholder="Contact Number"
                                                                                   formcontrolname="mobile_no"
@@ -12156,7 +12176,7 @@
                                                             <!----></div><!---->
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
-                                                                    class="btn btn-primary btn-login btn-sm">UPDATE
+                                                                    class="btn btn-primary btn-login btn-sm" style="width:200px;">UPDATE
                                                             </button>
                                                         </div>
                                                     </div><!----></form>
@@ -12170,7 +12190,7 @@
                 </div>
             </div>
         </div>
-        <router-outlet _ngcontent-uas-c28=""></router-outlet>
+
         {% block page_content %}
         {% endblock %}
     </app-main><!---->
