@@ -3,6 +3,7 @@ import logging
 from datetime import datetime, timedelta
 
 import pytz
+import requests
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import status
@@ -940,7 +941,6 @@ class GetIndividualTimeSlots(APIView):
 class IndividualBookingViewSet(APIView):
     # @authorize([user_constants.Trainee])
     def post(self, request):
-        print(request.data)
         serializer = IndividualBookingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         class_instructor = serializer.validated_data['class_instructor']
@@ -973,7 +973,7 @@ class IndividualBookingViewSet(APIView):
             if not (CheckBooking(date_time, class_instructor.id)):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
-        reqested_user = User.objects.get(email='irina@gmail.com')
+        reqested_user = User.objects.get(email=request.session["email"])
         booking = Booking.objects.create(class_instructor=class_instructor,
                                          user= reqested_user, booking_type=BOOKED,
                                          paper_work=serializer.validated_data['paper_work'])
