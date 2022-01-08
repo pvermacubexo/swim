@@ -129,7 +129,7 @@
                                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                id="password" class="form-control ng-untouched ng-pristine ng-invalid"
-                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px"></i>
+                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px;margin-right:12px;color:black;"></i>
                                         <!----></div>
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                         <button _ngcontent-jar-c34="" type="submit"
@@ -225,20 +225,20 @@
                                 {% csrf_token %}
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="first_name">First Name</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="first_name" pattern="[A-Za-z ]{3,}"
+                                        _ngcontent-jar-c34="" formcontrolname="first_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="first_name"
                                         placeholder=" First Name" type="text" id="first_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="last_name">Last Name</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="last_name" pattern="[A-Za-z ]{3,}"
+                                        _ngcontent-jar-c34="" formcontrolname="last_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="last_name"
                                         placeholder="Last Name " type="text" id="last_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mail">Email Address</label><input
                                         _ngcontent-jar-c34="" formcontrolname="email" name="email"
-                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                        pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                         title="Invalid Email Address" id="email"
                                         placeholder="E-mail"
                                         type="text" id="mail" autocomplete="off"
@@ -254,7 +254,7 @@
                                                                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
 
                                                                                                class="form-control ng-untouched ng-pristine ng-invalid"
-                                                                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px"></i>
+                                                                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px;margin-right:12px;color:black;"></i>
                                     <!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input

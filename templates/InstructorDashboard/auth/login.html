@@ -38,6 +38,11 @@
     position: absolute;
 }
 </style>
+<script>
+  setTimeout(function () {
+      $('.top_alert_position').remove();
+        }, 2000)
+  </script>
 {% if error %}
     <div class="top_alert_position alert custom-alert custom-alert-danger icon-custom-alert alert-secondary-shadow fade show"
          role="alert">
