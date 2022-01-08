@@ -129,7 +129,7 @@
                                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                id="password" class="form-control ng-untouched ng-pristine ng-invalid"
-                                               required>
+                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px"></i>
                                         <!----></div>
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                         <button _ngcontent-jar-c34="" type="submit"
@@ -252,9 +252,9 @@
                                                                                                id="psw"
                                                                                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-                                                                                               autocomplete="off"
+
                                                                                                class="form-control ng-untouched ng-pristine ng-invalid"
-                                                                                               required>
+                                                                                               required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px"></i>
                                     <!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
@@ -682,6 +682,15 @@
             aria-hidden="true" tabindex="-1"
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
 <script>
+     $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    input = $(this).parent().find("input");
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
    setTimeout(function (){
        if ($('#msg').length>0){
            $('#msg').remove();
