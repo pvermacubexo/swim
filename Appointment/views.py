@@ -899,12 +899,13 @@ def individual_common_slot(class_instructor, date_list, profile_user):
 
 
 class GetIndividualTimeSlots(APIView):
-    @authorize([user_constants.Trainee])
+    # @authorize([user_constants.Trainee])
     def post(self, request):
         serializer = IndividualTimeSlotsSerializer(data=request.data)
         if serializer.is_valid():
             try:
                 class_instructor = ClassInstructor.objects.get(id=serializer.initial_data['class_instructor'])
+                # print(class_instructor)
                 user_profile = user_model.Profile.objects.get(user=class_instructor.instructor)
             except ClassInstructor.DoesNotExist:
                 logger.warning(f"Class not found with this ID = {serializer.initial_data['class_instructor']}")
@@ -937,7 +938,7 @@ class GetIndividualTimeSlots(APIView):
 
 
 class IndividualBookingViewSet(APIView):
-    @authorize([user_constants.Trainee])
+    # @authorize([user_constants.Trainee])
     def post(self, request):
         serializer = IndividualBookingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -971,8 +972,9 @@ class IndividualBookingViewSet(APIView):
             if not (CheckBooking(date_time, class_instructor.id)):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
+        reqested_user = User.objects.get(email='irina@gmail.com')
         booking = Booking.objects.create(class_instructor=class_instructor,
-                                         user=request.user, booking_type=BOOKED,
+                                         user= reqested_user, booking_type=BOOKED,
                                          paper_work=serializer.validated_data['paper_work'])
         for date_time in datetime_list:
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')

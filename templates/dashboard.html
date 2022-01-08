@@ -53,6 +53,34 @@
 {% endblock %}
 {% block page_content %}
 
+    <style>
+
+        .padding-time-select {
+            max-width: 200px;
+            cursor: pointer;
+            font-weight: 600;
+            color: black;
+            justify-content: center;
+            background: #d4d1d1;
+            display: inline-block;
+            border-radius: 5px;
+            border: 1px solid #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            width: 200px;
+            height: 45px;
+            padding: 10px;
+            font-size: 14px;
+            /* margin-right: 10px; */
+            letter-spacing: 0.5px;
+            opacity: 1;
+            float: none;
+            line-height: 20px;
+        }
+
+        .to-right {
+            float: right;
+        }
+    </style>
 
     {% if res_data %}
         <script>
@@ -389,7 +417,7 @@
                                                                      class="tab-pane fade">
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
-                                                                             class="col-md-12 left">
+                                                                             class="col-md-6 left">
                                                                             <div _ngcontent-ygs-c30=""
                                                                                  class="individual"><h3
                                                                                     _ngcontent-ygs-c30=""
@@ -399,308 +427,26 @@
                                                                                      class="mbsc-grid">
                                                                                     <div _ngcontent-ygs-c30=""
                                                                                          id="calendar"
-                                                                                         class="calendar hasDatepicker">
-                                                                                        <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
-                                                                                             style="display: block;">
-                                                                                            <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                                                                                                <a class="ui-datepicker-prev ui-corner-all"
-                                                                                                   data-handler="prev"
-                                                                                                   data-event="click"
-                                                                                                   title="Prev"><span
-                                                                                                        class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
-                                                                                                    class="ui-datepicker-next ui-corner-all"
-                                                                                                    data-handler="next"
-                                                                                                    data-event="click"
-                                                                                                    title="Next"><span
-                                                                                                    class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-                                                                                                <div class="ui-datepicker-title">
-                                                                                                    <span class="ui-datepicker-month">December</span>&nbsp;<span
-                                                                                                        class="ui-datepicker-year">2021</span>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <table class="ui-datepicker-calendar">
-                                                                                                <thead>
-                                                                                                <tr>
-                                                                                                    <th scope="col"
-                                                                                                        class="ui-datepicker-week-end">
-                                                                                                        <span title="Sunday">Su</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col">
-                                                                                                        <span title="Monday">Mo</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col">
-                                                                                                        <span title="Tuesday">Tu</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col">
-                                                                                                        <span title="Wednesday">We</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col">
-                                                                                                        <span title="Thursday">Th</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col">
-                                                                                                        <span title="Friday">Fr</span>
-                                                                                                    </th>
-                                                                                                    <th scope="col"
-                                                                                                        class="ui-datepicker-week-end">
-                                                                                                        <span title="Saturday">Sa</span>
-                                                                                                    </th>
-                                                                                                </tr>
-                                                                                                </thead>
-                                                                                                <tbody>
-                                                                                                <tr>
-                                                                                                    <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                                        data-event=""
-                                                                                                        data-handler="">
-                                                                                                        &nbsp;
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                                        data-event=""
-                                                                                                        data-handler="">
-                                                                                                        &nbsp;
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                                        data-event=""
-                                                                                                        data-handler="">
-                                                                                                        &nbsp;
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">1</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">2</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">3</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">4</a>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">5</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">6</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">7</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">8</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">9</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">10</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">11</a>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">12</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">13</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">14</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">15</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today"
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">16</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">17</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">18</a>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">19</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">20</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">21</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">22</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">23</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">24</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">25</a>
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                <tr>
-                                                                                                    <td class=" ui-datepicker-week-end "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">26</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">27</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">28</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">29</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">30</a>
-                                                                                                    </td>
-                                                                                                    <td class=" "
-                                                                                                        data-handler=""
-                                                                                                        data-event=""
-                                                                                                        data-month="11"
-                                                                                                        data-year="2021">
-                                                                                                        <a class="ui-state-default">31</a>
-                                                                                                    </td>
-                                                                                                    <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                                        data-event=""
-                                                                                                        data-handler="">
-                                                                                                        &nbsp;
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                                </tbody>
-                                                                                            </table>
-                                                                                        </div>
+                                                                                         class="calendar">
+
                                                                                     </div>
                                                                                     <div _ngcontent-ygs-c30=""
                                                                                          class="check-left"></div>
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div _ngcontent-ygs-c30=""
+                                                                             class="col-md-6 right">
+                                                                            <div _ngcontent-ygs-c30=""
+                                                                                 class="time check-list"><h3
+                                                                                    _ngcontent-ygs-c30="">Select
+                                                                                Time</h3><!---->
+
+                                                                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+
+                                                                            </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -708,7 +454,8 @@
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="next-btn-div registration-form col-md-12"
                                                                              style="text-align: center;">
-                                                                            <button _ngcontent-ygs-c30="" type="button">
+                                                                            <button _ngcontent-ygs-c30="" type="button"
+                                                                                    onclick="check_individual()">
                                                                                 Check Availability
                                                                             </button>
                                                                         </div>
@@ -1086,304 +833,7 @@
                                                                  class="mbsc-grid">
                                                                 <div _ngcontent-ygs-c30=""
                                                                      id="calendar"
-                                                                     class="calendar hasDatepicker">
-                                                                    <div class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
-                                                                         style="display: block;">
-                                                                        <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-                                                                            <a class="ui-datepicker-prev ui-corner-all"
-                                                                               data-handler="prev"
-                                                                               data-event="click"
-                                                                               title="Prev"><span
-                                                                                    class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
-                                                                                class="ui-datepicker-next ui-corner-all"
-                                                                                data-handler="next"
-                                                                                data-event="click"
-                                                                                title="Next"><span
-                                                                                class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-                                                                            <div class="ui-datepicker-title">
-                                                                                <span class="ui-datepicker-month">December</span>&nbsp;<span
-                                                                                    class="ui-datepicker-year">2021</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <table class="ui-datepicker-calendar">
-                                                                            <thead>
-                                                                            <tr>
-                                                                                <th scope="col"
-                                                                                    class="ui-datepicker-week-end">
-                                                                                    <span title="Sunday">Su</span>
-                                                                                </th>
-                                                                                <th scope="col">
-                                                                                    <span title="Monday">Mo</span>
-                                                                                </th>
-                                                                                <th scope="col">
-                                                                                    <span title="Tuesday">Tu</span>
-                                                                                </th>
-                                                                                <th scope="col">
-                                                                                    <span title="Wednesday">We</span>
-                                                                                </th>
-                                                                                <th scope="col">
-                                                                                    <span title="Thursday">Th</span>
-                                                                                </th>
-                                                                                <th scope="col">
-                                                                                    <span title="Friday">Fr</span>
-                                                                                </th>
-                                                                                <th scope="col"
-                                                                                    class="ui-datepicker-week-end">
-                                                                                    <span title="Saturday">Sa</span>
-                                                                                </th>
-                                                                            </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                            <tr>
-                                                                                <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                    data-event=""
-                                                                                    data-handler="">
-                                                                                    &nbsp;
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                    data-event=""
-                                                                                    data-handler="">
-                                                                                    &nbsp;
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                    data-event=""
-                                                                                    data-handler="">
-                                                                                    &nbsp;
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">1</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">2</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">3</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">4</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">5</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">6</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">7</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">8</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">9</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">10</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">11</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">12</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">13</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">14</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">15</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-days-cell-over  ui-datepicker-current-day ui-datepicker-today"
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">16</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">17</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">18</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">19</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">20</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">21</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">22</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">23</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">24</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">25</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class=" ui-datepicker-week-end "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">26</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">27</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">28</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">29</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">30</a>
-                                                                                </td>
-                                                                                <td class=" "
-                                                                                    data-handler=""
-                                                                                    data-event=""
-                                                                                    data-month="11"
-                                                                                    data-year="2021">
-                                                                                    <a class="ui-state-default">31</a>
-                                                                                </td>
-                                                                                <td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled"
-                                                                                    data-event=""
-                                                                                    data-handler="">
-                                                                                    &nbsp;
-                                                                                </td>
-                                                                            </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
+                                                                     class="calendar">
                                                                 </div>
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="check-left"></div>
@@ -1395,7 +845,8 @@
                                                     <div _ngcontent-ygs-c30=""
                                                          class="next-btn-div registration-form col-md-12"
                                                          style="text-align: center;">
-                                                        <button _ngcontent-ygs-c30="" type="button">
+                                                        <button _ngcontent-ygs-c30="" type="button"
+                                                                onclick="check_individual()">
                                                             Check Availability
                                                         </button>
                                                     </div>
@@ -2267,7 +1718,7 @@
            $(".amount1").text("");
        })
 
-        function checkdate() {
+       function checkdate() {
         var dtToday = new Date();
 
         var month = dtToday.getMonth() + 1;
@@ -2621,6 +2072,125 @@
 
         }
 
+        function check_individual() {
+            var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
+            var individual_Date = localStorage.getItem('individual_Date')
+            var arr = JSON.parse("" + individual_Date + "");
+            var payload = {'class_instructor': class_instructor, 'date_list': arr}
+            $.ajax({
+                    url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-slot',
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(payload),
+                    success: function (data) {
+                        for(var i=0; i< data.length;i++){
+                            for (const [key, value] of Object.entries(data[i])) {
+                             $("#accordion").append('<h3>'+key+'</h3><select class="form-select" aria-label="Default select example" id="'+key+'"><option selected disabled>'+key+'</option></select><br><br>')
+
+
+
+                                        console.log(key);
+                                        for (var j=0;j<value.length;j++){
+                                        console.log(value[j])
+                                        $("#"+key).append('<option value="'+value[j]+'">'+value[j]+'</option>')
+
+                            }
+}
+                    }
+
+
+
+                        {#console.log(typeof data)#}
+                        {#var new_text = ''#}
+                        {#Object.keys(data).map( (el) => {#}
+                        {#    new_text = new_text + '<div class="panel panel-default"><div class="panel-heading" role="tab" id="headingOne"> <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+ Object.keys(data[el])[0] +'<span class="to-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>'#}
+                        {#    Object.keys(data[el]).map((insideElement) => {#}
+                        {##}
+                        {#        var dates_text = ""#}
+                        {#        for(var i = 0; i< data[el][insideElement].length; i++){#}
+                        {#            dates_text = dates_text + '<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> <div class="panel-body"> <div _ngcontent-ygs-c30="" class="col-md-6 right"> <div _ngcontent-ygs-c30="" class="time check-list"><h3 _ngcontent-ygs-c30="">SelectTime</h3><!----> <div _ngcontent-ygs-c30="" id="singleDate"></div> <div class="block list"> <div class="check-box-list"> <div class="col-md-12"> <div class="div-block timeSelectContent"><div _ngcontent-crr-c30="" class="checkbox checkbox0 "><input type="button" name="sample" _ngcontent-crr-c30="" value="'+ data[el][insideElement][i] +'" class="times ttime0" onclick="bgchange(0)"></div></a> </h4></div>'#}
+                        {#        }#}
+                        {#        console.log(data[el][insideElement])#}
+                        {#        new_text = new_text + dates_text#}
+                        {#    })#}
+                        {##}
+                       // {#})#}
+                        {#$('#accordion').html(new_text)#}
+
+                       // console.log(data)
+                        {#var x = ''#}
+                        {#for(var i =0 ; i< data.length; i++){#}
+                        {##}
+                        {##}
+                        {##}
+                        {#    const array1 = Object.values(data[i]);#}
+                        {#    const iterator = array1.values();#}
+                        {#    console.log(array1)#}
+                        {#    console.log(iterator)#}
+                        {#    for (const val of iterator) {#}
+                        {#         x = x + ' <div class="panel panel-default"><div class="panel-heading" role="tab" id="headingThree"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#'+i+'" aria-expanded="false" aria-controls="'+i+'">'+Object.keys(data[i])+'</a></h4></div><div id="'+i+'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"><div class="panel-body" id="scrollbody">'+ val +'</div></div></div>'#}
+                        {#       // console.log(val);#}
+                        {#    }#}
+                        {#}#}
+
+                  //  var myarray = data;
+
+                    {#for (var i = 0, l = myarray.length; i < l; i++) {#}
+                    {#  var items = myarray[i];#}
+                    {#  var keys = Object.keys(items);#}
+                    {#  for (var j = 0, k = keys.length; j < k; j++) {#}
+                    {##}
+                    {#     // console.log( ty items[keys[j]])#}
+                    {##}
+                    {# console.log('this is a key-> ' + keys[j] + ' & this is its value-> ' + items[keys[j]]);#}
+
+                      //}
+                   // }
+
+                        //console.log(data)
+
+                  //  var x = ''
+                 //     for(var i =0 ; i< data.length; i++){
+                    //    x = x + ' <div class="panel panel-default"><div class="panel-heading" role="tab" id="headingThree"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#'+i+'" aria-expanded="false" aria-controls="'+i+'">'+Object.keys(data[i])+'</a></h4></div><div id="'+i+'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"><div class="panel-body" id="scrollbody"></div></div></div>'
+                       //   for (const [key, value] of Object.entries(data)) {
+                       //       let time_for_table = ""
+                       //       let time = ""
+                       //       let text = '<div class="block list"><div class="check-box-list"><div class="col-md-12"><div class="div-block timeSelectContent">'
+                       //       for (const [key1, value1] of Object.entries(value)) {
+                      //            time_for_table = time_for_table.slice(2,) + " - " + value1
+                      //            time = time + '<div _ngcontent-crr-c30="" class="checkbox checkbox0 "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + time_for_table + '" class="times ttime0" onclick="bgchange(0)"></div>'
+                       //           console.log(time_for_table)
+                       //           text = text + time + '</div></div></div></div>'
+                         //     }
+                                {#$('#accordion').html((x))#}
+
+                    //      }
+
+
+
+                   //   }
+
+                   //   $('#accordion').html((x))
+                    },
+
+                    error: function (data) {
+                        if (data.status === 406) {
+
+                            window.alert("Previous date not allowed")
+
+                        } else if (data.status === 400) {
+                            window.alert("error")
+                        } else {
+                            window.alert(data.responseJSON.error)
+                            $('.timeSelectContent').html("")
+                        }
+                    },
+
+                }
+            )
+
+
+        }
 
         $("#nextbtn").click(function () {
             console.log("button clicked")

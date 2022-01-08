@@ -20,6 +20,7 @@ from SharkDeck.constants import user_constants
 from StripePayment.models import StripeAccount
 from user import models as user_models
 from user.email_services import sent_mail
+from user.models import WeekTimeSlots
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -435,6 +436,34 @@ def instructor_profile(request):
         profile_obj.day_end_time = request.POST.get('day_end_time')
 
         profile_obj.save()
+        profile_obj= user_models.Profile.objects.get(user=request.user)
+        user_obj, created = user_models.WeekTimeSlots.objects.get_or_create(instructor_id=profile_obj.id)
+        # user_obj = user_models.WeekTimeSlots.objects.all()
+        # print(user_obj[1].instructor_id)
+        if profile_obj.monday == True:
+            user_obj.monday_startTime_slot = start_time
+            user_obj.monday_endTime_slot = end_time
+        if profile_obj.tuesday == True:
+            user_obj.tuesday_startTime_slot = start_time
+            user_obj.tuesday_endTime_slot = end_time
+        if profile_obj.wednesday == True:
+            user_obj.wednesday_startTime_slot = start_time
+            user_obj.wednesday_endTime_slot = end_time
+        if profile_obj.thursday == True:
+            user_obj.thursday_startTime_slot = start_time
+            user_obj.thursday_endTime_slot = end_time
+        if profile_obj.friday == True:
+            user_obj.friday_startTime_slot = start_time
+            user_obj.friday_endTime_slot = end_time
+        if profile_obj.saturday == True:
+            user_obj.saturday_startTime_slot = start_time
+            user_obj.saturday_endTime_slot = end_time
+        if profile_obj.sunday == True:
+            user_obj.sunday_startTime_slot = start_time
+            user_obj.sunday_endTime_slot = end_time
+        # profile_user = user_models.User.objects.get(id=request.user.id)
+        # profile_user
+        user_obj.save()
         context.update({'user_update': 'Updated Successfully ! '})
         return render(request, 'InstructorDashboard/instructor_profile.html', context)
     return render(request, 'InstructorDashboard/instructor_profile.html', context)

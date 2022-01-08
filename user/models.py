@@ -454,7 +454,6 @@ class WeekTimeSlots(models.Model):
         error_messages={'error': "Choose a valid time format."}
     )
 
-
 monday, tuesday, wednesday, thursday, friday, saturday, sunday = '1', '2', '3', '4', '5', '6', '7'
 
 
