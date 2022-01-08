@@ -606,11 +606,11 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="facebook_link"
-                                                                           value="{% if user.get_profile.facebook_link %}
-                                                                        {{ user.get_profile.facebook_link }}
-                                                                        {% else %}
-                                                                        https://www.facebook.com/
-                                                                                                {% endif %}"
+                                                                           {% if user.get_profile.facebook_link %}
+                                                                           value="{{ user.get_profile.facebook_link }}"
+                                                                           {% else %}
+                                                                            value="https://www.facebook.com/"
+                                                                           {% endif %}
                                                                            placeholder="Facebook"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -633,7 +633,11 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="instagram_link"
-                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% else %} https://www.instagram.com/{% endif %}"
+                                                                           {% if user.get_profile.instagram_link %}
+                                                                           value="{{ user.get_profile.instagram_link }}"
+                                                                            {% else %}
+                                                                             value="https://www.instagram.com/"
+                                                                           {% endif %}
                                                                            placeholder="Instagram"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -656,7 +660,11 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="twitter_link"
-                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% else %}https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D{% endif %}"
+                                                                           {% if user.get_profile.twitter_link %}
+                                                                           value="{{ user.get_profile.twitter_link }}"
+                                                                        {% else %}
+                                                                        value=https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D
+                                                                           {% endif %}
                                                                            placeholder="Twitter"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
