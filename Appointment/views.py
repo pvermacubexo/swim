@@ -940,6 +940,7 @@ class GetIndividualTimeSlots(APIView):
 class IndividualBookingViewSet(APIView):
     # @authorize([user_constants.Trainee])
     def post(self, request):
+        print(request.data)
         serializer = IndividualBookingSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         class_instructor = serializer.validated_data['class_instructor']
