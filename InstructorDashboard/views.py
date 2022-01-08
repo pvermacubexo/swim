@@ -220,10 +220,13 @@ def update_booking(request, id):
             appointment_obj.remark = ser.data['remark']
             appointment_obj.status = ser.data['status']
             appointment_obj.save()
+            print("updated")
 
             # return render(request, 'InstructorDashboard/dashboard.html', context=context)
             return redirect("InstructorDashboard:trainee_view", id)
+
         else:
+
             return redirect("InstructorDashboard:trainee_view", id)
 
     return redirect("InstructorDashboard:trainee_view", id)

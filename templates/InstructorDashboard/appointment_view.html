@@ -67,6 +67,11 @@
                                                     colspan="1" style="width: 51.8px;"
                                                     aria-label="Age: activate to sort column ascending">Remark
                                                 </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1"
+                                                    colspan="1" style="width: 51.8px;"
+                                                    aria-label="Age: activate to sort column ascending">Status
+                                                </th>
                                             </tr>
                                             </thead>
 
@@ -81,6 +86,16 @@
                                                     <td style="">{{ appointment.start_time|date:'M d Y h:i A' }}</td>
                                                     <td>{{ appointment.end_time|date:'M d Y h:i A' }}</td>
                                                     <td>{{ appointment.remark }}</td>
+                                                    {% if appointment.status == '1' %}
+                                                    <td>Scheduled</td>
+                                                    {% endif %}
+                                                    {% if appointment.status == '2' %}
+                                                    <td>Completed</td>
+                                                     {% endif %}
+                                                    {% if appointment.status == '3' %}
+                                                    <td>Rejected</td>
+                                                     {% endif %}
+
                                                 </tr>
                                             {% endfor %}
                                             </tbody>

@@ -250,11 +250,12 @@
                                                                         _ngcontent-ygs-c30="" style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
                                                                     <p _ngcontent-ygs-c30=""><i
                                                                             _ngcontent-ygs-c30=""
-                                                                            class="fa fa-map-marker"></i> USA </p>
-                                                                    <!----><p _ngcontent-ygs-c30=""
-                                                                              class="" >class for
-                                                                        swimming</p><!---->
+                                                                            class="fa fa-map-marker"></i> {{ first_name.address }} </p>
+                                                                    <!---->
                                                                     {% for i in links %}
+                                                                        <p _ngcontent-ygs-c30=""
+                                                                              class="" >{{ i.about }}</p><!---->
+
 
                                                                     <ul _ngcontent-ygs-c30="">
                                                                         <li _ngcontent-ygs-c30=""><a
