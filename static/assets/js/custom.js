@@ -89,6 +89,7 @@ $(function () {
 });
 
 var individualDate = [];
+
 function initCalendar() {
   $('div.ui-widget-header').append('\
         <a class="ui-datepicker-clear-month" title="Clear Date" >\X\ </a>\
@@ -113,11 +114,62 @@ function initCalendar() {
     $(this).find('a').addClass('ui-state-active');
     return false;
   });
-
+  // var individualDate = [];
+  var indDate = [];
   $('#calendar td').mouseup(function () {
-    individualDate = [];
-    $('#calendar td a.ui-state-active').each(function () { //Save selected dates
-      individualDate.push(new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html()));
+
+    $('#calendar td a.ui-state-active').click(function () { //Save selected dates
+      console.log(indDate);
+
+           var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+             today = yyyy + '-' + mm + '-' + dd;
+
+            if(indDate.length ===0){
+              indDate.push(today)
+              console.log('PUSH', indDate)
+              localStorage.setItem('individual_Date', JSON.stringify(indDate))
+            }
+            else{
+
+                for(var i = 0; i<=indDate.length ; i++){
+                  console.log((indDate[i]),(today))
+                  if(indDate.includes(today)){
+                    console.log('indDate',indDate)
+                    indDate.pop(today)
+                    console.log('else if', indDate)
+                    break;
+                    // localStorage.setItem('individual_Date', JSON.stringify(indDate))
+
+                  }
+                  else{
+                    console.log("else")
+                    indDate.push(today)
+                    console.log('else', indDate)
+                    localStorage.setItem('individual_Date', JSON.stringify(indDate))
+                    break;
+                  }
+                }
+
+
+             }
+            // console.log(indDate)
+            // console.log(individualDate.find(element => toString(element) === today))
+            // if(individualDate.find(element => toString(element) === today)){
+            //     // $(this).removeClass('ui-state-active')
+            //     individualDate = individualDate.filter((x) => x !== today)
+            //   console.log('pop', individualDate)
+            //   }
+            // else{
+            //
+            //   individualDate.push(today)
+            //   localStorage.setItem('individual_Date', JSON.stringify(individualDate))
+            // }
+      // individualDate.push(today);
+      // console.log(individualDate)
     });
     dateDragStart = undefined;
     return false;
@@ -257,18 +309,38 @@ new WOW().init();
 
 var selectedDates = [];
  $(function () {
+
+   $('#calendar').datepicker({
+    altField: '#Date3',
+    // minDate: 0,
+    // beforeShowDay: $.datepicker.noWeekends,
+    dateFormat: "yy-mm-dd",
+  })
    $('.ui-datepicker-clear-month').click(function(){
      $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
      selectedDates = [];
      console.log("clear Individual dates", selectedDates)
+     localStorage.removeItem("individual_Date");
    });
 
-
+  $("#calendar").on("click", function () {
+    var x = $(this).val();
+    console.log(x)
+  });
   $('#calendar table>tbody>tr>td>a').click(function () {
-
+    // console.log(individualDate)
     var i = $(this).text();
-    selectedDates.push(i)
-    console.log("Select complete date for individual selection", selectedDates)
+    if(selectedDates.find(element => element === i)){
+      $(this).removeClass('ui-state-active')
+      selectedDates = selectedDates.filter((x) => x !== i)
+    }
+    else{
+      selectedDates.push(i)
+      // console.log(selectedDates)
+      // localStorage.setItem('individual_Date', JSON.stringify(selectedDates))
+    }
+
+    // console.log("Select complete date for individual selection", selectedDates)
     var class_instructor = window.localStorage.getItem('class_instructor_id')
     console.error("class_instructor",class_instructor)
   });
