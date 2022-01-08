@@ -152,7 +152,7 @@
                                             <label for="username">Username</label>
 
                                             <div class="input-group">
-                                                <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                <input pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                        title="Invalid user name format, it should be example@example.com"
                                                        type="email" required class="form-control" name="email"
                                                        id="username"
@@ -222,7 +222,7 @@
                                         <div class="form-group mb-2">
                                             <label for="firstname">First Name </label>
                                             <div class="input-group">
-                                                <input pattern="[A-Za-z ]{3,}"
+                                                <input pattern="[A-Za-z]{3,}"
                                                        title="Only Alphabetic characters are Allowed" type="text"
                                                        class="form-control" required value=""
                                                        name="first_name" id="firstname"
@@ -232,7 +232,7 @@
                                         <div class="form-group mb-2">
                                             <label for="lastname">Last Name </label>
                                             <div class="input-group">
-                                                <input pattern="[A-Za-z ]{3,}"
+                                                <input pattern="[A-Za-z]{3,}"
                                                        title="Only Alphabetic characters are Allowed" type="text"
                                                        class="form-control" required value=""
                                                        name="last_name" id="lastname"
@@ -243,7 +243,7 @@
                                         <div class="form-group mb-2">
                                             <label for="useremail">Email</label>
                                             <div class="input-group">
-                                                <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                <input type="email" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                        title="Invalid Email Address" class="form-control" required
                                                        value="" name="email"
                                                        placeholder="Enter Email">

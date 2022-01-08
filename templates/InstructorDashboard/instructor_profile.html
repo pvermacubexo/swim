@@ -330,7 +330,9 @@
                                         <div class="row">
                                             <div class="col-auto text-center border-right">
 
-                                                <a href="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                <a href="{% if user.get_profile.facebook_link %}
+                                                    {{ user.get_profile.facebook_link }}
+                                                    {% endif %}"
                                                    target="_blank"
                                                    class="btn btn-soft-primary btn-icon-circle-sm mb-2">
                                                     <i class="fab fa-facebook-f"></i>
@@ -476,7 +478,7 @@
                                                                         class="input-group-text"><i
                                                                         class="far fa-envelope-open "></i></span></div>
                                                                 <input type="email" class="form-control" name="email"
-                                                                       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                                       pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                                        title="Invalid Email Address example@example.com"
                                                                        value="{% if user.email %}{{ user.email }}{% endif %}"
 
@@ -499,7 +501,7 @@
                                                                         class="input-group-text"><i
                                                                         class=" typcn typcn-globe "></i></span></div>
                                                                 <input type="text" class="form-control" name="address"
-                                                                       pattern="[A-Za-z ]{3,}"
+
                                                                        value="{% if user.address %}{{ user.address }}{% endif %}"
                                                                        placeholder="Address"
                                                                        aria-describedby="basic-addon1">
@@ -604,7 +606,11 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="facebook_link"
-                                                                           value="{% if user.get_profile.facebook_link %}{{ user.get_profile.facebook_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.facebook_link %}
+                                                                        {{ user.get_profile.facebook_link }}
+                                                                        {% else %}
+                                                                        https://www.facebook.com/
+                                                                                                {% endif %}"
                                                                            placeholder="Facebook"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -627,7 +633,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="instagram_link"
-                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% else %} https://www.instagram.com/{% endif %}"
                                                                            placeholder="Instagram"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -650,7 +656,7 @@
                                                                 <div>
                                                                     <input type="text" class="form-control"
                                                                            name="twitter_link"
-                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
+                                                                           value="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% else %}https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D{% endif %}"
                                                                            placeholder="Twitter"
                                                                            aria-describedby="basic-addon1">
                                                                 </div>
@@ -933,7 +939,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 text-right mb-lg-0 align-self-center">Confirm
+                                                    <label class="col-xl-3 col-lg-3 text-left mb-lg-0 align-self-center">Confirm
                                                         Password</label>
                                                     <div class="col-lg-9 col-xl-8">
 
