@@ -210,6 +210,7 @@ def update_booking(request, id):
     if request.method == 'POST':
         data = request.POST
         ser = seializer.AppointmentUpdate(data=data, context={'user': request.user, 'id': data['id']})
+        print(ser)
         if ser.is_valid():
             try:
                 appointment_obj = appointment_model.Appointment.objects.get(id=int(ser.data['id']))
