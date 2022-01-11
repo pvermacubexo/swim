@@ -365,6 +365,15 @@
                     </div> <!--end card-->
                 </div><!--end col-->
             </div><!--end row-->
+        <div>
+             {% if stripe_msg %}
+
+                        {% else %}
+                        <div class="col-md-12">
+                            <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style="color: white !important;">Connect your <strong>stripe account</strong> to start receiving payments directly. Otherwise Swim Time Solutions will receive payment on your behalf &amp; process you manually later.</p>
+                        </div>
+                    {% endif %}
+        </div>
             <div class="pb-4">
                 <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
                     <li class="nav-item">

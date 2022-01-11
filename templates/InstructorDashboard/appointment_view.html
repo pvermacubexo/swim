@@ -13,6 +13,13 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
+                    {% if stripe_msg %}
+
+                        {% else %}
+                        <div class="col-md-12">
+                            <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style="color: white !important;">Connect your <strong>stripe account</strong> to start receiving payments directly. Otherwise Swim Time Solutions will receive payment on your behalf &amp; process you manually later.</p>
+                        </div>
+                    {% endif %}
                     <div class="page-title-box">
                         <div class="row">
                             <div class="col">

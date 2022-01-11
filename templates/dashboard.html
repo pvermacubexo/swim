@@ -72,6 +72,10 @@
         .to-right {
             float: right;
         }
+
+
+
+
     </style>
 
     {% if res_data %}
@@ -479,7 +483,7 @@
                                                                            id="nextbtn"
                                                                        style="background-color:#0A66C2;float: right">
                                                                 <input type="button" value="Next"
-                                                                       class="btn btn-primary"
+                                                                       class="btn btn-primary" onsubmit ="return Validate()"
                                                                        id="nextbtn1"
                                                                        style="background-color:#0A66C2;float: right">
                                                             </div>
@@ -540,7 +544,7 @@
                                      style="display: none;">
                                     <div _ngcontent-ygs-c30="" class="modal-content">
                                         <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
                                                     aria-hidden="true" class="close btn-first"> ×
                                             </button>
                                         </div>
@@ -733,7 +737,7 @@
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-ygs-c30="" class="modal-header registration-form">
                         <button _ngcontent-ygs-c30="" type="button"
-                                onclick="window.location.reload()" data-dismiss="modal"
+                                onclick="window.location.reload()" data-dismiss="modal" onclick="window.location.reload()"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
                         <h4 _ngcontent-ygs-c30="">DATE / SCHEDULE</h4>
@@ -935,7 +939,7 @@
                  style="display: none;">
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                        <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                        <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
                     </div>
@@ -1285,7 +1289,7 @@
              style="display: none;">
             <div _ngcontent-ygs-c30="" class="modal-content">
                 <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                    <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                    <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
                             aria-hidden="true" class="close btn-first"> ×
                     </button>
                 </div>
@@ -1472,7 +1476,7 @@
                       class="first-step first-fieldset-section">
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-fqp-c30="" class="modal-header">
-                        <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" aria-hidden="true"
+                        <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()"
                                 class="close btn-first">×
                         </button>
                         <h4 _ngcontent-fqp-c30="">Payment</h4>
@@ -1852,6 +1856,7 @@
             stripe = Stripe(data.publishableKey);
             var elements = stripe.elements();
             var style = {
+
                 base: {
                     {#borderColor:"red",#}
                     color: "black",
@@ -2122,106 +2127,34 @@
                         $(".termsconditions").show();
                         for(var i=0; i< data.length;i++){
                             for (const [key, value] of Object.entries(data[i])) {
-                             $("#accordion").append('<h3>'+key+'</h3><select class="form-select" aria-label="Default select example" id="'+key+'"><option selected disabled>'+key+'</option></select><br><br>')
+                             $("#accordion").append('<h3>'+key+'</h3><select style="width: 52% !important; margin-left: 25% !important;" class="form-control select_tag" aria-label="Default select example" id="'+key+'" ><option selected disabled id="options" value="" required="">Please Select Time</option></select><br><br>')
 
 
 
                                         console.log(key);
                                         for (var j=0;j<value.length;j++){
                                         console.log(value[j])
-                                        $("#"+key).append('<option value="'+value[j]+'">'+value[j]+'</option>')
+                                        $("#"+key).append('<option id="options" value="'+value[j]+'">'+value[j]+'</option>')
 
                             }
 }
                     }
 
 
-
-                        {#console.log(typeof data)#}
-                        {#var new_text = ''#}
-                        {#Object.keys(data).map( (el) => {#}
-                        {#    new_text = new_text + '<div class="panel panel-default"><div class="panel-heading" role="tab" id="headingOne"> <h4 class="panel-title"> <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">'+ Object.keys(data[el])[0] +'<span class="to-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>'#}
-                        {#    Object.keys(data[el]).map((insideElement) => {#}
-                        {##}
-                        {#        var dates_text = ""#}
-                        {#        for(var i = 0; i< data[el][insideElement].length; i++){#}
-                        {#            dates_text = dates_text + '<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> <div class="panel-body"> <div _ngcontent-ygs-c30="" class="col-md-6 right"> <div _ngcontent-ygs-c30="" class="time check-list"><h3 _ngcontent-ygs-c30="">SelectTime</h3><!----> <div _ngcontent-ygs-c30="" id="singleDate"></div> <div class="block list"> <div class="check-box-list"> <div class="col-md-12"> <div class="div-block timeSelectContent"><div _ngcontent-crr-c30="" class="checkbox checkbox0 "><input type="button" name="sample" _ngcontent-crr-c30="" value="'+ data[el][insideElement][i] +'" class="times ttime0" onclick="bgchange(0)"></div></a> </h4></div>'#}
-                        {#        }#}
-                        {#        console.log(data[el][insideElement])#}
-                        {#        new_text = new_text + dates_text#}
-                        {#    })#}
-                        {##}
-                       // {#})#}
-                        {#$('#accordion').html(new_text)#}
-
-                       // console.log(data)
-                        {#var x = ''#}
-                        {#for(var i =0 ; i< data.length; i++){#}
-                        {##}
-                        {##}
-                        {##}
-                        {#    const array1 = Object.values(data[i]);#}
-                        {#    const iterator = array1.values();#}
-                        {#    console.log(array1)#}
-                        {#    console.log(iterator)#}
-                        {#    for (const val of iterator) {#}
-                        {#         x = x + ' <div class="panel panel-default"><div class="panel-heading" role="tab" id="headingThree"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#'+i+'" aria-expanded="false" aria-controls="'+i+'">'+Object.keys(data[i])+'</a></h4></div><div id="'+i+'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"><div class="panel-body" id="scrollbody">'+ val +'</div></div></div>'#}
-                        {#       // console.log(val);#}
-                        {#    }#}
-                        {#}#}
-
-                  //  var myarray = data;
-
-                    {#for (var i = 0, l = myarray.length; i < l; i++) {#}
-                    {#  var items = myarray[i];#}
-                    {#  var keys = Object.keys(items);#}
-                    {#  for (var j = 0, k = keys.length; j < k; j++) {#}
-                    {##}
-                    {#     // console.log( ty items[keys[j]])#}
-                    {##}
-                    {# console.log('this is a key-> ' + keys[j] + ' & this is its value-> ' + items[keys[j]]);#}
-
-                      //}
-                   // }
-
-                        //console.log(data)
-
-                  //  var x = ''
-                 //     for(var i =0 ; i< data.length; i++){
-                    //    x = x + ' <div class="panel panel-default"><div class="panel-heading" role="tab" id="headingThree"><h4 class="panel-title"><a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#'+i+'" aria-expanded="false" aria-controls="'+i+'">'+Object.keys(data[i])+'</a></h4></div><div id="'+i+'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"><div class="panel-body" id="scrollbody"></div></div></div>'
-                       //   for (const [key, value] of Object.entries(data)) {
-                       //       let time_for_table = ""
-                       //       let time = ""
-                       //       let text = '<div class="block list"><div class="check-box-list"><div class="col-md-12"><div class="div-block timeSelectContent">'
-                       //       for (const [key1, value1] of Object.entries(value)) {
-                      //            time_for_table = time_for_table.slice(2,) + " - " + value1
-                      //            time = time + '<div _ngcontent-crr-c30="" class="checkbox checkbox0 "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + time_for_table + '" class="times ttime0" onclick="bgchange(0)"></div>'
-                       //           console.log(time_for_table)
-                       //           text = text + time + '</div></div></div></div>'
-                         //     }
-                                {#$('#accordion').html((x))#}
-
-                    //      }
-
-
-
-                   //   }
-
-                   //   $('#accordion').html((x))
                     },
 
                     error: function (data) {
+
                         if (data.status === 406) {
 
-                            window.alert("Previous date not allowed")
+                           window.alert(data.responseJSON.error)
 
                         } else if (data.status === 400) {
 
-                        console.log(data)
-                            window.alert(data)
-                        } else {
-                            window.alert(data.responseJSON.error)
-                            $('.timeSelectContent').html("")
+                        window.alert(data.responseJSON.error)
+                        }
+                        else {
+
                         }
                     },
 
@@ -2287,6 +2220,7 @@
 console.info(performance.navigation.type);
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
     localStorage.removeItem("Date");
+    localStorage.removeItem("individual_Date")
   console.info( "This page is reloaded" );
 } else {
   console.info( "This page is not reloaded");
@@ -2305,22 +2239,33 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
     </script>
 <script>
 $("#nextbtn1").click(function(){
+    var t1  = document.getElementsByClassName("select_tag").length;
+    console.log(t1);
+    for (var i=0;i<t1;i++){
+    var t = document.getElementsByClassName("select_tag")[i].value;
 
-    $('#nextbtn1').attr('data-target', "#details-popup")
-    $('#nextbtn1').attr('data-toggle', "modal")
-    var datlist=localStorage.getItem('individual_Date')
-    //console.log(datlist.slice(1,-1))
-    var datelist=(datlist.slice(1,-1)).split(",")
-    console.log(datelist)
-    var list=[]
-    for (var i=0;i<datelist.length;i++){
-        var time=$("#"+datelist[i].slice(1,-1)).val()
-        list.push(datelist[i].slice(1,-1)+"T"+time.substring(0,8))
+    if (t == ""){
+        alert("please select time slot.");
+        break;
     }
-    console.log(list)
-    var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
-    var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True'}
-    $.ajax({
+    if ( t1-1 == i ) {
+        {#console.log("datlist.slice(1,-1)");#}
+        $('#nextbtn1').attr('data-target', "#details-popup")
+        $('#nextbtn1').attr('data-toggle', "modal")
+        var datlist=localStorage.getItem('individual_Date')
+        //console.log(datlist.slice(1,-1))
+        var datelist=(datlist.slice(1,-1)).split(",")
+        console.log(datelist)
+        var list=[]
+        for (var i=0;i<datelist.length;i++){
+            var time=$("#"+datelist[i].slice(1,-1)).val()
+
+            list.push(datelist[i].slice(1,-1)+"T"+time.substring(0,8))
+        }
+        console.log(list)
+        var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
+        var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True'}
+        $.ajax({
             url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-booking',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
@@ -2342,28 +2287,12 @@ $("#nextbtn1").click(function(){
                         $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
                            '<td _ngcontent-asr-c30="" id="date_field">' + key2 + '</td>' +
                         '<td _ngcontent-asr-c30="" id="time_field"> ' + value2 + ' </td></tr>')
-                              }
+                    }
 
-
-
-
-            }
-
-                        //for (const [key, value] of Object.entries(data.appointments)) {
-
-                         //   let time_for_table = ""
-                         //   for (const [key1, value1] of Object.entries(value)) {
-                         //       time_for_table = time_for_table.slice(2,) + " - " + value1
-
-
-                         //   }
-                           // $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
-                           //     '<td _ngcontent-asr-c30="" id="date_field">' + key + '</td>' +
-                             //   '<td _ngcontent-asr-c30="" id="time_field"> ' + time_for_table + ' </td></tr>')
-                      //  }
-
+                }
             },
             error: function (data) {
+                console.log(JSON.stringify(data))
                 if (data.status === 406) {
                     window.alert("Previous date not allowed")
                 } else if (data.status === 400) {
@@ -2373,8 +2302,11 @@ $("#nextbtn1").click(function(){
                     $('.timeSelectContent').html("")
                 }
             },
-
         });
+    }
+
+
+    }
 });
 </script>
     </a>{% endblock %}

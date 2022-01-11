@@ -66,7 +66,7 @@ jQuery.fn.autoHeight = function (options) {
     });
   });
 };
-
+let indDate = [];
 $(function () {
   $(".autoHeight-ins").autoHeight();
 });
@@ -114,66 +114,116 @@ function initCalendar() {
     $(this).find('a').addClass('ui-state-active');
     return false;
   });
-  // var individualDate = [];
-  var indDate = [];
-  $('#calendar td').mouseup(function () {
 
-    $('#calendar td a.ui-state-active').click(function () { //Save selected dates
-      console.log(indDate);
-
-           var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
-
-             today = yyyy + '-' + mm + '-' + dd;
-
-            if(indDate.length ===0){
+  // $('#calendar > div > table > tbody > tr > td').click( function ()
+  $('#calendar td a').click( function ()
+      {
+        var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        console.log(today)
+        if(indDate.length ===0){
+            //  console.log("0")
               indDate.push(today)
-              console.log('PUSH', indDate)
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
+          console.log(indDate)
+            }
+        else{
+            if(indDate.find(element => element === today)){
+              indDate = indDate.filter(e => e !== today);
+              $('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')').removeClass('ui-state-active');
+              localStorage.setItem('individual_Date', JSON.stringify(indDate))
+              console.log("else if", indDate)
             }
             else{
+              indDate.push(today)
+              localStorage.setItem('individual_Date', JSON.stringify(indDate))
+              console.log("else else", indDate)
 
-                for(var i = 0; i<=indDate.length ; i++){
-                  console.log((indDate[i]),(today))
-                  if(indDate.includes(today)){
-                    console.log('indDate',indDate)
-                    indDate.pop(today)
-                    console.log('else if', indDate)
-                    break;
-                    // localStorage.setItem('individual_Date', JSON.stringify(indDate))
-
-                  }
-                  else{
-                    console.log("else")
-                    indDate.push(today)
-                    console.log('else', indDate)
-                    localStorage.setItem('individual_Date', JSON.stringify(indDate))
-                    break;
-                  }
-                }
-
-
+            }
+                // for(var i = 0; i<=indDate.length ; i++){
+                //  // console.log((indDate[i]),(today))
+                //   if(indDate.includes(today)){
+                //    // console.log('a:contains('+ dd +')');
+                //     var cls = $('a:contains('+ "12" +')').attr("class");
+                //   //  console.log(cls);
+                //     if (cls === "ui-state-default"){
+                //         $('a:contains('+ dd +')').removeClass('ui-state-active');
+                //         console.log(dd)
+                //        // indDate.pop()
+                //     }
+                //    else{
+                //
+                //     }
+                //   //  console.log('indDate',indDate)
+                //     indDate.pop(today)
+                // //    console.log('else if', indDate)
+                //     break;
+                //   }
+                //   else{
+                //     console.log("else")
+                //     indDate.push(today)
+                //     console.log('else', indDate)
+                //     localStorage.setItem('individual_Date', JSON.stringify(indDate))
+                //     break;
+                //   }
+                // }
              }
-            // console.log(indDate)
-            // console.log(individualDate.find(element => toString(element) === today))
-            // if(individualDate.find(element => toString(element) === today)){
-            //     // $(this).removeClass('ui-state-active')
-            //     individualDate = individualDate.filter((x) => x !== today)
-            //   console.log('pop', individualDate)
-            //   }
-            // else{
-            //
-            //   individualDate.push(today)
-            //   localStorage.setItem('individual_Date', JSON.stringify(individualDate))
-            // }
-      // individualDate.push(today);
-      // console.log(individualDate)
-    });
-    dateDragStart = undefined;
-    return false;
-  });
+      console.log(today)
+  })
+  // $('#calendar td').mouseup(function () {
+  //
+  //   $('#calendar td a.ui-state-active').click(function () { //Save selected dates
+  //
+  //          var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
+  //           var dd = String(today.getDate()).padStart(2, '0');
+  //           var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  //           var yyyy = today.getFullYear();
+  //
+  //            today = yyyy + '-' + mm + '-' + dd;
+  //
+  //           if(indDate.length ===0){
+  //           //  console.log("0")
+  //             indDate.push(today)
+  //         //    console.log('PUSH', indDate)
+  //             localStorage.setItem('individual_Date', JSON.stringify(indDate))
+  //           }
+  //           else{
+  //
+  //               for(var i = 0; i<=indDate.length ; i++){
+  //                // console.log((indDate[i]),(today))
+  //                 if(indDate.includes(today)){
+  //                  // console.log('a:contains('+ dd +')');
+  //                   var cls = $('a:contains('+ "12" +')').attr("class");
+  //                 //  console.log(cls);
+  //                   if (cls === "ui-state-default"){
+  //                       $('a:contains('+ dd +')').removeClass('ui-state-active');
+  //                       console.log(dd)
+  //                      // indDate.pop()
+  //                   }
+  //                  else{
+  //
+  //                   }
+  //                 //  console.log('indDate',indDate)
+  //                   indDate.pop(today)
+  //               //    console.log('else if', indDate)
+  //                   break;
+  //                 }
+  //                 else{
+  //                   console.log("else")
+  //                   indDate.push(today)
+  //                   console.log('else', indDate)
+  //                   localStorage.setItem('individual_Date', JSON.stringify(indDate))
+  //                   break;
+  //                 }
+  //               }
+  //            }
+  //   });
+  //   dateDragStart = undefined;
+  //   return false;
+  // });
   $(document).mouseup(function () {
     dateDragStart = undefined;
   });
@@ -319,8 +369,14 @@ var selectedDates = [];
    $('.ui-datepicker-clear-month').click(function(){
      $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
      selectedDates = [];
-     console.log("clear Individual dates", selectedDates)
-     localStorage.removeItem("individual_Date");
+     indDate = [];
+
+
+     console.log("clear dates", selectedDates)
+console.log("clear individual dates", indDate)
+     localStorage.removeItem("individual_Date")
+     indDate = [];
+     localStorage.removeItem("Date");
    });
 
   $("#calendar").on("click", function () {
@@ -334,15 +390,7 @@ var selectedDates = [];
       $(this).removeClass('ui-state-active')
       selectedDates = selectedDates.filter((x) => x !== i)
     }
-    else{
-      selectedDates.push(i)
-      // console.log(selectedDates)
-      // localStorage.setItem('individual_Date', JSON.stringify(selectedDates))
-    }
 
-    // console.log("Select complete date for individual selection", selectedDates)
-    var class_instructor = window.localStorage.getItem('class_instructor_id')
-    console.error("class_instructor",class_instructor)
   });
 });
 

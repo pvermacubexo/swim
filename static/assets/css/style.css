@@ -3674,6 +3674,13 @@ button:focus {
   cursor: pointer;
 }
 
+  #options{
+            /*height: 100%;*/
+            width: 200px;
+    text-align: center;
+    font-size: 17px;
+    border: none;
+        }
 .select-time .assessment-container .dropdown button:before {
   content: '';
   position: absolute;
