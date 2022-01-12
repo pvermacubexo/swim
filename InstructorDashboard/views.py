@@ -79,7 +79,7 @@ def signup_view(request):
             user_profile = user_models.Profile.objects.create(
                 user=user,
                 slug=slug,
-                url=(request.build_absolute_uri('/')[:-1] + '/swim/registration/' + slug).replace(' ', ''),
+                url=(request.build_absolute_uri('/')[:-1] + '/swim/instructor/' + slug).replace(' ', ''),
                 day_start_time=date_time.time(),
                 day_end_time=time_added.time()
             )
@@ -574,8 +574,8 @@ class ClassDetailView(DetailView):
 @login_required(redirect_field_name='login')
 def class_list(request):
     classes = ClassInstructor.objects.filter(instructor=request.user).order_by('-id')
-    stripe_msg = Strip_Message(request)
-    context = {'classes': classes, 'stripe_msg': stripe_msg}
+    # stripe_msg = Strip_Message(request)
+    context = {'classes': classes}
     return render(request, 'InstructorDashboard/class-detail-view.html', context=context)
 
 
@@ -598,11 +598,10 @@ def students(request):
             age = today.year - booking.user.DateOfBirth.year - (
                     (today.month, today.day) < (booking.user.DateOfBirth.month, booking.user.DateOfBirth.day))
             ages[booking.user.mobile_no] = age
-    stripe_msg = Strip_Message(request)
+    # stripe_msg = Strip_Message(request)
     context = {
         'students': students,
-        "ages": ages,
-        'stripe_msg':stripe_msg
+        "ages": ages
     }
 
     return render(request, 'InstructorDashboard/students.html', context)
@@ -626,8 +625,8 @@ def booking_view(request, booking_id=None):
     else:
         bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user).order_by(
             "-booked_at")
-        stripe_msg = Strip_Message(request)
-        context = {'bookings': bookings, 'stripe_msg': stripe_msg}
+        # stripe_msg = Strip_Message(request)
+        context = {'bookings': bookings}
 
         return render(request, 'InstructorDashboard/bookings.html', context=context)
 
@@ -639,8 +638,8 @@ def appointment_view(request, booking_id=None):
     else:
         appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
         # ,start_time__gt=timezone.now())
-        stripe_msg = Strip_Message(request)
-        context = {'appointments': appointments.order_by('start_time'), 'stripe_msg': stripe_msg}
+        # stripe_msg = Strip_Message(request)
+        context = {'appointments': appointments.order_by('start_time')}
         return render(request, 'InstructorDashboard/appointment_view.html', context=context)
 
 
@@ -710,7 +709,7 @@ def del_break_time(request, id):
     return redirect('InstructorDashboard:instructor_profile')
 
 def Strip_Message(request):
-    instructor_email = request.session['email']
+    instructor_email = request.session['instructor_email']
     data = StripeAccount.objects.filter(Instructor__email=instructor_email)
     if data:
         return True

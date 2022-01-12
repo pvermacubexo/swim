@@ -924,7 +924,8 @@ class GetIndividualTimeSlots(APIView):
 
             common_slot = individual_common_slot(class_instructor, serializer.initial_data['date_list'], user_profile)
             if not common_slot[0]:
-                return Response({'error': f"{class_instructor.instructor} Leave on {common_slot[1]} "},
+                # return Response({'error': f"{class_instructor.instructor} Leave on {common_slot[1]} "},
+                return Response({'error': f"Instructor is Leave on {common_slot[1]} "},
                                 status=status.HTTP_400_BAD_REQUEST)
 
             # dateListFormat = {}

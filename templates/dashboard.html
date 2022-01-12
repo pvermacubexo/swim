@@ -2146,12 +2146,15 @@
                     error: function (data) {
 
                         if (data.status === 406) {
+                            if (data.responseJSON.error){
+                                window.alert(data.responseJSON.error)
 
-                           window.alert(data.responseJSON.error)
-
+                            } else {
+                                 window.alert(data.responseJSON.date_list)
+                            }
                         } else if (data.status === 400) {
 
-                        window.alert(data.responseJSON.error)
+                            window.alert(data.responseJSON.error)
                         }
                         else {
 

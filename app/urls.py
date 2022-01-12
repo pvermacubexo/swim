@@ -10,7 +10,7 @@ urlpatterns = [
     path('update-profile/', views.update_profile, name='update-profile'),
     # path('dashboard/myschedule/', views.MySchedule ,name='schedule'),
     # path('dashboard/re-payment/', views.Payment,name='payment'),
-    path('registration/<str:id>', views.Registration,name='registration'),
+    path('instructor/<str:id>', views.Registration,name='registration'),
     path('register',views.register,name="register"),
     path('logout', views.LogoutView, name="LogoutView"),
 
