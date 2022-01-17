@@ -209,17 +209,15 @@ def delete_transaction(request, id):
 def update_booking(request, id):
     if request.method == 'POST':
         data = request.POST
-        ser = seializer.AppointmentUpdate(data=data, context={'user': request.user, 'id': data['id']})
-        print(ser)
-        if ser.is_valid():
-            try:
-                appointment_obj = appointment_model.Appointment.objects.get(id=int(ser.data['id']))
-            except appointment_model.Appointment.DoesNotExist:
-                return redirect("InstructorDashboard:page404")
-            appointment_obj.start_time = ser.data['start_time']
-            appointment_obj.end_time = ser.data['end_time']
-            appointment_obj.remark = ser.data['remark']
-            appointment_obj.status = ser.data['status']
+
+        if data:
+            print(data)
+            print("data_has")
+            appointment_obj = appointment_model.Appointment.objects.get(id=int(data['id']))
+            # appointment_obj.start_time = data['start_time']
+            # appointment_obj.end_time = data['end_time']
+            appointment_obj.remark = data['remark']
+            appointment_obj.status = data['status']
             appointment_obj.save()
             print("updated")
 
@@ -693,14 +691,13 @@ def add_break_time(request):
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
         print(request.POST['form-0-start_time'])
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
-            messages.error(request,"Please select valid timeSlot!")
+            messages.error(request, "Please select valid timeSlot!")
             return redirect('InstructorDashboard:instructor_profile')
         else:
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
     return redirect('InstructorDashboard:instructor_profile')
-
 def del_break_time(request, id):
     try:
         user_models.BreakTime.objects.get(id=id).delete()

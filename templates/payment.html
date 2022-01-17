@@ -105,8 +105,7 @@
                                                                                                                                     for
                                                                                                                                     approval
                                                                                                                                     :
-                                                                                                                                    <i _ngcontent-nrd-c32=""
-                                                                                                                                       class="fa fa-dollar"></i>
+                                                                                                                                    $
                                                                                                                                     {{ datas.pending_amount }}
                                                                                                                                 </h5>
                                                                                                                             </div>
@@ -163,8 +162,7 @@
                                                                                                                         Total
                                                                                                                         Amount
                                                                                                                         :
-                                                                                                                        <i _ngcontent-ojq-c32=""
-                                                                                                                           class="fa fa-dollar">{{ datas.total_amount }}</i>
+                                                                                                                       ${{ datas.total_amount }}
 
                                                                                                                     </h5>
                                                                                                                     <h5 _ngcontent-ojq-c32=""
@@ -172,8 +170,7 @@
                                                                                                                         Paid
                                                                                                                         Amount
                                                                                                                         :
-                                                                                                                        <i _ngcontent-ojq-c32=""
-                                                                                                                           class="fa fa-dollar">{{ datas.paid_amount }}</i>
+                                                                                                                        ${{ datas.paid_amount }}
 
                                                                                                                     </h5>
                                                                                                                     <h3 _ngcontent-ojq-c32=""
@@ -181,10 +178,9 @@
                                                                                                                         Due
                                                                                                                         Amount
                                                                                                                         :
-                                                                                                                        <i _ngcontent-ojq-c32=""
-                                                                                                                           class="fa fa-dollar"><span id="due_amount_fee"
+                                                                                                                        $<span id="due_amount_fee"
                                                                                                                                   style="color: #0c213a;font-size: 20px;font-family:bold">{{ datas.due_amount }}</span>
-                                                                                                                        </i>
+
                                                                                                                     </h3>
                                                                                                                 </div>
                                                                                                                 {% if datas.due_amount <= 0 %}

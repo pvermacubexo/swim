@@ -92,6 +92,7 @@
                                 <div _ngcontent-uss-c31="" class="ScrollView">
                                     {% if next_session %}
                                         {%  for data in next_session %}<!---->
+                                            {% if data.status == '1' %}
                                             <div _ngcontent-uss-c31="" class="appointment-div "
                                                  >
                                                 <div _ngcontent-uss-c31="" class="block">
@@ -114,7 +115,7 @@
                                                                  class="col-md-8 bottom-div-right"><h3
                                                                     _ngcontent-uss-c31="">{{ data.instructor }}</h3>
                                                                 <p _ngcontent-uss-c31=""><i _ngcontent-uss-c31=""
-                                                                                            class="fa fa-map-marker"></i>{{ data.address }}
+                                                                                            class="fa fa-map-marker"></i> {{ data.address }}
                                                                 </p><!----><p _ngcontent-uss-c31=""><i
                                                                         _ngcontent-uss-c31=""
                                                                         class="fa fa-phone"></i>{{ data.mobile_no }}
@@ -125,6 +126,7 @@
                                                 </div>
 
                                             </div>
+                                            {% endif %}
                                         {% endfor %}
                                     {% else %}
                                         <div _ngcontent-xmu-c31="" class="col-md-12"><div _ngcontent-xmu-c31="" class="alert alert-info"><h1 _ngcontent-xmu-c31="" class="text-center">There is no next scheduled appointment.</h1></div><br></div>

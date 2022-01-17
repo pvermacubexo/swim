@@ -350,16 +350,16 @@ var selectedDates = [];
 
 
      console.log("clear dates", selectedDates)
-console.log("clear individual dates", indDate)
+     console.log("clear individual dates", indDate)
      localStorage.removeItem("individual_Date")
      indDate = [];
      localStorage.removeItem("Date");
    });
 
-  $("#calendar").on("click", function () {
-    var x = $(this).val();
-    console.log(x)
-  });
+  // $("#calendar").on("click", function () {
+  //   var x = $(this).val();
+  //   console.log(x)
+  // });
   $('#calendar table>tbody>tr>td>a').click(function () {
     // console.log(individualDate)
     var i = $(this).text();
