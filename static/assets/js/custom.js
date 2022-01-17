@@ -71,6 +71,9 @@ $(function () {
   $(".autoHeight-ins").autoHeight();
 });
 
+function DeleteDTW(){
+  indDate = []
+}
 
 var myDates = [];
 for (var j = 0; j <= 11; j++) {
@@ -114,6 +117,13 @@ function initCalendar() {
     $(this).find('a').addClass('ui-state-active');
     return false;
   });
+function removeFirstZero(dd){
+  var date = String(dd);
+  if ((date.slice(0,1)) === "0" ){
+    dd = date.slice(1);
+  }
+  return dd;
+}
 
   // $('#calendar > div > table > tbody > tr > td').click( function ()
   $('#calendar td a').click( function ()
@@ -133,6 +143,9 @@ function initCalendar() {
         else{
             if(indDate.find(element => element === today)){
               indDate = indDate.filter(e => e !== today);
+              dd=removeFirstZero(dd)
+              console.log(dd);
+              console.log('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')');
               $('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')').removeClass('ui-state-active');
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
               console.log("else if", indDate)
@@ -143,47 +156,11 @@ function initCalendar() {
               console.log("else else", indDate)
 
             }
-                // for(var i = 0; i<=indDate.length ; i++){
-                //  // console.log((indDate[i]),(today))
-                //   if(indDate.includes(today)){
-                //    // console.log('a:contains('+ dd +')');
-                //     var cls = $('a:contains('+ "12" +')').attr("class");
-                //   //  console.log(cls);
-                //     if (cls === "ui-state-default"){
-                //         $('a:contains('+ dd +')').removeClass('ui-state-active');
-                //         console.log(dd)
-                //        // indDate.pop()
-                //     }
-                //    else{
-                //
-                //     }
-                //   //  console.log('indDate',indDate)
-                //     indDate.pop(today)
-                // //    console.log('else if', indDate)
-                //     break;
-                //   }
-                //   else{
-                //     console.log("else")
-                //     indDate.push(today)
-                //     console.log('else', indDate)
-                //     localStorage.setItem('individual_Date', JSON.stringify(indDate))
-                //     break;
-                //   }
-                // }
+
              }
       console.log(today)
   })
-  // $('#calendar td').mouseup(function () {
-  //
-  //   $('#calendar td a.ui-state-active').click(function () { //Save selected dates
-  //
-  //          var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
-  //           var dd = String(today.getDate()).padStart(2, '0');
-  //           var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  //           var yyyy = today.getFullYear();
-  //
-  //            today = yyyy + '-' + mm + '-' + dd;
-  //
+
   //           if(indDate.length ===0){
   //           //  console.log("0")
   //             indDate.push(today)

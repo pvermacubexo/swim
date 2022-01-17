@@ -2060,12 +2060,9 @@
                     success: function (data) {
                         $(".termsconditions").show();
 
-                        {#console.log("hoo")#}
                         if (data.time.length > 0) {
-                            console.log(data.time)
-                            console.log("hoo")
-                            var row1 = ''
 
+                            var row1 = ''
 
                             for (var i = 0; i < data.time.length; i++) {
 
@@ -2118,56 +2115,70 @@
             var individual_Date = localStorage.getItem('individual_Date')
             var arr = JSON.parse("" + individual_Date + "");
             var payload = {'class_instructor': class_instructor, 'date_list': arr}
-            $.ajax({
-                    url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-slot',
-                    type: 'POST',
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(payload),
-                    success: function (data) {
-
-                        $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
-                        localStorage.removeItem("individual_Date")
-
-                        $(".termsconditions").show();
-                        for(var i=0; i< data.length;i++){
-                            for (const [key, value] of Object.entries(data[i])) {
-                             $("#accordion").append('<h3>'+key+'</h3><select style="width: 52% !important; margin-left: 25% !important;" class="form-control select_tag" aria-label="Default select example" id="'+key+'" ><option selected disabled id="options" value="" required="">Please Select Time</option></select><br><br>')
+            if (individual_Date === null){
+                window.alert("Please Select Dates ! ");
+            }
+            else {
+                $.ajax({
+                        url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-slot',
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(payload),
+                        success: function (data) {
 
 
+                            $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+                            DeleteDTW();
+                            document.querySelector("#accordion").innerHTML = "";
+                            localStorage.removeItem('individual_Date')
 
-                                        console.log(key);
-                                        for (var j=0;j<value.length;j++){
-                                        console.log(value[j])
-                                        $("#"+key).append('<option id="options" value="'+value[j]+'">'+value[j]+'</option>')
+                            $(".termsconditions").show();
+                            for (var i = 0; i < data.length; i++) {
+                                for (const [key, value] of Object.entries(data[i])) {
+                                    $("#accordion").append('<h3>' + key + '</h3><select style="width: 52% !important; margin-left: 25% !important;" class="form-control select_tag" aria-label="Default select example" id="' + key + '" ><option selected disabled id="options" value="" required="">Please Select Time</option></select><br><br>')
 
+                                    // console.log(key);
+
+                                    for (var j = 0; j < value.length; j++) {
+                                        // console.log(value[j])
+                                        var todays_date = get_today_date()
+                                        var ctime = new Date();
+                                        if (key == todays_date) {
+                                            if (value[j].substring(0, 2) > ctime.getHours()) {
+                                                console.log(value[j])
+                                                $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
+                                            }
+                                        } else {
+                                            $("#" + key).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
+                                        }
+
+                                    }
+                                }
                             }
-}
-                    }
 
 
-                    },
+                        },
 
-                    error: function (data) {
+                        error: function (data) {
 
-                        if (data.status === 406) {
-                            if (data.responseJSON.error){
+                            if (data.status === 406) {
+                                if (data.responseJSON.error) {
+                                    window.alert(data.responseJSON.error)
+
+                                } else {
+                                    window.alert(data.responseJSON.date_list)
+                                }
+                            } else if (data.status === 400) {
+
                                 window.alert(data.responseJSON.error)
-
                             } else {
-                                 window.alert(data.responseJSON.date_list)
+
                             }
-                        } else if (data.status === 400) {
+                        },
 
-                            window.alert(data.responseJSON.error)
-                        }
-                        else {
-
-                        }
-                    },
-
-                }
-            )
-
+                    }
+                )
+            }
 
         }
 
