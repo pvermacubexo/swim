@@ -9,6 +9,7 @@ from user.email_services import sent_mail
 from .serializers import ContactUsSerializer
 from .models import ContactUs
 from django.conf import settings
+from django.shortcuts import redirect
 
 
 class ContactUsViewSet(APIView):
@@ -22,13 +23,14 @@ class ContactUsViewSet(APIView):
         email_body = f"Hi , {ser.validated_data['full_name']} want's to connect to you. \n Here is the details: " \
                      f"Phone Number: {ser.validated_data['phone']} and Message: {ser.validated_data['message']}"
         try:
-            data = {'email_body': email_body, 'to_email': 'paragmodi@cubexo.io',
+            data = {'email_body': email_body, 'to_email': 'vermapooja1197@gmail.com',
                     'email_subject': ser.validated_data['subject']}
 
             sent_mail(data)
             ser.save()
-            messages.success(request,"message send successfully")
-            return render(request,"new_register.html")
+            messages.success(request, "message send successfully")
+            return redirect('/')
         except Exception as e:
             messages.error(request, "something went wrong")
-            return render(request, "new_register.html")
+            return redirect('/')
+            # return render(request, "index.html")

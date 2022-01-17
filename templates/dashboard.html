@@ -2124,6 +2124,10 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify(payload),
                     success: function (data) {
+
+                        $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+                        localStorage.removeItem("individual_Date")
+
                         $(".termsconditions").show();
                         for(var i=0; i< data.length;i++){
                             for (const [key, value] of Object.entries(data[i])) {

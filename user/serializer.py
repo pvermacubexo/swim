@@ -33,7 +33,7 @@ class AuthenticationSerializer(TokenObtainPairSerializer):
             return msg
 
     def validate(self, attrs):
-        attrs['email'] = attrs['email'].lower()
+        attrs['email'] = attrs['email']
         try:
             data = super().validate(attrs)
             try:
