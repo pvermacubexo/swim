@@ -156,7 +156,7 @@ def Registration(request, id):
 def LogoutView(request):
     logout(request)
     messages.success(request,"Logout Successfully!")
-    return render(request, "new_register.html")
+    return redirect('/')
 
 #
 # def UserRegistrations(request):

@@ -31,6 +31,7 @@ urlpatterns = [
     path('login', views.login_view, name='login'),
     path('logout', views.user_logout, name='user_logout'),
     path('generate-otp', views.generate_otp, name='forgot_password'),
+    path('user-forget-password', views.user_pass, name='forgot_pass'),
     path('trainee/<str:trainee>', views.trainee_view, name='trainee_view'),
     path('booking/update/<int:id>', views.update_booking, name='update_appointment'),
     path('profile', views.instructor_profile, name='instructor_profile'),

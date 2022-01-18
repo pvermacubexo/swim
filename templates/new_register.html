@@ -125,7 +125,7 @@
                                                 _ngcontent-jar-c34="" formcontrolname="password" name="password"
                                                 required=""
                                                 minlength="4" placeholder="Enter password" type="password" id="password"
-                                                class="form-control ng-untouched ng-pristine ng-invalid"><!----></div>
+                                                class="form-control ng-untouched ng-pristine ng-invalid"><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px;margin-right:12px;color:black;"></i><!----></div>
                                         <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                             <button _ngcontent-jar-c34="" type="submit"
                                                     class="btn btn-primary btn-login btn-sm" >LOGIN
@@ -138,6 +138,8 @@
                                        </div>
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center"
                                          style="margin-bottom: -40px;">
+                                        <p _ngcontent-jar-c34="" style="padding: 0;"><a _ngcontent-jar-c34="" data-toggle="modal" data-target="#forgetPassword" data-dismiss="modal">Forgot your
+                                            Password?</a></p>
                                        </div>
                                 </div>
                             </div>
@@ -160,8 +162,9 @@
                         </div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                                <form _ngcontent-jar-c34="" novalidate="" role="form"
-                                      class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                <form class="form-horizontal auth-form" method="post"
+                                  action="{% url 'InstructorDashboard:forgot_pass' %}">
+                                {% csrf_token %}
                                     <div _ngcontent-jar-c34="" class="col-md-12">
                                         <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
                                                                                              for="e-mail">Email
@@ -655,6 +658,15 @@
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
     </body>
 <script>
+  $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    input = $(this).parent().find("input");
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});
    setTimeout(function (){
        if ($('#msg').length>0){
            $('#msg').remove();

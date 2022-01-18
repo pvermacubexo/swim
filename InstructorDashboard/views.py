@@ -712,3 +712,72 @@ def Strip_Message(request):
         return True
     else:
         return False
+
+
+def generate_otp(request):
+    if request.method == 'POST':
+        context = {}
+        email = request.POST.get('email')
+        try:
+            user = user_models.User.objects.get(email=email)
+            new_otp = randint(100000, 999999)
+            expiry_time = datetime.now() + timedelta(minutes=2)
+            user_models.OTP.objects.filter(user=user).delete()
+            otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
+
+            current_site = get_current_site(request=request).domain
+            email_body = f'Hello, {user.first_name} OTP = {otp.otp} \
+            Use link below to reset your password {current_site}/user/reset-password'
+            data = {'email_body': email_body, 'to_email': user.email,
+                    'email_subject': 'Reset your password'}
+            try:
+                sent_mail(data)
+                context.update({'success': 'OTP has been send to your registered email address.',
+                                'note': 'OTP will expire within 2 min.'})
+                return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
+            except Exception as e:
+                otp.delete()
+                context.update({'error': 'Email service not working, please try after some time.'})
+                return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
+        except user_models.User.DoesNotExist:
+            context.update({'error': 'Invalid email.'})
+            return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
+
+    return render(request, 'InstructorDashboard/auth/generate_otp.html')
+
+
+def user_pass(request):
+    if request.method == 'POST':
+        context = {}
+        email = request.POST.get('email')
+        try:
+            user = user_models.User.objects.get(email=email)
+            new_otp = randint(100000, 999999)
+            expiry_time = datetime.now() + timedelta(minutes=2)
+            user_models.OTP.objects.filter(user=user).delete()
+            otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
+
+            current_site = get_current_site(request=request).domain
+            email_body = f'Hello, {user.first_name} OTP = {otp.otp} \
+            Use link below to reset your password {current_site}/user/reset-password'
+            data = {'email_body': email_body, 'to_email': user.email,
+                    'email_subject': 'Reset your password'}
+            try:
+                sent_mail(data)
+                # context.update({'success': 'OTP has been send to your registered email address.',
+                #                 'note': 'OTP will expire within 2 min.'})
+                messages.error(request, "OTP has been send to your registered email address. !")
+                return redirect('/')
+            except Exception as e:
+                otp.delete()
+                # context.update({'error': 'Email service not working, please try after some time.'})
+                # return render(request, 'register.html', context)
+                messages.error(request, "Email service not working, please try after some time.!")
+                return redirect('/')
+        except user_models.User.DoesNotExist:
+            # context.update({'error': 'Invalid email.'})
+            # return render(request, 'register.html', context)
+            messages.error(request, "Invalid email.")
+            return redirect('/')
+
+    return redirect('/')

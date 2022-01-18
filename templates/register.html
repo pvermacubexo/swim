@@ -85,7 +85,7 @@
                         <ul _ngcontent-jar-c34="" class="nav navbar-nav navbar-right head-menu-tag">
                             <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" href="#myCarousel">Home</a></li>
                             <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" href="#about-us">About Us</a></li>
-                            <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" data-toggle="modal" data-target="#login">Login</a>
+                            <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" data-toggle="modal" data-target="#login" >Login</a>
                             </li>
                             <li _ngcontent-jar-c34=""><a _ngcontent-jar-c34="" data-toggle="modal"
                                                          data-target="#signup" onclick="checkdate()">Sign
@@ -142,7 +142,7 @@
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center" style="margin-top: 20px;">
                                         <p
                                                 _ngcontent-jar-c34="" class="forgetPassword">Don’t have an account? <a
-                                                _ngcontent-jar-c34="" data-toggle="modal" data-target="#signup"
+                                                _ngcontent-jar-c34="" onclick="hideLoginModel()" data-toggle="modal" data-target="#signup"
                                                 >Sign up</a></p></div>
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center"
                                          style="margin-bottom: -40px;">
@@ -171,8 +171,9 @@
                         </div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
-                               <form _ngcontent-jar-c34="" role="form"
-                                  class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                               <form class="form-horizontal auth-form" method="post"
+                                  action="{% url 'InstructorDashboard:forgot_pass' %}">
+                                {% csrf_token %}
                                 <div _ngcontent-jar-c34="" class="col-md-12">
                                     <div _ngcontent-jar-c34="" class="form-group"><label _ngcontent-jar-c34=""
                                                                                          for="e-mail">Email
@@ -196,7 +197,7 @@
                         </div>
                         <div _ngcontent-jar-c34="" class="row modal-body">
                             <div _ngcontent-jar-c34="" class="col-md-12 text-center" style="padding-bottom: 40px;"><p
-                                    _ngcontent-jar-c34="">Already have an account? <a _ngcontent-jar-c34=""
+                                    _ngcontent-jar-c34="">Already have an account? <a onclick="showLoginModel()" _ngcontent-jar-c34=""
                                                                                       data-toggle="modal"
                                                                                       data-target="#login"
                                                                                       data-dismiss="modal">Login</a></p>
@@ -682,6 +683,16 @@
             aria-hidden="true" tabindex="-1"
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
 <script>
+
+    function hideLoginModel(){
+         $('#login').hide();
+    }
+    {
+         $('#login').hide();
+    }
+ {#function showLoginModel(){#}
+ {#        $('#login').show();#}
+ {#   }#}
      $(".toggle-password").click(function() {
     $(this).toggleClass("fa-eye fa-eye-slash");
     input = $(this).parent().find("input");
