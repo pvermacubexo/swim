@@ -20,7 +20,6 @@ from SharkDeck.constants import user_constants
 from StripePayment.models import StripeAccount
 from user import models as user_models
 from user.email_services import sent_mail
-from user.models import WeekTimeSlots
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -396,7 +395,7 @@ def instructor_profile(request):
     if StripeAccount.objects.filter(Instructor__email=request.user.email).exists():
         context.update({"stripe_account": StripeAccount.objects.filter(
             Instructor__email=request.user.email).values("Account_ID", "Instructor__email",
-                                                               "Instructor__first_name", "Instructor__last_name")[0] })
+                                                         "Instructor__first_name", "Instructor__last_name")[0]})
     if request.method == 'POST':
         week_dict = {}
         ser = serializer.UserUpdateSerializer(data=request.POST)
@@ -440,7 +439,7 @@ def instructor_profile(request):
         profile_obj.day_end_time = request.POST.get('day_end_time')
 
         profile_obj.save()
-        profile_obj= user_models.Profile.objects.get(user=request.user)
+        profile_obj = user_models.Profile.objects.get(user=request.user)
         user_obj, created = user_models.WeekTimeSlots.objects.get_or_create(instructor_id=profile_obj.id)
         # user_obj = user_models.WeekTimeSlots.objects.all()
         # print(user_obj[1].instructor_id)
@@ -471,7 +470,6 @@ def instructor_profile(request):
         stripe_msg = Strip_Message(request)
         context.update({'user_update': 'Updated Successfully ! ', 'stripe_msg': stripe_msg})
         return render(request, 'InstructorDashboard/instructor_profile.html', context)
-
     return render(request, 'InstructorDashboard/instructor_profile.html', context)
 
 
@@ -691,15 +689,15 @@ def terms_conditions(request):
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
-        print(request.POST['form-0-start_time'])
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
-            messages.error(request,"Please select valid timeSlot!")
+            messages.error(request, "Please select valid timeSlot!")
             return redirect('InstructorDashboard:instructor_profile')
         else:
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
     return redirect('InstructorDashboard:instructor_profile')
+
 
 def del_break_time(request, id):
     try:
@@ -708,6 +706,7 @@ def del_break_time(request, id):
         pass
     return redirect('InstructorDashboard:instructor_profile')
 
+
 def Strip_Message(request):
     instructor_email = request.session['instructor_email']
     data = StripeAccount.objects.filter(Instructor__email=instructor_email)
@@ -715,5 +714,3 @@ def Strip_Message(request):
         return True
     else:
         return False
-
-

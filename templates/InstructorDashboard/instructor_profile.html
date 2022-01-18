@@ -1079,7 +1079,8 @@
     <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
     <script>
         $(document).ready(function () {
-            $(".dataTable").DataTable()
+            $(".dataTable").DataTable();
+            document.getElementById("id_form-0-instructor").value = {{ instructor_id }};
         });
 
     </script>
