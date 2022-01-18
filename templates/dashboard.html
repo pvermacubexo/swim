@@ -205,6 +205,8 @@
                                                                                         CLASS</a></div>
                                                                                 <script>function classes(event) {
                                                                                     localStorage.setItem('class_instructor_id', event.getAttribute('data'))
+
+
                                                                                 }</script>
                                                                             </div>
                                                                         </div>
@@ -2111,6 +2113,7 @@
         }
 
         function check_individual() {
+
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
             var individual_Date = localStorage.getItem('individual_Date')
             var arr = JSON.parse("" + individual_Date + "");
@@ -2127,10 +2130,10 @@
                         success: function (data) {
 
 
-                            $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
-                            DeleteDTW();
+                           // $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+                          //  DeleteDTW(); localStorage.removeItem('individual_Date')
                             document.querySelector("#accordion").innerHTML = "";
-                            localStorage.removeItem('individual_Date')
+                          //  localStorage.removeItem('individual_Date')
 
                             $(".termsconditions").show();
                             for (var i = 0; i < data.length; i++) {
@@ -2257,6 +2260,7 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
     </script>
 <script>
 $("#nextbtn1").click(function(){
+
     var t1  = document.getElementsByClassName("select_tag").length;
     console.log(t1);
     for (var i=0;i<t1;i++){

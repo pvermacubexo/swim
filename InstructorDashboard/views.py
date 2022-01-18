@@ -208,17 +208,15 @@ def delete_transaction(request, id):
 def update_booking(request, id):
     if request.method == 'POST':
         data = request.POST
-        ser = seializer.AppointmentUpdate(data=data, context={'user': request.user, 'id': data['id']})
-        print(ser)
-        if ser.is_valid():
-            try:
-                appointment_obj = appointment_model.Appointment.objects.get(id=int(ser.data['id']))
-            except appointment_model.Appointment.DoesNotExist:
-                return redirect("InstructorDashboard:page404")
-            appointment_obj.start_time = ser.data['start_time']
-            appointment_obj.end_time = ser.data['end_time']
-            appointment_obj.remark = ser.data['remark']
-            appointment_obj.status = ser.data['status']
+
+        if data:
+            print(data)
+            print("data_has")
+            appointment_obj = appointment_model.Appointment.objects.get(id=int(data['id']))
+            # appointment_obj.start_time = data['start_time']
+            # appointment_obj.end_time = data['end_time']
+            appointment_obj.remark = data['remark']
+            appointment_obj.status = data['status']
             appointment_obj.save()
             print("updated")
 
