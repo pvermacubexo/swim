@@ -345,6 +345,7 @@ var selectedDates = [];
   })
    $('.ui-datepicker-clear-month').click(function(){
      $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+     document.querySelector("#accordion").innerHTML = "";
      selectedDates = [];
      indDate = [];
 
