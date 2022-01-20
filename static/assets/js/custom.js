@@ -67,6 +67,7 @@ jQuery.fn.autoHeight = function (options) {
   });
 };
 let indDate = [];
+let newarr = [];
 $(function () {
   $(".autoHeight-ins").autoHeight();
 });
@@ -80,9 +81,6 @@ for (var j = 0; j <= 11; j++) {
   myDates[j] = [];
 }
 
-
-
-
 $(function () {
   $('#calendar').datepicker({
     // beforeShowDay: $.datepicker.noWeekends,
@@ -95,7 +93,7 @@ var individualDate = [];
 
 function initCalendar() {
   $('div.ui-widget-header').append('\
-        <a class="ui-datepicker-clear-month" title="Clear Date" >\X\ </a>\
+        <a class="ui-datepicker-clear-month" id="clear_date" title="Clear Date" >\X\ </a>\
     ');
 
   var thisMonth = $($($('#calendar tbody tr')[2]).find('td')[0]).attr('data-month');
@@ -112,11 +110,7 @@ function initCalendar() {
     individualDate.push(new Date(a.parent().attr('data-year'), thisMonth, a.html()));
   }
 
-  $('#calendar td').mousedown(function () { // Click or start of dragging
-    dateDragStart = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
-    $(this).find('a').addClass('ui-state-active');
-    return false;
-  });
+
 function removeFirstZero(dd){
   var date = String(dd);
   if ((date.slice(0,1)) === "0" ){
@@ -125,16 +119,20 @@ function removeFirstZero(dd){
   return dd;
 }
 
+
   // $('#calendar > div > table > tbody > tr > td').click( function ()
-  $('#calendar td a').click( function ()
+   $('#calendar td a').click( function ()
       {
         var today =new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
-        console.log(today)
+        //console.log(today)
+
+console.log("First")
         if(indDate.length ===0){
+          $(this).addClass('ui-state-active');
             //  console.log("0")
               indDate.push(today)
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
@@ -144,13 +142,14 @@ function removeFirstZero(dd){
             if(indDate.find(element => element === today)){
               indDate = indDate.filter(e => e !== today);
               dd=removeFirstZero(dd)
-              console.log(dd);
+             // console.log(dd);
               console.log('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')');
               $('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')').removeClass('ui-state-active');
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
               console.log("else if", indDate)
             }
             else{
+              $(this).addClass('ui-state-active');
               indDate.push(today)
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
               console.log("else else", indDate)
@@ -159,7 +158,15 @@ function removeFirstZero(dd){
 
              }
       console.log(today)
+
   })
+
+  //   $('#calendar td').click(function () { // Click or start of dragging
+  //   dateDragStart = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
+  //   $(this).find('a').addClass('ui-state-active');
+  //   console.log("Second")
+  //   return false;
+  // });
 
   //           if(indDate.length ===0){
   //           //  console.log("0")
@@ -201,41 +208,41 @@ function removeFirstZero(dd){
   //   dateDragStart = undefined;
   //   return false;
   // });
-  $(document).mouseup(function () {
-    dateDragStart = undefined;
-  });
+  // $(document).mouseup(function () {
+  //   dateDragStart = undefined;
+  // });
 
-  $('#calendar td').mouseenter(function () { // Drag over day on calendar
-    var thisDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
-    if (dateDragStart !== undefined && thisDate > dateDragStart) { // We are dragging forwards
-      for (var d = new Date(dateDragStart); d <= thisDate; d.setDate(d.getDate() + 1)) {
-        calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').addClass('ui-state-active');
-      }
-      $(this).find('a').addClass('ui-state-active');
-    } else if (dateDragStart !== undefined && thisDate < dateDragStart) { // We are dragging backwards
-      for (var d = new Date(dateDragStart); d >= thisDate; d.setDate(d.getDate() - 1)) {
-        calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').addClass('ui-state-active');
-      }
-      $(this).find('a').addClass('ui-state-active');
-    }
-  });
-
-  $('#calendar td').mouseleave(function () {
-    var thisDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
-    if (dateDragStart !== undefined && thisDate > dateDragStart) {
-      for (var d = new Date(dateDragStart); d <= thisDate; d.setDate(d.getDate() + 1)) {
-        if (individualDate.find(item => item.getTime() === d.getTime()) === undefined) {
-          calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').removeClass('ui-state-active');
-        }
-      }
-    } else if (dateDragStart !== undefined && thisDate < dateDragStart) {
-      for (var d = new Date(dateDragStart); d >= thisDate; d.setDate(d.getDate() - 1)) {
-        if (individualDate.find(item => item.getTime() === d.getTime()) === undefined) {
-          calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').removeClass('ui-state-active');
-        }
-      }
-    }
-  });
+  // $('#calendar td').mouseenter(function () { // Drag over day on calendar
+  //   var thisDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
+  //   if (dateDragStart !== undefined && thisDate > dateDragStart) { // We are dragging forwards
+  //     for (var d = new Date(dateDragStart); d <= thisDate; d.setDate(d.getDate() + 1)) {
+  //       calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').addClass('ui-state-active');
+  //     }
+  //     $(this).find('a').addClass('ui-state-active');
+  //   } else if (dateDragStart !== undefined && thisDate < dateDragStart) { // We are dragging backwards
+  //     for (var d = new Date(dateDragStart); d >= thisDate; d.setDate(d.getDate() - 1)) {
+  //       calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').addClass('ui-state-active');
+  //     }
+  //     $(this).find('a').addClass('ui-state-active');
+  //   }
+  // });
+  //
+  // $('#calendar td').mouseleave(function () {
+  //   var thisDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
+  //   if (dateDragStart !== undefined && thisDate > dateDragStart) {
+  //     for (var d = new Date(dateDragStart); d <= thisDate; d.setDate(d.getDate() + 1)) {
+  //       if (individualDate.find(item => item.getTime() === d.getTime()) === undefined) {
+  //         calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').removeClass('ui-state-active');
+  //       }
+  //     }
+  //   } else if (dateDragStart !== undefined && thisDate < dateDragStart) {
+  //     for (var d = new Date(dateDragStart); d >= thisDate; d.setDate(d.getDate() - 1)) {
+  //       if (individualDate.find(item => item.getTime() === d.getTime()) === undefined) {
+  //         calendarTds.find('a').filter('a:textEquals(' + d.getDate() + ')').removeClass('ui-state-active');
+  //       }
+  //     }
+  //   }
+  // });
 
   // $('.ui-datepicker-clear-month').click(function () {
   //   individualDate = [];
@@ -344,32 +351,46 @@ var selectedDates = [];
     dateFormat: "yy-mm-dd",
   })
    $('.ui-datepicker-clear-month').click(function(){
+     console.log("Hello World")
      $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
      document.querySelector("#accordion").innerHTML = "";
      selectedDates = [];
      indDate = [];
-
-
-     console.log("clear dates", selectedDates)
-     console.log("clear individual dates", indDate)
      localStorage.removeItem("individual_Date")
-     indDate = [];
      localStorage.removeItem("Date");
    });
 
+
+   //  $(".ui-datepicker-next").click(function (){
+   //    console.log("rene")
+   // });
+
+
+
+   setInterval(()=>{
+$('.ui-datepicker-clear-month').click(function(){
+     console.log("Hello World")
+     $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+     document.querySelector("#accordion").innerHTML = "";
+     selectedDates = [];
+     indDate = [];
+     localStorage.removeItem("individual_Date")
+     localStorage.removeItem("Date");
+   });
+},1000);
   // $("#calendar").on("click", function () {
   //   var x = $(this).val();
   //   console.log(x)
   // });
-  $('#calendar table>tbody>tr>td>a').click(function () {
-    // console.log(individualDate)
-    var i = $(this).text();
-    if(selectedDates.find(element => element === i)){
-      $(this).removeClass('ui-state-active')
-      selectedDates = selectedDates.filter((x) => x !== i)
-    }
-
-  });
+  // $('#calendar table>tbody>tr>td>a').click(function () {
+  //   // console.log(individualDate)
+  //   var i = $(this).text();
+  //   if(selectedDates.find(element => element === i)){
+  //     $(this).removeClass('ui-state-active')
+  //     selectedDates = selectedDates.filter((x) => x !== i)
+  //   }
+  //
+  // });
 });
 
 
