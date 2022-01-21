@@ -1,9 +1,10 @@
 import copy
+import json
 import logging
 from datetime import datetime, timedelta
-
 import pytz
 import requests
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from rest_framework import status
@@ -21,7 +22,8 @@ from .serializer import BookingPostSerializer, CheckAvailabilityPostSerializer, 
     GetSlotsSerializer, AppointmentSerializer, ClassInstructorSerializer, InstructorClassGetSerializer, \
     GetDateTimeSerializer, BookClassInstructorSerializer, ClassGetSerializer, CheckInstructorAvailableSerializer, \
     IndividualTimeSlotsSerializer, IndividualBookingSerializer, AppointmentScheduleSerializer
-
+from StripePayment.serializers import  RepaymentBookingSeralizer
+from Appointment import models as appointment_model
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -1058,3 +1060,5 @@ class AppointmentScheduleViewSet(APIView):
             email = request.session['email']
             obj = User.objects.get(email=email)
             return render(request,"my_shedule.html",{"user_details": obj,'message': 'There is no any Appointment Schedule.'})
+
+

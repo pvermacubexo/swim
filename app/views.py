@@ -1,16 +1,19 @@
-
-
+import datetime
+from datetime import timedelta
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
-
+from rest_framework import status
 # Create your views here.
 from Appointment.models import ClassInstructor
 from user import models as user_models
 from user.models import User, Profile
-
-
+from StripePayment.serializers import  RepaymentBookingSeralizer
+from Appointment import models as appointment_model
+from Appointment.models import Booking
 def SwimTimeView(request):
     return render(request, 'index.html')
 
@@ -188,3 +191,24 @@ def LogoutView(request):
 #         else:
 #             return HttpResponse("Somthing went wrong")
 #
+
+class DeleteBooking(APIView):
+    def post(self, request):
+        current_date = datetime.datetime.now() - timedelta(minutes=30)
+        current_date = current_date.replace(tzinfo=datetime.timezone.utc)
+        current_date = current_date.isoformat()
+        todays_date = str(current_date).replace('+00:00', 'Z')
+        # print("aj ki tarik",todays_date)
+        booking_data = appointment_model.Booking.objects.all()
+        ser = RepaymentBookingSeralizer(booking_data,many=True)
+        list(ser.data)
+        for i in list(ser.data):
+            i =dict(i)
+            if i["paid_amount"] == 0 and i["pending_amount"] == 0 :
+                booking_date = i["booked_at"]
+                # print("Success")
+                if todays_date >= booking_date:
+                    # print(i["id"])
+                    Booking.objects.get(id=i["id"]).delete()
+        # return Response({'message': 'Success'}, status=status.HTTP_200_OK)
+        return Response(ser.data, status=status.HTTP_200_OK)

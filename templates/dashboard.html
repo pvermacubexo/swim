@@ -2117,6 +2117,11 @@
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
             var individual_Date = localStorage.getItem('individual_Date')
             var arr = JSON.parse("" + individual_Date + "");
+            arr.sort(function(a,b) {
+                  a = a.split('-').reverse().join('-');
+                  b = b.split('-').reverse().join('-');
+                  return a > b ? 1 : a < b ? -1 : 0;
+                });
             var payload = {'class_instructor': class_instructor, 'date_list': arr}
             if (individual_Date === null){
                 window.alert("Please Select Dates ! ");
@@ -2331,4 +2336,16 @@ $("#nextbtn1").click(function(){
     }
 });
 </script>
+    <script>
+    window.onload = function() {
+      $.ajax({
+                url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/swim/delete-booking',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log("success")
+                },
+            });
+};
+    </script>
     </a>{% endblock %}

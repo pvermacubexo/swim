@@ -13,7 +13,7 @@ urlpatterns = [
     path('instructor/<str:id>', views.Registration,name='registration'),
     path('register',views.register,name="register"),
     path('logout', views.LogoutView, name="LogoutView"),
-
+    path('delete-booking', views.DeleteBooking.as_view()),
 
 
 

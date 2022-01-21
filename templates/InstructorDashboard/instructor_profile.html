@@ -307,7 +307,7 @@
                                     </div><!--end col-->
 
 
-                                    <div class="col-lg-4 ml-auto align-self-center">
+                                    <div class="col-lg-5 ml-auto align-self-center">
                                         <ul class="list-unstyled personal-detail mb-0">
                                             <li class=""><i
                                                     class="las la-phone mr-2 text-secondary font-22 align-middle"></i>
@@ -326,7 +326,7 @@
                                         </ul>
 
                                     </div><!--end col-->
-                                    <div class="col-lg-4 align-self-center">
+                                    <div class="col-lg-3 align-self-center">
                                         <div class="row">
                                             <div class="col-auto text-center border-right">
 
@@ -1282,7 +1282,29 @@
             $("[class=custom-alert]").click();
         }, 2000);
     </script>
-
+    <script>
+    {% if not user.get_profile.monday %}
+       $("#id_form-0-week_day option[value='1']").remove();
+    {% endif %}
+    {% if not user.get_profile.tuesday %}
+       $("#id_form-0-week_day option[value='2']").remove();
+    {% endif %}
+    {% if not user.get_profile.wednesday %}
+       $("#id_form-0-week_day option[value='3']").remove();
+    {% endif %}
+    {% if not user.get_profile.thursday %}
+       $("#id_form-0-week_day option[value='4']").remove();
+    {% endif %}
+    {% if not user.get_profile.friday %}
+       $("#id_form-0-week_day option[value='5']").remove();
+    {% endif %}
+    {% if not user.get_profile.saturday %}
+       $("#id_form-0-week_day option[value='6']").remove();
+    {% endif %}
+    {% if not user.get_profile.sunday %}
+       $("#id_form-0-week_day option[value='7']").remove();
+    {% endif %}
+    </script>
 
 {% endblock %}
 
