@@ -2077,14 +2077,14 @@
 
                                     if (((data.time[i]).substring(0, 2)) > ctime.getHours()) {
 
-                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
                                         $('.timeSelectContent').html(row1);
 
                                     }
 
                                 }
                                 else{
-                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' "><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
                                         $('.timeSelectContent').html(row1);
                                 }
 

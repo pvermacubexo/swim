@@ -60,7 +60,7 @@
                                                         <div _ngcontent-oie-c32="" class="col-md-12">
                                                             {% if data %}
                                                             {% for datas in data %}
-                                                                {% if datas.paid_amount == 0 %}
+                                                                {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
                                                                     {% if forloop.first %}
                                                                 <div class="alert alert-danger" role="alert" style="padding: 1%;">
                                                                    <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style=""> <strong> </strong> Please make sure to pay within 30 miniute of booking otherwise booking will rejected.</p>
