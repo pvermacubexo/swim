@@ -3,3 +3,7 @@ __pycache__
 InstructorDashboard/__pycache__/
 venv
 StripePayment/__pycache__/
+app/__pycache__/
+Appointment/__pycache__/
+ContactUs/__pycache__/
+user/__pycache__/
