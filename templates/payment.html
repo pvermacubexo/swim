@@ -895,7 +895,7 @@
                     currency: "usd",
                     amount: amt,
                 };
-                fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
+                fetch("{{ BASE_URL }}/stripe/create-payment-intent", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

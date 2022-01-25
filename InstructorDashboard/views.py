@@ -23,10 +23,12 @@ from user.email_services import sent_mail
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
+from  SharkDeck import settings
+
+
+BASE_URL = settings.BASE_URL
 
 logger = logging.getLogger(__name__)
-
-
 def generate_slug(first_name, last_name):
     obj = len(user_models.Profile.objects.all())
     if user_models.Profile.objects.filter(slug=first_name).exists():
@@ -78,7 +80,7 @@ def signup_view(request):
             user_profile = user_models.Profile.objects.create(
                 user=user,
                 slug=slug,
-                url=(request.build_absolute_uri('/')[:-1] + '/swim/instructor/' + slug).replace(' ', ''),
+                url=(BASE_URL + '/swim/instructor/' + slug).replace(' ', ''),
                 day_start_time=date_time.time(),
                 day_end_time=time_added.time()
             )

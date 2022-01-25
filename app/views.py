@@ -14,6 +14,10 @@ from user.models import User, Profile
 from StripePayment.serializers import  RepaymentBookingSeralizer
 from Appointment import models as appointment_model
 from Appointment.models import Booking
+from  SharkDeck import settings
+
+BASE_URL = settings.BASE_URL
+
 def SwimTimeView(request):
     return render(request, 'index.html')
 
@@ -60,7 +64,7 @@ def SwimTimeDashboard(request ):
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
-                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links})
+                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links, "BASE_URL":BASE_URL})
         except:
             messages.error(request,"Invalid Login Details!")
             return render(request, "register.html")

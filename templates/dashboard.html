@@ -1801,7 +1801,7 @@
                     currency: "usd",
                     amount: amt,
                 };
-                fetch("{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/stripe/create-payment-intent", {
+                fetch("{{ BASE_URL }}/stripe/create-payment-intent", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -2057,7 +2057,7 @@
             console.log(today, todays_date)
 
             $.ajax({
-                    url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
+                    url: '{{ BASE_URL }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
                     dataType: 'json',
                     success: function (data) {
                         $(".termsconditions").show();
@@ -2128,7 +2128,7 @@
             }
             else {
                 $.ajax({
-                        url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-slot',
+                        url: '{{ BASE_URL }}/individual-slot',
                         type: 'POST',
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(payload),
@@ -2293,7 +2293,7 @@ $("#nextbtn1").click(function(){
         var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
         var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True'}
         $.ajax({
-            url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/individual-booking',
+            url: '{{ BASE_URL }}/individual-booking',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(payload),
@@ -2339,7 +2339,7 @@ $("#nextbtn1").click(function(){
     <script>
     window.onload = function() {
       $.ajax({
-                url: '{{ request.scheme  }}://{{ request.META.HTTP_HOST }}/swim/delete-booking',
+                url: '{{ BASE_URL }}/swim/delete-booking',
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
