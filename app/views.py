@@ -73,38 +73,41 @@ def SwimTimeDashboard(request ):
 
 
 def update_profile(request):
-    if request.method == "POST":
-        email = request.session['email']
-        obj = User.objects.get(email=email)
-        obj.first_name = request.POST['first_name']
-        obj.last_name = request.POST['last_name']
-        obj.address = request.POST['address']
-        obj.mobile_no = request.POST['mobile_no']
-        obj.DateOfBirth = request.POST['DateOfBirth']
-        obj.mother_name = request.POST['mother_name']
-        obj.father_name = request.POST['father_name']
-        obj.profile_img = request.FILES['profile_img']
-        obj.save()
+    try:
+        if request.method == "POST":
+            email = request.session['email']
+            obj = User.objects.get(email=email)
+            obj.first_name = request.POST['first_name']
+            obj.last_name = request.POST['last_name']
+            obj.address = request.POST['address']
+            obj.mobile_no = request.POST['mobile_no']
+            obj.DateOfBirth = request.POST['DateOfBirth']
+            obj.mother_name = request.POST['mother_name']
+            obj.father_name = request.POST['father_name']
+            obj.profile_img = request.FILES['profile_img']
+            obj.save()
 
-        obj = User.objects.get(email=request.session['email'])
-        user_id = obj.inst_id
-        first_name = User.objects.get(id=user_id)
-        user_details = User.objects.filter(email=email)
-        classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.success(request,"Updated Successfully!")
-        return redirect(SwimTimeDashboard)
-        # return render(request, 'dashboard.html',
-        #               {"user_details": user_details, "data": classes, "first_name": first_name})
-    else:
-        obj = User.objects.get(email=request.session['email'])
-        user_id = obj.inst_id
-        first_name = User.objects.get(id=user_id)
-        user_details = User.objects.filter(email=request.session['email'])
-        classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.error(request,"Somthing Went Wrong!")
+            obj = User.objects.get(email=request.session['email'])
+            user_id = obj.inst_id
+            first_name = User.objects.get(id=user_id)
+            user_details = User.objects.filter(email=email)
+            classes = ClassInstructor.objects.filter(instructor_id=user_id)
+            messages.success(request,"Updated Successfully!")
+            return redirect(SwimTimeDashboard)
+            # return render(request, 'dashboard.html',
+            #               {"user_details": user_details, "data": classes, "first_name": first_name})
+        else:
+            obj = User.objects.get(email=request.session['email'])
+            user_id = obj.inst_id
+            first_name = User.objects.get(id=user_id)
+            user_details = User.objects.filter(email=request.session['email'])
+            classes = ClassInstructor.objects.filter(instructor_id=user_id)
+            messages.error(request,"Somthing Went Wrong!")
 
-        return render(request, 'dashboard.html',
-                      {"user_details": user_details, "data": classes, "first_name": first_name})
+            return render(request, 'dashboard.html',
+                          {"user_details": user_details, "data": classes, "first_name": first_name})
+    except:
+        return render(request, 'dashboard.html')
 
 
 # @login_required

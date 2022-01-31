@@ -604,7 +604,7 @@ class GetDateTimeSlots(APIView):
             day_result, time_result = get_common_slots(class_instructor, serializer.validated_data['start_date'],
                                                        profile_user)
             if not (day_result or time_result):
-                return Response({'error': 'Instructor is Holiday on this day.'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'error': 'Instructor is on Holiday on this day.'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'date': day_result, 'time': time_result})
         else:
             return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)

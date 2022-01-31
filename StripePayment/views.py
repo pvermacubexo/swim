@@ -20,7 +20,10 @@ from django.utils.crypto import get_random_string
 from user.decorators import authorize
 import logging
 import os
+from  SharkDeck import settings
 
+
+BASE_URL = settings.BASE_URL
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -210,7 +213,7 @@ class RepaymentClasses(APIView):
                 bookings = appointment_model.Booking.objects.filter(
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
-                return render(request, "payment.html", {"data": ser.data,"user_details": obj})
+                return render(request, "payment.html", {"data": ser.data,"user_details": obj,"BASE_URL":BASE_URL})
             else:
                 return redirect("dashboard_view")
         except Exception as e:
@@ -236,8 +239,8 @@ class ConnectStripUrl(APIView):
         account_id = account_data["id"]
         create_strip_url = stripe.AccountLink.create(
                       account = account_id,
-                      refresh_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
-                      return_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
+                      refresh_url = BASE_URL +"/stripe/handle-redirect/",
+                      return_url = BASE_URL +"/stripe/handle-redirect/",
                       type = "account_onboarding",
                     )
         if "account_id" in request.session:

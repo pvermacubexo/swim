@@ -323,11 +323,11 @@
                                                             <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
                                                                 <li _ngcontent-ygs-c30="" class="active"><a
                                                                         _ngcontent-ygs-c30="" data-toggle="tab"
-                                                                        href="#menu1">SELECT COMPLETE COURSE</a>
+                                                                        href="#menu1" onclick="menu1buttonhide()">SELECT COMPLETE COURSE</a>
                                                                 </li>
                                                                 <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
                                                                                              data-toggle="tab"
-                                                                                             href="#menu2">MAKE
+                                                                                             href="#menu2" onclick="menu2buttonhide()">MAKE
                                                                     INDIVIDUAL SELECTION</a></li>
                                                             </ul>
                                                             <div _ngcontent-ygs-c30="" class="tab-content">
@@ -412,7 +412,7 @@
                                                                         </div><!----></div>
                                                                 </div>
 
-                                                                <div _ngcontent-ygs-c30="" id="menu2"
+                                                                <div _ngcontent-ygs-c30="" id="menu2" onclick=""
                                                                      class="tab-pane fade">
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
@@ -754,7 +754,7 @@
                                         <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
                                             <li _ngcontent-ygs-c30="" class="active"><a
                                                     _ngcontent-ygs-c30="" data-toggle="tab"
-                                                    href="#menu1">SELECT COMPLETE COURSE</a>
+                                                    href="#menu1" onclick="menu1buttonhide()">SELECT COMPLETE COURSE</a>
                                             </li>
                                             <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
                                                                          data-toggle="tab"
@@ -2347,5 +2347,21 @@ $("#nextbtn1").click(function(){
                 },
             });
 };
+    </script>
+    <script>
+    function menu2buttonhide(){
+       // $("#nextbtn1").show();
+        $("#nextbtn").hide();
+        $('#checkbox_select').val("0")
+        document.getElementById("checkbox_select").checked = false;
+
+    }
+    function menu1buttonhide(){
+       //$("#nextbtn").show();
+        $("#nextbtn1").hide();
+        $('#checkbox_select1').val("0")
+       document.getElementById("checkbox_select1").checked = false;
+
+    }
     </script>
     </a>{% endblock %}

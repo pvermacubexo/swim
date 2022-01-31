@@ -7,11 +7,12 @@
         Swim Time Solutions</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href={% static 'assets/css/style.css' %}>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.css">
     <link rel="icon" type="image/x-icon" href={% static 'assets/img/logo2.png' %}>
     <link rel="stylesheet" type="text/css" href={% static 'assets/css/bootstrap.css' %}>
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href={% static 'assets/css/style.css' %}>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://js.stripe.com/v3/"></script>
     <link rel="stylesheet" href="styles.3ff695c00d717f2d2a11.css">
@@ -11983,6 +11984,9 @@
     </style>
 </head>
 <body class="modal-open" style="padding-right: 15px; overflow: auto;">
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
 
 <script src={% static 'assets/js/jquery.js' %}></script>
 <script src={% static 'assets/js/jquery-ui.min.js' %}></script>
@@ -12024,7 +12028,7 @@
                 <div _ngcontent-nwk-c28="" id="bs-example-navbar-collapse-1"
                      class="col-md-1 left-sidebar collapse navbar-collapse" style="z-index: 1;">
                     <div _ngcontent-nwk-c28="" class="row logo-div">
-                        <a _ngcontent-nwk-c28="" ><img
+                        <a _ngcontent-nwk-c28="" style="cursor:default" ><img
                                 _ngcontent-nwk-c28="" src={% static 'assets/img/logo2.png' %} alt="logo"></a>
                     </div>
                     {% block sidebar_content %}
@@ -12223,6 +12227,7 @@
         aria-hidden="true" tabindex="-1"
         style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
 <div class="modal-backdrop fade in"></div>
+
 </body>
 <script>
     $(function () {
@@ -12232,6 +12237,13 @@
 
         });
     });
+</script>
+<script>
+    $(window).on('load', function() {
+      $('#status').fadeOut();
+      $('#preloader').delay(350).fadeOut('slow');
+      $('body').delay(350).css({'overflow':'visible'});
+    })
 </script>
 {#<script src={% static 'assets/js/jquery.js' %}></script>#}
 {#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
@@ -12243,6 +12255,8 @@
 </title>
 </head>
 <body>
-
+{#<div id="preloader">#}
+{#  <div id="status">&nbsp;</div>#}
+{#</div>#}
 </body>
 </html>
