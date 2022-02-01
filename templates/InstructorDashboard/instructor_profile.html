@@ -17,13 +17,13 @@
             display: none !important;
         }
 
-        #clipboardParagraph:hover {
-            overflow: visible;
-            white-space: normal;
-            width: auto;
-            position: absolute;
-            background-color: #FFF;
-        }
+        {##clipboardParagraph:hover {#}
+        {#    overflow: visible;#}
+        {#    white-space: normal;#}
+        {#    width: auto;#}
+        {#    position: absolute;#}
+        {#    background-color: #FFF;#}
+        {#}#}
 
 
     </style>
@@ -51,7 +51,20 @@
     z-index:9999;
     display:none;
 }
-
+.urlLink{
+    display: flex;
+    align-items: baseline;
+}
+.urlLink #clipboardParagraph{
+    display: inline-block;
+    margin: 0 5px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+           line-clamp: 1;
+   -webkit-box-orient: vertical;
+}
 @-webkit-keyframes spin {
 	from {-webkit-transform:rotate(0deg);}
 	to {-webkit-transform:rotate(360deg);}
@@ -315,10 +328,10 @@
                                             <li class="mt-2"><i
                                                     class="las la-envelope text-secondary font-22 align-middle mr-2"></i>
                                                 <b> Email </b> : {{ user.email }}</li>
-                                            <li class="mt-2"><i
+                                            <li class="mt-2 urlLink"><i
                                                     class="las la-link text-secondary font-22 align-middle mr-2"></i>
-                                                <b> Url </b> : <span id="clipboardParagraph"
-                                                                     class="hr_scroll_hide" style="color:blue;">{{ user.get_profile.url }}</span>
+                                                <b> Url </b> : <span id="clipboardParagraph" data-toggle="tooltip"
+                                                                      class="hr_scroll_hide" style="color:blue;">{{ user.get_profile.url }}</span>
                                                 <span class="btn btn-secondary btn-xs" data-clipboard-action="copy"
                                                       data-clipboard-target="#clipboardParagraph"><i
                                                         class="mdi mdi-content-copy" title="copy"></i></span>
