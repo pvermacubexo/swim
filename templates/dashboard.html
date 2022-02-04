@@ -377,7 +377,11 @@
                                                                         <br><br>
                                                                       <!---->
                                                                     </div>
-                                                                    <br><br>
+                                                                    <br>
+
+                                                                    <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids">
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+<br>
                                                                        <div
                                                                                     class="termsconditions">
                                                                                  <div
@@ -447,7 +451,10 @@
                                                                              </div>
                                                                         </form>
                                                                         </div>
-                                                                        <div class="termsconditions">
+                                                                    <br>
+                                                                     <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids1"> <option selected disabled id="options" value="0" required="">Please Select Kids Nameo</option>    {% for kids in kid_detail %} <option  value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                    <br>
+                                                                    <div class="termsconditions">
                                                                             <div class="">
                                                                                 <input _ngcontent-dbn-c30=""
                                                                                             type="checkbox"
@@ -1152,6 +1159,7 @@
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text"><p
                                                                     id="instructor_name"></p></div>
+
                                                             <span style="display: none;"
                                                                   id="booking_id_span"></span>
                                                             <span style="display: none;"
@@ -1160,6 +1168,18 @@
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
                                                     </div>
+                                                    <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
+                                                      <div _ngcontent-asr-c30="" class="row confirm-block-inner">
+                                                            <div _ngcontent-asr-c30=""
+                                                                 class="col-md-4 right-text left-text-left"><label
+                                                                    _ngcontent-asr-c30=""> Kids Name: </label>
+                                                            </div>
+                                                            <div _ngcontent-asr-c30="" class="col-md-8 left-text">
+                                                                <p id="kids_name1"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
@@ -2153,7 +2173,7 @@
                                         var ctime = new Date();
                                         if (key == todays_date) {
                                             if (value[j].substring(0, 2) > ctime.getHours()) {
-                                                console.log(value[j])
+                                                //console.log(value[j])
                                                 $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
                                             }
                                         } else {
@@ -2196,10 +2216,16 @@
             start_date = localStorage.getItem('Date')
             console.log("hii")
             var time = $("#selected_date").val();
-            console.log(time)
+            var kids = document.getElementById("kids").value;
+            console.log(kids)
             if (time === undefined || time === [] || time === null) {
                 window.alert("please select time slot")
-            } else {
+            }
+            else if (kids === '0'){
+                window.alert("please select kids")
+
+            }
+            else {
                 $('#nextbtn').attr('data-target', "#details-popup")
                 $('#nextbtn').attr('data-toggle', "modal")
                 console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
@@ -2207,7 +2233,7 @@
 
                 var class_instructor = localStorage.getItem('class_instructor_id')
                 $.ajax({
-                    url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1',
+                    url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1&kids_id=' + kids,
                     method: 'GET',
                     dataType: "JSON",
                     success: function (data) {
@@ -2215,6 +2241,7 @@
                         $('#bid').val(data.booking);
                         $('#booking_id_span').text(data.booking);
                         $('#instructor_name').text(data.instructor);
+                        $('#kids_name1').text(data.kids_name);
                         $('#total_days').text(data.total_days);
                         $('#fee').text("$" + data.fee);
                         $('#amount_to_be_paid').text(data.fee)
@@ -2266,14 +2293,24 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
 <script>
 $("#nextbtn1").click(function(){
 
+
+
     var t1  = document.getElementsByClassName("select_tag").length;
-    console.log(t1);
+    //console.log(t1);
     for (var i=0;i<t1;i++){
     var t = document.getElementsByClassName("select_tag")[i].value;
+    var kids = document.getElementById("kids1").value;
+    console.log(kids)
+
 
     if (t == ""){
         alert("please select time slot.");
         break;
+    }
+    if (kids === '0'){
+        window.alert("please select kids")
+        break;
+
     }
     if ( t1-1 == i ) {
         {#console.log("datlist.slice(1,-1)");#}
@@ -2291,7 +2328,7 @@ $("#nextbtn1").click(function(){
         }
         console.log(list)
         var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
-        var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True'}
+        var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True', 'kids_id':kids}
         $.ajax({
             url: '{{ BASE_URL }}/individual-booking',
             type: 'POST',
@@ -2302,6 +2339,8 @@ $("#nextbtn1").click(function(){
                         $('#bid').val(data.booking);
                         $('#booking_id_span').text(data.booking);
                         $('#instructor_name').text(data.instructor);
+                        $('#kids_name1').text(data.kids_name);
+                        console.log(data.kids_name)
                         $('#total_days').text(data.total_days);
                         $('#fee').text("$" + data.fee);
                         $('#amount_to_be_paid').text(data.fee)

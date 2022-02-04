@@ -213,7 +213,7 @@
                                     class="close"> ×
                             </button>
                             <h4 _ngcontent-jar-c34="">Create an Account</h4>
-                            <p _ngcontent-jar-c34="">create an account to continue</p></div>
+                            <p _ngcontent-jar-c34="">create an account to continues</p></div>
                         <div _ngcontent-jar-c34="" class="modal-body">
                             <div _ngcontent-jar-c34="" class="row">
 
@@ -223,18 +223,30 @@
                             >
                                 {% csrf_token %}
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="first_name">First Name</label><input
+                                        _ngcontent-jar-c34="" for="first_name">Your First Name</label><input
                                         _ngcontent-jar-c34="" formcontrolname="first_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="first_name"
-                                        placeholder=" First Name" type="text" id="first_name"
+                                        placeholder="Enter your First Name" type="text" id="first_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="last_name">Last Name</label><input
+                                        _ngcontent-jar-c34="" for="last_name">Your Last Name</label><input
                                         _ngcontent-jar-c34="" formcontrolname="last_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="last_name"
-                                        placeholder="Last Name " type="text" id="last_name"
+                                        placeholder="Enter your Last Name " type="text" id="last_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="father_name">Spouse Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="father_name" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" name="father_name"
+                                        placeholder="Enter Your Spouse Name" type="text" id="father_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                   <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9]{8,20}"
+                                        title="Only 8-20 Numeric Characters are allowed" name="mobile_no"
+                                        placeholder="Contact Number" type="text" id="mobile_no"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                   <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mail">Email Address</label><input
                                         _ngcontent-jar-c34="" formcontrolname="email" name="email"
                                         pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -255,33 +267,8 @@
                                                                                                class="form-control ng-untouched ng-pristine ng-invalid"
                                                                                                required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px;margin-right:12px;color:black;"></i>
                                     <!----></div>
-                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9]{8,20}"
-                                        title="Only 8-20 Numeric Characters are allowed" name="mobile_no"
-                                        placeholder="Contact Number" type="text" id="mobile_no"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
-                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="DateOfBirth">Date of Birth</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="DateOfBirth" name="DateOfBirth"
-                                        type="date" id="DateOfBirth"
 
-                                        class="form-control ng-untouched ng-pristine ng-invalid"
-                                        style="padding: 0 0 0 10px;" required><!----></div>
-                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="father_name">Fathers Name</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="father_name" pattern="[A-Za-z ]{3,}"
-                                        title="Only Alphabet are allowed and min 3 characters" name="father_name"
-                                        placeholder="Father Name" type="text" id="father_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
-                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="mother_name">Mothers Name</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="mother_name" name="mother_name"
-                                        placeholder="Mother Name" pattern="[A-Za-z ]{3,}"
-                                        title="Only Alphabet are allowed and min 3 characters" type="text"
-                                        id="mother_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
-                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                <div _ngcontent-jar-c34="" class="form-group col-md-12 column_content"><label
                                         _ngcontent-jar-c34="" for="address">Address</label><input
                                         _ngcontent-jar-c34=""
                                         formcontrolname="address"
@@ -290,7 +277,29 @@
                                         id="address"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required>
                                     <!----></div>
-                                <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
+                                   <div class="form-group col-md-12 column_content">
+                                   <hr>
+                                   </div>
+
+
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="kids_name">Kid Name</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name"
+                                        placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}"
+                                        title="Only Alphabet are allowed and min 3 characters" type="text"
+                                        id="mother_name"
+                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+
+                                <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
+                                        _ngcontent-jar-c34="" for="date_of_birth">Date of Birth</label><input
+                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth" name="date_of_birth"
+                                        type="date" id="DateOfBirth"
+
+                                        class="form-control ng-untouched ng-pristine ng-invalid"
+                                        style="padding: 0 0 0 10px;" required><!----></div>
+                                   <div class="form-group col-md-12 column_content"> <p>You can enter details of multiple kids after registration </p> </div>
+
+                                   <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                     <button _ngcontent-jar-c34="" type="submit"
                                             class="btn btn-primary btn-login btn-sm"
                                     >SIGN UP

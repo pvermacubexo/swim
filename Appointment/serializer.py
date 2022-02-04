@@ -170,6 +170,7 @@ class BookClassInstructorSerializer(serializers.Serializer):
     class_instructor = serializers.CharField()
     date_time = serializers.DateTimeField()
     paper_work = serializers.BooleanField(required=True)
+    kids_id = serializers.CharField()
 
     def validate_class_instructor(self, class_instructor_id):
         try:
@@ -240,6 +241,7 @@ class IndividualBookingSerializer(serializers.Serializer):
     class_instructor = serializers.IntegerField()
     datetime_list = serializers.ListField()
     paper_work = serializers.BooleanField(required=True)
+    kids_id = serializers.IntegerField()
 
     def validate_class_instructor(self, obj):
         try:
@@ -269,10 +271,14 @@ class AppointmentScheduleSerializer(serializers.ModelSerializer):
     start_time = serializers.SerializerMethodField()
     end_time = serializers.SerializerMethodField()
     title = serializers.SerializerMethodField()
+    kid_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Appointment
         fields = '__all__'
+
+    def get_kid_name(self,obj):
+        return obj.booking.kids.kids_name
 
     def get_instructor(self, obj):
         return obj.booking.class_instructor.instructor.get_full_name()

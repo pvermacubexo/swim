@@ -1,5 +1,8 @@
 import datetime
 from datetime import timedelta
+
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib import messages
@@ -10,7 +13,7 @@ from rest_framework import status
 # Create your views here.
 from Appointment.models import ClassInstructor
 from user import models as user_models
-from user.models import User, Profile
+from user.models import User, Profile, Kids
 from StripePayment.serializers import  RepaymentBookingSeralizer
 from Appointment import models as appointment_model
 from Appointment.models import Booking
@@ -33,6 +36,7 @@ def register(request):
         father_name = request.POST['father_name']
         mother_name = request.POST['mother_name']
         address = request.POST['address']
+
         slug = id
 
         obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
@@ -40,6 +44,7 @@ def register(request):
         request.session['email'] = email
 
         obj.save()
+
         user_id = request.session['slug_id']
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=email)
@@ -60,11 +65,13 @@ def SwimTimeDashboard(request ):
         links = Profile.objects.filter(user_id=user_id)
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
+        kid_detail = Kids.objects.filter(parent_id=user_details.id)
+        print(kid_detail)
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
-                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links, "BASE_URL":BASE_URL})
+                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links, "BASE_URL":BASE_URL, "kid_detail":kid_detail})
         except:
             messages.error(request,"Invalid Login Details!")
             return render(request, "register.html")
@@ -81,11 +88,21 @@ def update_profile(request):
             obj.last_name = request.POST['last_name']
             obj.address = request.POST['address']
             obj.mobile_no = request.POST['mobile_no']
-            obj.DateOfBirth = request.POST['DateOfBirth']
-            obj.mother_name = request.POST['mother_name']
+            # obj.DateOfBirth = request.POST['DateOfBirth']
+            # obj.mother_name = request.POST['mother_name']
             obj.father_name = request.POST['father_name']
             obj.profile_img = request.FILES['profile_img']
             obj.save()
+
+            for (kids, dob, ids) in zip(request.POST.getlist('kids_name'), request.POST.getlist('date_of_birth'), request.POST.getlist('ID')):
+                kid_obj = Kids.objects.get(id=ids)
+                kid_obj.kids_name = kids
+                kid_obj.date_of_birth = dob
+                kid_obj.save()
+
+            for (kids, dob) in zip(request.POST.getlist('kids_name1'), request.POST.getlist('date_of_birth1')):
+                kid_obj = Kids(kids_name=kids, date_of_birth=dob, parent_id=obj.id)
+                kid_obj.save()
 
             obj = User.objects.get(email=request.session['email'])
             user_id = obj.inst_id
@@ -143,17 +160,19 @@ def Registration(request, id):
                 email = request.POST['email']
                 password = make_password(request.POST['password'])
                 mobile_no = request.POST['mobile_no']
-                DateOfBirth = request.POST['DateOfBirth']
                 father_name = request.POST['father_name']
-                mother_name = request.POST['mother_name']
+                # mother_name = request.POST['mother_name']
                 address = request.POST['address']
+                kids_name = request.POST['kids_name']
+                date_of_birth = request.POST['date_of_birth']
                 # instructor_id = slug_id
 
                 obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
-                           DateOfBirth=DateOfBirth, father_name=father_name, mother_name=mother_name, address=address,
+                            father_name=father_name, address=address,
                            inst_id=slug_id)
                 obj.save()
-
+                kid_obj = Kids(kids_name=kids_name, date_of_birth=date_of_birth, parent_id=obj.id)
+                kid_obj.save()
                 request.session['slug_id'] = slug_id
                 request.session['email'] = email
                 return redirect(SwimTimeDashboard)
@@ -219,3 +238,10 @@ class DeleteBooking(APIView):
                     Booking.objects.get(id=i["id"]).delete()
         # return Response({'message': 'Success'}, status=status.HTTP_200_OK)
         return Response(ser.data, status=status.HTTP_200_OK)
+
+
+@api_view(('GET',))
+@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
+def kid_delete(request, id):
+    Kids.objects.get(id=id).delete()
+    return Response(status=status.HTTP_200_OK)

@@ -509,3 +509,9 @@ class BreakTime(models.Model):
         if self.week_day == '7':
             return 'Sunday'
         return ''
+
+
+class Kids(models.Model):
+    kids_name = models.CharField(max_length=300, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    parent = models.ForeignKey(User, on_delete=models.CASCADE)

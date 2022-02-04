@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
-from user.models import User
-
+from user.models import User, Kids
 
 class ClassInstructor(models.Model):
     class Meta:
@@ -39,7 +38,7 @@ class Appointment(models.Model):
     class Meta:
         verbose_name = 'Appointment'
         verbose_name_plural = "Appointments"
-    booking = models.ForeignKey('Appointment.Booking', on_delete=models.CASCADE, null=True)
+    booking = models.ForeignKey('Appointment.Booking', on_delete=models.CASCADE, null=True,related_name="myBooking")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
@@ -85,6 +84,7 @@ class Booking(models.Model):
     # booking_status = models.CharField(max_length=1, choices=BOOKING_STATUS_CHOICES, default=NOT_DONE)
     booking_payment_status = models.CharField(max_length=1, choices=PAYMENT_STATUS_CHOICES, default=PARTIALLY_BOOKED)
     paper_work = models.BooleanField(null=False, blank=False)
+    kids = models.ForeignKey(Kids, on_delete=models.CASCADE, null=True)
 
     @property
     def next_class(self):

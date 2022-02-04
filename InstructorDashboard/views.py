@@ -162,12 +162,12 @@ def dashboard_view(request):
 @login_required(redirect_field_name='login')
 def trainee_view(request, trainee):
     try:
-        trainee = user_models.User.objects.get(id=trainee)
-    except user_models.User.DoesNotExist:
+        trainee = user_models.Kids.objects.get(id=trainee)
+    except user_models.Kids.DoesNotExist:
         return redirect('InstructorDashboard:page404')
-    transactions = appointment_model.Transaction.objects.filter(booking__user=trainee).order_by('-payment_at')
+    transactions = appointment_model.Transaction.objects.filter(booking__kids=trainee).order_by('-payment_at')
     today = datetime.today().replace(tzinfo=pytz.UTC)
-    bookings = appointment_model.Booking.objects.filter(user=trainee).order_by("-booked_at")
+    bookings = appointment_model.Booking.objects.filter(kids=trainee).order_by("-booked_at")
     appointment_status_options = dict(APPOINTMENT_STATUS)
     context = {'trainee': trainee,
                'transactions': transactions, 'bookings': bookings,
@@ -591,11 +591,12 @@ def students(request):
     bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user)
     for booking in bookings:
         if not (booking.user in students):
-            students.append(booking.user)
+            # students.append(booking.user)
+            students.append(booking.kids)
             today = date.today()
-            age = today.year - booking.user.DateOfBirth.year - (
-                    (today.month, today.day) < (booking.user.DateOfBirth.month, booking.user.DateOfBirth.day))
-            ages[booking.user.mobile_no] = age
+            age = today.year - booking.kids.date_of_birth.year - (
+                    (today.month, today.day) < (booking.kids.date_of_birth.month, booking.kids.date_of_birth.day))
+            ages[booking.kids.parent.mobile_no] = age
     # stripe_msg = Strip_Message(request)
     context = {
         'students': students,
@@ -634,6 +635,7 @@ def appointment_view(request, booking_id=None):
     if booking_id:
         pass
     else:
+        print(request.user)
         appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
         # ,start_time__gt=timezone.now())
         # stripe_msg = Strip_Message(request)

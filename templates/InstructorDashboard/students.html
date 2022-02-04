@@ -41,11 +41,11 @@
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 150.8px;"
-                                                aria-label="Position: activate to sort column ascending">Father Name
+                                                aria-label="Position: activate to sort column ascending">Parent Name
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1" style="width: 150.8px;"
-                                                aria-label="Position: activate to sort column ascending">Mother Name
+                                                aria-label="Position: activate to sort column ascending">Spouse Name
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                 colspan="1"
@@ -72,20 +72,21 @@
                                                 <b>
                                                     <a href="{% url 'InstructorDashboard:trainee_view'  student.id %}"
                                                        class="text-primary">
-                                                        {{ student.get_full_name }}
+                                                        {{ student.kids_name }}
                                                     </a>
                                                 </b>
                                             </td>
-                                            <td>{{ student.father_name }}</td>
-                                            <td>{{ student.mother_name }}</td>
-                                            <td>{{ student.DateOfBirth }}</td>
+                                            <td>{{ student.parent.first_name }} {{ student.parent.last_name }}</td>
+                                            <td>{{ student.parent.father_name }}</td>
+                                            <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
                                         {% for key, value in ages.items %}
 
-                                            {% if key == student.mobile_no %}
+                                            {% if key == student.parent.mobile_no %}
                                                 <td>{{ value }}</td>
                                             {% endif %}
                                             {% endfor %}
-                                            <td>{{ student.mobile_no }}</td>
+
+                                            <td>{{ student.parent.mobile_no }}</td>
                                         </tr>
                                         {% endfor %}
                                         </tbody>
