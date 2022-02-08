@@ -221,7 +221,7 @@ class User(AbstractUser):
     def get_day_start_time(self):
         try:
             profile = Profile.objects.filter(user=self).first()
-            return profile.day_start_time.strftime("%H:%M:%S")
+            return profile.day_start_time.strftime("%H:%M")
         except Exception:
             return False
 
@@ -229,7 +229,7 @@ class User(AbstractUser):
     def get_day_end_time(self):
         try:
             profile = Profile.objects.filter(user=self).first()
-            return profile.day_end_time.strftime("%H:%M:%S")
+            return profile.day_end_time.strftime("%H:%M")
         except Exception:
             return False
 
@@ -508,3 +508,9 @@ class BreakTime(models.Model):
         if self.week_day == '7':
             return 'Sunday'
         return ''
+
+
+class Kids(models.Model):
+    kids_name = models.CharField(max_length=300, blank=True, null=True)
+    date_of_birth = models.DateField(blank=True, null=True)
+    parent = models.ForeignKey(User, on_delete=models.CASCADE)

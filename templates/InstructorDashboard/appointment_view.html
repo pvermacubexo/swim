@@ -50,17 +50,22 @@
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
                                                     rowspan="1" colspan="1"
-                                                    aria-sort="ascending" style="width: 100px;"
+                                                    aria-sort="ascending" style="width: 40px;"
                                                     aria-label="Name: activate to sort column descending">Booking ID
                                                 </th>
                                                 <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
-                                                    rowspan="1" colspan="1" style="width: 143.8px;"
+                                                    rowspan="1" colspan="1" style="width: 100.8px;"
                                                     aria-sort="ascending"
                                                     aria-label="Name: activate to sort column descending">Booked By
                                                 </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-buttons"
+                                                    rowspan="1" colspan="1" style="width: 100.8px;"
+                                                    aria-sort="ascending"
+                                                    aria-label="Name: activate to sort column descending">Booked For
+                                                </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
                                                     rowspan="1"
-                                                    colspan="1" style="width: 230.8px;"
+                                                    colspan="1" style="width: 140.8px !important;"
                                                     aria-label="Position: activate to sort column ascending">Starting
                                                     Time
                                                 </th>
@@ -71,12 +76,12 @@
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
                                                     rowspan="1"
-                                                    colspan="1" style="width: 51.8px;"
+                                                    colspan="1" style="width: 96.8px;"
                                                     aria-label="Age: activate to sort column ascending">Remark
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-buttons"
                                                     rowspan="1"
-                                                    colspan="1" style="width: 51.8px;"
+                                                    colspan="1" style="width: 86.8px;"
                                                     aria-label="Age: activate to sort column ascending">Status
                                                 </th>
                                             </tr>
@@ -90,6 +95,8 @@
                                                         style="">{{ appointment.booking.id }}</td>
                                                     <td tabindex="0" class="sorting_1"
                                                         style="">{{ appointment.booking.user }}</td>
+                                                    <td tabindex="0" class="sorting_1"
+                                                        style="">{{ appointment.booking.kids.kids_name}}</td>
                                                     <td style="">{{ appointment.start_time|date:'M d Y h:i A' }}</td>
                                                     <td>{{ appointment.end_time|date:'M d Y h:i A' }}</td>
                                                     <td>{{ appointment.remark }}</td>

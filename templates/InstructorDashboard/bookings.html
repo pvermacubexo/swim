@@ -80,6 +80,8 @@
                                                 <th>Booking ID</th>
                                                 <th>Booked By
                                                 </th>
+                                                <th>Booked For
+                                                </th>
                                                 <th>Start
                                                     Date
                                                 </th>
@@ -99,6 +101,7 @@
                                                 <tr role="row" class="odd">
                                                     <td tabindex="0" class="sorting_1" style="">{{ booking.id }}</td>
                                                     <td tabindex="0" class="sorting_1" style="">{{ booking.user }}</td>
+                                                 <td tabindex="0" class="sorting_1" style="">{{ booking.kids.kids_name }}</td>
                                                     <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
                                                     <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
                                                     <td>{% if booking.get_booking_payment_status %}

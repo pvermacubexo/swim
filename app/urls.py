@@ -14,6 +14,7 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('logout', views.LogoutView, name="LogoutView"),
     path('delete-booking', views.DeleteBooking.as_view()),
+    path('kid_delete/<int:id>', views.kid_delete, name="kid_delete"),
 
     # path('register',views.Registration_view,name='registration_view'),
 

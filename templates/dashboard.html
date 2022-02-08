@@ -330,11 +330,11 @@
                                                             <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
                                                                 <li _ngcontent-ygs-c30="" class="active"><a
                                                                         _ngcontent-ygs-c30="" data-toggle="tab"
-                                                                        href="#menu1">SELECT COMPLETE COURSE</a>
+                                                                        href="#menu1" onclick="menu1buttonhide()">SELECT COMPLETE COURSE</a>
                                                                 </li>
                                                                 <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
                                                                                              data-toggle="tab"
-                                                                                             href="#menu2">MAKE
+                                                                                             href="#menu2" onclick="menu2buttonhide()">MAKE
                                                                     INDIVIDUAL SELECTION</a></li>
                                                             </ul>
                                                             <div _ngcontent-ygs-c30="" class="tab-content">
@@ -384,29 +384,37 @@
                                                                         <br><br>
                                                                         <!---->
                                                                     </div>
-                                                                    <br><br>
-                                                                    <div
-                                                                            class="termsconditions">
-                                                                        <div
-                                                                                class="">
-                                                                            <input
-                                                                                    _ngcontent-dbn-c30=""
-                                                                                    type="checkbox"
-                                                                                    id="checkbox_select"
-                                                                                    value="0"
-                                                                                    name="terms"
-                                                                                    required></div>
+                                                                    <br>
 
-                                                                        <label _ngcontent-dbn-c30=""
-                                                                               for="terms"
-                                                                               style="margin-top:-20px;margin-left:20px;"
-                                                                               class="termsconditions"> Check
-                                                                            here to
-                                                                            indicate that you have read and
-                                                                            agree to the terms &amp; condition
-                                                                            of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
-                                                                            Agreement. </label>
-                                                                    </div>
+                                                                {% if kid_detail|length > 1 %}
+                                                                    <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids">
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% else %}
+                                                                    <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids">
+                                                                         {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% endif  %}
+                                                                    <br>
+                                                                       <div
+                                                                                    class="termsconditions">
+                                                                                 <div
+                                                                                     class="">
+                                                                                    <input
+                                                                                            _ngcontent-dbn-c30=""
+                                                                                            type="checkbox"
+                                                                                            id="checkbox_select"
+                                                                                            value="0"
+                                                                                            name="terms"
+                                                                                            required></div>
+
+                                                                                <label _ngcontent-dbn-c30=""
+                                                                                       for="terms"  style="margin-top:-20px;margin-left:20px;"
+                                                                                       class="termsconditions"> Check
+                                                                                    here to
+                                                                                    indicate that you have read and
+                                                                                    agree to the terms &amp; condition
+                                                                                    of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                                                    Agreement. </label>
+                                                                            </div>
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="next-btn-div registration-form col-md-6"
@@ -420,7 +428,7 @@
                                                                         </div><!----></div>
                                                                 </div>
 
-                                                                <div _ngcontent-ygs-c30="" id="menu2"
+                                                                <div _ngcontent-ygs-c30="" id="menu2" onclick=""
                                                                      class="tab-pane fade">
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
@@ -454,6 +462,36 @@
                                                                                          id="accordion" role="tablist"
                                                                                          aria-multiselectable="true"></div>
                                                                                 </div>
+                                                                             </div>
+                                                                        </form>
+                                                                        </div>
+                                                                    <br>
+                                                                    {% if kid_detail|length > 1 %}
+                                                                    <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids1">
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% else %}
+                                                                    <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids1">
+                                                                         {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% endif  %}
+                                                                    <br>
+                                                                    <div class="termsconditions">
+                                                                            <div class="">
+                                                                                <input _ngcontent-dbn-c30=""
+                                                                                            type="checkbox"
+                                                                                            id="checkbox_select1"
+                                                                                            value="0"
+                                                                                            name="terms"
+                                                                                            required></div>
+
+                                                                                <label _ngcontent-dbn-c30=""
+                                                                                       for="terms"  style="margin-top:-20px;margin-left:20px;"
+                                                                                       class="termsconditions"> Check
+                                                                                    here to
+                                                                                    indicate that you have read and
+                                                                                    agree to the terms &amp; condition
+                                                                                    of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                                                    Agreement. </label>
+
                                                                             </div>
                                                                         </form>
                                                                     </div>
@@ -768,7 +806,7 @@
                                         <ul _ngcontent-ygs-c30="" class="nav nav-tabs">
                                             <li _ngcontent-ygs-c30="" class="active"><a
                                                     _ngcontent-ygs-c30="" data-toggle="tab"
-                                                    href="#menu1">SELECT COMPLETE COURSE</a>
+                                                    href="#menu1" onclick="menu1buttonhide()">SELECT COMPLETE COURSE</a>
                                             </li>
                                             <li _ngcontent-ygs-c30=""><a _ngcontent-ygs-c30=""
                                                                          data-toggle="tab"
@@ -1167,6 +1205,7 @@
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text"><p
                                                                     id="instructor_name"></p></div>
+
                                                             <span style="display: none;"
                                                                   id="booking_id_span"></span>
                                                             <span style="display: none;"
@@ -1175,8 +1214,21 @@
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
                                                     </div>
-                                                    <div _ngcontent-asr-c30="" class="col-md-12"
-                                                         style="margin-bottom: 10px;">
+
+                                                    <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
+                                                      <div _ngcontent-asr-c30="" class="row confirm-block-inner">
+                                                            <div _ngcontent-asr-c30=""
+                                                                 class="col-md-4 right-text left-text-left"><label
+                                                                    _ngcontent-asr-c30=""> Kids Name: </label>
+                                                            </div>
+                                                            <div _ngcontent-asr-c30="" class="col-md-8 left-text">
+                                                                <p id="kids_name1"></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
+
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
                                                                 <label _ngcontent-asr-c30=""> Course
@@ -2087,7 +2139,7 @@
             var yyyy = todayd.getFullYear();
             var today = yyyy + '-' + mm + '-' + dd;
             var todays_date = get_today_date()
-            console.log(today, todays_date)
+          //  console.log(today, todays_date)
 
             $.ajax({
                     url: '{{ BASE_URL }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
@@ -2105,19 +2157,25 @@
                                 if (today === todays_date) {
 
                                     var ctime = new Date();
-                                    console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
+                                  //  console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
 
 
                                     if (((data.time[i]).substring(0, 2)) > ctime.getHours()) {
+                                        var a = data.time[i]
+                                    var b = a.slice(0, 5) + a.slice(8,16)
 
-                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+
+                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>+ b +</input></div>';
                                         $('.timeSelectContent').html(row1);
 
                                     }
 
-                                } else {
-                                    row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
-                                    $('.timeSelectContent').html(row1);
+                                }
+                                else{
+                                    var a = data.time[i]
+                                    var b = a.slice(0, 5) + a.slice(8,16)
+                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>'+ b +'</input></div>';
+                                        $('.timeSelectContent').html(row1);
                                 }
 
 
@@ -2184,7 +2242,7 @@
                                         var ctime = new Date();
                                         if (key == todays_date) {
                                             if (value[j].substring(0, 2) > ctime.getHours()) {
-                                                console.log(value[j])
+                                                //console.log(value[j])
                                                 $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
                                             }
                                         } else {
@@ -2227,10 +2285,16 @@
             start_date = localStorage.getItem('Date')
             console.log("hii")
             var time = $("#selected_date").val();
-            console.log(time)
+            var kids = document.getElementById("kids").value;
+            console.log(kids)
             if (time === undefined || time === [] || time === null) {
                 window.alert("please select time slot")
-            } else {
+            }
+            else if (kids === '0'){
+                window.alert("please select kids")
+
+            }
+            else {
                 $('#nextbtn').attr('data-target', "#details-popup")
                 $('#nextbtn').attr('data-toggle', "modal")
                 console.log(start_date.slice(1, -1) + "T" + time.slice(0, 8))
@@ -2238,7 +2302,7 @@
 
                 var class_instructor = localStorage.getItem('class_instructor_id')
                 $.ajax({
-                    url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1',
+                    url: '{% url "booking" %}' + '?date_time=' + date_time + '&class_instructor=' + class_instructor + '&paper_work=1&kids_id=' + kids,
                     method: 'GET',
                     dataType: "JSON",
                     success: function (data) {
@@ -2246,6 +2310,7 @@
                         $('#bid').val(data.booking);
                         $('#booking_id_span').text(data.booking);
                         $('#instructor_name').text(data.instructor);
+                        $('#kids_name1').text(data.kids_name);
                         $('#total_days').text(data.total_days);
                         $('#fee').text("$" + data.fee);
                         $('#amount_to_be_paid').text(data.fee)
@@ -2294,13 +2359,70 @@
         });
         //end
     </script>
-    <script>
-        $("#nextbtn1").click(function () {
+<script>
+$("#nextbtn1").click(function(){
 
-            var t1 = document.getElementsByClassName("select_tag").length;
-            console.log(t1);
-            for (var i = 0; i < t1; i++) {
-                var t = document.getElementsByClassName("select_tag")[i].value;
+
+
+    var t1  = document.getElementsByClassName("select_tag").length;
+    //console.log(t1);
+    for (var i=0;i<t1;i++){
+    var t = document.getElementsByClassName("select_tag")[i].value;
+    var kids = document.getElementById("kids1").value;
+    console.log(kids)
+
+
+    if (t == ""){
+        alert("please select time slot.");
+        break;
+    }
+    if (kids === '0'){
+        window.alert("please select kids")
+        break;
+
+    }
+    if ( t1-1 == i ) {
+        {#console.log("datlist.slice(1,-1)");#}
+        $('#nextbtn1').attr('data-target', "#details-popup")
+        $('#nextbtn1').attr('data-toggle', "modal")
+        var datlist=localStorage.getItem('individual_Date')
+        //console.log(datlist.slice(1,-1))
+        var datelist=(datlist.slice(1,-1)).split(",")
+        console.log(datelist)
+        var list=[]
+        for (var i=0;i<datelist.length;i++){
+            var time=$("#"+datelist[i].slice(1,-1)).val()
+
+            list.push(datelist[i].slice(1,-1)+"T"+time.substring(0,8))
+        }
+        console.log(list)
+        var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
+        var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work':'True', 'kids_id':kids}
+        $.ajax({
+            url: '{{ BASE_URL }}/individual-booking',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
+            success: function (data) {
+                console.log(data)
+                        $('#bid').val(data.booking);
+                        $('#booking_id_span').text(data.booking);
+                        $('#instructor_name').text(data.instructor);
+                        $('#kids_name1').text(data.kids_name);
+                        console.log(data.kids_name)
+                        $('#total_days').text(data.total_days);
+                        $('#fee').text("$" + data.fee);
+                        $('#amount_to_be_paid').text(data.fee)
+                        $('#instructor_name1').text(data.instructor)
+                        $('#total_days1').text(data.total_days)
+                console.log(data.dateTime)
+                for (const [key1, value1] of Object.entries(data.dateTime)) {
+                    for (const [key2, value2] of Object.entries(value1)) {
+                    console.log(key2,value2)
+                        $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
+                           '<td _ngcontent-asr-c30="" id="date_field">' + key2 + '</td>' +
+                        '<td _ngcontent-asr-c30="" id="time_field"> ' + value2 + ' </td></tr>')
+                    }
 
                 if (t == "") {
                     alert("please select time slot.");
@@ -2378,5 +2500,21 @@
                 },
             });
         };
+    </script>
+    <script>
+    function menu2buttonhide(){
+       // $("#nextbtn1").show();
+        $("#nextbtn").hide();
+        $('#checkbox_select').val("0")
+        document.getElementById("checkbox_select").checked = false;
+
+    }
+    function menu1buttonhide(){
+       //$("#nextbtn").show();
+        $("#nextbtn1").hide();
+        $('#checkbox_select1').val("0")
+       document.getElementById("checkbox_select1").checked = false;
+
+    }
     </script>
     </a>{% endblock %}

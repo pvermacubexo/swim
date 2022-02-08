@@ -51,7 +51,20 @@
     z-index:9999;
     display:none;
 }
-
+.urlLink{
+    display: flex;
+    align-items: baseline;
+}
+.urlLink #clipboardParagraph{
+    display: inline-block;
+    margin: 0 5px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+           line-clamp: 1;
+   -webkit-box-orient: vertical;
+}
 @-webkit-keyframes spin {
 	from {-webkit-transform:rotate(0deg);}
 	to {-webkit-transform:rotate(360deg);}
@@ -310,14 +323,14 @@
                                         <ul class="list-unstyled personal-detail mb-0">
                                             <li class=""><i
                                                     class="las la-phone mr-2 text-secondary font-22 align-middle"></i>
-                                                <b> phone </b> : {{ user.mobile_no }}</li>
+                                                <b> Phone </b> : {{ user.mobile_no }}</li>
                                             <li class="mt-2"><i
                                                     class="las la-envelope text-secondary font-22 align-middle mr-2"></i>
                                                 <b> Email </b> : {{ user.email }}</li>
-                                            <li class="mt-2"><i
+                                            <li class="mt-2 urlLink"><i
                                                     class="las la-link text-secondary font-22 align-middle mr-2"></i>
-                                                <b> Url </b> : <span id="clipboardParagraph"
-                                                                     class="hr_scroll_hide" style="color:blue;">{{ user.get_profile.url }}</span>
+                                                <b> Url </b> : <span id="clipboardParagraph" data-toggle="tooltip"
+                                                                      class="hr_scroll_hide" style="color:blue;">{{ user.get_profile.url }}</span>
                                                 <span class="btn btn-secondary btn-xs" data-clipboard-action="copy"
                                                       data-clipboard-target="#clipboardParagraph"><i
                                                         class="mdi mdi-content-copy" title="copy"></i></span>
@@ -972,7 +985,7 @@
                                                                    placeholder="Confirm-Password"
                                                                    required="required" style="z-index:1;position:relative;">
                                                         </div><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top: -8% ;z-index: 2;position: relative;margin-right:5%; "></i>
-                                                        <span class="form-text text-muted font-12">Never share your password.</span>
+{#                                                        <span class="form-text text-muted font-12">Never share your password.</span>#}
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -1091,7 +1104,7 @@
             var t = function () {
             };
             (t.prototype.init = function () {
-                e(".timepicker").bootstrapMaterialDatePicker({format: "HH:mm:ss", time: !0, date: !1});
+                e(".timepicker").bootstrapMaterialDatePicker({format: "HH:mm", time: !0, date: !1});
             }),
                 (e.AdvancedForm = new t()),
                 (e.AdvancedForm.Constructor = t);
@@ -1152,7 +1165,7 @@
                 var t = function () {
                 };
                 (t.prototype.init = function () {
-                    e(".timepicker").bootstrapMaterialDatePicker({format: "HH:mm:ss", time: !0, date: !1});
+                    e(".timepicker").bootstrapMaterialDatePicker({format: "HH:mm", time: !0, date: !1});
                 }),
                     (e.AdvancedForm = new t()),
                     (e.AdvancedForm.Constructor = t);
