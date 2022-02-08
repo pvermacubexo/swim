@@ -9,6 +9,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -18,17 +19,20 @@ from Appointment import utilities
 from Appointment.models import ClassInstructor, APPOINTMENT_STATUS
 from SharkDeck.constants import user_constants
 from StripePayment.models import StripeAccount
+from app.email_notification import mail_notification
 from user import models as user_models
 from user.email_services import sent_mail
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
-from  SharkDeck import settings
-
+from SharkDeck import settings
+import socket
 
 BASE_URL = settings.BASE_URL
 
 logger = logging.getLogger(__name__)
+
+
 def generate_slug(first_name, last_name):
     obj = len(user_models.Profile.objects.all())
     if user_models.Profile.objects.filter(slug=first_name).exists():
@@ -71,6 +75,12 @@ def signup_view(request):
         user = user_models.User.objects.create(email=email, first_name=first_name, last_name=last_name,
                                                password=make_password(password), mobile_no=mobile_no,
                                                user_type=user_constants.Instructor)
+
+        user_name = user.get_full_name()
+        subject = "Team Swim Time Solutions"
+        email_body = f"Hello {user_name}, \n\nWelcome to  Swim Time Solutions! This mail is regarding to inform that you are successfully register Instructor in Swim Time Solutions."
+        mail_notification(request, subject, email_body, email)
+
         logger.info(f"{user} created successfully.")
         front_end_url_local = os.environ.get("FRONT_END_URL_LOCAL")
         front_end_url = os.environ.get("FRONT_END_URL")
@@ -116,6 +126,14 @@ def login_view(request):
                 return render(request, 'InstructorDashboard/auth/login.html', context=context)
             if user.user_type == user_constants.Instructor:
                 login(request, user)
+
+                user_email = request.POST['email']
+                hostname = socket.gethostname()
+                IPAddress = socket.gethostbyname(hostname)
+                subject = "Security Alert"
+                email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
+                mail_notification(request, subject, email_body, user_email)
+
                 return redirect('InstructorDashboard:dashboard_view')
             context.update({'page_errors': ['User does not have permission to access this portal.']})
             return render(request, 'InstructorDashboard/auth/login.html', context=context)
@@ -182,6 +200,15 @@ def update_transaction(request, id):
         transaction = appointment_model.Transaction.objects.get(id=id)
         transaction.status = appointment_model.COMPLETED
         transaction.save()
+
+        user_name = transaction.booking.user.get_full_name()
+        transaction_amount = transaction.paid_amount
+        user_email = transaction.booking.user.email
+        subject = f"Cash Payment Accept"
+        email_body = f"Dear {user_name},\n \nThis is to inform you that your cash payment {transaction_amount} USD has been accept from instructor side.\
+                  \n \n Thank you"
+        mail_notification(request, subject, email_body, user_email)
+
         booking = appointment_model.Booking.objects.get(id=transaction.booking.id)
         transactions = appointment_model.Transaction.objects.filter(booking=transaction.booking,
                                                                     status=appointment_model.COMPLETED)
@@ -201,6 +228,17 @@ def delete_transaction(request, id):
         transaction = appointment_model.Transaction.objects.get(id=id)
         transaction.status = appointment_model.REJECTED
         transaction.save()
+
+        user_name = transaction.booking.user.get_full_name()
+        transaction_amount = transaction.paid_amount
+        user_email = transaction.booking.user.email
+        subject = f"Cash payment was rejected at Instructor side"
+        email_body = f"Dear {user_name},\n \nThis is to inform you that your cash payment {transaction_amount} USD \
+         has been rejected from instructor side for knowing detail please coordinate to your swim instructor.\
+          \n \n Thank you"
+        mail_notification(request, subject, email_body, user_email)
+        print("sent mail done")
+
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
     return redirect('InstructorDashboard:trainee_view', transaction.booking.user.id)
@@ -505,10 +543,19 @@ def change_password(request):
                 return render(request, 'InstructorDashboard/instructor_profile.html', context)
             try:
                 user_obj = user_models.User.objects.get(id=request.user.id)
+                first_name = user_obj.first_name
+                last_name = user_obj.last_name
             except user_models.User.DoesNotExist:
                 return redirect('InstructorDashboard:page404')
             user_obj.set_password(str(ser.data['new_password']))
             user_obj.save()
+
+            user_name = str(first_name + " " + last_name)
+            user_email = request.user
+            subject = "Password Changed"
+            email_body = f"Hello {user_name},\n \n The password of your account on Swim Time Solutions has been successfully changed."
+            mail_notification(request, subject, email_body, user_email)
+
             context.update({'success': "Password update Successfully. Please login !! "})
             # user = authenticate(username=user_obj.username, password=user_obj.password)
             # if user:

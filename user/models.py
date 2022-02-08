@@ -11,11 +11,9 @@ from django.shortcuts import render, redirect
 from datetime import date
 
 
-
-
 class CustomManager(BaseUserManager):
 
-    def _create_user(self,  email, password, **extra_fields):
+    def _create_user(self, email, password, **extra_fields):
         """
         Create and save a user with the given username, email, and password.
         """
@@ -40,7 +38,7 @@ class CustomManager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active',True)
+        extra_fields.setdefault('is_active', True)
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
@@ -74,9 +72,9 @@ class User(AbstractUser):
     user_type = models.IntegerField(choices=user_type_choices, default=user_constants.Trainee)
     mother_name = models.CharField(max_length=300, blank=True, null=True)
     father_name = models.CharField(max_length=200, blank=True, null=True)
-    DateOfBirth = models.DateField(blank=True,null=True)
+    DateOfBirth = models.DateField(blank=True, null=True)
     address = models.CharField(max_length=150, null=False, blank=False)
-    inst_id = models.CharField(max_length=120,blank=True)
+    inst_id = models.CharField(max_length=120, blank=True)
     latitude = models.CharField(null=True, blank=True, max_length=50, validators=[
         RegexValidator(r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$',
                        message='Not a valid latitude')])
@@ -453,6 +451,7 @@ class WeekTimeSlots(models.Model):
         help_text="Choose sunday start break time slot or set it current time.",
         error_messages={'error': "Choose a valid time format."}
     )
+
 
 monday, tuesday, wednesday, thursday, friday, saturday, sunday = '1', '2', '3', '4', '5', '6', '7'
 

@@ -74,8 +74,6 @@
         }
 
 
-
-
     </style>
 
     {% if res_data %}
@@ -105,10 +103,12 @@
 
 
                                                         <!----><h3
-                                                                _ngcontent-ygs-c30="" style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
+                                                                _ngcontent-ygs-c30=""
+                                                                style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
 
                                                         <p _ngcontent-ygs-c30="" class="profileAddress"><i
-                                                                _ngcontent-ygs-c30="" class="fa fa-map-marker"></i>{{ first_name.address }}
+                                                                _ngcontent-ygs-c30=""
+                                                                class="fa fa-map-marker"></i>{{ first_name.address }}
                                                         </p><!---->
                                                         <!--  <div _ngcontent-ygs-c30="" class="btn-div"><a
                                                                   _ngcontent-ygs-c30="" class="unverified"><i
@@ -160,14 +160,14 @@
                                                                                         class="p-tag">
                                                                                     <span _ngcontent-ygs-c30=""
 
-                                                                                    {% for i in links %}
-                                                                                          {% if i.language is not None %}
+                                                                                            {% for i in links %}
+                                                                                                {% if i.language is not None %}
                                                                                           class="tag">{{ i.language }}
-                                                                                          {% else %}
-                                                                                          class="tag">English
-                                                                                          {% endif %}
-                                                                                        </span>
-                                                                                          {% endfor %}
+                                                                                                {% else %}
+                                                                                                    class="tag">English
+                                                                                                {% endif %}
+                                                                                                </span>
+                                                                                            {% endfor %}
                                                                                     <!----></p>
                                                                                     <div _ngcontent-ygs-c30=""
                                                                                          class="title">{{ classes.title }}
@@ -245,47 +245,54 @@
                                                                 </div><!---->
                                                                 <div _ngcontent-ygs-c30=""
                                                                      class="col-md-6 col-sm-12 profileContent"><h3
-                                                                        _ngcontent-ygs-c30="" style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
+                                                                        _ngcontent-ygs-c30=""
+                                                                        style="text-transform: capitalize;">{{ first_name.first_name }} {{ first_name.last_name }}</h3>
                                                                     <p _ngcontent-ygs-c30=""><i
                                                                             _ngcontent-ygs-c30=""
-                                                                            class="fa fa-map-marker"></i> {{ first_name.address }} </p>
+                                                                            class="fa fa-map-marker"></i> {{ first_name.address }}
+                                                                    </p>
                                                                     <!---->
                                                                     {% for i in links %}
                                                                         <p _ngcontent-ygs-c30=""
-                                                                              class="" >{{ i.about }}</p><!---->
+                                                                           class="">{{ i.about }}</p><!---->
 
 
-                                                                    <ul _ngcontent-ygs-c30="">
-                                                                        <li _ngcontent-ygs-c30=""><a
-                                                                                _ngcontent-ygs-c30=""
-                                                                                target="_blank"
-                                                                                {% if i.facebook_link is not None %}
-                                                                                href="{{ i.facebook_link }}">
-                                                                            {% else %}
-                                                                            href="https://www.facebook.com/">
-                                                                            {% endif %}
-                                                                            <i class="fab fa-facebook-square" style="font-size:30px;margin-left:-2px; "></i></a></li>
-                                                                        <!---->
-                                                                        <li _ngcontent-ygs-c30=""><a
-                                                                                _ngcontent-ygs-c30=""
-                                                                                target="_blank"
-                                                                                {% if i.instagram_link is not None %}
-                                                                                href="{{ i.instagram_link }}">
-                                                                            {% else %}
-                                                                            href="https://www.instagram.com/">
-                                                                            {% endif %}
-                                                                            <i class="fab fa-instagram" style="font-size:30px;margin-left:-2px;"></i></a>
-                                                                        </li><!---->
-                                                                        <li _ngcontent-ygs-c30=""><a
-                                                                                _ngcontent-ygs-c30=""
-                                                                                target="_blank"
-                                                                                {% if i.twitter_link is not None %}
-                                                                                href="{{ i.twitter_link}}">
-                                                                            {% else %}
-                                                                            href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D">
-                                                                            {% endif %}
-                                                                            <i class="fab fa-twitter-square" style="font-size:30px;margin-left:-2px;"></i></a></li>
-                                                                        <!----></ul>
+                                                                        <ul _ngcontent-ygs-c30="">
+                                                                            <li _ngcontent-ygs-c30=""><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    target="_blank"
+                                                                                    {% if i.facebook_link is not None %}
+                                                                                    href="{{ i.facebook_link }}">
+                                                                                    {% else %}
+                                                                                        href="https://www.facebook.com/">
+                                                                                    {% endif %}
+                                                                            <i class="fab fa-facebook-square"
+                                                                               style="font-size:30px;margin-left:-2px; "></i></a>
+                                                                            </li>
+                                                                            <!---->
+                                                                            <li _ngcontent-ygs-c30=""><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    target="_blank"
+                                                                                    {% if i.instagram_link is not None %}
+                                                                                    href="{{ i.instagram_link }}">
+                                                                                    {% else %}
+                                                                                        href="https://www.instagram.com/">
+                                                                                    {% endif %}
+                                                                            <i class="fab fa-instagram"
+                                                                               style="font-size:30px;margin-left:-2px;"></i></a>
+                                                                            </li><!---->
+                                                                            <li _ngcontent-ygs-c30=""><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    target="_blank"
+                                                                                    {% if i.twitter_link is not None %}
+                                                                                    href="{{ i.twitter_link }}">
+                                                                                    {% else %}
+                                                                                        href="https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoiZW4ifQ%3D%3D%22%7D">
+                                                                                    {% endif %}
+                                                                            <i class="fab fa-twitter-square"
+                                                                               style="font-size:30px;margin-left:-2px;"></i></a>
+                                                                            </li>
+                                                                            <!----></ul>
                                                                     {% endfor %}
                                                                 </div>
                                                             </div><!----></div>
@@ -373,9 +380,9 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                           </form>
+                                                                        </form>
                                                                         <br><br>
-                                                                      <!---->
+                                                                        <!---->
                                                                     </div>
                                                                     <br>
 
@@ -446,12 +453,14 @@
                                                                         <form _ngcontent-ygs-c30="" novalidate=""
                                                                               class="ng-untouched ng-pristine ng-valid">
                                                                             <div _ngcontent-ygs-c30=""
-                                                                             class="col-md-6 right">
+                                                                                 class="col-md-6 right">
                                                                                 <div _ngcontent-ygs-c30=""
-                                                                                 class="time check-list"><h3
-                                                                                    _ngcontent-ygs-c30="">Select
-                                                                                Time</h3><!---->
-                                                                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
+                                                                                     class="time check-list"><h3
+                                                                                        _ngcontent-ygs-c30="">Select
+                                                                                    Time</h3><!---->
+                                                                                    <div class="panel-group"
+                                                                                         id="accordion" role="tablist"
+                                                                                         aria-multiselectable="true"></div>
                                                                                 </div>
                                                                              </div>
                                                                         </form>
@@ -482,7 +491,29 @@
                                                                                     agree to the terms &amp; condition
                                                                                     of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
                                                                                     Agreement. </label>
+
                                                                             </div>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="termsconditions">
+                                                                        <div class="">
+                                                                            <input _ngcontent-dbn-c30=""
+                                                                                   type="checkbox"
+                                                                                   id="checkbox_select1"
+                                                                                   value="0"
+                                                                                   name="terms"
+                                                                                   required></div>
+
+                                                                        <label _ngcontent-dbn-c30=""
+                                                                               for="terms"
+                                                                               style="margin-top:-20px;margin-left:20px;"
+                                                                               class="termsconditions"> Check
+                                                                            here to
+                                                                            indicate that you have read and
+                                                                            agree to the terms &amp; condition
+                                                                            of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                                            Agreement. </label>
+                                                                    </div>
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="next-btn-div registration-form col-md-12"
@@ -500,10 +531,11 @@
                                                             <div>
                                                                 <input type="button" value="Next"
                                                                        class="btn btn-primary"
-                                                                           id="nextbtn"
+                                                                       id="nextbtn"
                                                                        style="background-color:#0A66C2;float: right">
                                                                 <input type="button" value="Next"
-                                                                       class="btn btn-primary" onsubmit ="return Validate()"
+                                                                       class="btn btn-primary"
+                                                                       onsubmit="return Validate()"
                                                                        id="nextbtn1"
                                                                        style="background-color:#0A66C2;float: right">
                                                             </div>
@@ -564,7 +596,8 @@
                                      style="display: none;">
                                     <div _ngcontent-ygs-c30="" class="modal-content">
                                         <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
+                                            <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                                                    onclick="window.location.reload()"
                                                     aria-hidden="true" class="close btn-first"> ×
                                             </button>
                                         </div>
@@ -757,7 +790,8 @@
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-ygs-c30="" class="modal-header registration-form">
                         <button _ngcontent-ygs-c30="" type="button"
-                                onclick="window.location.reload()" data-dismiss="modal" onclick="window.location.reload()"
+                                onclick="window.location.reload()" data-dismiss="modal"
+                                onclick="window.location.reload()"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
                         <h4 _ngcontent-ygs-c30="">DATE / SCHEDULE</h4>
@@ -821,27 +855,27 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       <!----></form>
-                                                     <div
-                                                                class="termsconditions">
-                                                            <div _ngcontent-dbn-c30=""
-                                                                 class="col-md-1"
-                                                                 ><input
-                                                                    _ngcontent-dbn-c30=""
-                                                                    type="checkbox" value="0" id="checkbox_select"
-                                                                    id="terms"
-                                                                    required></div>
+                                                        <!----></form>
+                                                    <div
+                                                            class="termsconditions">
+                                                        <div _ngcontent-dbn-c30=""
+                                                             class="col-md-1"
+                                                        ><input
+                                                                _ngcontent-dbn-c30=""
+                                                                type="checkbox" value="0" id="checkbox_select"
+                                                                id="terms"
+                                                                required></div>
 
-                                                            <label _ngcontent-dbn-c30=""
-                                                                   for="terms"
-                                                                   class="termsconditions"> Check
-                                                                here to
-                                                                indicate that you have read and
-                                                                agree to the terms &amp; condition
-                                                                of the <span
-                                                                        _ngcontent-dbn-c30="">Swim Time Solutions </span>
-                                                                Agreement. </label>
-                                                        </div>
+                                                        <label _ngcontent-dbn-c30=""
+                                                               for="terms"
+                                                               class="termsconditions"> Check
+                                                            here to
+                                                            indicate that you have read and
+                                                            agree to the terms &amp; condition
+                                                            of the <span
+                                                                    _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                            Agreement. </label>
+                                                    </div>
                                                 </div>
                                                 <div _ngcontent-ygs-c30="" class="row">
                                                     <div _ngcontent-ygs-c30=""
@@ -959,7 +993,8 @@
                  style="display: none;">
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-ygs-c30="" class="modal-header registration-form">
-                        <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
+                        <button _ngcontent-ygs-c30="" type="button" data-dismiss="modal"
+                                onclick="window.location.reload()"
                                 aria-hidden="true" class="close btn-first"> ×
                         </button>
                     </div>
@@ -1179,6 +1214,7 @@
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
                                                     </div>
+
                                                     <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
                                                       <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
@@ -1192,6 +1228,7 @@
                                                     </div>
 
                                                     <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
+
                                                         <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30="" class="col-md-6 right-text">
                                                                 <label _ngcontent-asr-c30=""> Course
@@ -1219,43 +1256,44 @@
                                                 </div>
                                             </div>
                                             <form id="form_to_be" method="POST" action="stripe/cash-payment/">
-                                            <div>
-                                                 <input type="hidden" value="" id="bid" name="booking">
+                                                <div>
+                                                    <input type="hidden" value="" id="bid" name="booking">
 
-                                        <input type="hidden" value="1" id="payment_type1" name="payment_type">
-                                                <input class="form-control"
-                                                                                   placeholder="Enter Amount to Be paid"
-                                                                                   type="number" pattern="[0-9]"
-                                                                                   id="amount_to_be_paid1"
-                                                                                   name="paid_amount"
-                                                       max=10
+                                                    <input type="hidden" value="1" id="payment_type1"
+                                                           name="payment_type">
+                                                    <input class="form-control"
+                                                           placeholder="Enter Amount to Be paid"
+                                                           type="number" pattern="[0-9]"
+                                                           id="amount_to_be_paid1"
+                                                           name="paid_amount"
+                                                           max=10
 
-                                                       required>
-                                                 <span style="color: red;" class="amount1" id="error_meesage"></span>
+                                                           required>
+                                                    <span style="color: red;" class="amount1" id="error_meesage"></span>
 
                                             </form>
-                                                                            <br></div>
-                                            <div _ngcontent-asr-c30="" class="row">
-                                                <div _ngcontent-asr-c30="" class="col-md-12">
-                                                    <div _ngcontent-asr-c30="" class="confirm-table">
-                                                        <table _ngcontent-asr-c30="" class="table">
-                                                            <thead _ngcontent-asr-c30="">
-                                                            <tr _ngcontent-asr-c30="">
-                                                                <th _ngcontent-asr-c30="">Date</th>
-                                                                <th _ngcontent-asr-c30="">Time</th>
-                                                            </tr>
-                                                            </thead>
-                                                        </table>
-                                                        <div _ngcontent-asr-c30="" class="table2">
-                                                            <table _ngcontent-asr-c30=""><!---->
-                                                                <tbody _ngcontent-asr-c30="" id="date_time_table">
-                                                                <!----></tbody><!----></table><!----></div>
-                                                    </div>
+                                            <br></div>
+                                        <div _ngcontent-asr-c30="" class="row">
+                                            <div _ngcontent-asr-c30="" class="col-md-12">
+                                                <div _ngcontent-asr-c30="" class="confirm-table">
+                                                    <table _ngcontent-asr-c30="" class="table">
+                                                        <thead _ngcontent-asr-c30="">
+                                                        <tr _ngcontent-asr-c30="">
+                                                            <th _ngcontent-asr-c30="">Date</th>
+                                                            <th _ngcontent-asr-c30="">Time</th>
+                                                        </tr>
+                                                        </thead>
+                                                    </table>
+                                                    <div _ngcontent-asr-c30="" class="table2">
+                                                        <table _ngcontent-asr-c30=""><!---->
+                                                            <tbody _ngcontent-asr-c30="" id="date_time_table">
+                                                            <!----></tbody><!----></table><!----></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
                             <div _ngcontent-asr-c30="" class="next-btn-div registration-form">
 
@@ -1509,7 +1547,8 @@
                       class="first-step first-fieldset-section">
                 <div _ngcontent-ygs-c30="" class="modal-content">
                     <div _ngcontent-fqp-c30="" class="modal-header">
-                        <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()"
+                        <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" aria-hidden="true"
+                                onclick="window.location.reload()"
                                 class="close btn-first">×
                         </button>
                         <h4 _ngcontent-fqp-c30="">Payment</h4>
@@ -1536,14 +1575,15 @@
                                                                 _ngcontent-juj-c30="">1</span>Payment for.</h3></div>
                                                         <div class="confirm-block-div " style="padding: 5px;">
                                                             <div class="" style="padding-left: 15px;">
-                                                                <div><h4 >Instructor name : <span
+                                                                <div><h4>Instructor name : <span
                                                                         id="instructor_name1" style="font-size: 15px;"
                                                                         class="text-secondary"></span></h4></div>
                                                             </div>
                                                             <div class="" style="padding-left: 15px;">
                                                                 <div><h4>Course Duration : <span
                                                                         id="total_days1" style="font-size: 15px;"
-                                                                        class="text-secondary"></span> <span>Days</span></h4></div>
+                                                                        class="text-secondary"></span> <span>Days</span>
+                                                                </h4></div>
                                                             </div>
                                                             <div class="" style="padding-left: 15px;">
                                                                 <div><h4>Fee : <span
@@ -1770,61 +1810,78 @@
 
 
     <script>
-    $('#amount_to_be_paid1').on('click', () => {
-           $(".amount1").text("");
-       })
+        $('#amount_to_be_paid1').on('click', () => {
+            $(".amount1").text("");
+        })
 
-       function checkdate() {
-        var dtToday = new Date();
+        function checkdate() {
+            var dtToday = new Date();
 
-        var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate() - 1;
-        var year = dtToday.getFullYear() - 8;
-        console.log(month, day, year)
-        if (month < 10)
-            month = '0' + month.toString();
-        if (day < 10)
-            day = '0' + day.toString();
-        console.log(month, day, year)
-        var maxDate = year + '-' + month + '-' + day;
-        $('#DateOfBirth').attr('max', maxDate);
-    }
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate() - 1;
+            var year = dtToday.getFullYear() - 8;
+            console.log(month, day, year)
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+            console.log(month, day, year)
+            var maxDate = year + '-' + month + '-' + day;
+            $('#DateOfBirth').attr('max', maxDate);
+        }
     </script>
     <script>
 
 
-    $("#cash_payment_btn").click(function (){
-        var amt = $('#amount_to_be_paid1').val();
+        $("#cash_payment_btn").click(function () {
+            var amt = $('#amount_to_be_paid1').val();
             {#if#}
-            var x =  $('#fee').text();
+            var x = $('#fee').text();
             console.log(parseInt(x.substring(1,)));
-            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) ) ) {
+            console.log(amt);
+            console.log(parseInt(x.substring(1,))* 50 / 100);
 
-            $("#error_meesage").text("Enter Valid Amount  ");
+            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))))) {
+
+                $("#error_meesage").text("Enter Valid Amount  ");
+
+            } else if ((amt) < (parseInt(x.substring(1,)))* 50 / 100) {
+
+                console.log("success");
+
+
+                $("#error_meesage").text("You have to Pay minimum 50% of amount  ");
+
+            } else {
+                $("#form_to_be").submit()
 
             }
-            else{
-                       $("#form_to_be").submit()
-
-            }
-    });
-    //
+        });
+        //
         // Used to handle Pay
         // start
         $("#procced_to_pay").click(function () {
             // Calling Intent API using fetch
             var instructor_name = $('#instructor_name').text();
             var booking_id = $('#booking_id_span').text();
-            var x =  $('#fee').text();
+            var x = $('#fee').text();
             var amt = $('#amount_to_be_paid1').val();
-            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))) )) {
+            console.log(parseInt(x.substring(1,)));
+            {#console.log(parseInt(x.substring(1,)* 50 / 100));#}
+            if ((amt <= 0) || (amt > (parseInt(x.substring(1,))))) {
 
                 $("#error_meesage").text("Enter Valid Amount");
 
-            } else {
+            }
+            {#else if ((amt) < (parseInt(x.substring(1,)))* 50 / 100) {#}
+            {##}
+            {#    console.log("success");#}
+            {##}
+            {#    $("#error_meesage").text("You have to Pay minimum 50% of amount");#}
+          //  }  }
+            else {
                 $('#fee1').text("$" + amt);
                 $("#payment-popup").modal('show');
-
 
                 var payment_type = 2;
                 var orderData = {
@@ -1840,20 +1897,18 @@
                     body: JSON.stringify(orderData)
                 })
                     .then(function (result) {
-                        if (result.status == 200){
+                        if (result.status == 200) {
                             {#$("#appointment-popup").modal('show');#}
                             {# $("#choose_payment_popup").modal('hide');#}
                             $("#payment-popup").modal('show');
                             return result.json();
 
 
-                            }
-                        else if (result.status === 422){
+                        } else if (result.status === 422) {
                             {#console.log(result.error())#}
                             $("#error_meesage").text("Amount should not grater than due amount ");
                             console.log("Error");
-                        }
-                        else{
+                        } else {
                             $("#error_meesage").text("Please recheck the details you have provided")
                             console.log("Error");
                         }
@@ -2075,7 +2130,6 @@
         function check() {
 
 
-
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
             var start_date = localStorage.getItem('Date')
 
@@ -2153,16 +2207,15 @@
             var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
             var individual_Date = localStorage.getItem('individual_Date')
             var arr = JSON.parse("" + individual_Date + "");
-            arr.sort(function(a,b) {
-                  a = a.split('-').reverse().join('-');
-                  b = b.split('-').reverse().join('-');
-                  return a > b ? 1 : a < b ? -1 : 0;
-                });
+            arr.sort(function (a, b) {
+                a = a.split('-').reverse().join('-');
+                b = b.split('-').reverse().join('-');
+                return a > b ? 1 : a < b ? -1 : 0;
+            });
             var payload = {'class_instructor': class_instructor, 'date_list': arr}
-            if (individual_Date === null){
+            if (individual_Date === null) {
                 window.alert("Please Select Dates ! ");
-            }
-            else {
+            } else {
                 $.ajax({
                         url: '{{ BASE_URL }}/individual-slot',
                         type: 'POST',
@@ -2171,10 +2224,10 @@
                         success: function (data) {
 
 
-                           // $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
-                          //  DeleteDTW(); localStorage.removeItem('individual_Date')
+                            // $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+                            //  DeleteDTW(); localStorage.removeItem('individual_Date')
                             document.querySelector("#accordion").innerHTML = "";
-                          //  localStorage.removeItem('individual_Date')
+                            //  localStorage.removeItem('individual_Date')
 
                             $(".termsconditions").show();
                             for (var i = 0; i < data.length; i++) {
@@ -2284,16 +2337,16 @@
         });
 
         if (window.performance) {
-  console.info("window.performance works fine on this browser");
-}
-console.info(performance.navigation.type);
-if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-    localStorage.removeItem("Date");
-    localStorage.removeItem("individual_Date")
-  console.info( "This page is reloaded" );
-} else {
-  console.info( "This page is not reloaded");
-}
+            console.info("window.performance works fine on this browser");
+        }
+        console.info(performance.navigation.type);
+        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+            localStorage.removeItem("Date");
+            localStorage.removeItem("individual_Date")
+            console.info("This page is reloaded");
+        } else {
+            console.info("This page is not reloaded");
+        }
 
     </script>
     <script>
@@ -2371,29 +2424,74 @@ $("#nextbtn1").click(function(){
                         '<td _ngcontent-asr-c30="" id="time_field"> ' + value2 + ' </td></tr>')
                     }
 
+                if (t == "") {
+                    alert("please select time slot.");
+                    break;
                 }
-            },
-            error: function (data) {
-                console.log(JSON.stringify(data))
-                if (data.status === 406) {
-                    window.alert("Previous date not allowed")
-                } else if (data.status === 400) {
-                    window.alert("error")
-                } else {
-                    window.alert(data.responseJSON.error)
-                    $('.timeSelectContent').html("")
+                if (t1 - 1 == i) {
+                    {#console.log("datlist.slice(1,-1)");#}
+                    $('#nextbtn1').attr('data-target', "#details-popup")
+                    $('#nextbtn1').attr('data-toggle', "modal")
+                    var datlist = localStorage.getItem('individual_Date')
+                    //console.log(datlist.slice(1,-1))
+                    var datelist = (datlist.slice(1, -1)).split(",")
+                    console.log(datelist)
+                    var list = []
+                    for (var i = 0; i < datelist.length; i++) {
+                        var time = $("#" + datelist[i].slice(1, -1)).val()
+
+                        list.push(datelist[i].slice(1, -1) + "T" + time.substring(0, 8))
+                    }
+                    console.log(list)
+                    var class_instructor = parseInt(localStorage.getItem('class_instructor_id'))
+                    var payload = {'class_instructor': class_instructor, 'datetime_list': list, 'paper_work': 'True'}
+                    $.ajax({
+                        url: '{{ BASE_URL }}/individual-booking',
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(payload),
+                        success: function (data) {
+                            console.log(data)
+                            $('#bid').val(data.booking);
+                            $('#booking_id_span').text(data.booking);
+                            $('#instructor_name').text(data.instructor);
+                            $('#total_days').text(data.total_days);
+                            $('#fee').text("$" + data.fee);
+                            $('#amount_to_be_paid').text(data.fee)
+                            $('#instructor_name1').text(data.instructor)
+                            $('#total_days1').text(data.total_days)
+                            console.log(data.dateTime)
+                            for (const [key1, value1] of Object.entries(data.dateTime)) {
+                                for (const [key2, value2] of Object.entries(value1)) {
+                                    console.log(key2, value2)
+                                    $("#date_time_table").append('<tr _ngcontent-asr-c30="">' +
+                                        '<td _ngcontent-asr-c30="" id="date_field">' + key2 + '</td>' +
+                                        '<td _ngcontent-asr-c30="" id="time_field"> ' + value2 + ' </td></tr>')
+                                }
+
+                            }
+                        },
+                        error: function (data) {
+                            console.log(JSON.stringify(data))
+                            if (data.status === 406) {
+                                window.alert("Previous date not allowed")
+                            } else if (data.status === 400) {
+                                window.alert("error")
+                            } else {
+                                window.alert(data.responseJSON.error)
+                                $('.timeSelectContent').html("")
+                            }
+                        },
+                    });
                 }
-            },
+
+
+            }
         });
-    }
-
-
-    }
-});
-</script>
+    </script>
     <script>
-    window.onload = function() {
-      $.ajax({
+        window.onload = function () {
+            $.ajax({
                 url: '{{ BASE_URL }}/swim/delete-booking',
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
@@ -2401,7 +2499,7 @@ $("#nextbtn1").click(function(){
                     console.log("success")
                 },
             });
-};
+        };
     </script>
     <script>
     function menu2buttonhide(){

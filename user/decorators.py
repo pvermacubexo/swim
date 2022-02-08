@@ -5,6 +5,7 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+
 def authorize(user_types):
     def _method_wrapper(func):
         def wrapper(instance, *args, **kwargs):

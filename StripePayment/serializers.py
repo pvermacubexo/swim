@@ -34,7 +34,7 @@ class StripePaymentSerializer(serializers.ModelSerializer):
             ser = RepaymentBookingSeralizer(booking)
             pending_amount = ser.get_pending_amount(booking)
             due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
-            if int(attrs['paid_amount']) > due_amount :
+            if int(attrs['paid_amount']) >= due_amount:
                 raise Exception('Paid amount is grater then due amount ')
             trns = appointment_model.Transaction.objects.filter(booking=booking).exclude(status='3')
             for i in trns:
@@ -42,6 +42,13 @@ class StripePaymentSerializer(serializers.ModelSerializer):
             due_amount = booking.class_instructor.price - amount
             attrs['booking'] = booking
             attrs['total_amount'] = booking.class_instructor.price
+
+            # total_amount = int(attrs['total_amount'])
+            # paid_amount = int(attrs['paid_amount'])
+            # if due_amount == total_amount:
+            #     if not (paid_amount > total_amount/2):
+            #         raise serializers.ValidationError({'error': "payment fail ! minimum 50% amount require in first payment."})
+
             if transaction:
                 if (not int(due_amount)) and transaction.status != '3':
                     logger.error(f"You already paid full amount for this class.")

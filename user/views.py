@@ -1,6 +1,7 @@
 import logging
 from datetime import datetime, timedelta
 from random import randint
+import socket
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -32,6 +33,7 @@ from .serializer import UserSerializer, AuthenticationSerializer, RateReviewSeri
     UserUpdateSerializer, UserDeletedSerializer, InstructorProfileSerializer, StudentSerializer, \
     OTPSerializer, InstructorSlugSerializer, StudentProfileSerializer, studentUsererializer, StudentUpdateSerializer, \
     StudentProfileUpdateSerializer
+from app.email_notification import mail_notification
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -43,7 +45,7 @@ class Authenticate(TokenObtainPairView):
 
     def post(self, request, *args, **kwargs):
 
-        if authenticate(email=request.POST['email'],password=request.POST['password']):
+        if authenticate(email=request.POST['email'], password=request.POST['password']):
             serializer = self.get_serializer(data=request.data)
 
             if serializer.is_valid():
@@ -56,27 +58,33 @@ class Authenticate(TokenObtainPairView):
                         email = serializer.data.get('email')
                         request.session['email'] = email
                         user_details = User.objects.filter(email=email)
+
+                        user_name = obj.get_full_name()
+                        hostname = socket.gethostname()
+                        IPAddress = socket.gethostbyname(hostname)
+                        subject = "Security Alert"
+                        email_body = f"Hello {user_name}, \n\nWe noticed a new Log in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
+                        mail_notification(request, subject, email_body, email)
+
                         if user_details:
-                            messages.success(request,"User Login Successfully!")
+                            messages.success(request, "User Login Successfully!")
                             return redirect(SwimTimeDashboard)
                         else:
-                            messages.error(request,"Invalid Login Details!")
+                            messages.error(request, "Invalid Login Details!")
                             return render(request, "new_register.html")
                     else:
-                        messages.error(request,"Invalid User Details!")
+                        messages.error(request, "Invalid User Details!")
                         return render(request, "new_register.html")
 
-
                 except User.DoesNotExist:
-                    messages.error(request,serializer.validated_data)
+                    messages.error(request, serializer.validated_data)
                     return render(request, "new_register.html")
             else:
                 messages.error(request, serializer.validated_data)
                 return render(request, "new_register.html")
         else:
-            messages.error(request,"Invalid login Details!")
+            messages.error(request, "Invalid login Details!")
             return render(request, "new_register.html")
-
 
 
 def get_deactivated_user(email, username):
