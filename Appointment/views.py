@@ -432,14 +432,16 @@ def get_daily_timeslots(slot, day_list, profile_user):
     for day in day_list:
         day_str = day.strftime("%A").lower()
         for i in break_time:
+            start_break_time = (datetime.strptime(str(i.start_time), '%H:%M:%S') + timedelta(minutes=1)).time()
+            end_break_time = (datetime.strptime(str(i.end_time), '%H:%M:%S') - timedelta(minutes=1)).time()
             if day_str == 'monday' and i.week_day == '1':
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -447,10 +449,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -458,10 +460,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -469,10 +471,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -480,10 +482,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -491,10 +493,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -502,10 +504,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if i.start_time <= remove_time <= i.end_time:
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if i.start_time <= single_slot_end <= i.end_time:
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -603,6 +605,7 @@ class GetDateTimeSlots(APIView):
                 return Response({'error': 'Invalid Class ID.'})
             day_result, time_result = get_common_slots(class_instructor, serializer.validated_data['start_date'],
                                                        profile_user)
+            print(time_result)
             if not (day_result or time_result):
                 return Response({'error': 'Instructor is on Holiday on this day.'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'date': day_result, 'time': time_result})

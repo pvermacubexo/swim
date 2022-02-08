@@ -691,13 +691,18 @@ def terms_conditions(request):
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
+        break_time = user_models.Profile.objects.get(user = request.user.id)
+
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
             messages.error(request, "Please select valid timeSlot!")
             return redirect('InstructorDashboard:instructor_profile')
-        else:
+        elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S") :
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
+        else:
+            messages.error(request, "Please select valid timeSlot!")
+
     return redirect('InstructorDashboard:instructor_profile')
 
 

@@ -7548,13 +7548,14 @@
     .childMain{
         position: relative;
         width: 100%;
+        padding-bottom: 34px;
         float: left;
     }
     .childMain #addField{
         position: absolute;
-        top: 29px;
+        bottom: 0px;
         right: 0;
-        width: 34px;
+        width: 100px;
         height: 34px;
             border: 1px solid #ccc;
         border-radius: 5px;
@@ -9829,6 +9830,7 @@
             width: auto;
             margin-right: 0px;
             margin-left: 0;
+            display: none;
         }
 
         .appointment .right .check-box-list .checkbox span.aval {
@@ -12124,7 +12126,7 @@
                                                                 _ngcontent-uas-c28="" name="profile_img"
                                                                 formcontrolname="profile_img" type="file"
                                                                 id="profile_img" class="fileUpload"
-                                                                style="background: none;" required></div>
+                                                                style="background: none;" ></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="first_name">First
@@ -12224,23 +12226,23 @@
                                                             {% endfor %}
 
                                                     <div _ngcontent-uas-c28="" class="childMain">
-                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="kids_name">Kid Name</label>  <input
-                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name1"
-                                        placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}"
-                                        title="Only Alphabet are allowed and min 3 characters" type="text"
-                                        id="kids_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
-                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="date_of_birth">Date of Birth</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth1" name="date_of_birth1"
-                                        type="date" id="DateOfBirth"
-
-                                        class="form-control ng-untouched ng-pristine ng-invalid"
-                                        style="padding: 0 0 0 10px;" required><!----></div>
+{#                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label#}
+{#                                        _ngcontent-jar-c34="" for="kids_name">Kid Name</label>  <input#}
+{#                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name1"#}
+{#                                        placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}"#}
+{#                                        title="Only Alphabet are allowed and min 3 characters" type="text"#}
+{#                                        id="kids_name"#}
+{#                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>#}
+{#                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label#}
+{#                                        _ngcontent-jar-c34="" for="date_of_birth">Date of Birth</label><input#}
+{#                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth1" name="date_of_birth1"#}
+{#                                        type="date" id="DateOfBirth"#}
+{##}
+{#                                        class="form-control ng-untouched ng-pristine ng-invalid"#}
+{#                                        style="padding: 0 0 0 10px;" required><!----></div>#}
                                                         <div _ngcontent-uas-c28=""
                                                              class="">
-                                                            <button type="button" id="addField"><i class="fas fa-plus"></i></button></div>
+                                                            <button type="button" id="addField">Add Kid <i class="fas fa-plus"></i></button></div>
                                                     </div>
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"

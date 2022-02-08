@@ -91,7 +91,10 @@ def update_profile(request):
             # obj.DateOfBirth = request.POST['DateOfBirth']
             # obj.mother_name = request.POST['mother_name']
             obj.father_name = request.POST['father_name']
-            obj.profile_img = request.FILES['profile_img']
+            if 'profile_img' in request.FILES:
+                obj.profile_img = request.FILES['profile_img']
+            else:
+                pass
             obj.save()
 
             for (kids, dob, ids) in zip(request.POST.getlist('kids_name'), request.POST.getlist('date_of_birth'), request.POST.getlist('ID')):

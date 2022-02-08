@@ -379,9 +379,14 @@
                                                                     </div>
                                                                     <br>
 
+                                                                {% if kid_detail|length > 1 %}
                                                                     <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids">
                                                                         <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
-<br>
+                                                                {% else %}
+                                                                    <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids">
+                                                                         {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% endif  %}
+                                                                    <br>
                                                                        <div
                                                                                     class="termsconditions">
                                                                                  <div
@@ -452,7 +457,13 @@
                                                                         </form>
                                                                         </div>
                                                                     <br>
-                                                                     <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids1"> <option selected disabled id="options" value="0" required="">Please Select Kids Nameo</option>    {% for kids in kid_detail %} <option  value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                    {% if kid_detail|length > 1 %}
+                                                                    <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids1">
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% else %}
+                                                                    <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids1">
+                                                                         {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                {% endif  %}
                                                                     <br>
                                                                     <div class="termsconditions">
                                                                             <div class="">
@@ -2074,7 +2085,7 @@
             var yyyy = todayd.getFullYear();
             var today = yyyy + '-' + mm + '-' + dd;
             var todays_date = get_today_date()
-            console.log(today, todays_date)
+          //  console.log(today, todays_date)
 
             $.ajax({
                     url: '{{ BASE_URL }}/timeslots?class_instructor=' + class_instructor + '&start_date=' + today,
@@ -2092,19 +2103,24 @@
                                 if (today === todays_date) {
 
                                     var ctime = new Date();
-                                    console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
+                                  //  console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
 
 
                                     if (((data.time[i]).substring(0, 2)) > ctime.getHours()) {
+                                        var a = data.time[i]
+                                    var b = a.slice(0, 5) + a.slice(8,16)
 
-                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+
+                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>+ b +</input></div>';
                                         $('.timeSelectContent').html(row1);
 
                                     }
 
                                 }
                                 else{
-                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')></input></div>';
+                                    var a = data.time[i]
+                                    var b = a.slice(0, 5) + a.slice(8,16)
+                                      row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + ' " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>'+ b +'</input></div>';
                                         $('.timeSelectContent').html(row1);
                                 }
 

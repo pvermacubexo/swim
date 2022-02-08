@@ -223,7 +223,7 @@ class User(AbstractUser):
     def get_day_start_time(self):
         try:
             profile = Profile.objects.filter(user=self).first()
-            return profile.day_start_time.strftime("%H:%M:%S")
+            return profile.day_start_time.strftime("%H:%M")
         except Exception:
             return False
 
@@ -231,7 +231,7 @@ class User(AbstractUser):
     def get_day_end_time(self):
         try:
             profile = Profile.objects.filter(user=self).first()
-            return profile.day_end_time.strftime("%H:%M:%S")
+            return profile.day_end_time.strftime("%H:%M")
         except Exception:
             return False
 
