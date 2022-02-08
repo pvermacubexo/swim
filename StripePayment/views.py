@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
+from app.email_notification import mail_notification
 from user.models import User
 from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
@@ -28,6 +29,8 @@ logger = logging.getLogger(__name__)
 AP = "sk_test_51I5m0yEHlEuRL3ozIMJxb6pczvkic82sB7SOMqLsINQgVz1r7haG4zTk3knnHdOafC9WlsgkPmhV2D0dzYTwLKi900QKa1waJN"
 stripe.api_key = "sk_test_51I5m0yEHlEuRL3ozIMJxb6pczvkic82sB7SOMqLsINQgVz1r7haG4zTk3knnHdOafC9WlsgkPmhV2D0dzYTwLKi900QKa1waJN"
 Publisher_key = "pk_test_51I5m0yEHlEuRL3ozRkUrNrrBC4kXUXkOW2k5YH4gt2ifPCH2L3YXqj4hfoAs5ozRcq53VxR4FE4jIARw1SRkbxxb00jm1tgwlh"
+
+
 # STRIPE_SECRET_KEY= os.environ.get("STRIPE_SECRET_KEY")
 # Publisher_key= os.environ.get("STRIPE_PUBLISHER_KEY")
 # stripe.api_key = STRIPE_SECRET_KEY
@@ -47,8 +50,20 @@ def createpayment(request):
         ser = RepaymentBookingSeralizer(booking)
         pending_amount = ser.get_pending_amount(booking)
         due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
+
+        # price = booking.class_instructor.price
+        # print("prince", price)
+        # print("due amount ", due_amount)
+        # print('amount', data["amount"])
+        #
+        # if due_amount == price:
+        #     if not (data["amount"] > price / 2):
+        #         return JsonResponse({'error': "payment fail ! minimum 50% amount require in first payment."},
+        #                             status=status.HTTP_406_NOT_ACCEPTABLE)
+
         if int(data["amount"]) > due_amount:
-            return JsonResponse({'error':"Amount should not grater then due amount "}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+            return JsonResponse({'error': "Amount should not grater then due amount "},
+                                status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         intent = stripe.PaymentIntent.create(
             description='Swim Time Solutions ',
             shipping={
@@ -71,8 +86,8 @@ def createpayment(request):
         print(intent.client_secret)
         try:
             return JsonResponse({
-                                    'publishableKey': Publisher_key,
-                                    'clientSecret': intent.client_secret})
+                'publishableKey': Publisher_key,
+                'clientSecret': intent.client_secret})
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
     else:
@@ -80,7 +95,7 @@ def createpayment(request):
 
 
 class PaymentDetail(APIView):
-    def get(self,request,id):
+    def get(self, request, id):
         if appointment_model.Transaction.objects.filter(id=id).exists():
             transection_data = appointment_model.Transaction.objects.get(id=id)
             status = transection_data.booking.payment_status
@@ -96,7 +111,7 @@ class PaymentDetail(APIView):
                 'total_amount': booking.class_instructor.price,
                 'paid_amount': booking.get_total_paid,
                 'due_amount': booking.get_total_due,
-                'pending_amount':ser.get_pending_amount(booking),
+                'pending_amount': ser.get_pending_amount(booking),
             }
             return render(request, "payment_detail.html", {"data": res_data})
         else:
@@ -105,8 +120,7 @@ class PaymentDetail(APIView):
 
 class StripePayment(APIView):
     # serializer_class = StripePaymentSerializer()
-    http_method_names = ['post',]
-
+    http_method_names = ['post', ]
 
     def post(self, request, *args, **kwargs):
         if request.method == "POST":
@@ -120,7 +134,7 @@ class StripePayment(APIView):
                     payment_type = previous_intent["metadata"]["payment_type"]
                     transaction_id = data["id"]
                     payment_status = appointment_model.COMPLETED
-                    paid_amount = (data["amount"])/100
+                    paid_amount = (data["amount"]) / 100
                     booking1 = appointment_model.Booking.objects.get(id=booking.id)
                     ser = RepaymentBookingSeralizer(booking1)
                     pending_amount = ser.get_pending_amount(booking1)
@@ -142,23 +156,35 @@ class StripePayment(APIView):
                         for transaction in appointment_model.Transaction.objects.filter(booking=booking,
                                                                                         payment_type=appointment_model.CARD):
                             total_paid_amount = total_paid_amount + transaction.paid_amount
-
+                        user_name = booking.user.get_full_name()
+                        remaining_amount = booking1.class_instructor.price - booking1.get_total_paid - pending_amount
                         if booking.class_instructor.price == total_paid_amount:
                             booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
+                            if remaining_amount == 0:
+                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. Your payment has been completed \n \n Thanks for choosing Swim Time Solutions."
                         else:
                             booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
+                            if remaining_amount == 0:
+                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. \n \n Thanks for choosing Swim Time Solutions."
+                            else:
+                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. Your due amount is {remaining_amount} USD. \n Thank you"
                         booking.save()
+
+                        user_email = booking.user.email
+                        subject = f"Card Payment Done"
+                        mail_notification(request, subject, email_body, user_email)
+                        print("sent mail done")
 
                     except Exception:
                         transaction_obj.delete()
                         return Response({'error': 'Invalid Booking.'})
-                    return redirect("payment_detail",id=transaction_obj.id)
+                    return redirect("payment_detail", id=transaction_obj.id)
                 else:
                     print("payment Failed")
             else:
                 return JsonResponse({'error': "You Are Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return  redirect(request,"dashboard_view")
+            return redirect(request, "dashboard_view")
 
 
 class CashPayment(ModelViewSet):
@@ -172,11 +198,11 @@ class CashPayment(ModelViewSet):
             serializer.is_valid(raise_exception=True)
         except Exception as e:
             for i in list(e.args):
-                messages.error(request,i)
+                messages.error(request, i)
             return redirect("repayment_classes")
         if 'email' in request.session:
             if serializer.validated_data['payment_type'] == '2':
-                messages.error(request,"This URL only support cash payment")
+                messages.error(request, "This URL only support cash payment")
                 return redirect("dashboard_view")
             else:
                 transaction_id = 'txn_' + get_random_string(30)
@@ -193,10 +219,20 @@ class CashPayment(ModelViewSet):
                 )
                 booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
                 booking.save()
-                messages.success(request, "Cash Payment of "+str(paid_amount)+" is Done ")
+                messages.success(request, "Cash Payment of " + str(paid_amount) + " is Done ")
+
+                user_name = booking.user.get_full_name()
+                user_email = booking.user.email
+                due_amount = serializer.validated_data['due_amount']
+                subject = f"Payment Done"
+                email_body = f"Dear {user_name},\n \nThis mail is regarding to inform you that you have made cash payment of {paid_amount} USD\
+                 and your due amount is {due_amount} USD. for payment updation Please contact to your instructor"
+                mail_notification(request, subject, email_body, user_email)
+
                 return redirect("dashboard_view")
         else:
             return redirect("dashboard_view")
+
 
 class RepaymentClasses(APIView):
 
@@ -210,36 +246,34 @@ class RepaymentClasses(APIView):
                 bookings = appointment_model.Booking.objects.filter(
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
-                return render(request, "payment.html", {"data": ser.data,"user_details": obj})
+                return render(request, "payment.html", {"data": ser.data, "user_details": obj})
             else:
                 return redirect("dashboard_view")
         except Exception as e:
             return render(request, "payment.html")
 
 
-
-
 # For Connecting strip api a
 
 # To Create a URL
 class ConnectStripUrl(APIView):
-    def get(self,request):
+    def get(self, request):
         '''
-            Creating a account id , Note that we are using standard ,,
+        Creating a account id , Note that we are using standard ,,
             we have Two options Standard and express
         '''
         if StripeAccount.objects.filter(Instructor__email=request.session["instructor_email"]).exists():
-            return  redirect('InstructorDashboard:dashboard_view')
+            return redirect('InstructorDashboard:dashboard_view')
             # return JsonResponse({"error": "An Stripe Account Is Already Linked To This Instructor"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         # Create URL With this account id
         account_data = stripe.Account.create(type="standard")
         account_id = account_data["id"]
         create_strip_url = stripe.AccountLink.create(
-                      account = account_id,
-                      refresh_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
-                      return_url = request.build_absolute_uri('/')[:-1] +"/stripe/handle-redirect/",
-                      type = "account_onboarding",
-                    )
+            account=account_id,
+            refresh_url=request.build_absolute_uri('/')[:-1] + "/stripe/handle-redirect/",
+            return_url=request.build_absolute_uri('/')[:-1] + "/stripe/handle-redirect/",
+            type="account_onboarding",
+        )
         if "account_id" in request.session:
             try:
                 stripe.Account.delete(request.session["account_id"])
@@ -253,16 +287,16 @@ class ConnectStripUrl(APIView):
 
 # To Handle A URL
 class HandleRedirect(APIView):
-    def get(self,request):
+    def get(self, request):
         # Checking if completed
         if "account_id" in request.session:
             account_id = request.session["account_id"]
             account = stripe.Account.retrieve(account_id)
-            if account["business_profile"]["mcc"] :
+            if account["business_profile"]["mcc"]:
                 instructor = request.session["instructor_email"]
-                save_stripe = StripeAccount(Instructor=User.objects.get(email=instructor),Account_ID=account_id)
+                save_stripe = StripeAccount(Instructor=User.objects.get(email=instructor), Account_ID=account_id)
                 save_stripe.save()
-                messages.success(request,"Account Created Successfully")
+                messages.success(request, "Account Created Successfully")
             else:
                 # perform Delete action
                 try:
@@ -272,7 +306,7 @@ class HandleRedirect(APIView):
                         pass
                 except:
                     pass
-                messages.error(request,"Can't Create Account")
+                messages.error(request, "Can't Create Account")
         else:
             messages.error(request, "Please Stay In The Same Window . Failed To Create Account ")
-        return  redirect('InstructorDashboard:dashboard_view')
+        return redirect('InstructorDashboard:dashboard_view')

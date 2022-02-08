@@ -1,5 +1,7 @@
 import datetime
 from datetime import timedelta
+
+from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib import messages
@@ -11,12 +13,14 @@ from rest_framework import status
 from Appointment.models import ClassInstructor
 from user import models as user_models
 from user.models import User, Profile
-from StripePayment.serializers import  RepaymentBookingSeralizer
+from StripePayment.serializers import RepaymentBookingSeralizer
 from Appointment import models as appointment_model
 from Appointment.models import Booking
-from  SharkDeck import settings
+from SharkDeck import settings
+from app.email_notification import mail_notification
 
 BASE_URL = settings.BASE_URL
+
 
 def SwimTimeView(request):
     return render(request, 'index.html')
@@ -38,8 +42,8 @@ def register(request):
         obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
                    DateOfBirth=DateOfBirth, father_name=father_name, mother_name=mother_name, address=address)
         request.session['email'] = email
-
         obj.save()
+
         user_id = request.session['slug_id']
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=email)
@@ -50,8 +54,7 @@ def register(request):
         # return render(request, 'dashboard.html',{"user_details":user_details,"data":classes,"first_name":first_name})
 
 
-def SwimTimeDashboard(request ):
-
+def SwimTimeDashboard(request):
     if 'email' in request.session:
         obj = User.objects.get(email=request.session['email'])
         user_id = obj.inst_id
@@ -64,9 +67,10 @@ def SwimTimeDashboard(request ):
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
-                          {"user_details": user_details, "data": classes, "first_name": first_name,"links":links, "BASE_URL":BASE_URL})
+                          {"user_details": user_details, "data": classes, "first_name": first_name, "links": links,
+                           "BASE_URL": BASE_URL})
         except:
-            messages.error(request,"Invalid Login Details!")
+            messages.error(request, "Invalid Login Details!")
             return render(request, "register.html")
     else:
         return render(request, "index.html")
@@ -91,7 +95,7 @@ def update_profile(request):
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=email)
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.success(request,"Updated Successfully!")
+        messages.success(request, "Updated Successfully!")
         return redirect(SwimTimeDashboard)
         # return render(request, 'dashboard.html',
         #               {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -101,7 +105,7 @@ def update_profile(request):
         first_name = User.objects.get(id=user_id)
         user_details = User.objects.filter(email=request.session['email'])
         classes = ClassInstructor.objects.filter(instructor_id=user_id)
-        messages.error(request,"Somthing Went Wrong!")
+        messages.error(request, "Somthing Went Wrong!")
 
         return render(request, 'dashboard.html',
                       {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -125,6 +129,7 @@ def update_profile(request):
 
 
 def Registration(request, id):
+    print("user Registration ")
     if 'email' in request.session:
         # return render(request, 'register.html')
         return redirect(SwimTimeDashboard)
@@ -133,8 +138,7 @@ def Registration(request, id):
             if request.method == "POST":
                 slug = user_models.Profile.objects.get(slug=id)
                 slug_id = slug.user_id
-                print("hi")
-                print(slug_id)
+
                 first_name = request.POST['first_name']
                 last_name = request.POST['last_name']
                 email = request.POST['email']
@@ -146,26 +150,35 @@ def Registration(request, id):
                 address = request.POST['address']
                 # instructor_id = slug_id
 
-                obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
+                obj = User(first_name=first_name, last_name=last_name, email=email, password=password,
+                           mobile_no=mobile_no,
                            DateOfBirth=DateOfBirth, father_name=father_name, mother_name=mother_name, address=address,
                            inst_id=slug_id)
                 obj.save()
 
                 request.session['slug_id'] = slug_id
                 request.session['email'] = email
+
+                user_name = obj.get_full_name()
+                user_email = request.POST['email']
+                subject = "Team Swim Time Solutions"
+                email_body = f"Hello {user_name} \n \n This mail is regarding to confirm that you are successfully register user in Swim Time Solutions."
+                mail_notification(request, subject, email_body, user_email)
+                print('ok')
+
                 return redirect(SwimTimeDashboard)
         except:
-            messages.error(request,"Already Registered User!")
+            messages.error(request, "Already Registered User!")
             return render(request, "register.html", {"id": id})
         return render(request, "register.html", {"id": id})
 
 
 def LogoutView(request):
     logout(request)
-    messages.success(request,"Logout Successfully!")
+    messages.success(request, "Logout Successfully!")
     return redirect('/')
 
-#
+
 # def UserRegistrations(request):
 #     user_password = make_password(request.POST['password'])
 #     if request.method == 'POST':
@@ -204,11 +217,11 @@ class DeleteBooking(APIView):
         todays_date = str(current_date).replace('+00:00', 'Z')
         # print("aj ki tarik",todays_date)
         booking_data = appointment_model.Booking.objects.all()
-        ser = RepaymentBookingSeralizer(booking_data,many=True)
+        ser = RepaymentBookingSeralizer(booking_data, many=True)
         list(ser.data)
         for i in list(ser.data):
-            i =dict(i)
-            if i["paid_amount"] == 0 and i["pending_amount"] == 0 :
+            i = dict(i)
+            if i["paid_amount"] == 0 and i["pending_amount"] == 0:
                 booking_date = i["booked_at"]
                 # print("Success")
                 if todays_date >= booking_date:

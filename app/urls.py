@@ -10,19 +10,13 @@ urlpatterns = [
     path('update-profile/', views.update_profile, name='update-profile'),
     # path('dashboard/myschedule/', views.MySchedule ,name='schedule'),
     # path('dashboard/re-payment/', views.Payment,name='payment'),
-    path('instructor/<str:id>', views.Registration,name='registration'),
-    path('register',views.register,name="register"),
+    path('instructor/<str:id>', views.Registration, name='registration'),
+    path('register', views.register, name="register"),
     path('logout', views.LogoutView, name="LogoutView"),
     path('delete-booking', views.DeleteBooking.as_view()),
 
-
-
-
-
     # path('register',views.Registration_view,name='registration_view'),
-
 
     # path('register', views.UserRegistrations, name="UserRegistrations"),
     # path('login', views.UserLogin, name="login"),
 ]
-

@@ -298,4 +298,3 @@ class AppointmentScheduleSerializer(serializers.ModelSerializer):
 
     def get_end_time(self, obj):
         return obj.end_time.strftime("%I:%M %p")
-

@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from app.email_notification import mail_notification
 
 from SharkDeck.constants import user_constants
 from user import models as user_model
@@ -22,8 +23,9 @@ from .serializer import BookingPostSerializer, CheckAvailabilityPostSerializer, 
     GetSlotsSerializer, AppointmentSerializer, ClassInstructorSerializer, InstructorClassGetSerializer, \
     GetDateTimeSerializer, BookClassInstructorSerializer, ClassGetSerializer, CheckInstructorAvailableSerializer, \
     IndividualTimeSlotsSerializer, IndividualBookingSerializer, AppointmentScheduleSerializer
-from StripePayment.serializers import  RepaymentBookingSeralizer
+from StripePayment.serializers import RepaymentBookingSeralizer
 from Appointment import models as appointment_model
+
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
@@ -186,6 +188,7 @@ class BookInstructor(APIView):
                                        end_time=ser.validated_data['start_time'] + timedelta(minutes=time_slot),
                                        class_instructor=class_instructor,
                                        booking_type=BOOKED, booked_by=request.user)
+
             return Response({'is_available': is_available, 'booked': True})
 
         return Response({'is_available': is_available})
@@ -591,6 +594,7 @@ class GetDateTimeSlots(APIView):
     def get(self, request):
         serializer = GetDateTimeSerializer(data=request.query_params)
         if serializer.is_valid():
+            print(str(serializer.validated_data))
             try:
                 class_instructor = ClassInstructor.objects.get(id=serializer.validated_data['class_instructor'].id)
                 profile_user = user_model.Profile.objects.get(user=class_instructor.instructor)
@@ -730,8 +734,25 @@ class BookClassInstructor(APIView):
                     start_time += timedelta(days=1)
 
             reqested_user = User.objects.get(email=request.session["email"])
+
             booking = Booking.objects.create(class_instructor=class_instructor, user=reqested_user, booking_type=BOOKED,
                                              paper_work=serializer.data['paper_work'])
+
+            class_name = class_instructor.title
+            instructor = class_instructor.instructor.get_full_name()
+            total_days = class_instructor.total_days
+            time_slot = class_instructor.time_slot
+            price = class_instructor.price
+            print('price', price)
+            user_name = str(reqested_user.first_name + " " + reqested_user.last_name)
+            print('user_name', user_name)
+            subject = "Swim Booking Confirm"
+            email_body = f"Dear {user_name},\n \nHope you are doing well !\nThis mail is regarding to inform that\
+            your swim time slot has been schedule.\n Detail as : your class {class_name}, with \
+            swim instructor {instructor}, for {total_days} days and per day {time_slot} minet slot, fee {price} USD"
+
+            mail_notification(request, subject, email_body, reqested_user)
+
             for day in day_list:
                 start_time = datetime.combine(day, serializer.validated_data['date_time'].time())
                 appointment = Appointment.objects.create(start_time=start_time,
@@ -812,7 +833,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'monday' and i.week_day == '1':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -822,7 +843,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'tuesday' and i.week_day == '2':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -832,7 +853,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'wednesday' and i.week_day == '3':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -842,7 +863,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'thursday' and i.week_day == '4':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -852,7 +873,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'friday' and i.week_day == '5':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -862,7 +883,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'saturday' and i.week_day == '6':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -872,7 +893,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         if week_day == 'sunday' and i.week_day == '7':
             for remove_time in total_timeslot1:
                 single_slot_end = (
-                            datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if i.start_time <= remove_time.time() <= i.end_time:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
@@ -978,8 +999,16 @@ class IndividualBookingViewSet(APIView):
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
         reqested_user = User.objects.get(email=request.session["email"])
         booking = Booking.objects.create(class_instructor=class_instructor,
-                                         user= reqested_user, booking_type=BOOKED,
+                                         user=reqested_user, booking_type=BOOKED,
                                          paper_work=serializer.validated_data['paper_work'])
+
+        user_name = booking.user.get_full_name()
+        user_email = reqested_user.email
+        subject = "Booking Confirm"
+        email_body = f"Dear {user_name},\n \n This mail is inform that your booking has been schedule.\n Detail as -class {class_instructor} with instructor {class_instructor.instructor.get_full_name}, for {class_instructor.total_days} days/ {class_instructor.time_slot} minet slot, fee {class_instructor.price} USD.\n If you have any question coordinate to your instrucor\
+                        \nThank you"
+        mail_notification(request, subject, email_body, user_email)
+
         for date_time in datetime_list:
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
             date_time = date_time.replace(tzinfo=pytz.UTC)
@@ -1052,13 +1081,13 @@ class AppointmentScheduleViewSet(APIView):
                 obj = User.objects.get(email=email)
 
                 logger.info(f"Appointment Schedule details for {request.user}")
-                return render(request,"my_shedule.html",{"user_details": obj,'prev_session': prev_appointment.data, 'next_session': next_appointment.data})
+                return render(request, "my_shedule.html", {"user_details": obj, 'prev_session': prev_appointment.data,
+                                                           'next_session': next_appointment.data})
             else:
                 logger.info(f"Getting error of Appointment Schedule details due")
-                return render(request,"my_shedule.html",{'error': 'Appointment schedule failed'})
+                return render(request, "my_shedule.html", {'error': 'Appointment schedule failed'})
         else:
             email = request.session['email']
             obj = User.objects.get(email=email)
-            return render(request,"my_shedule.html",{"user_details": obj,'message': 'There is no any Appointment Schedule.'})
-
-
+            return render(request, "my_shedule.html",
+                          {"user_details": obj, 'message': 'There is no any Appointment Schedule.'})
