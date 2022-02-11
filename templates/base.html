@@ -12256,7 +12256,7 @@
                                                     </div>
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
-                                                                    class="btn btn-primary btn-login btn-sm" style="width:200px;">UPDATE
+                                                                    class="btn btn-primary btn-login btn-sm" style="width:200px;" onclick="checkdate()">UPDATE
                                                             </button>
                                                         </div>
                                                     </div><!----></form>
@@ -12345,6 +12345,23 @@
             });
 };
     </script>
+<script>
+    function checkdate(){
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate()-1;
+        var year = dtToday.getFullYear();
+        console.log(month,day,year)
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        console.log(month,day,year)
+        var maxDate = year + '-' + month + '-' + day;
+        $('#DateOfBirth').attr('max', maxDate);
+   }
+</script>
 {#<script src={% static 'assets/js/jquery.js' %}></script>#}
 {#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
 {#<script src={% static 'assets/js/bootstrap.js' %}></script>#}
