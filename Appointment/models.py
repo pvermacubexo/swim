@@ -215,4 +215,3 @@ class Transaction(models.Model):
             return 'CASH'
         else:
             return 'CARD'
-
