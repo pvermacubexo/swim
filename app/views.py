@@ -66,7 +66,7 @@ def SwimTimeDashboard(request):
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
-        print(kid_detail)
+        # print(kid_detail)
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
@@ -231,21 +231,21 @@ def LogoutView(request):
 
 class DeleteBooking(APIView):
     def post(self, request):
-        current_date = datetime.datetime.now() - timedelta(minutes=30)
-        current_date = current_date.replace(tzinfo=datetime.timezone.utc)
-        current_date = current_date.isoformat()
-        todays_date = str(current_date).replace('+00:00', 'Z')
-        # print("aj ki tarik",todays_date)
+        # current_date = datetime.datetime.now() - timedelta(minutes=30)
+        # current_date = current_date.replace(tzinfo=datetime.timezone.utc)
+        # current_date = current_date.isoformat()
+        # todays_date = str(current_date).replace('+00:00', 'Z')
+        # # print("aj ki tarik",todays_date)
         booking_data = appointment_model.Booking.objects.all()
         ser = RepaymentBookingSeralizer(booking_data, many=True)
         list(ser.data)
         for i in list(ser.data):
             i = dict(i)
             if i["paid_amount"] == 0 and i["pending_amount"] == 0:
-                booking_date = i["booked_at"]
-                # print("Success")
-                if todays_date >= booking_date:
-                    # print(i["id"])
+                # booking_date = i["booked_at"]
+                # # print("Success")
+                # if todays_date >= booking_date:
+                #     # print(i["id"])
                     Booking.objects.get(id=i["id"]).delete()
         # return Response({'message': 'Success'}, status=status.HTTP_200_OK)
         return Response(ser.data, status=status.HTTP_200_OK)

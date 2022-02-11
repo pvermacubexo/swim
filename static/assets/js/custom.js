@@ -113,9 +113,10 @@ function initCalendar() {
 
 function removeFirstZero(dd){
   var date = String(dd);
-  if ((date.slice(0,1)) === "0" ){
-    dd = date.slice(1);
-  }
+  // if ((date.slice(0,1)) === "0" ){
+  //   dd = date.slice(1);
+  // }
+  console.log(date)
   return dd;
 }
 
@@ -141,10 +142,10 @@ console.log("First")
         else{
             if(indDate.find(element => element === today)){
               indDate = indDate.filter(e => e !== today);
-              dd=removeFirstZero(dd)
+              // dd=removeFirstZero(dd)
              // console.log(dd);
               console.log('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')');
-              $('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')').removeClass('ui-state-active');
+              $(this).removeClass('ui-state-active');
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
               console.log("else if", indDate)
             }

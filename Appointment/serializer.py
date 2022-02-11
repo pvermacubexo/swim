@@ -232,8 +232,8 @@ class IndividualTimeSlotsSerializer(serializers.Serializer):
             raise serializers.ValidationError('Invalid date format. You should try yy-mm-dd format')
         for date_validate in date_list:
             if date_validate < date.today():
-                logger.warning(f"Previous Date not allowed. '{date_validate}'")
-                raise serializers.ValidationError(f"Previous date not allowed.")
+                logger.warning(f"Please select Upcoming date's. '{date_validate}'")
+                raise serializers.ValidationError(f"Please Select Upcoming Date's.")
         return date_list
 
 
@@ -259,7 +259,7 @@ class IndividualBookingSerializer(serializers.Serializer):
             raise serializers.ValidationError('Invalid date format. You should try yy-mm-ddThh:mm:ss format')
         for date_validate in datetime_list:
             if date_validate.date() < date.today():
-                raise serializers.ValidationError(f"Previous date not allowed.")
+                raise serializers.ValidationError(f"Please select Upcoming date's.")
         return datetime_list
 
 

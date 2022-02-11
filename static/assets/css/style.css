@@ -1901,7 +1901,7 @@ button:focus {
 }
 
 .profile-tab .profile-block .content-div .classTitle {
-  height: 30px;
+  height: 21px;
   line-height: 1;
   overflow: hidden;
 }
@@ -1929,7 +1929,7 @@ button:focus {
 
 .profile-tab .profile-block .content-div p.date {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
   color: black;
   font-weight: 700;
 }

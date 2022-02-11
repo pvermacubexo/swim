@@ -126,7 +126,7 @@
                                         <label _ngcontent-jar-c34="" for="password">Password</label>
                                         <input _ngcontent-jar-c34="" formcontrolname="password" name="password"
                                                minlength="4" placeholder="Enter password" type="password"
-                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                               pattern="^(?=.*[0-9])(?=.*[!@#$%^&*_()+=-])[a-zA-Z0-9!@#$%^&*_()+=-]{6,16}$"
                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                id="password" class="form-control ng-untouched ng-pristine ng-invalid"
                                                required><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top:-22px;margin-right:12px;color:black;"></i>
@@ -261,7 +261,7 @@
                                                                                                placeholder="Password"
                                                                                                type="password"
                                                                                                id="psw"
-                                                                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                                                                               pattern="^(?=.*[0-9])(?=.*[!@#$%^&*_()+=-])[a-zA-Z0-9!@#$%^&*_()+=-]{6,16}$"
                                                                                                title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
 
                                                                                                class="form-control ng-untouched ng-pristine ng-invalid"
@@ -720,7 +720,7 @@
 
         var month = dtToday.getMonth() + 1;
         var day = dtToday.getDate()-1;
-        var year = dtToday.getFullYear()-8;
+        var year = dtToday.getFullYear();
         console.log(month,day,year)
         if(month < 10)
             month = '0' + month.toString();

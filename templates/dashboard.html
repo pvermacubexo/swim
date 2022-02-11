@@ -189,7 +189,9 @@
                                                                                         Session
                                                                                         Duration: {{ classes.time_slot }}
                                                                                         minute <span
-                                                                                            _ngcontent-ygs-c30="">(per session)</span>
+                                                                                            _ngcontent-ygs-c30="" style="
+    display: inline-block;
+">(per session)</span>
                                                                                     </p>
                                                                                     <h3 _ngcontent-ygs-c30=""
                                                                                         class="price">
@@ -569,7 +571,7 @@
                                             </button>
                                         </div>
                                         <div _ngcontent-ygs-c30="" class="modal-body confirm-pay"><h4
-                                                _ngcontent-ygs-c30="">Confirm To Pay</h4>
+                                                _ngcontent-ygs-c30="">Pay To Confirm</h4>
                                             <div _ngcontent-ygs-c30="" class="assessment-container">
                                                 <div _ngcontent-ygs-c30="" class="form-bottom">
                                                     <div _ngcontent-ygs-c30="" class="confirm-block">
@@ -964,7 +966,7 @@
                         </button>
                     </div>
                     <div _ngcontent-ygs-c30="" class="modal-body confirm-pay"><h4
-                            _ngcontent-ygs-c30="">Confirm To Pay</h4>
+                            _ngcontent-ygs-c30="">Pay To Confirm</h4>
                         <div _ngcontent-ygs-c30="" class="assessment-container">
                             <div _ngcontent-ygs-c30="" class="form-bottom">
                                 <div _ngcontent-ygs-c30="" class="confirm-block">
@@ -1179,7 +1181,7 @@
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <!----></div><!----></div>
                                                     </div>
-                                                    <div _ngcontent-asr-c30="" class="col-md-12" style="margin-bottom: 10px;">
+                                                    <div _ngcontent-asr-c30="" class="col-md-12" style="">
                                                       <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
                                                                  class="col-md-4 right-text left-text-left"><label
@@ -1808,7 +1810,7 @@
                 console.log("success");
 
 
-                $("#error_meesage").text("You have to Pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
 
             }
             else{
@@ -1835,7 +1837,7 @@
                 console.log("success");
 
 
-                $("#error_meesage").text("You have to Pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
 
             }
             else {
@@ -2120,15 +2122,13 @@
                                 if (today === todays_date) {
 
                                     var ctime = new Date();
-                                  //  console.log(((data.time[i]).substring(0, 2)), ctime.getHours())
-
 
                                     if (((data.time[i]).substring(0, 2)) > ctime.getHours()) {
                                         var a = data.time[i]
                                     var b = a.slice(0, 5) + a.slice(8,16)
 
 
-                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>+ b +</input></div>';
+                                        row1 = row1 + '<div _ngcontent-crr-c30="" class="checkbox checkbox' + i + '  " onclick=bgchange(' + i + ')><input type="button" name="sample" _ngcontent-crr-c30="" value="' + String(data.time[i]) + '" class="times ttime' + i + '" onclick=bgchange(' + i + ')>'+ b +'</input></div>';
                                         $('.timeSelectContent').html(row1);
 
                                     }
@@ -2151,7 +2151,7 @@
                     error: function (data) {
 
                         if (data.responseJSON.error === undefined || data.responseJSON.error === null) {
-                            window.alert("Please select Upcoming date")
+                            window.alert("Please Select Upcoming Date's.")
                             $('.timeSelectContent').html("")
                         } else {
                             window.alert(data.responseJSON.error)
@@ -2393,7 +2393,7 @@ $("#nextbtn1").click(function(){
             error: function (data) {
                 console.log(JSON.stringify(data))
                 if (data.status === 406) {
-                    window.alert("Previous date not allowed")
+                    window.alert("Please Select Upcoming Date's.")
                 } else if (data.status === 400) {
                     window.alert("error")
                 } else {

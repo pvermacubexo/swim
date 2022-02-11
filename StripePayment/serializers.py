@@ -34,8 +34,8 @@ class StripePaymentSerializer(serializers.ModelSerializer):
             ser = RepaymentBookingSeralizer(booking)
             pending_amount = ser.get_pending_amount(booking)
             due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
-            if int(attrs['paid_amount']) >= due_amount:
-                raise Exception('Paid amount is grater then due amount ')
+            if int(attrs['paid_amount']) > due_amount:
+                raise Exception('Paid amount is greater than due amount. ')
             trns = appointment_model.Transaction.objects.filter(booking=booking).exclude(status='3')
             for i in trns:
                 amount += i.paid_amount

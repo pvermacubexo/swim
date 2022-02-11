@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
 from app.email_notification import mail_notification
-from user.models import User
+from user.models import User, Kids
 from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet
@@ -247,9 +247,6 @@ class CashPayment(ModelViewSet):
                 booking.save()
                 messages.success(request, "Cash Payment of " + str(paid_amount) + " is Done ")
 
-                # print("get_total_paid amount ", booking.get_total_paid)
-                # remaining_amount = booking.class_instructor.price - paid_amount
-                # print("remaining amount ", remaining_amount)
                 user_name = booking.user.get_full_name()
                 user_email = booking.user.email
                 paid_amount_int = serializer.validated_data['paid_amount']
@@ -305,7 +302,10 @@ class RepaymentClasses(APIView):
                 bookings = appointment_model.Booking.objects.filter(
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
-                return render(request, "payment.html", {"data": ser.data, "user_details": obj, "BASE_URL": BASE_URL})
+
+                kid_detail = Kids.objects.filter(parent_id=obj.id)
+                return render(request, "payment.html", {"data": ser.data,"user_details": obj,'kid_detail': kid_detail ,"BASE_URL":BASE_URL})
+
             else:
                 return redirect("dashboard_view")
         except Exception as e:
