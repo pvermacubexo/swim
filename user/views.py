@@ -1,7 +1,6 @@
 import logging
 from datetime import datetime, timedelta
 from random import randint
-import socket
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
@@ -33,7 +32,7 @@ from .serializer import UserSerializer, AuthenticationSerializer, RateReviewSeri
     UserUpdateSerializer, UserDeletedSerializer, InstructorProfileSerializer, StudentSerializer, \
     OTPSerializer, InstructorSlugSerializer, StudentProfileSerializer, studentUsererializer, StudentUpdateSerializer, \
     StudentProfileUpdateSerializer
-from app.email_notification import mail_notification
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -58,14 +57,6 @@ class Authenticate(TokenObtainPairView):
                         email = serializer.data.get('email')
                         request.session['email'] = email
                         user_details = User.objects.filter(email=email)
-
-                        user_name = obj.get_full_name()
-                        hostname = socket.gethostname()
-                        IPAddress = socket.gethostbyname(hostname)
-                        subject = "Security Alert"
-                        email_body = f"Hello {user_name}, \n\nWe noticed a new Log in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
-                        mail_notification(request, subject, email_body, email)
-
                         if user_details:
                             messages.success(request, "User Login Successfully!")
                             return redirect(SwimTimeDashboard)

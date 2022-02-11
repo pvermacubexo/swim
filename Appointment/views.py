@@ -744,20 +744,18 @@ class BookClassInstructor(APIView):
 
                                              paper_work=serializer.data['paper_work'], kids=kids)
 
-            class_name = class_instructor.title
-            instructor = class_instructor.instructor.get_full_name()
-            total_days = class_instructor.total_days
-            time_slot = class_instructor.time_slot
-            price = class_instructor.price
-            print('price', price)
-            user_name = str(reqested_user.first_name + " " + reqested_user.last_name)
-            print('user_name', user_name)
-            subject = "Swim Booking Confirm"
-            email_body = f"Dear {user_name},\n \nHope you are doing well !\nThis mail is regarding to inform that\
-            your swim time slot has been schedule.\n Detail as : your class {class_name}, with \
-            swim instructor {instructor}, for {total_days} days and per day {time_slot} minet slot, fee {price} USD"
+            # class_name = class_instructor.title
+            # instructor = class_instructor.instructor.get_full_name()
+            # total_days = class_instructor.total_days
+            # time_slot = class_instructor.time_slot
+            # price = class_instructor.price
+            # print('price', price)
+            # user_name = str(reqested_user.first_name + " " + reqested_user.last_name)
+            # print('user_name', user_name)
+            # subject = "Booking Confirm"
+            # email_body = f"Dear {user_name},\n \nHope you are doing well !\nThis mail is regarding to inform that your swim time slot has been schedule.\n Detail as : your class {class_name}, with swim instructor {instructor}, for {total_days} days and per day {time_slot} minute slot, fee {price} USD"
 
-            mail_notification(request, subject, email_body, reqested_user)
+            # mail_notification(request, subject, email_body, reqested_user)
             for day in day_list:
                 start_time = datetime.combine(day, serializer.validated_data['date_time'].time())
                 appointment = Appointment.objects.create(start_time=start_time,
@@ -1008,15 +1006,16 @@ class IndividualBookingViewSet(APIView):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
         reqested_user = User.objects.get(email=request.session["email"])
+
         booking = Booking.objects.create(class_instructor=class_instructor, user=reqested_user, booking_type=BOOKED,
                                          paper_work=serializer.validated_data['paper_work'], kids=kids_obj)
 
-        user_name = booking.user.get_full_name()
-        user_email = reqested_user.email
-        subject = "Booking Confirm"
-        email_body = f"Dear {user_name},\n \n This mail is inform that your booking has been schedule.\n Detail as -class {class_instructor} with instructor {class_instructor.instructor.get_full_name}, for {class_instructor.total_days} days/ {class_instructor.time_slot} minet slot, fee {class_instructor.price} USD.\n If you have any question coordinate to your instrucor\
-                        \nThank you"
-        mail_notification(request, subject, email_body, user_email)
+        # user_name = booking.user.get_full_name()
+        # user_email = reqested_user.email
+        # subject = "Booking Confirm"
+        # email_body = f"Dear {user_name},\n \n This mail is inform that your booking has been schedule.\n Detail as -class {class_instructor} with instructor {class_instructor.instructor.get_full_name}, for {class_instructor.total_days} days/ {class_instructor.time_slot} minet slot, fee {class_instructor.price} USD.\n If you have any question coordinate to your instrucor\
+        #                 \nThank you"
+        # mail_notification(request, subject, email_body, user_email)
         for date_time in datetime_list:
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
             date_time = date_time.replace(tzinfo=pytz.UTC)
