@@ -9,7 +9,6 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -26,7 +25,6 @@ from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
 from SharkDeck import settings
-import socket
 
 BASE_URL = settings.BASE_URL
 
@@ -78,7 +76,10 @@ def signup_view(request):
 
         user_name = user.get_full_name()
         subject = "Team Swim Time Solutions"
-        email_body = f"Hello {user_name}, \n\nWelcome to  Swim Time Solutions! This mail is regarding to inform that you are successfully register Instructor in Swim Time Solutions."
+        email_body = f"Hello {user_name},\n \nWelcome to swim time solutions!\n" \
+                     f"Your account is now set up and ready to use. Let's get started!\n\n" \
+                     f"Thank You" \
+                     f"\nSwim Time Solutions"
         mail_notification(request, subject, email_body, email)
 
         logger.info(f"{user} created successfully.")
@@ -127,12 +128,12 @@ def login_view(request):
             if user.user_type == user_constants.Instructor:
                 login(request, user)
 
-                user_email = request.POST['email']
-                hostname = socket.gethostname()
-                IPAddress = socket.gethostbyname(hostname)
-                subject = "Security Alert"
-                email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
-                mail_notification(request, subject, email_body, user_email)
+                # user_email = request.POST['email']
+                # hostname = socket.gethostname()
+                # IPAddress = socket.gethostbyname(hostname)
+                # subject = "Security Alert"
+                # email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
+                # mail_notification(request, subject, email_body, user_email)
 
                 return redirect('InstructorDashboard:dashboard_view')
             context.update({'page_errors': ['User does not have permission to access this portal.']})
@@ -204,9 +205,10 @@ def update_transaction(request, id):
         user_name = transaction.booking.user.get_full_name()
         transaction_amount = transaction.paid_amount
         user_email = transaction.booking.user.email
-        subject = f"Cash Payment Accept"
-        email_body = f"Dear {user_name},\n \nThis is to inform you that your cash payment {transaction_amount} USD has been accept from instructor side.\
-                  \n \n Thank you"
+        subject = f"Cash Accepted"
+        email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment approval. Your cash payment of" \
+                     f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
+                     f"Thank You \nTeam Swim Time Solutions"
         mail_notification(request, subject, email_body, user_email)
 
         booking = appointment_model.Booking.objects.get(id=transaction.booking.id)
@@ -232,12 +234,11 @@ def delete_transaction(request, id):
         user_name = transaction.booking.user.get_full_name()
         transaction_amount = transaction.paid_amount
         user_email = transaction.booking.user.email
-        subject = f"Cash payment was rejected at Instructor side"
-        email_body = f"Dear {user_name},\n \nThis is to inform you that your cash payment {transaction_amount} USD \
-         has been rejected from instructor side for knowing detail please coordinate to your swim instructor.\
-          \n \n Thank you"
+        subject = f"Cash Rejected Mail"
+        email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment rejection. Your cash payment of" \
+                     f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
+                     f"Thank you \nTeam Swim Time Solutions"
         mail_notification(request, subject, email_body, user_email)
-        print("sent mail done")
 
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
@@ -553,7 +554,9 @@ def change_password(request):
             user_name = str(first_name + " " + last_name)
             user_email = request.user
             subject = "Password Changed"
-            email_body = f"Hello {user_name},\n \n The password of your account on Swim Time Solutions has been successfully changed."
+            email_body = f"Hello {user_name},\n \nThe password of your account on Swim Time Solutions has been successfully changed.\n\n" \
+                         f"Thank You\n" \
+                         f"Swim Time Solutions"
             mail_notification(request, subject, email_body, user_email)
 
             context.update({'success': "Password update Successfully. Please login !! "})
@@ -738,12 +741,14 @@ def terms_conditions(request):
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
-        break_time = user_models.Profile.objects.get(user = request.user.id)
+        break_time = user_models.Profile.objects.get(user=request.user.id)
 
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
             messages.error(request, "Please select valid timeSlot!")
             return redirect('InstructorDashboard:instructor_profile')
-        elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S") :
+        elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (
+        break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
+                request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S"):
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')

@@ -147,7 +147,6 @@ def update_profile(request):
 
 
 def Registration(request, id):
-    print("user Registration ")
     if 'email' in request.session:
         # return render(request, 'register.html')
         return redirect(SwimTimeDashboard)
@@ -180,7 +179,10 @@ def Registration(request, id):
                 user_name = obj.get_full_name()
                 user_email = request.POST['email']
                 subject = "Team Swim Time Solutions"
-                email_body = f"Hello {user_name} \n \n This mail is regarding to confirm that you are successfully register user in Swim Time Solutions."
+                email_body = f"Hello {user_name},\n \nWelcome to swim time solutions!\n" \
+                             f"Your account is now set up and ready to use. Let's get started!\n\n" \
+                             f"Thank You" \
+                             f"\nSwim Time Solutions"
                 mail_notification(request, subject, email_body, user_email)
                 print('ok')
 

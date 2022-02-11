@@ -21,8 +21,7 @@ from django.utils.crypto import get_random_string
 from user.decorators import authorize
 import logging
 import os
-from  SharkDeck import settings
-
+from SharkDeck import settings
 
 BASE_URL = settings.BASE_URL
 # Get an instance of a logger
@@ -160,23 +159,47 @@ class StripePayment(APIView):
                                                                                         payment_type=appointment_model.CARD):
                             total_paid_amount = total_paid_amount + transaction.paid_amount
                         user_name = booking.user.get_full_name()
-                        remaining_amount = booking1.class_instructor.price - booking1.get_total_paid - pending_amount
+
                         if booking.class_instructor.price == total_paid_amount:
                             booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
-                            if remaining_amount == 0:
-                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. Your payment has been completed \n \n Thanks for choosing Swim Time Solutions."
                         else:
                             booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
-                            if remaining_amount == 0:
-                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. \n \n Thanks for choosing Swim Time Solutions."
-                            else:
-                                email_body = f"Dear {user_name},\n \nYou have done card payment of {paid_amount} USD successfully. Your due amount is {remaining_amount} USD. \n Thank you"
                         booking.save()
-
                         user_email = booking.user.email
-                        subject = f"Card Payment Done"
-                        mail_notification(request, subject, email_body, user_email)
-                        print("sent mail done")
+                        paid_amount = int((data["amount"]) / 100)
+                        if paid_amount >= booking.class_instructor.price / 2:
+                            inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
+                            instructor_name = inst_name.instructor.get_full_name()
+                            email_body = f"Dear {user_name}," \
+                                         f"\n\nHope you are doing well. This mail is regarding to inform you that your swimming classes has been scheduled.\n" \
+                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                         f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Paid Amount - {paid_amount} USD\n\n" \
+                                         f"Thank You\nTeam Swim Time Solutions"
+                            # f"Due Amount - {due_amount} USD\n\n" \
+
+                            subject = f"Booking Confirmation"
+                            mail_notification(request, subject, email_body, user_email)
+
+                            instructor_name = inst_name.instructor.get_full_name()
+                            email_body = f"Dear {instructor_name}," \
+                                         f"\n\nHope you are doing well. This mail is regarding to inform you that you got a Booking of swimming classes.\n" \
+                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                         f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Paid Amount - {paid_amount} USD\n\n" \
+                                         f"Thank You\nTeam Swim Time Solutions"
+                            instructor_email = inst_name.instructor.email
+                            mail_notification(request, subject, email_body, instructor_email)
+                        # else:
+                        #     subject = f"Repayment Mail"
+                        #     email_body = f"Hello {user_name}," \
+                        #                  f"\n\nThis mail is regarding to inform you that you have made payment of {paid_amount} USD.\n\n" \
+                        #                  f"Thank You !\nTeam Swim Time Solutions"
+                        #     mail_notification(request, subject, email_body, user_email)
 
                     except Exception:
                         transaction_obj.delete()
@@ -224,13 +247,46 @@ class CashPayment(ModelViewSet):
                 booking.save()
                 messages.success(request, "Cash Payment of " + str(paid_amount) + " is Done ")
 
+                # print("get_total_paid amount ", booking.get_total_paid)
+                # remaining_amount = booking.class_instructor.price - paid_amount
+                # print("remaining amount ", remaining_amount)
                 user_name = booking.user.get_full_name()
                 user_email = booking.user.email
-                due_amount = serializer.validated_data['due_amount']
-                subject = f"Payment Done"
-                email_body = f"Dear {user_name},\n \nThis mail is regarding to inform you that you have made cash payment of {paid_amount} USD\
-                 and your due amount is {due_amount} USD. for payment updation Please contact to your instructor"
-                mail_notification(request, subject, email_body, user_email)
+                paid_amount_int = serializer.validated_data['paid_amount']
+                if paid_amount >= booking.class_instructor.price / 2:
+                    due_amount = serializer.validated_data['due_amount']
+                    inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
+                    instructor_email = inst_name.instructor.email
+                    # email = [user_email, instructor_mail]
+                    instructor_name = inst_name.instructor.get_full_name()
+                    subject = f"Booking Confirmation"
+                    email_body = f"Dear {user_name}," \
+                                 f"\n\nHope you are doing well. This mail is regarding to inform you that your swimming classes has been scheduled.\n" \
+                                 f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                 f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                 f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                 f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Paid Amount - {paid_amount_int} USD\n" \
+                                 f"Due Amount - {due_amount} USD\n\n" \
+                                 f"Thank You\nTeam Swim Time Solutions"
+                    mail_notification(request, subject, email_body, user_email)
+
+                    email_body = f"Dear {instructor_name}," \
+                                 f"\n\nHope you are doing well. This mail is regarding to inform you that you got a Booking of swimming classes.\n" \
+                                 f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                 f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                 f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                 f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Paid Amount - {paid_amount_int} USD\n" \
+                                 f"Due Amount - {due_amount} USD\n\n" \
+                                 f"Thank You\nTeam Swim Time Solutions"
+                    mail_notification(request, subject, email_body, instructor_email)
+                else:
+                    subject = f"Repayment Mail"
+                    email_body = f"Hello {user_name}," \
+                                 f"\n\nThis mail is regarding to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
+                                 f"Thank You\nTeam Swim Time Solutions"
+                    mail_notification(request, subject, email_body, user_email)
 
                 return redirect("dashboard_view")
         else:
@@ -249,7 +305,7 @@ class RepaymentClasses(APIView):
                 bookings = appointment_model.Booking.objects.filter(
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
-                return render(request, "payment.html", {"data": ser.data,"user_details": obj,"BASE_URL":BASE_URL})
+                return render(request, "payment.html", {"data": ser.data, "user_details": obj, "BASE_URL": BASE_URL})
             else:
                 return redirect("dashboard_view")
         except Exception as e:
@@ -273,11 +329,11 @@ class ConnectStripUrl(APIView):
         account_id = account_data["id"]
         create_strip_url = stripe.AccountLink.create(
 
-                      account = account_id,
-                      refresh_url = BASE_URL +"/stripe/handle-redirect/",
-                      return_url = BASE_URL +"/stripe/handle-redirect/",
-                      type = "account_onboarding",
-                    )
+            account=account_id,
+            refresh_url=BASE_URL + "/stripe/handle-redirect/",
+            return_url=BASE_URL + "/stripe/handle-redirect/",
+            type="account_onboarding",
+        )
 
         if "account_id" in request.session:
             try:
