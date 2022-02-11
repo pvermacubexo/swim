@@ -219,7 +219,7 @@ def update_transaction(request, id):
             booking.save()
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
-    return redirect('InstructorDashboard:trainee_view', transaction.booking.user.id)
+    return redirect('InstructorDashboard:trainee_view', transaction.booking.kids.id)
 
 
 @login_required(redirect_field_name='login')
@@ -241,7 +241,7 @@ def delete_transaction(request, id):
 
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
-    return redirect('InstructorDashboard:trainee_view', transaction.booking.user.id)
+    return redirect('InstructorDashboard:trainee_view', transaction.booking.kids.id)
 
 
 @login_required(redirect_field_name='login')
@@ -250,8 +250,8 @@ def update_booking(request, id):
         data = request.POST
 
         if data:
+            print(id)
             print(data)
-            print("data_has")
             appointment_obj = appointment_model.Appointment.objects.get(id=int(data['id']))
             # appointment_obj.start_time = data['start_time']
             # appointment_obj.end_time = data['end_time']
@@ -635,6 +635,7 @@ def class_delete(request, id):
 def students(request):
     ages = {}
     students = []
+
     bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user)
     for booking in bookings:
         if not (booking.user in students):
@@ -646,7 +647,7 @@ def students(request):
             ages[booking.kids.parent.mobile_no] = age
     # stripe_msg = Strip_Message(request)
     context = {
-        'students': students,
+        'students': set(students),
         "ages": ages
     }
 
@@ -671,6 +672,7 @@ def booking_view(request, booking_id=None):
     else:
         bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user).order_by(
             "-booked_at")
+        print()
         # stripe_msg = Strip_Message(request)
         context = {'bookings': bookings}
 

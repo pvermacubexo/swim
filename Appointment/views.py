@@ -836,71 +836,72 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 time_list.remove(remove_time)
     total_timeslot1 = copy.copy(time_list)
     for i in break_time:
+        start_break_time = (datetime.strptime(str(i.start_time), '%H:%M:%S') + timedelta(minutes=1)).time()
+        end_break_time = (datetime.strptime(str(i.end_time), '%H:%M:%S') - timedelta(minutes=1)).time()
         if week_day == 'monday' and i.week_day == '1':
             for remove_time in total_timeslot1:
-                single_slot_end = (
-                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'tuesday' and i.week_day == '2':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'wednesday' and i.week_day == '3':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'thursday' and i.week_day == '4':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'friday' and i.week_day == '5':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'saturday' and i.week_day == '6':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if i.start_time <= single_slot_end <= i.end_time:
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'sunday' and i.week_day == '7':
             for remove_time in total_timeslot1:
                 single_slot_end = (
                         datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
-                if i.start_time <= remove_time.time() <= i.end_time:
+                if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
                 if i.start_time <= single_slot_end <= i.end_time:
@@ -1006,7 +1007,7 @@ class IndividualBookingViewSet(APIView):
             if not (CheckBooking(date_time, class_instructor.id)):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
-        reqested_user = User.objects.get(email='test@ymail.com')
+        reqested_user = User.objects.get(email=request.session["email"])
         booking = Booking.objects.create(class_instructor=class_instructor, user=reqested_user, booking_type=BOOKED,
                                          paper_work=serializer.validated_data['paper_work'], kids=kids_obj)
 
@@ -1089,9 +1090,9 @@ class AppointmentScheduleViewSet(APIView):
             if prev_appointment.data or next_appointment.data:
                 email = request.session['email']
                 obj = User.objects.get(email=email)
-
+                kid_detail = Kids.objects.filter(parent_id=obj.id)
                 logger.info(f"Appointment Schedule details for {request.user}")
-                return render(request, "my_shedule.html", {"user_details": obj, 'prev_session': prev_appointment.data,
+                return render(request, "my_shedule.html", {"user_details": obj, 'prev_session': prev_appointment.data, 'kid_detail': kid_detail,
                                                            'next_session': next_appointment.data})
             else:
                 logger.info(f"Getting error of Appointment Schedule details due")

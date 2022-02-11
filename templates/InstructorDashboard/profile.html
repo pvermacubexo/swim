@@ -75,25 +75,25 @@
                                                  class="rounded-circle">
                                         </div>
                                         <div class="dastone-profile_user-detail">
-                                            <h5 class="dastone-user-name">{{ trainee.get_full_name }}</h5>
-                                            <p class="mb-0 dastone-user-name-post">{{ trainee.address }}</p>
+                                            <h5 class="dastone-user-name">{{ trainee.kids_name }}</h5>
+                                            <p class="mb-0 dastone-user-name-post">{{ trainee.parent.address }}</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4 ml-auto align-self-center">
                                     <ul class="list-unstyled personal-detail mb-0">
-                                        {% if trainee.mobile_no %}
+                                        {% if trainee.parent.mobile_no %}
                                             <li class=""><i
                                                     class="las la-phone mr-2 text-secondary font-22 align-middle"></i>
                                                 <b>
-                                                    phone </b> : {{ trainee.mobile_no }}
+                                                    Phone </b> : {{ trainee.parent.mobile_no }}
                                             </li>
                                         {% endif %}
-                                        {% if trainee.email %}
+                                        {% if trainee.parent.email %}
                                             <li class="mt-2"><i
                                                     class="las la-envelope text-secondary font-22 align-middle mr-2"></i>
-                                                <b> Email </b> : &nbsp;{{ trainee.email }}
+                                                <b> Email </b> : &nbsp;{{ trainee.parent.email }}
                                             </li>
                                         {% endif %}
                                     </ul>
@@ -190,7 +190,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <form method="post"
-                                                                      action="{% url 'InstructorDashboard:update_appointment' appointment.booking.user.id %}">
+                                                                      action="{% url 'InstructorDashboard:update_appointment' appointment.booking.kids.id %}">
                                                                     {% csrf_token %}
                                                                     <div class="modal-body">
                                                                         <div class="row">
@@ -204,23 +204,23 @@
                                                                                     <label>Student Name </label>
                                                                                     <input type="text"
                                                                                            class="form-control"
-                                                                                           value="{{ booking.user.get_full_name }}"
+                                                                                           value="{{ booking.kids.kids_name }}"
                                                                                            readonly>
                                                                                 </div>
                                                                                 <div class="form-group">
                                                                                     <div class="DateContainer mb-3">
                                                                                         <label>Start
-                                                                                            Date-Time </label>
+                                                                                            Date - Time </label>
                                                                                         <input type="text"
                                                                                                name="start_time"
                                                                                                class="form-control update_appointment"
                                                                                                date_min={{ booking.class_instructor.time_slot }}
-                                                                                                       value="{{ appointment.start_time|date:'m-d-Y H:m:s' }}" disabled >
-                                                                                        <label>End Date- Time </label>
+                                                                                                       value="{{ appointment.start_time|date:'m-d-Y H:m' }}" disabled >
+                                                                                        <label>End Date - Time </label>
                                                                                         <input type="text"
                                                                                                name="end_time"
                                                                                                class="form-control update_endDate"
-                                                                                               value="{{ appointment.end_time|date:'m-d-Y H:m:s' }}"
+                                                                                               value="{{ appointment.end_time|date:'m-d-Y H:m' }}"
                                                                                                readonly>
                                                                                     </div>
                                                                                 </div>

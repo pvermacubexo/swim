@@ -7551,14 +7551,22 @@
         padding-bottom: 34px;
         float: left;
     }
+    .childMain .addBtnP{
+            position: absolute;
+    width: 100%;
+    bottom: 0;
+    }
     .childMain #addField{
-        position: absolute;
-        bottom: 0px;
-        right: 0;
-        width: 100px;
-        height: 34px;
-            border: 1px solid #ccc;
-        border-radius: 5px;
+    {#        position: absolute;#}
+    {#bottom: 0px;#}
+    {#left: 50%;#}
+    {#transform: translateX(50%);#}
+    width: 20%;
+    height: 34px;
+    {#border: 1px solid #ccc;#}
+    border-radius: 5px;
+    padding: 0px 25px;
+        margin: 0 auto;
     }
     .listClass{
         width: 100%;
@@ -9487,7 +9495,7 @@
 
         .profile-tab .profile-block .content-div p.date {
             margin: 0;
-            font-size: 18px;
+            font-size: 17px;
             color: black;
             font-weight: 700;
         }
@@ -12014,12 +12022,14 @@
 ::-webkit-scrollbar-thumb:hover {
   background: deepskyblue;
 }
-
+.modal-open{
+    overflow: hidden !important;
+        }
 
 
     </style>
 </head>
-<body class="modal-open" style="padding-right: 15px; overflow: auto;">
+<body class="" style="padding-right: 15px;">
 <div id="preloader">
   <div id="status">&nbsp;</div>
 </div>
@@ -12241,8 +12251,8 @@
 {#                                        class="form-control ng-untouched ng-pristine ng-invalid"#}
 {#                                        style="padding: 0 0 0 10px;" required><!----></div>#}
                                                         <div _ngcontent-uas-c28=""
-                                                             class="">
-                                                            <button type="button" id="addField">Add Kid <i class="fas fa-plus"></i></button></div>
+                                                             class="text-center addBtnP">
+                                                            <button type="button" class="btn-login" id="addField">Add Kid <i class="fas fa-plus"></i></button></div>
                                                     </div>
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
@@ -12323,6 +12333,18 @@
             });
     }
 </script>
+<script>
+    window.onload = function() {
+      $.ajax({
+                url: '{{ BASE_URL }}/swim/delete-booking',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log("success")
+                },
+            });
+};
+    </script>
 {#<script src={% static 'assets/js/jquery.js' %}></script>#}
 {#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
 {#<script src={% static 'assets/js/bootstrap.js' %}></script>#}

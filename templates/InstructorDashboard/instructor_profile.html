@@ -53,10 +53,11 @@
 }
 .urlLink{
     display: flex;
-    align-items: baseline;
+    {#align-items: baseline;#}
 }
 .urlLink #clipboardParagraph{
     display: inline-block;
+    line-height: 21px;
     margin: 0 5px;
     overflow: hidden;
    text-overflow: ellipsis;
@@ -321,12 +322,12 @@
 
                                     <div class="col-lg-5 ml-auto align-self-center">
                                         <ul class="list-unstyled personal-detail mb-0">
-                                            <li class=""><i
+                                            <li class="urlLink"><i
                                                     class="las la-phone mr-2 text-secondary font-22 align-middle"></i>
-                                                <b> Phone </b> : {{ user.mobile_no }}</li>
-                                            <li class="mt-2"><i
+                                                <b>Phone </b> : {{ user.mobile_no }}</li>
+                                            <li class="mt-2 urlLink"><i
                                                     class="las la-envelope text-secondary font-22 align-middle mr-2"></i>
-                                                <b> Email </b> : {{ user.email }}</li>
+                                                <b>Email </b> : {{ user.email }}</li>
                                             <li class="mt-2 urlLink"><i
                                                     class="las la-link text-secondary font-22 align-middle mr-2"></i>
                                                 <b> Url </b> : <span id="clipboardParagraph" data-toggle="tooltip"
@@ -962,7 +963,7 @@
                                                                     class="typcn typcn-key-outline "></i></span></div>
                                                             <input type="password" class="form-control"
                                                                    name="new_password"
-                                                                   placeholder="New Password"
+                                                                   placeholder="New - Password"
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                                    title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
                                                                    required="required" style="z-index:1;position:relative;">
@@ -982,7 +983,7 @@
                                                                    name="confirm_password"
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
                                                                    title="Password Contains Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-                                                                   placeholder="Confirm-Password"
+                                                                   placeholder="Confirm - Password"
                                                                    required="required" style="z-index:1;position:relative;">
                                                         </div><i class="toggle-password fa fa-fw fa-eye-slash" style="float: right;margin-top: -8% ;z-index: 2;position: relative;margin-right:5%; "></i>
 {#                                                        <span class="form-text text-muted font-12">Never share your password.</span>#}
