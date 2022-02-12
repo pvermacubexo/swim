@@ -675,9 +675,10 @@ def booking_view(request, booking_id=None):
     else:
         bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user).order_by(
             "-booked_at")
-        print()
         # stripe_msg = Strip_Message(request)
-        context = {'bookings': bookings}
+        for i in bookings:
+            due_amount = i.transaction.total_amount - i.transaction.paid_amount
+        context = {'bookings': bookings, 'due_amount':due_amount}
 
         return render(request, 'InstructorDashboard/bookings.html', context=context)
 
@@ -707,10 +708,13 @@ def generate_otp(request):
             otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
             current_site = get_current_site(request=request).domain
-            email_body = f'Hello, {user.first_name} OTP = {otp.otp} \
-            Use link below to reset your password {current_site}/user/reset-password'
+            email_body = f'Hello {user.first_name},' \
+                         f'\nPlease use below OTP & link to reset your password\n' \
+                         f'OTP: {otp.otp}' \
+                         f'Link: {current_site}/user/reset-password \n\n' \
+                        f"Thank You,\nTeam Swim Time Solutions"
             data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Reset your password'}
+                    'email_subject': 'Reset your password - Swim Time Solutions'}
             try:
                 sent_mail(data)
                 context.update({'success': 'OTP has been send to your registered email address.',
@@ -789,11 +793,12 @@ def generate_otp(request):
             otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
             current_site = get_current_site(request=request).domain
-            email_body = f'Hello {user.first_name}, \nPlease use below OTP & link to reset your password\nOTP: {otp.otp} \
-            \nLink: {current_site}/user/reset-password\n\n'
-            f"Thank You,\nTeam Swim Time Solutions"
-            data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Reset your password'}
+            email_body = f"Hello {user.first_name},\n\n" \
+                         f"\n\nPlease use below OTP & link to reset your password\n" \
+                         f"OTP: {otp.otp}\n" \
+                         f"Link: {current_site}/user/reset-password\n\n" \
+                         # f" Thank You,\nTeam Swim Time Solutions"
+            data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password - Swim Time Solutions'}
             try:
                 sent_mail(data)
                 context.update({'success': 'OTP has been send to your registered email address.',
