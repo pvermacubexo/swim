@@ -171,35 +171,35 @@ class StripePayment(APIView):
                             inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
                             instructor_name = inst_name.instructor.get_full_name()
                             email_body = f"Dear {user_name}," \
-                                         f"\n\nHope you are doing well. This mail is regarding to inform you that your swimming classes has been scheduled.\n" \
-                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                         f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                          f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Paid Amount - {paid_amount} USD\n\n" \
-                                         f"Thank You\nTeam Swim Time Solutions"
+                                         f"Thank You,\nTeam Swim Time Solutions"
                             # f"Due Amount - {due_amount} USD\n\n" \
 
-                            subject = f"Booking Confirmation"
+                            subject = f"Booking Confirmation - Swim Time Solutions"
                             mail_notification(request, subject, email_body, user_email)
 
                             instructor_name = inst_name.instructor.get_full_name()
                             email_body = f"Dear {instructor_name}," \
-                                         f"\n\nHope you are doing well. This mail is regarding to inform you that you got a Booking of swimming classes.\n" \
+                                         f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
                                          f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
                                          f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Paid Amount - {paid_amount} USD\n\n" \
-                                         f"Thank You\nTeam Swim Time Solutions"
+                                         f"Thank You,\nTeam Swim Time Solutions"
                             instructor_email = inst_name.instructor.email
                             mail_notification(request, subject, email_body, instructor_email)
-                        # else:
-                        #     subject = f"Repayment Mail"
-                        #     email_body = f"Hello {user_name}," \
-                        #                  f"\n\nThis mail is regarding to inform you that you have made payment of {paid_amount} USD.\n\n" \
-                        #                  f"Thank You !\nTeam Swim Time Solutions"
-                        #     mail_notification(request, subject, email_body, user_email)
+                        else:
+                            subject = f"Repayment - Swim Time Solutions"
+                            email_body = f"Hello {user_name}," \
+                                         f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD.\n\n" \
+                                         f"Thank You,\nTeam Swim Time Solutions"
+                            mail_notification(request, subject, email_body, user_email)
 
                     except Exception:
                         transaction_obj.delete()
@@ -256,33 +256,33 @@ class CashPayment(ModelViewSet):
                     instructor_email = inst_name.instructor.email
                     # email = [user_email, instructor_mail]
                     instructor_name = inst_name.instructor.get_full_name()
-                    subject = f"Booking Confirmation"
+                    subject = f"Booking Confirmation - Swim Time Solutions"
                     email_body = f"Dear {user_name}," \
-                                 f"\n\nHope you are doing well. This mail is regarding to inform you that your swimming classes has been scheduled.\n" \
-                                 f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                 f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                 f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                  f"Fees - {booking.class_instructor.price} USD\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
-                                 f"Thank You\nTeam Swim Time Solutions"
+                                 f"Thank You,\nTeam Swim Time Solutions"
                     mail_notification(request, subject, email_body, user_email)
 
                     email_body = f"Dear {instructor_name}," \
-                                 f"\n\nHope you are doing well. This mail is regarding to inform you that you got a Booking of swimming classes.\n" \
-                                 f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                 f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
+                                 f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                  f"Fees - {booking.class_instructor.price} USD\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
-                                 f"Thank You\nTeam Swim Time Solutions"
+                                 f"Thank You,\nTeam Swim Time Solutions"
                     mail_notification(request, subject, email_body, instructor_email)
                 else:
                     subject = f"Repayment Mail"
                     email_body = f"Hello {user_name}," \
-                                 f"\n\nThis mail is regarding to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
-                                 f"Thank You\nTeam Swim Time Solutions"
+                                 f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
+                                 f"Thank You,\nTeam Swim Time Solutions"
                     mail_notification(request, subject, email_body, user_email)
 
                 return redirect("dashboard_view")

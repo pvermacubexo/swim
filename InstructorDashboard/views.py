@@ -75,10 +75,10 @@ def signup_view(request):
                                                user_type=user_constants.Instructor)
 
         user_name = user.get_full_name()
-        subject = "Team Swim Time Solutions"
-        email_body = f"Hello {user_name},\n \nWelcome to swim time solutions!\n" \
+        subject = "Registration Successful - Swim Time Solutions"
+        email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions,\n" \
                      f"Your account is now set up and ready to use. Let's get started!\n\n" \
-                     f"Thank You" \
+                     f"Thank You," \
                      f"\nSwim Time Solutions"
         mail_notification(request, subject, email_body, email)
 
@@ -205,10 +205,10 @@ def update_transaction(request, id):
         user_name = transaction.booking.user.get_full_name()
         transaction_amount = transaction.paid_amount
         user_email = transaction.booking.user.email
-        subject = f"Cash Accepted"
+        subject = f"Cash Accepted - Swim Time Solutions"
         email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment approval. Your cash payment of" \
                      f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
-                     f"Thank You \nTeam Swim Time Solutions"
+                     f"Thank You,\nTeam Swim Time Solutions"
         mail_notification(request, subject, email_body, user_email)
 
         booking = appointment_model.Booking.objects.get(id=transaction.booking.id)
@@ -234,10 +234,10 @@ def delete_transaction(request, id):
         user_name = transaction.booking.user.get_full_name()
         transaction_amount = transaction.paid_amount
         user_email = transaction.booking.user.email
-        subject = f"Cash Rejected Mail"
+        subject = f"Cash Rejected  - Swim Time Solutions"
         email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment rejection. Your cash payment of" \
                      f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
-                     f"Thank you \nTeam Swim Time Solutions"
+                     f"Thank you,\nTeam Swim Time Solutions"
         mail_notification(request, subject, email_body, user_email)
 
     except appointment_model.Transaction.DoesNotExist:
@@ -553,9 +553,9 @@ def change_password(request):
 
             user_name = str(first_name + " " + last_name)
             user_email = request.user
-            subject = "Password Changed"
-            email_body = f"Hello {user_name},\n \nThe password of your account on Swim Time Solutions has been successfully changed.\n\n" \
-                         f"Thank You\n" \
+            subject = "Password Changed - Swim Time Solutions"
+            email_body = f"Hello {user_name},\n \n This is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
+                         f"Thank You,\n" \
                          f"Swim Time Solutions"
             mail_notification(request, subject, email_body, user_email)
 
@@ -789,8 +789,9 @@ def generate_otp(request):
             otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
             current_site = get_current_site(request=request).domain
-            email_body = f'Hello, {user.first_name} OTP = {otp.otp} \
-            Use link below to reset your password {current_site}/user/reset-password'
+            email_body = f'Hello {user.first_name}, \nPlease use below OTP & link to reset your password\nOTP: {otp.otp} \
+            \nLink: {current_site}/user/reset-password\n\n'
+            f"Thank You,\nTeam Swim Time Solutions"
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password'}
             try:
@@ -821,8 +822,9 @@ def user_pass(request):
             otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
             current_site = get_current_site(request=request).domain
-            email_body = f'Hello, {user.first_name} OTP = {otp.otp} \
-            Use link below to reset your password {current_site}/user/reset-password'
+            email_body = f'Hello {user.first_name}, \nPlease use below OTP & link to reset your password\nOTP: {otp.otp} \
+            \nLink: {current_site}/user/reset-password\n\n'
+            f"Thank You,\nTeam Swim Time Solutions"
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password'}
             try:
