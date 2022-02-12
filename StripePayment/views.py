@@ -181,7 +181,10 @@ class StripePayment(APIView):
                             # f"Due Amount - {due_amount} USD\n\n" \
 
                             subject = f"Booking Confirmation - Swim Time Solutions"
-                            mail_notification(request, subject, email_body, user_email)
+                            try:
+                                mail_notification(request, subject, email_body, user_email)
+                            except Exception as e:
+                                pass
 
                             instructor_name = inst_name.instructor.get_full_name()
                             email_body = f"Dear {instructor_name}," \
@@ -193,13 +196,19 @@ class StripePayment(APIView):
                                          f"Paid Amount - {paid_amount} USD\n\n" \
                                          f"Thank You,\nTeam Swim Time Solutions"
                             instructor_email = inst_name.instructor.email
-                            mail_notification(request, subject, email_body, instructor_email)
+                            try:
+                                mail_notification(request, subject, email_body, instructor_email)
+                            except Exception as e:
+                                pass
                         else:
                             subject = f"Repayment - Swim Time Solutions"
                             email_body = f"Hello {user_name}," \
                                          f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD.\n\n" \
                                          f"Thank You,\nTeam Swim Time Solutions"
-                            mail_notification(request, subject, email_body, user_email)
+                            try:
+                                mail_notification(request, subject, email_body, user_email)
+                            except Exception as e:
+                                pass
 
                     except Exception:
                         transaction_obj.delete()
@@ -266,8 +275,10 @@ class CashPayment(ModelViewSet):
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
-                    mail_notification(request, subject, email_body, user_email)
-
+                    try:
+                        mail_notification(request, subject, email_body, user_email)
+                    except Exception as e:
+                        pass
                     email_body = f"Dear {instructor_name}," \
                                  f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
@@ -277,14 +288,19 @@ class CashPayment(ModelViewSet):
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
-                    mail_notification(request, subject, email_body, instructor_email)
+                    try:
+                        mail_notification(request, subject, email_body, instructor_email)
+                    except Exception as e:
+                        pass
                 else:
                     subject = f"Repayment Mail"
                     email_body = f"Hello {user_name}," \
                                  f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
-                    mail_notification(request, subject, email_body, user_email)
-
+                    try:
+                        mail_notification(request, subject, email_body, user_email)
+                    except Exception as e:
+                        pass
                 return redirect("dashboard_view")
         else:
             return redirect("dashboard_view")

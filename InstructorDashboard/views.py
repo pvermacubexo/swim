@@ -80,7 +80,10 @@ def signup_view(request):
                      f"Your account is now set up and ready to use. Let's get started!\n\n" \
                      f"Thank You," \
                      f"\nSwim Time Solutions"
-        mail_notification(request, subject, email_body, email)
+        try:
+            mail_notification(request, subject, email_body, email)
+        except Exception as e:
+            pass
 
         logger.info(f"{user} created successfully.")
         front_end_url_local = os.environ.get("FRONT_END_URL_LOCAL")
@@ -209,7 +212,10 @@ def update_transaction(request, id):
         email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment approval. Your cash payment of" \
                      f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
                      f"Thank You,\nTeam Swim Time Solutions"
-        mail_notification(request, subject, email_body, user_email)
+        try:
+            mail_notification(request, subject, email_body, user_email)
+        except Exception as e:
+            pass
 
         booking = appointment_model.Booking.objects.get(id=transaction.booking.id)
         transactions = appointment_model.Transaction.objects.filter(booking=transaction.booking,
@@ -238,7 +244,10 @@ def delete_transaction(request, id):
         email_body = f"Dear {user_name},\n \nThis mail is regarding your cash payment rejection. Your cash payment of" \
                      f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
                      f"Thank you,\nTeam Swim Time Solutions"
-        mail_notification(request, subject, email_body, user_email)
+        try:
+            mail_notification(request, subject, email_body, user_email)
+        except Exception as e:
+            pass
 
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
@@ -422,13 +431,13 @@ def instructor_profile(request):
     request.session["instructor_email"] = request.user.email
     formset = BreakTimeFormSet(queryset=user_models.BreakTime.objects.none())
     break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user)
-    try:
-        instructor = user_models.User.objects.get(id=request.user.id)
-        user = user_models.Profile.objects.get(user=request.user)
-    except user_models.User.DoesNotExist:
-        return redirect('InstructorDashboard:page404')
-    except user_models.Profile.DoesNotExist:
-        return redirect('InstructorDashboard:page404')
+    # try:
+    instructor = user_models.User.objects.get(id=request.user.id)
+    user = user_models.Profile.objects.get(user=request.user)
+    # except user_models.User.DoesNotExist:
+    #     return redirect('InstructorDashboard:page404')
+    # except user_models.Profile.DoesNotExist:
+    #     return redirect('InstructorDashboard:page404')
     context = {'instructor': instructor, 'break_time': formset, 'break_time_list': break_time_list,
                'instructor_id': user.id}
     if StripeAccount.objects.filter(Instructor__email=request.user.email).exists():
@@ -557,8 +566,10 @@ def change_password(request):
             email_body = f"Hello {user_name},\n \n This is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
                          f"Thank You,\n" \
                          f"Swim Time Solutions"
-            mail_notification(request, subject, email_body, user_email)
-
+            try:
+                mail_notification(request, subject, email_body, user_email)
+            except Exception as e:
+                pass
             context.update({'success': "Password update Successfully. Please login !! "})
             # user = authenticate(username=user_obj.username, password=user_obj.password)
             # if user:

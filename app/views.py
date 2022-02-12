@@ -183,9 +183,10 @@ def Registration(request, id):
                              f"Your account is now set up and ready to use. Let's get started !\n\n" \
                              f"Thank You," \
                              f"\nSwim Time Solutions"
-                mail_notification(request, subject, email_body, user_email)
-                print('ok')
-
+                try:
+                    mail_notification(request, subject, email_body, user_email)
+                except Exception as e:
+                    pass
                 return redirect(SwimTimeDashboard)
         except:
             messages.error(request, "Already Registered User!")
