@@ -179,7 +179,7 @@ def Registration(request, id):
                 user_name = obj.get_full_name()
                 user_email = request.POST['email']
                 subject = "Registration Successful - Swim Time Solutions"
-                email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions,\n" \
+                email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions, " \
                              f"Your account is now set up and ready to use. Let's get started !\n\n" \
                              f"Thank You," \
                              f"\nSwim Time Solutions"

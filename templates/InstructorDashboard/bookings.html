@@ -147,7 +147,7 @@
                                                                                                 <p>Paid Amount
                                                                                                     : ${{ transaction.paid_amount }}</p>
                                                                                                 <p>Due Amount
-                                                                                                    : ${{ transaction.due_amount }}</p>
+                                                                                                    : {% if transaction.payment_type == '1' %} ${{ transaction.due_amount }} {% else %} ${{ transaction.booking.get_total_due }} {% endif %}</p>
                                                                                                 <p>Payment Status :
                                                                                                     {% if transaction.status == '1' %}PENDING{% endif %}
                                                                                                     {% if transaction.status == '2' %}COMPLETED{% endif %}

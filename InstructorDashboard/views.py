@@ -76,7 +76,7 @@ def signup_view(request):
 
         user_name = user.get_full_name()
         subject = "Registration Successful - Swim Time Solutions"
-        email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions,\n" \
+        email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions, " \
                      f"Your account is now set up and ready to use. Let's get started!\n\n" \
                      f"Thank You," \
                      f"\nSwim Time Solutions"
@@ -431,13 +431,13 @@ def instructor_profile(request):
     request.session["instructor_email"] = request.user.email
     formset = BreakTimeFormSet(queryset=user_models.BreakTime.objects.none())
     break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user)
-    # try:
-    instructor = user_models.User.objects.get(id=request.user.id)
-    user = user_models.Profile.objects.get(user=request.user)
-    # except user_models.User.DoesNotExist:
-    #     return redirect('InstructorDashboard:page404')
-    # except user_models.Profile.DoesNotExist:
-    #     return redirect('InstructorDashboard:page404')
+    try:
+        instructor = user_models.User.objects.get(id=request.user.id)
+        user = user_models.Profile.objects.get(user=request.user)
+    except user_models.User.DoesNotExist:
+        return redirect('InstructorDashboard:page404')
+    except user_models.Profile.DoesNotExist:
+        return redirect('InstructorDashboard:page404')
     context = {'instructor': instructor, 'break_time': formset, 'break_time_list': break_time_list,
                'instructor_id': user.id}
     if StripeAccount.objects.filter(Instructor__email=request.user.email).exists():
@@ -686,10 +686,7 @@ def booking_view(request, booking_id=None):
     else:
         bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user).order_by(
             "-booked_at")
-        # stripe_msg = Strip_Message(request)
-        for i in bookings:
-            due_amount = i.transaction.total_amount - i.transaction.paid_amount
-        context = {'bookings': bookings, 'due_amount':due_amount}
+        context = {'bookings': bookings}
 
         return render(request, 'InstructorDashboard/bookings.html', context=context)
 
@@ -798,26 +795,30 @@ def generate_otp(request):
         email = request.POST.get('email')
         try:
             user = user_models.User.objects.get(email=email)
-            new_otp = randint(100000, 999999)
-            expiry_time = datetime.now() + timedelta(minutes=2)
-            user_models.OTP.objects.filter(user=user).delete()
-            otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
+            if user.user_type == 1:
+                new_otp = randint(100000, 999999)
+                expiry_time = datetime.now() + timedelta(minutes=2)
+                user_models.OTP.objects.filter(user=user).delete()
+                otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
-            current_site = get_current_site(request=request).domain
-            email_body = f"Hello {user.first_name},\n\n" \
-                         f"\n\nPlease use below OTP & link to reset your password\n" \
-                         f"OTP: {otp.otp}\n" \
-                         f"Link: {current_site}/user/reset-password\n\n" \
-                         # f" Thank You,\nTeam Swim Time Solutions"
-            data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password - Swim Time Solutions'}
-            try:
-                sent_mail(data)
-                context.update({'success': 'OTP has been send to your registered email address.',
-                                'note': 'OTP will expire within 2 min.'})
-                return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
-            except Exception as e:
-                otp.delete()
-                context.update({'error': 'Email service not working, please try after some time.'})
+                current_site = get_current_site(request=request).domain
+                email_body = f"Hello {user.first_name},\n\n" \
+                             f"\n\nPlease use below OTP & link to reset your password\n" \
+                             f"OTP: {otp.otp}\n" \
+                             f"Link: {current_site}/user/reset-password\n\n" \
+                             # f" Thank You,\nTeam Swim Time Solutions"
+                data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password - Swim Time Solutions'}
+                try:
+                    sent_mail(data)
+                    context.update({'success': 'OTP has been sent to your registered email address.',
+                                    'note': 'OTP will expire within 2 min.'})
+                    return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
+                except Exception as e:
+                    otp.delete()
+                    context.update({'error': 'Email service not working, please try after some time.'})
+                    return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
+            else:
+                context.update({'error': 'Invalid email.'})
                 return render(request, 'InstructorDashboard/auth/generate_otp.html', context)
         except user_models.User.DoesNotExist:
             context.update({'error': 'Invalid email.'})
@@ -830,30 +831,35 @@ def user_pass(request):
     if request.method == 'POST':
         context = {}
         email = request.POST.get('email')
+
         try:
             user = user_models.User.objects.get(email=email)
-            new_otp = randint(100000, 999999)
-            expiry_time = datetime.now() + timedelta(minutes=2)
-            user_models.OTP.objects.filter(user=user).delete()
-            otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
+            if user.user_type == 2:
+                new_otp = randint(100000, 999999)
+                expiry_time = datetime.now() + timedelta(minutes=2)
+                user_models.OTP.objects.filter(user=user).delete()
+                otp = user_models.OTP.objects.create(otp=new_otp, user=user, otp_expired=expiry_time)
 
-            current_site = get_current_site(request=request).domain
-            email_body = f'Hello {user.first_name}, \nPlease use below OTP & link to reset your password\nOTP: {otp.otp} \
-            \nLink: {current_site}/user/reset-password\n\n'
-            f"Thank You,\nTeam Swim Time Solutions"
-            data = {'email_body': email_body, 'to_email': user.email,
-                    'email_subject': 'Reset your password'}
-            try:
-                sent_mail(data)
-                # context.update({'success': 'OTP has been send to your registered email address.',
-                #                 'note': 'OTP will expire within 2 min.'})
-                messages.error(request, "OTP has been send to your registered email address. !")
-                return redirect('/')
-            except Exception as e:
-                otp.delete()
-                # context.update({'error': 'Email service not working, please try after some time.'})
-                # return render(request, 'register.html', context)
-                messages.error(request, "Email service not working, please try after some time.!")
+                current_site = get_current_site(request=request).domain
+                email_body = f'Hello {user.first_name}, \nPlease use below OTP & link to reset your password\nOTP: {otp.otp} \
+                \nLink: {current_site}/user/reset-password\n\n'
+                f"Thank You,\nTeam Swim Time Solutions"
+                data = {'email_body': email_body, 'to_email': user.email,
+                        'email_subject': 'Reset your password'}
+                try:
+                    sent_mail(data)
+                    # context.update({'success': 'OTP has been send to your registered email address.',
+                    #                 'note': 'OTP will expire within 2 min.'})
+                    messages.error(request, "OTP has been sent to your registered email address. !")
+                    return redirect('/')
+                except Exception as e:
+                    otp.delete()
+                    # context.update({'error': 'Email service not working, please try after some time.'})
+                    # return render(request, 'register.html', context)
+                    messages.error(request, "Email service not working, please try after some time.!")
+                    return redirect('/')
+            else:
+                messages.error(request, "Invalid email.")
                 return redirect('/')
         except user_models.User.DoesNotExist:
             # context.update({'error': 'Invalid email.'})
