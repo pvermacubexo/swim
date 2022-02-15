@@ -12064,7 +12064,9 @@
             day = '0' + day.toString();
         console.log(month,day,year)
         var maxDate = year + '-' + month + '-' + day;
-        $('#DateOfBirth').attr('max', maxDate);
+        $('input[type="date"]').attr('max', maxDate);
+
+
    }
 </script>
 <script type="text/javascript">
@@ -12144,10 +12146,11 @@
                                                     <div _ngcontent-uas-c28="">
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-12 column_content"><!----><input
-                                                                _ngcontent-uas-c28="" name="profile_img"
-                                                                formcontrolname="profile_img" type="file"
+                                                                _ngcontent-uas-c28="" name="profile_img" value="{{ user_details.profile_img }}"
+                                                                formcontrolname="profile_img" type="file" data-default-file="{{ user_details.profile_img }}"
                                                                 id="profile_img" class="fileUpload"
-                                                                style="background: none;" ></div>
+                                                                style="background: none;"  >
+                                                        </div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="first_name">First
@@ -12239,8 +12242,8 @@
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
                                                         <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="date_of_birth">Date of Birth</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth" value="{{ kids.date_of_birth|date:"Y-m-d" }}" name="date_of_birth"
-                                        type="date" id="DateOfBirth"
+                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth" max="2022-02-15" value="{{ kids.date_of_birth|date:"Y-m-d" }}" name="date_of_birth"
+                                        type="date" id="DateOfBirth" max="2022-02-15"
 
                                         class="form-control ng-untouched ng-pristine ng-invalid"
                                         style="padding: 0 0 0 10px;" required><!----></div><button type="button" class="delete" id="removeChild" onclick="kids_delete({{ kids.id }})"><i class="fas fa-trash"></i></button></div>
@@ -12319,7 +12322,7 @@
        let count = 1;
       $("#addField").click(function(e) {
         $(".childMain").append(
-          '<div id="list'+ count +'" class="listClass"><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="kids_name'+ count +'">Kid Name</label><input _ngcontent-jar-c34="" formcontrolname="kids_name'+ count +'" name="kids_name1" placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}" title="Only Alphabet are allowed and min 3 characters" type="text" id="kids_name'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid" required=""><!----></div><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="date_of_birth'+ count +'">Date of Birth</label><input _ngcontent-jar-c34="" formcontrolname="date_of_birth'+ count +'" name="date_of_birth1" type="date" id="DateOfBirth'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid" style="padding: 0 0 0 10px;" required="" max="2014-02-00"><!----></div><button type="button" id="removeChild" ><i class="fas fa-minus"></i></button></div>'
+          '<div id="list'+ count +'" class="listClass"><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="kids_name'+ count +'">Kid Name</label><input _ngcontent-jar-c34="" formcontrolname="kids_name'+ count +'" name="kids_name1" placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}" title="Only Alphabet are allowed and min 3 characters" type="text" id="kids_name'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid" required=""><!----></div><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="date_of_birth'+ count +'">Date of Birth</label><input _ngcontent-jar-c34="" formcontrolname="date_of_birth'+ count +'" name="date_of_birth1" max="2022-02-15" type="date" id="DateOfBirth'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid DateOfBirth" style="padding: 0 0 0 10px;" required="" ><!----></div><button type="button" id="removeChild" ><i class="fas fa-minus"></i></button></div>'
         );
         count++
       });
@@ -12357,21 +12360,21 @@
 };
     </script>
 <script>
-    function checkdate(){
-        var dtToday = new Date();
+    function checkdates(){
 
-        var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate()-1;
-        var year = dtToday.getFullYear();
-        console.log(month,day,year)
-        if(month < 10)
-            month = '0' + month.toString();
-        if(day < 10)
-            day = '0' + day.toString();
-        console.log(month,day,year)
-        var maxDate = year + '-' + month + '-' + day;
-        $('#DateOfBirth').attr('max', maxDate);
    }
+</script>
+
+<script>
+    {#let input = document.querySelector('#imginput');#}
+    {#let info = document.querySelector('#imginput');#}
+    {#function eventController(event) {#}
+    {#info.innerHTML = event.target.value;#}
+
+    {#input.addEventListener('change', eventController, false)#}
+
+{# const input = document.querySelector("input[type=file]");#}
+{#input.value = "foo";#}
 </script>
 {#<script src={% static 'assets/js/jquery.js' %}></script>#}
 {#<script src={% static 'assets/js/jquery-ui.min.js' %}></script>#}
