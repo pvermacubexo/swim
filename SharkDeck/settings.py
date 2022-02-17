@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'ContactUs',
     'django_seed',
     'app',
+    'celery',
+    'django_celery_results',
+    'django_celery_beat',
 
 ]
 
@@ -62,7 +65,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-BASE_URL ="http://192.168.1.12:8000"
+BASE_URL = "http://192.168.1.12:8000"
 ROOT_URLCONF = 'SharkDeck.urls'
 
 TEMPLATES = [
@@ -100,27 +103,27 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 #     }
 # else:
 # #
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd6ecfhttf73ste',
-        'USER': 'nnrdlqzfkglpgg',
-        'PASSWORD': 'c2edb63965d64fa5a84b6574d74d0c7ea4c3dcf0f1207d6f358ff96b42dd1428',
-        'HOST': 'ec2-34-204-127-36.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'swimtest',
-#         'USER': 'postgres',
-#         'PASSWORD': '123456',
-#         'HOST': 'localhost',
+#         'NAME': 'd6ecfhttf73ste',
+#         'USER': 'nnrdlqzfkglpgg',
+#         'PASSWORD': 'c2edb63965d64fa5a84b6574d74d0c7ea4c3dcf0f1207d6f358ff96b42dd1428',
+#         'HOST': 'ec2-34-204-127-36.compute-1.amazonaws.com',
 #         'PORT': '5432',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'Swimdb',
+        'USER': 'postgres',
+        'PASSWORD': 'dinesh123',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -216,14 +219,20 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-BASE_URL ="https://swimtimesolutions.com"
+BASE_URL = "http://127.0.0.1:8000"
 
 
+# CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Kolkata'
 
-
-
-
-
+CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'db+sqlite:///results.db'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # """
 # Django settings for SharkDeck project.

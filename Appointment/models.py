@@ -3,10 +3,12 @@ from django.utils import timezone
 from datetime import datetime
 from user.models import User, Kids
 
+
 class ClassInstructor(models.Model):
     class Meta:
         verbose_name = 'Class'
         verbose_name_plural = "Classes"
+
     title = models.CharField(max_length=255)
     instructor = models.ForeignKey(User, on_delete=models.CASCADE)
     time_slot = models.IntegerField()
@@ -38,7 +40,8 @@ class Appointment(models.Model):
     class Meta:
         verbose_name = 'Appointment'
         verbose_name_plural = "Appointments"
-    booking = models.ForeignKey('Appointment.Booking', on_delete=models.CASCADE, null=True,related_name="myBooking")
+
+    booking = models.ForeignKey('Appointment.Booking', on_delete=models.CASCADE, null=True, related_name="myBooking")
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
 
@@ -100,6 +103,7 @@ class Booking(models.Model):
     def last_booking(self):
         appointment = Appointment.objects.filter(booking=self).last()
         return appointment.end_time
+
     @property
     def first_class(self):
         return Appointment.objects.filter(booking=self).order_by('-start_time').first()
