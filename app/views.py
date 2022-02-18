@@ -67,13 +67,15 @@ def SwimTimeDashboard(request):
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
-        # print(kid_detail)
+        active_kid = Kids.objects.filter(parent_id=user_details.id, status=True)
+        print(len(kid_detail))
+        print("kid_detail", kid_detail, kid_delete)
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
                           {"user_details": user_details, "data": classes, "first_name": first_name, "links": links,
-                           "BASE_URL": BASE_URL, "kid_detail": kid_detail})
+                           "BASE_URL": BASE_URL, "kid_detail": kid_detail, "active_kid": active_kid})
         except:
             messages.error(request, "Invalid Login Details!")
             return render(request, "register.html")
@@ -264,3 +266,16 @@ class DeleteBooking(APIView):
 def kid_delete(request, id):
     Kids.objects.get(id=id).delete()
     return Response(status=status.HTTP_200_OK)
+
+
+def change_kid_status(request, id):
+    """ change kid status active or inactive."""
+    kid = Kids.objects.get(id=id)
+    if kid.status:
+        kid.status = False
+        kid.save()
+        return Response(status=status.HTTP_200_OK)
+    else:
+        kid.status = True
+        kid.save()
+        return Response(status=status.HTTP_200_OK)

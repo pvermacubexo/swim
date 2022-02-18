@@ -15,6 +15,7 @@ urlpatterns = [
     path('logout', views.LogoutView, name="LogoutView"),
     path('delete-booking', views.DeleteBooking.as_view()),
     path('kid_delete/<int:id>', views.kid_delete, name="kid_delete"),
+    path('change_kid_status/<int:id>', views.change_kid_status, name="change_kid_status"),
 
     # path('register',views.Registration_view,name='registration_view'),
 

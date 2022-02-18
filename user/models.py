@@ -514,6 +514,4 @@ class Kids(models.Model):
     kids_name = models.CharField(max_length=300, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     parent = models.ForeignKey(User, on_delete=models.CASCADE)
-
-
-    # status = models.BooleanField(default=True)
+    status = models.BooleanField(default=True, blank=True)
