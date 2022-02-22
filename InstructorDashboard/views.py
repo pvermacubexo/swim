@@ -25,7 +25,7 @@ from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
 from SharkDeck import settings
-from tasks import sent_mail_task
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 

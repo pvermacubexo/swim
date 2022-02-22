@@ -22,7 +22,7 @@ from user.decorators import authorize
 import logging
 import os
 from SharkDeck import settings
-from tasks import sent_mail_task
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 # Get an instance of a logger

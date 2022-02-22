@@ -19,7 +19,7 @@ from Appointment import models as appointment_model
 from Appointment.models import Booking
 from SharkDeck import settings
 from app.email_notification import mail_notification
-from tasks import sent_mail_task
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 

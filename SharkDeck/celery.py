@@ -6,6 +6,7 @@ from celery.schedules import crontab
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'SharkDeck.settings')
 
 app = Celery('SharkDeck', include=["SharkDeck.tasks"], broker='redis://localhost:6379/0')
+# app = Celery('SharkDeck')
 
 app.conf.beat_schedule = {
     'appointment_mail_send': {

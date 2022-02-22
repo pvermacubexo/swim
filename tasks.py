@@ -1,26 +1,22 @@
-import datetime
-from django.utils.timezone import utc
-from celery import Celery, shared_task
-from SharkDeck import settings
-from django.core.mail import send_mail
-from celery.schedules import crontab
-from celery.schedules import schedule
-# from app.email_notification import mail_notification
-from celery.utils.log import get_task_logger
-
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
-
-
-@app.task
-def sent_mail_task(*args, **kwargs):
-    """ this task help to send mail. """
-    try:
-        send_mail(kwargs['subject'], kwargs['email_body'], settings.EMAIL_HOST_USER, [kwargs['user_email']])
-    except Exception as msg:
-        raise msg
-    return "Sent_mail_task done"
-
 #
+# from celery import Celery
+# from SharkDeck import settings
+# from django.core.mail import send_mail
+#
+#
+# app = Celery('tasks', broker='pyamqp://guest@localhost//')
+#
+#
+# @app.task
+# def sent_mail_task(*args, **kwargs):
+#     """ this task help to send mail. """
+#     try:
+#         send_mail(kwargs['subject'], kwargs['email_body'], settings.EMAIL_HOST_USER, [kwargs['user_email']])
+#     except Exception as msg:
+#         raise msg
+#     return "Sent_mail_task done"
+
+
 # @shared_task()
 # def appointment_mail():
 #     get_appointment = Appointment.objects.all()
