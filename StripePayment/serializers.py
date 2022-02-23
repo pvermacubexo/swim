@@ -130,6 +130,7 @@ class RepaymentBookingSeralizer(serializers.ModelSerializer):
     instuctor = serializers.SerializerMethodField()
     total_days = serializers.SerializerMethodField()
     time_slot = serializers.SerializerMethodField()
+    kids_name = serializers.SerializerMethodField()
 
     class Meta:
         model = appointment_model.Booking
@@ -181,3 +182,7 @@ class RepaymentBookingSeralizer(serializers.ModelSerializer):
     def get_total_days(self, obj):
         booking = booking_history(obj.id)
         return booking.class_instructor.total_days
+
+    def get_kids_name(self, obj):
+        booking = booking_history(obj.id)
+        return f"{booking.kids.kids_name}"

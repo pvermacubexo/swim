@@ -1266,25 +1266,21 @@
                                                 </div>
                                             </div>
                                             <form id="form_to_be" method="POST" action="stripe/cash-payment/">
-                                                <div>
-                                                    <input type="hidden" value="" id="bid" name="booking">
 
-                                                    <input type="hidden" value="1" id="payment_type1"
-                                                           name="payment_type">
-                                                    <input class="form-control"
-                                                           placeholder="Enter Amount to Be paid"
-                                                           type="number" pattern="[0-9]"
-                                                           id="amount_to_be_paid1"
-                                                           name="paid_amount"
-                                                           max=10
+                                            <div>
+                                                 <input type="hidden" value="" id="bid" name="booking">
 
-                                                           required>
-                                                    <label style="display: flex;
-                                                        justify-content: flex-end;
-                                                        font-size: 12px !important;
-                                                        color: #060505;
-                                                    ">Minimum 50% amount acceptable</label>
-                                                    <span style="color: red;" class="amount1" id="error_meesage"></span>
+                                        <input type="hidden" value="1" id="payment_type1" name="payment_type">
+                                                <input class="form-control"
+                                                                                   placeholder="Enter Amount To Be Paid"
+                                                                                   type="number" pattern="[0-9]"
+                                                                                   id="amount_to_be_paid1"
+                                                                                   name="paid_amount"
+                                                       max=10
+
+                                                       required>
+                                                 <span style="color: red;" class="amount1" id="error_meesage"></span>
+
 
                                             </form>
                                             <br></div>
@@ -2486,5 +2482,21 @@
             document.getElementById("checkbox_select1").checked = false;
 
         }
+    </script>
+    <script>
+    var inputBox = document.getElementById("amount_to_be_paid1");
+
+    var invalidChars = [
+      "E",
+      "e",
+    ];
+
+    inputBox.addEventListener("keydown", function(e) {
+      if (invalidChars.includes(e.key)) {
+        e.preventDefault();
+        console.log("Success")
+      }
+    });
+
     </script>
     </a>{% endblock %}

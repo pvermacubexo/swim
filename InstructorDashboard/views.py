@@ -868,13 +868,13 @@ def user_pass(request):
                     sent_mail(data)
                     # context.update({'success': 'OTP has been send to your registered email address.',
                     #                 'note': 'OTP will expire within 2 min.'})
-                    messages.error(request, "OTP has been sent to your registered email address. !")
+                    messages.error(request, "OTP has been sent to your registered email address.")
                     return redirect('/')
                 except Exception as e:
                     otp.delete()
                     # context.update({'error': 'Email service not working, please try after some time.'})
                     # return render(request, 'register.html', context)
-                    messages.error(request, "Email service not working, please try after some time.!")
+                    messages.error(request, "Email service not working, please try after some time.")
                     return redirect('/')
             else:
                 messages.error(request, "Invalid email.")
