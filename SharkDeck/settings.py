@@ -117,10 +117,10 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Swimdb',
-        'USER': 'postgres',
-        'PASSWORD': 'dinesh123',
-        'HOST': 'localhost',
+        'NAME': 'd6ecfhttf73ste',
+        'USER': 'nnrdlqzfkglpgg',
+        'PASSWORD': 'c2edb63965d64fa5a84b6574d74d0c7ea4c3dcf0f1207d6f358ff96b42dd1428',
+        'HOST': 'ec2-34-204-127-36.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -219,7 +219,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "https://swimtimesolutions.com"
 
 
 # CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
