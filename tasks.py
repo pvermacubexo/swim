@@ -1,17 +1,14 @@
-from django.conf import settings
-from celery import Celery
+import datetime
+from django.utils.timezone import utc
+from celery import Celery, shared_task
 from SharkDeck import settings
 from django.core.mail import send_mail
+from celery.schedules import crontab
+from celery.schedules import schedule
 # from app.email_notification import mail_notification
 from celery.utils.log import get_task_logger
 
 app = Celery('tasks', broker='pyamqp://guest@localhost//')
-
-
-# def mail_notification(*args, **kwargs):
-#     """ user email notification """
-#     sent = send_mail(kwargs['subject'], kwargs['email_body'], settings.EMAIL_HOST_USER, [kwargs['user_email']])
-#     return sent
 
 
 @app.task
@@ -21,8 +18,18 @@ def sent_mail_task(*args, **kwargs):
         send_mail(kwargs['subject'], kwargs['email_body'], settings.EMAIL_HOST_USER, [kwargs['user_email']])
     except Exception as msg:
         raise msg
-        # print("task not done", msg)
     return "Sent_mail_task done"
+
+#
+# @shared_task()
+# def appointment_mail():
+#     get_appointment = Appointment.objects.all()
+#     now = datetime.datetime.utcnow()  # 2022-02-21 09:52:55.618620
+#     # now = datetime.datetime.now()       #2022-02-21 09:55:09.027564
+#     for appointment in get_appointment:
+#         date = appointment.start_time.date()
+#         if date == now:
+#             send_mail("this is subject", "this is email body", settings.EMAIL_HOST_USER, ['dinesh.parihar@cubexo.io'])
 
     # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
     #                                    'user_email': user_email})
