@@ -25,6 +25,7 @@ from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
 from SharkDeck import settings
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 
@@ -81,7 +82,8 @@ def signup_view(request):
                      f"Thank You," \
                      f"\nSwim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': email})
         except Exception as e:
             pass
 
@@ -213,7 +215,8 @@ def update_transaction(request, id):
                      f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
                      f"Thank You,\nTeam Swim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, user_email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': user_email})
         except Exception as e:
             pass
 
@@ -245,7 +248,8 @@ def delete_transaction(request, id):
                      f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
                      f"Thank you,\nTeam Swim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, user_email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': user_email})
         except Exception as e:
             pass
 
@@ -261,13 +265,25 @@ def update_booking(request, id):
 
         if data:
             print(id)
-            print(data)
             appointment_obj = appointment_model.Appointment.objects.get(id=int(data['id']))
-            # appointment_obj.start_time = data['start_time']
-            # appointment_obj.end_time = data['end_time']
             appointment_obj.remark = data['remark']
             appointment_obj.status = data['status']
             appointment_obj.save()
+
+            if data['status'] == '3':
+                user_name = appointment_obj.booking.user.get_full_name()
+                kid_name = appointment_obj.booking.kids.kids_name
+                user_email = appointment_obj.booking.user.email
+                subject = "Appointment Cancelled - Swim Time Solutions"
+                email_body = f"Hello {user_name},\n\nThis is to notify that your student name {kid_name} appointment of Date {appointment_obj.start_time.date()}, Time {appointment_obj.start_time.time()} to {appointment_obj.end_time.time()} reason of {data['remark']} has been cancelled.\n\n" \
+                             f"Thank You,\n" \
+                             f"Swim Time Solutions"
+                try:
+                    sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                       'user_email': user_email})
+                except Exception as e:
+                    pass
+
             print("updated")
 
             # return render(request, 'InstructorDashboard/dashboard.html', context=context)
@@ -560,14 +576,15 @@ def change_password(request):
             user_obj.set_password(str(ser.data['new_password']))
             user_obj.save()
 
-            user_name = str(first_name + " " + last_name)
-            user_email = request.user
+            user_name = user_obj.get_full_name()
+            user_email = request.user.email
             subject = "Password Changed - Swim Time Solutions"
-            email_body = f"Hello {user_name},\n \n This is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
+            email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
                          f"Thank You,\n" \
                          f"Swim Time Solutions"
             try:
-                mail_notification(request, subject, email_body, user_email)
+                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                   'user_email': user_email})
             except Exception as e:
                 pass
             context.update({'success': "Password update Successfully. Please login !! "})
@@ -720,7 +737,7 @@ def generate_otp(request):
                          f'\nPlease use below OTP & link to reset your password\n' \
                          f'OTP: {otp.otp}' \
                          f'Link: {current_site}/user/reset-password \n\n' \
-                        f"Thank You,\nTeam Swim Time Solutions"
+                         f"Thank You,\nTeam Swim Time Solutions"
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password - Swim Time Solutions'}
             try:
@@ -761,7 +778,7 @@ def add_break_time(request):
             messages.error(request, "Please select valid timeSlot!")
             return redirect('InstructorDashboard:instructor_profile')
         elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (
-        break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
+                break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
                 request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S"):
             if formset.is_valid():
                 formset.save()
@@ -806,8 +823,9 @@ def generate_otp(request):
                              f"\n\nPlease use below OTP & link to reset your password\n" \
                              f"OTP: {otp.otp}\n" \
                              f"Link: {current_site}/user/reset-password\n\n" \
-                             # f" Thank You,\nTeam Swim Time Solutions"
-                data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password - Swim Time Solutions'}
+                    # f" Thank You,\nTeam Swim Time Solutions"
+                data = {'email_body': email_body, 'to_email': user.email,
+                        'email_subject': 'Reset your password - Swim Time Solutions'}
                 try:
                     sent_mail(data)
                     context.update({'success': 'OTP has been sent to your registered email address.',
