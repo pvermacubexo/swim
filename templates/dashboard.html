@@ -1850,6 +1850,7 @@
 
         $("#cash_payment_btn").click(function () {
             var amt = $('#amount_to_be_paid1').val();
+            var first_payment = {{first_payment.payment_range}};
             {#if#}
             var x = $('#fee').text();
             console.log(parseInt(x.substring(1,)));
@@ -1857,12 +1858,11 @@
 
                 $("#error_meesage").text("Enter Valid Amount  ");
 
-            } else if ((amt) < (parseInt(x.substring(1,))) * 50 / 100) {
+            } else if ((amt) < (parseInt(x.substring(1,))) * first_payment / 100) {
 
-                console.log("success");
+                console.log("success", first_payment);
 
-
-                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum "+ first_payment +"% of amount  ");
 
             } else {
                 $("#form_to_be").submit()
@@ -1878,16 +1878,17 @@
             var booking_id = $('#booking_id_span').text();
             var x = $('#fee').text();
             var amt = $('#amount_to_be_paid1').val();
+            var first_payment = {{first_payment.payment_range}};
             if ((amt <= 0) || (amt > (parseInt(x.substring(1,))))) {
 
                 $("#error_meesage").text("Enter Valid Amount");
 
-            } else if ((amt) < (parseInt(x.substring(1,))) * 50 / 100) {
+            } else if ((amt) < (parseInt(x.substring(1,))) * first_payment / 100) {
 
-                console.log("success");
+                console.log("success", first_payment);
 
 
-                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum "+ first_payment +"% of amount  ");
 
             } else {
                 $('#fee1').text("$" + amt);

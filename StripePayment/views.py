@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
 from app.email_notification import mail_notification
-from user.models import User, Kids
+from user.models import User, Kids, Profile
 from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet

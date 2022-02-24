@@ -501,6 +501,7 @@ def instructor_profile(request):
         profile_obj.twitter_link = ser.initial_data.get('twitter_link')
         profile_obj.day_start_time = request.POST.get('day_start_time')
         profile_obj.day_end_time = request.POST.get('day_end_time')
+        profile_obj.payment_range = request.POST.get('range')
 
         profile_obj.save()
         profile_obj = user_models.Profile.objects.get(user=request.user)
