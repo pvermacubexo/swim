@@ -383,7 +383,7 @@
 
                                                                 {% if kid_detail|length > 1 %}
                                                                     <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids">
-                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Students Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
                                                                 {% else %}
                                                                     <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids">
                                                                          {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
@@ -461,7 +461,7 @@
                                                                     <br>
                                                                     {% if kid_detail|length > 1 %}
                                                                     <select style="width: 50% !important; " class="form-control " aria-label="Default select example" id="kids1">
-                                                                        <option selected disabled id="options" value="0" required="">Please Select Kids Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
+                                                                        <option selected disabled id="options" value="0" required="">Please Select Students Name</option>  {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
                                                                 {% else %}
                                                                     <select style="width: 50% !important; display: none !important; " class="form-control " aria-label="Default select example" id="kids1">
                                                                          {% for kids in kid_detail %} <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}</select>
@@ -1185,7 +1185,7 @@
                                                       <div _ngcontent-asr-c30="" class="row confirm-block-inner">
                                                             <div _ngcontent-asr-c30=""
                                                                  class="col-md-4 right-text left-text-left"><label
-                                                                    _ngcontent-asr-c30=""> Kids Name: </label>
+                                                                    _ngcontent-asr-c30=""> Student Name: </label>
                                                             </div>
                                                             <div _ngcontent-asr-c30="" class="col-md-8 left-text">
                                                                 <p id="kids_name1"></p>
@@ -1776,21 +1776,21 @@
            $(".amount1").text("");
        })
 
-       function checkdate() {
-        var dtToday = new Date();
-
-        var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate() - 1;
-        var year = dtToday.getFullYear() - 8;
-        console.log(month, day, year)
-        if (month < 10)
-            month = '0' + month.toString();
-        if (day < 10)
-            day = '0' + day.toString();
-        console.log(month, day, year)
-        var maxDate = year + '-' + month + '-' + day;
-        $('#DateOfBirth').attr('max', maxDate);
-    }
+    {#   function checkdate() {#}
+    {#    var dtToday = new Date();#}
+    {##}
+    {#    var month = dtToday.getMonth() + 1;#}
+    {#    var day = dtToday.getDate() - 1;#}
+    {#    var year = dtToday.getFullYear() - 8;#}
+    {#    console.log(month, day, year)#}
+    {#    if (month < 10)#}
+    {#        month = '0' + month.toString();#}
+    {#    if (day < 10)#}
+    {#        day = '0' + day.toString();#}
+    {#    console.log(month, day, year)#}
+    {#    var maxDate = year + '-' + month + '-' + day;#}
+    {#    $('#DateOfBirth').attr('max', maxDate);#}
+    {#}#}
     </script>
     <script>
 
@@ -2255,7 +2255,7 @@
                 window.alert("please select time slot")
             }
             else if (kids === '0'){
-                window.alert("please select kids")
+                window.alert("please select student name")
 
             }
             else {
@@ -2341,7 +2341,7 @@ $("#nextbtn1").click(function(){
         break;
     }
     if (kids === '0'){
-        window.alert("please select kids")
+        window.alert("please select student name")
         break;
 
     }

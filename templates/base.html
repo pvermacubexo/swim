@@ -12051,24 +12051,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"></script>
 <script src={% static 'assets/js/custom.js' %}></script>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-<script>   function checkdate(){
-        var dtToday = new Date();
 
-        var month = dtToday.getMonth() + 1;
-        var day = dtToday.getDate()-1;
-        var year = dtToday.getFullYear()-8;
-        console.log(month,day,year)
-        if(month < 10)
-            month = '0' + month.toString();
-        if(day < 10)
-            day = '0' + day.toString();
-        console.log(month,day,year)
-        var maxDate = year + '-' + month + '-' + day;
-        $('input[type="date"]').attr('max', maxDate);
-
-
-   }
-</script>
 <script type="text/javascript">
     // var stripe = Stripe('pk_live_51IVT80A0I9vN6C8r4VrS2F0MLEe9xZrYk965cSZOYkaJwaRnvPybJopC3KgwpmHNfoO5saCglOEnMxWBXp838PPA00f8GirMT2'); // use your test publishable key
     var stripe = Stripe('pk_test_51J5PmZH2rThr3O6EHMRDvGq7alGnTjXyFHDXRaCHoGHCXOBAavHtbHIsK5tiZTkWLSlIsnZVF5fVX8KCyhjKBwwC00FpPDKYKJ');
@@ -12153,11 +12136,11 @@
                                                         </div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="first_name">First
+                                                                _ngcontent-uas-c28="" for="first_name">Guardian First
                                                             Name </label><input _ngcontent-uas-c28="" name="first_name"
                                                                                 pattern="[A-Za-z]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
-                                                                                placeholder="First Name"
+                                                                                placeholder=" Guardian First Name"
                                                                                 formcontrolname="first_name"
                                                                                 value="{{ user_details.first_name }}"
                                                                                 type="text"
@@ -12167,11 +12150,11 @@
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="last_name">Last Name </label><input
+                                                                _ngcontent-uas-c28="" for="last_name"> Guardian Last Name </label><input
                                                                 _ngcontent-uas-c28="" name="last_name"
                                                                 pattern="[A-Za-z]{3,}"
                                                                 title="Alphabetic Characters are allowed"
-                                                                placeholder="Last Name" formcontrolname="last_name"
+                                                                placeholder="Guardian Last Name" formcontrolname="last_name"
                                                                 type="text" value="{{ user_details.last_name }}"
                                                                 id="last_name"
                                                                 class="form-control ng-untouched ng-pristine ng-valid"
@@ -12179,9 +12162,9 @@
                                                             <!----></div>
                                                          <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="father_name">Spouse
+                                                                _ngcontent-uas-c28="" for="father_name">Guardian-2
                                                             Name </label><input _ngcontent-uas-c28="" name="father_name"
-                                                                                placeholder="Spouse Name"
+                                                                                placeholder="Guardian-2 Name"
                                                                                 pattern="[A-Za-z ]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
                                                                                 formcontrolname="father_name"
@@ -12234,9 +12217,9 @@
                                                         {% for kids in kid_detail %}
                                                         <div _ngcontent-uas-c28="" class="listClass">
                                                         <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
-                                        _ngcontent-jar-c34="" for="kids_name">Kid Name</label> <input type="hidden" value="{{ kids.id }}" name="ID"> <input
+                                        _ngcontent-jar-c34="" for="kids_name">Student Name</label> <input type="hidden" value="{{ kids.id }}" name="ID"> <input
                                         _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name" value="{{ kids.kids_name }}"
-                                        placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}"
+                                        placeholder="Enter Student Name Here" pattern="[A-Za-z ]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" type="text"
                                         id="kids_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
@@ -12266,7 +12249,7 @@
 {#                                        style="padding: 0 0 0 10px;" required><!----></div>#}
                                                         <div _ngcontent-uas-c28=""
                                                              class="text-center addBtnP">
-                                                            <button type="button" class="btn-login" id="addField">Add Kid <i class="fas fa-plus"></i></button></div>
+                                                            <button type="button" class="btn-login" id="addField">Add Student <i class="fas fa-plus"></i></button></div>
                                                     </div>
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
@@ -12322,7 +12305,7 @@
        let count = 1;
       $("#addField").click(function(e) {
         $(".childMain").append(
-          '<div id="list'+ count +'" class="listClass"><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="kids_name'+ count +'">Kid Name</label><input _ngcontent-jar-c34="" formcontrolname="kids_name'+ count +'" name="kids_name1" placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}" title="Only Alphabet are allowed and min 3 characters" type="text" id="kids_name'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid" required=""><!----></div><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="date_of_birth'+ count +'">Date of Birth</label><input _ngcontent-jar-c34="" formcontrolname="date_of_birth'+ count +'" name="date_of_birth1" max="2022-02-15" type="date" id="DateOfBirth'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid DateOfBirth" style="padding: 0 0 0 10px;" required="" ><!----></div><button type="button" id="removeChild" ><i class="fas fa-minus"></i></button></div>'
+          '<div id="list'+ count +'" class="listClass"><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="kids_name'+ count +'">Student Name</label><input _ngcontent-jar-c34="" formcontrolname="kids_name'+ count +'" name="kids_name1" placeholder="Enter Student Name Here" pattern="[A-Za-z ]{3,}" title="Only Alphabet are allowed and min 3 characters" type="text" id="kids_name'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid" required=""><!----></div><div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label _ngcontent-jar-c34="" for="date_of_birth'+ count +'">Date of Birth</label><input _ngcontent-jar-c34="" formcontrolname="date_of_birth'+ count +'" name="date_of_birth1" max="2022-02-15" type="date" id="DateOfBirth'+ count +'" class="form-control ng-untouched ng-pristine ng-invalid DateOfBirth" style="padding: 0 0 0 10px;" required="" ><!----></div><button type="button" id="removeChild" ><i class="fas fa-minus"></i></button></div>'
         );
         count++
       });
@@ -12360,9 +12343,9 @@
 };
     </script>
 <script>
-    function checkdates(){
+    //function checkdates(){
 
-   }
+   //}
 </script>
 
 <script>
