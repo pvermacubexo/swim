@@ -53,20 +53,16 @@ def appointment_mail():
 
 
 # def send_mail_body():
-#     get_appointment = Appointment.objects.all()
+#     date = datetime.datetime.now()
+#     get_appointment = Appointment.objects.filter(start_time__day=date.day)
+#     start_time = {}
 #     for appointment in get_appointment:
-#         now = datetime.datetime.now()  # 2022-02-22 09:55:09.027564
-#         # now = datetime.datetime.now().now()  # 2022-02-22
-#         date = appointment.start_time  # 2022-02-19 07:46:00+00:00
-#         date = appointment.start_time.date()  # 2022-02-18
-#         appoint_date = appointment.start_time.date()
-#
-#         if appoint_date == now:
-#             today_appointment = Appointment.objects.filter(start_time__gte=now)
 #         users_email = [appointment.booking.user.email]
 #         user_name = appointment.booking.user.get_full_name()
 #         date = appointment.start_time.date()
-#         start_time = appointment.start_time.time()
+#         start_slot = appointment.start_time.time()
+#         end_slot = appointment.end_time.time()
+#         start_time.update(start_slot=end_slot)
 #         end_time = appointment.end_time.time()
 #
 #         subject = f"Today's Appointments"
@@ -86,3 +82,6 @@ def appointment_mail():
 #
 #     response = requests.request("GET", url, headers=headers, data=payload)
 #     print("Checklojgm")
+
+ # celery -A SharkDeck worker -l info
+# celery -A SharkDeck beat -l info

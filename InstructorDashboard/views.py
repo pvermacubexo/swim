@@ -1,9 +1,13 @@
 import logging
 import os
+import urllib.request
+from urllib import request
 from datetime import datetime, timedelta, date
 from random import randint
 
 import pytz
+import requests
+import urllib3
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -12,6 +16,9 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
+from icalendar import Calendar, Event, vCalAddress, vText
+from datetime import datetime
+from pathlib import Path
 
 from Appointment import models as appointment_model
 from Appointment import utilities
@@ -171,8 +178,8 @@ def dashboard_view(request):
         credit_amount += complete_transaction.paid_amount
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
-                                                                start_time__day=datetime.now().day)
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
+
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
