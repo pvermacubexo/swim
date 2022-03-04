@@ -4,11 +4,12 @@
 {% block exttra_style %}
 
     <!-- DataTables -->
+
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" type="text/css">
 {#    <!-- Plugins css -->#}
 {#    <link href="https://mannatthemes.com/dastone-1/plugins/select2/select2.min.css" rel="stylesheet" type="text/css"/>#}
 {#    <link href="https://mannatthemes.com/dastone-1/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css"#}
@@ -202,6 +203,16 @@
                             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                 <div class="row">
                                     <div class="col-sm-12">
+                                    <table >
+                                        <tbody><tr>
+                                            <td>Start date:</td>
+                                            <td><input type="text" id="min" name="min"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>End date:</td>
+                                            <td><input type="text" id="max" name="max"></td>
+                                        </tr>
+                                    </tbody></table>
                                         <table id="datatable-buttons"
                                                class="table table-striped table-bordered dt-responsive nowrap"
                                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -215,26 +226,31 @@
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 265.8px;"
                                                     aria-label="Position: activate to sort column ascending">
-                                                    Guardian1
+                                                    Guardian Name
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1"
-                                                    aria-label="Age: activate to sort column ascending">Guardian2
+                                                    aria-label="Age: activate to sort column ascending">Contact Number
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 118.8px;"
+                                                    aria-label="Start date: activate to sort column ascending"> Class Name
+
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 118.8px;"
                                                     aria-label="Start date: activate to sort column ascending">
-                                                    Contact Number
+                                                    Appointment Date
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 118.8px;"
                                                     aria-label="Start date: activate to sort column ascending">
-                                                    Start time
+                                                    Start Time
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 118.8px;"
                                                     aria-label="Start date: activate to sort column ascending">
-                                                    End time
+                                                    End Time
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1"
@@ -242,18 +258,17 @@
                                                 </th>
                                             </tr>
                                             </thead>
-
-
                                             <tbody>
 
                                             {% for appointment in appointments %}
                                                 <tr role="row" class="odd">
+                                                    <td>{{ appointment.booking.kids.kids_name }}</td>
                                                     <td>{{ appointment.booking.user.get_full_name }}</td>
-                                                    <td>{{ appointment.booking.user.father_name }}</td>
-                                                    <td>{{ appointment.booking.user.mother_name }}</td>
                                                     <td>{{ appointment.booking.user.mobile_no }}</td>
-                                                    <td>{{ appointment.start_time|time:"h:i A" }}</td>
-                                                    <td>{{ appointment.end_time|time:"h:i A" }}</td>
+                                                    <td>{{ appointment.booking.class_instructor.title }}</td>
+                                                    <td>{{ appointment.start_time|date:'20y/m/d'}}</td>
+                                                    <td>{{ appointment.start_time|time:'h:i A'}}</td>
+                                                    <td>{{ appointment.end_time|time:'h:i A' }}</td>
                                                     <td>{{ appointment.booking.get_booking_payment_status }}</td>
                                                 </tr>
                                             {% endfor %}
@@ -276,13 +291,10 @@
 {% endblock %}
 
 {% block extra_script %}
-
 <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-
-<script src="{% static 'js/jquery.dataTables.min.jss' %}"></script>
-<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
-<script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/dataTables.dateTime.min.js' %}" ></script>
 <script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
 <script src="{% static 'js/buttons.bootstrap4.min.js' %}"></script>
 <script src="{% static 'js/jszip.min.js' %}"></script>
@@ -295,13 +307,93 @@
 <script src="{% static 'js/responsive.bootstrap4.min.js' %}"></script>
     <!-- Required datatable js -->
     <script>
-$(document).ready(function () {
-        $("#datatable-buttons")
+{#$(document).ready(function () {#}
+{#        $("#datatable-buttons")#}
+{#            .DataTable({ lengthChange: !1, buttons: ["excel", "pdf"] })#}
+{#            .buttons()#}
+{#            .container()#}
+{#            .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),#}
+{#        $("#row_callback").DataTable({});#}
+//{#});#}
+
+var minDate, maxDate;
+
+// Custom filtering function which will search data in column four between two values
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+
+        var min = minDate.val();
+        var max = maxDate.val();
+        var date = new Date(data[4]);
+        {#var datas = date[4]#}
+        console.log(date[4])
+        if (min === null && max === null){
+            console.log("Suceess")
+            return true;
+        } else{
+            if(min != null){
+
+                var dateString = new Date(min);
+                var dateString2 = new Date(max);
+               var a = moment(date).format('YYYY-MM-DD')
+               var b= moment(dateString).format('YYYY-MM-DD')
+                var c= moment(dateString2).format('YYYY-MM-DD')
+                console.log(a)
+                console.log(b)
+                if ( (a === b && max == null ) || (b <= a && a <= c )){
+                    console.log("success")
+                return true;
+                }
+            }
+        }
+
+
+        {#var min = minDate.val();#}
+        {#var max = maxDate.val();#}
+        {#var date = new Date(data[4]);#}
+        {#console.log(date)#}
+        {#console.log(min)#}
+        {#if (min != null){#}
+        {#    var dateString = new Date(min);#}
+        {#    b= moment(dateString).format('YYYY-MM-DD')#}
+        {#    console.log(b)#}
+      //  {#}#}
+        {##}
+        {#if (#}
+        {#    ( min === null && max === null ) ||#}
+        {#    ( min === null && date <= max ) ||#}
+        {#    ( min <= date && max === null ) ||#}
+        {#    ( min <= date && date <= max )#}
+        {#) {#}
+        {##}
+        {#    console.log("Suceess")#}
+        {#    return true;#}
+        //{#}#}
+        {#console.log('error')#}
+        {#return false;#}
+    }
+);
+
+$(document).ready(function() {
+    // Create date inputs
+    minDate = new DateTime($('#min'), {
+        format: 'DD/MM/YYYY'
+    });
+    maxDate = new DateTime($('#max'), {
+        format: 'DD/MM/YYYY'
+    });
+
+    // DataTables initialisation
+    var table = $("#datatable-buttons")
             .DataTable({ lengthChange: !1, buttons: ["excel", "pdf"] })
             .buttons()
             .container()
-            .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),
-        $("#row_callback").DataTable({});
+            .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
+$("#datatable-buttons_wrapper").find(".dt-buttons.btn-group").removeClass("btn-group");
+    // Refilter the table
+    $('#min, #max').on('change', function () {
+        $("#datatable-buttons").DataTable().draw();
+    });
 });
 /*
 $(document).ready(function() {
@@ -323,5 +415,10 @@ $(document).ready(function() {
     } );
 } );
 */
+    </script>
+    <script>
+        function ss(){
+            console.log('jay')
+        }
     </script>
 {% endblock %}

@@ -171,8 +171,7 @@ def dashboard_view(request):
         credit_amount += complete_transaction.paid_amount
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
-                                                                start_time__day=datetime.now().day)
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
