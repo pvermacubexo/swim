@@ -13,6 +13,7 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -28,6 +29,7 @@ from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
 from user.email_services import sent_mail
+from user.models import Profile
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -140,13 +142,6 @@ def login_view(request):
             if user.user_type == user_constants.Instructor:
                 login(request, user)
 
-                # user_email = request.POST['email']
-                # hostname = socket.gethostname()
-                # IPAddress = socket.gethostbyname(hostname)
-                # subject = "Security Alert"
-                # email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
-                # mail_notification(request, subject, email_body, user_email)
-
                 return redirect('InstructorDashboard:dashboard_view')
             context.update({'page_errors': ['User does not have permission to access this portal.']})
             return render(request, 'InstructorDashboard/auth/login.html', context=context)
@@ -160,6 +155,14 @@ def user_logout(request):
 
 def home_view(request):
     return render(request, "index.html")
+
+
+def increase(inst_count_id):
+    inst_count_id += 1
+
+
+def setzero(inst_count_id):
+    inst_count_id = 0
 
 
 @login_required(redirect_field_name='login')
@@ -179,6 +182,39 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
     appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
+    today_appointment = appointment_model.Appointment.objects.filter(start_time__day=datetime.now().day)
+
+    today_date = datetime.now()
+    count = 0
+    instructor_list = []
+    time_slot = {}
+    add = 0
+    subject = "Today's Appointment"
+    print(today_appointment)
+    for detail in today_appointment:
+        instructor_id = detail.booking.class_instructor.instructor.id
+        if instructor_id not in instructor_list:
+            instructor_list.append(instructor_id)
+            print('hii', instructor_id)
+            today_slot = appointment_model.Appointment.objects.filter(
+                booking__class_instructor__instructor=instructor_list[count],
+                start_time__day=datetime.now().day)
+
+            for appoint in today_slot:
+                start_time = appoint.start_time.time().strftime("%H:%M")
+                end_time = appoint.end_time.time().strftime("%H:%M")
+                print({start_time: end_time})
+                time_slot[start_time] = end_time
+        time_slot = time_slot
+        var = f"start time, {time_slot.keys()} end time {time_slot.values()}"
+        email_body = f"hello ,\nThis mail notify you that your tomorrows {today_date.date()} appointments time slot is " \
+                     f"{var}\n" \
+                     f"Thank You"
+
+        print(email_body)
+        print(instructor_list)
+        instructor_list.pop(0)
+        del time_slot[start_time]
 
     context = {'appointments': appointments,
                'transactions': transactions,
