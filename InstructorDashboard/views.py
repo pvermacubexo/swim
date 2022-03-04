@@ -174,7 +174,7 @@ def dashboard_view(request):
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
-               'total_students': len(set([booking.user for booking in bookings])),
+               'total_students': len(set([booking.kids for booking in bookings])),
                'credit_amount': credit_amount,
                'pending_transaction': pending_amount
                }
@@ -756,9 +756,22 @@ def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
         break_time = user_models.Profile.objects.get(user=request.user.id)
+        break_time_list = user_models.BreakTime.objects.filter(instructor_id = request.user.id)
 
+        if break_time_list:
+
+            for i in break_time_list:
+                raw_start_time = i.start_time.strftime("%H:%M")
+                raw_end_time = i.end_time.strftime("%H:%M")
+                if (i.week_day == request.POST['form-0-week_day']):
+                    if (raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time) or (raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time) or (raw_start_time <= request.POST['form-0-start_time'] <= request.POST['form-0-end_time'] <= raw_end_time):
+                        print("Success")
+                        messages.error(request, "The Break Time you have selected is already exist ! Please select another time slot .")
+                        return redirect('InstructorDashboard:instructor_profile')
+        else:
+            print("fail")
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
-            messages.error(request, "Please select valid timeSlot!")
+            messages.error(request, "Please select valid time slot !")
             return redirect('InstructorDashboard:instructor_profile')
         elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (
         break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
@@ -766,7 +779,12 @@ def add_break_time(request):
             if formset.is_valid():
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
+            else:
+                messages.error(request, "Please select all fields !")
+                return redirect('InstructorDashboard:instructor_profile')
+
         else:
+            print("Renesme")
             messages.error(request, "Please select valid timeSlot!")
 
     return redirect('InstructorDashboard:instructor_profile')

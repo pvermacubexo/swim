@@ -1230,7 +1230,6 @@
                                                                                    type="number" pattern="[0-9]"
                                                                                    id="amount_to_be_paid1"
                                                                                    name="paid_amount"
-                                                       max=10
 
                                                        required>
                                                  <span style="color: red;" class="amount1" id="error_meesage"></span>
@@ -2457,5 +2456,13 @@ $("#nextbtn1").click(function(){
       }
     });
 
+    </script>
+    <script>
+    $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
     </script>
     </a>{% endblock %}

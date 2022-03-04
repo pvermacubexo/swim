@@ -1065,6 +1065,28 @@
 
         // End Stripe Api code
     </script>
+<script>
+    $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
+    </script>
+<script>
+    var inputBox = document.getElementById("amount_to_be_paid");
 
+    var invalidChars = [
+      "E",
+      "e",
+    ];
 
+    inputBox.addEventListener("keydown", function(e) {
+      if (invalidChars.includes(e.key)) {
+        e.preventDefault();
+        console.log("Success")
+      }
+    });
+
+    </script>
 {% endblock %}

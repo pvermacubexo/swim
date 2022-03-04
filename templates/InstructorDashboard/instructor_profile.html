@@ -101,7 +101,7 @@
                                 <i class="la la-skull-crossbones alert-icon alert-icon text-danger align-self-center font-30 mr-3"></i>
                                 <div class="alert-text my-1">
                                     <h5 class="mb-1 font-weight-bold mt-0">Error</h5>
-                                    <p>Please Select Valid TimeSlot</p>
+                                    <p>{{ message }}</p>
                                 </div>
                                 <div class="alert-close ">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -885,8 +885,8 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>Week Day</th>
-                                                                <th>Start time</th>
-                                                                <th>End time</th>
+                                                                <th>Start Time</th>
+                                                                <th>End Time</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                             </thead>
@@ -1287,13 +1287,13 @@
     <script>
         setTimeout(function () {
             $("[data-dismiss=alert]").click();
-        }, 2000);
+        }, 3000);
     </script>
      <script>
         setTimeout(function () {
             console.log("testes")
             $("[class=custom-alert]").click();
-        }, 2000);
+        }, 3000);
     </script>
     <script>
     {% if not user.get_profile.monday %}

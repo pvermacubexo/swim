@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Time Slot</label>
+                                            <label>Class Duration (in minutes)</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i
@@ -73,7 +73,7 @@
                                                 <input name="time_slot" type="number" class="form-control"
                                                        min="1" max="120"
                                                        id="exampleFormControlInput1"
-                                                       value="{{ instance.time_slot }}" placeholder="Enter Time Slot" required>
+                                                       value="{{ instance.time_slot }}" placeholder="Enter Class Duration" required>
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
                                                         <div style="color: red">{{ error }} </div>
