@@ -11,7 +11,7 @@ app = Celery('SharkDeck', include=["SharkDeck.tasks"], broker='redis://localhost
 app.conf.beat_schedule = {
     'appointment_mail_send': {
         'task': 'SharkDeck.tasks.appointment_mail',
-        'schedule': crontab()  # every day at midnight
+        'schedule': crontab(minute=0, hour=0)  # every day at midnight
     }
 }
 
