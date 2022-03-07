@@ -29,7 +29,7 @@ from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
 from user.email_services import sent_mail
-from user.models import Profile
+from user.models import Profile, User
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -182,39 +182,6 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
     appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
-    today_appointment = appointment_model.Appointment.objects.filter(start_time__day=datetime.now().day)
-
-    today_date = datetime.now()
-    count = 0
-    instructor_list = []
-    time_slot = {}
-    add = 0
-    subject = "Today's Appointment"
-    print(today_appointment)
-    for detail in today_appointment:
-        instructor_id = detail.booking.class_instructor.instructor.id
-        if instructor_id not in instructor_list:
-            instructor_list.append(instructor_id)
-            print('hii', instructor_id)
-            today_slot = appointment_model.Appointment.objects.filter(
-                booking__class_instructor__instructor=instructor_list[count],
-                start_time__day=datetime.now().day)
-
-            for appoint in today_slot:
-                start_time = appoint.start_time.time().strftime("%H:%M")
-                end_time = appoint.end_time.time().strftime("%H:%M")
-                print({start_time: end_time})
-                time_slot[start_time] = end_time
-        time_slot = time_slot
-        var = f"start time, {time_slot.keys()} end time {time_slot.values()}"
-        email_body = f"hello ,\nThis mail notify you that your tomorrows {today_date.date()} appointments time slot is " \
-                     f"{var}\n" \
-                     f"Thank You"
-
-        print(email_body)
-        print(instructor_list)
-        instructor_list.pop(0)
-        del time_slot[start_time]
 
     context = {'appointments': appointments,
                'transactions': transactions,
