@@ -72,6 +72,10 @@ def signup_view(request):
         mobile_no = request.POST.get('mobile_no')
         if user_models.User.objects.filter(email=email).exists():
             return render(request, 'InstructorDashboard/auth/login.html', {'error': 'email already exist.'})
+
+        if user_models.User.objects.filter(mobile_no=mobile_no).exists():
+            return render(request, 'InstructorDashboard/auth/login.html', {'unique_no': 'mobile number already exist.'})
+
         if int(len(password)) < 7:
             context.update({'error': 'Password must continent at-least 8 character.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)
@@ -182,46 +186,6 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
     appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
-
-    today_appointment = appointment_model.Appointment.objects.filter(start_time__day=datetime.now().day)
-    today_date = datetime.now().date()
-    instructor_list = []
-    time_slot = {}
-    subject = "Today's Appointment"
-    for detail in today_appointment:
-        instructor_id = detail.booking.class_instructor.instructor.id
-        if instructor_id not in instructor_list:
-            instructor_list.append(instructor_id)
-
-    if not instructor_list:
-        print("no have any appointment")
-    else:
-        for inst_list in instructor_list:
-            today_appointment = appointment_model.Appointment.objects.filter(
-                booking__class_instructor__instructor=inst_list,
-                start_time__day=datetime.now().day)
-            user_slot = {}
-            for appoint in today_appointment:
-                if instructor_list:
-                    start_time = appoint.start_time.time().strftime("%H:%M")
-                    end_time = appoint.end_time.time().strftime("%H:%M")
-                    user_slot[start_time] = end_time
-            time_slot[inst_list] = user_slot
-
-    for i in instructor_list:
-        instructor = User.objects.filter(id=i)
-        for j in instructor:
-            name = j.get_full_name()
-            email = j.email
-            time = time_slot.get(i)
-            str_slot = ""
-            for key, value in time.items():
-                str_slot = str_slot + key + " to " + value + ",\n"
-            email_body = f"hello {name},\n This mail notify you that your today's {today_date} appointment is : \n" \
-                         f"{str_slot}\n" \
-                         f"Thank You"
-            # send_mail(subject, email_body, settings.EMAIL_HOST_USER, [email])
-            print(email_body)
 
     context = {'appointments': appointments,
                'transactions': transactions,
