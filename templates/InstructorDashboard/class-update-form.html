@@ -135,7 +135,7 @@
                                         <div class="form-group mb-0">
                                             <label>Image</label>
                                             <input type="file" value="{{ instance.thumbnail_image }}" name="thumbnail_image" id="input-file-now"
-                                                   accept="image/*"
+                                                   accept="image/png, image/jpg, image/jpeg, image/jfif"
                                                    class="dropify" data-height="400" data-default-file="{{ instance.thumbnail_image.url }}"/>
                                             {% if errors.thumbnail_image %}
                                                 {% for error in errors.thumbnail_image %}

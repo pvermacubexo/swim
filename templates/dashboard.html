@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block sidebar_content %}
+    <script type="text/javascript">
+
+setTimeout(function () {
+            $('[role="alert"]').click();
+        }, 8000);
+
+    </script>
     <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
         <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
             <div _ngcontent-nwk-c28="" class="tab-link first">
@@ -2110,6 +2117,7 @@
                     dataType: 'json',
                     success: function (data) {
                         $(".termsconditions").show();
+                        document.querySelector(".timeSelectContent").innerHTML = "";
 
                         if (data.time.length > 0) {
 
@@ -2464,5 +2472,13 @@ $("#nextbtn1").click(function(){
       event.preventDefault();
     }
 });
+    </script>
+
+    <script type="text/javascript">
+setTimeout(function (){
+       if ($('#msg').length>0){
+           $('#msg').remove();
+       }
+   }, 8000)
     </script>
     </a>{% endblock %}

@@ -62,6 +62,8 @@ def signup_view(request):
         mobile_no = request.POST.get('mobile_no')
         if user_models.User.objects.filter(email=email).exists():
             return render(request, 'InstructorDashboard/auth/login.html', {'error': 'email already exist.'})
+        if user_models.User.objects.filter(mobile_no=mobile_no).exists():
+            return render(request, 'InstructorDashboard/auth/login.html', {'unique_no': 'mobile number already exist.'})
         if int(len(password)) < 7:
             context.update({'error': 'Password must continent at-least 8 character.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)

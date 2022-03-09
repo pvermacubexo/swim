@@ -298,7 +298,7 @@
                                         <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <table class="table data_table table-striped table-bordered">
+                                                    <table class="table booking_table table-striped table-bordered">
                                                         <thead>
                                                         <tr role="row">
                                                             <th> Booking ID</th>
@@ -625,6 +625,22 @@
     <script>
         $(document).ready(function () {
             $(".data_table").DataTable()
+        });
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".booking_table").DataTable({
+                "columnDefs": [
+                    null,
+                    { "width": "20%"},
+                    null,
+                    null,
+                    null
+              ]
+
+            });
         });
 
 
