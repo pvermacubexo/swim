@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django_seed',
     'app',
     'celery',
-    'django_celery_results',
     'django_celery_beat',
 
 ]
@@ -117,7 +116,7 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Swimdb',
+        'NAME': 'swimming',
         'USER': 'postgres',
         'PASSWORD': 'dinesh123',
         'HOST': 'localhost',
