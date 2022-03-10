@@ -61,19 +61,16 @@
                                                     <div _ngcontent-oie-c32="" class="container">
                                                         <div _ngcontent-oie-c32="" class="col-md-12">
                                                             {% if data %}
-                                                                {% for datas in data %}
-                                                                    {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
-                                                                        {% if forloop.first %}
-                                                                            <div class="alert alert-danger" role="alert"
-                                                                                 style="padding: 1%;">
-                                                                                <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white"
-                                                                                   style=""><strong> </strong> Please
-                                                                                    make sure to pay within 30 miniute
-                                                                                    of booking otherwise booking will
-                                                                                    rejected.</p>
-                                                                            </div>
-                                                                        {% endif %}
-                                                                        {#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
+
+                                                            {% for datas in data %}
+                                                                {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
+                                                                    {% if forloop.first %}
+{#                                                                <div class="alert alert-danger" role="alert" style="padding: 1%;">#}
+{#                                                                   <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style=""> <strong> </strong> Please make sure to pay within 30 miniute of booking otherwise booking will rejected.</p>#}
+{#                                                                </div>#}
+                                                                        {%endif%}
+{#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
+
 
                                                                     {% endif %}
 
@@ -1096,6 +1093,28 @@
 
         // End Stripe Api code
     </script>
+<script>
+    $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
+    </script>
+<script>
+    var inputBox = document.getElementById("amount_to_be_paid");
 
+    var invalidChars = [
+      "E",
+      "e",
+    ];
 
+    inputBox.addEventListener("keydown", function(e) {
+      if (invalidChars.includes(e.key)) {
+        e.preventDefault();
+        console.log("Success")
+      }
+    });
+
+    </script>
 {% endblock %}

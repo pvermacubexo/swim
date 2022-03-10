@@ -68,15 +68,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Time Slot</label>
+                                            <label>Class Duration (in minutes)</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-calendar-clock"></i></span>
                                                 </div>
-                                                <input name="time_slot" type="number" min="1" max="120"
-                                                       class="form-control"
-                                                       placeholder="Enter Time Slot" required>
+
+                                                <input name="time_slot" type="number" min="1" max="120" class="form-control"
+                                                       placeholder="Enter Class Duration" required>
+
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
                                                         <div style="color: red">{{ error }} </div>
@@ -140,7 +141,7 @@
                                         <div class="form-group">
                                             <label>Image</label>
                                             <input type="file" required name="thumbnail_image" id="input-file-now"
-                                                   accept="image/*"
+                                                   accept="image/png, image/jpg, image/jpeg, image/jfif"
                                                    class="dropify"/>
                                             {% if errors.thumbnail_image %}
                                                 {% for error in errors.thumbnail_image %}

@@ -104,6 +104,9 @@ class PaymentDetail(APIView):
             status = transection_data.booking.payment_status
             booking = transection_data.booking
             ser = RepaymentBookingSeralizer(Booking)
+            email = request.session['email']
+            user_details = User.objects.get(email=email)
+            kid_detail = Kids.objects.filter(parent_id=user_details.id)
             res_data = {
                 'instructor': booking.class_instructor.instructor.get_full_name(),
                 'total_day': booking.class_instructor.total_days,
@@ -116,7 +119,7 @@ class PaymentDetail(APIView):
                 'due_amount': booking.get_total_due,
                 'pending_amount': ser.get_pending_amount(booking),
             }
-            return render(request, "payment_detail.html", {"data": res_data})
+            return render(request, "payment_detail.html", {"data": res_data, "user_details":user_details, "kid_detail":kid_detail})
         else:
             return redirect("dashboard_view")
 

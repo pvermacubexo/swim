@@ -61,6 +61,24 @@
     </div>
 {% endif %}
 
+{% if unique_no %}
+    <div class="top_alert_position alert custom-alert custom-alert-danger icon-custom-alert alert-secondary-shadow fade show"
+         role="alert">
+        <i class="la la-skull-crossbones alert-icon text-danger align-self-center font-30 mr-3"></i>
+        <div class="alert-text my-1">
+            <h5 class="mb-1 font-weight-bold mt-0">Danger</h5>
+            <span>{{ unique_no }}</span>
+        </div>
+        <div class="alert-close ">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <strong aria-hidden="true" class="text-danger">
+                    <i class="mdi mdi-close font-16"></i>
+                </strong>
+            </button>
+        </div>
+    </div>
+{% endif %}
+
 {% if page_errors %}
     {% for error in page_errors %}
         <div class="top_alert_position alert custom-alert custom-alert-danger icon-custom-alert alert-secondary-shadow fade show"

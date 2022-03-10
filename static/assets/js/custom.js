@@ -368,6 +368,7 @@ $(function () {
   $("#clearDates").click(function(){
     $('#calendar2').find(".ui-state-default").removeClass("ui-state-active");
     CompleteDate = [$(this).val()];
+    document.querySelector(".timeSelectContent").innerHTML = "";
     console.log("clear complete course dates", CompleteDate)
   });
 

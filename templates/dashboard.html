@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block sidebar_content %}
+    <script type="text/javascript">
+
+setTimeout(function () {
+            $('[role="alert"]').click();
+        }, 8000);
+
+    </script>
     <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
         <a _ngcontent-nwk-c28="" href={% url 'dashboard_view' %} class="active">
             <div _ngcontent-nwk-c28="" class="tab-link first">
@@ -391,6 +398,7 @@
                                                                     </div>
                                                                     <br>
 
+
                                                                     {% if active_kid|length > 1 %}
                                                                         <select style="width: 50% !important; "
                                                                                 class="form-control "
@@ -411,6 +419,7 @@
                                                                                 <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}
                                                                         </select>
                                                                     {% endif %}
+
                                                                     <br>
                                                                     <div
                                                                             class="termsconditions">
@@ -485,6 +494,7 @@
                                                                         </form>
                                                                     </div>
                                                                     <br>
+
                                                                     {% if active_kid|length > 1 %}
                                                                         <select style="width: 50% !important; "
                                                                                 class="form-control "
@@ -505,6 +515,7 @@
                                                                                 <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}
                                                                         </select>
                                                                     {% endif %}
+
                                                                     <br>
                                                                     <div class="termsconditions">
                                                                         <div class="">
@@ -1267,6 +1278,7 @@
                                             </div>
                                             <form id="form_to_be" method="POST" action="stripe/cash-payment/">
 
+
                                                 <div>
                                                     <input type="hidden" value="" id="bid" name="booking">
 
@@ -1277,10 +1289,11 @@
                                                            type="number" pattern="[0-9]"
                                                            id="amount_to_be_paid1"
                                                            name="paid_amount"
-                                                           max=10
+                                                      
 
                                                            required>
                                                     <span style="color: red;" class="amount1" id="error_meesage"></span>
+
 
 
                                             </form>
@@ -1842,25 +1855,26 @@
 
 
     <script>
-        $('#amount_to_be_paid1').on('click', () => {
-            $(".amount1").text("");
-        })
+    $('#amount_to_be_paid1').on('click', () => {
+           $(".amount1").text("");
+       })
 
-        function checkdate() {
-            var dtToday = new Date();
+    {#   function checkdate() {#}
+    {#    var dtToday = new Date();#}
+    {##}
+    {#    var month = dtToday.getMonth() + 1;#}
+    {#    var day = dtToday.getDate() - 1;#}
+    {#    var year = dtToday.getFullYear() - 8;#}
+    {#    console.log(month, day, year)#}
+    {#    if (month < 10)#}
+    {#        month = '0' + month.toString();#}
+    {#    if (day < 10)#}
+    {#        day = '0' + day.toString();#}
+    {#    console.log(month, day, year)#}
+    {#    var maxDate = year + '-' + month + '-' + day;#}
+    {#    $('#DateOfBirth').attr('max', maxDate);#}
+    {#}#}
 
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate() - 1;
-            var year = dtToday.getFullYear() - 8;
-            console.log(month, day, year)
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
-            console.log(month, day, year)
-            var maxDate = year + '-' + month + '-' + day;
-            $('#DateOfBirth').attr('max', maxDate);
-        }
     </script>
     <script>
 
@@ -2178,6 +2192,7 @@
                     dataType: 'json',
                     success: function (data) {
                         $(".termsconditions").show();
+                        document.querySelector(".timeSelectContent").innerHTML = "";
 
                         if (data.time.length > 0) {
 
@@ -2278,11 +2293,11 @@
                                                 $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + b + '</option>')
                                             }
                                         } else {
-                                          //  console.log(value[j])
-                                            //var a = data.time[value[j]]
+
                                             var a = value[j];
-                                            var b = a.slice(0, 5) + a.slice(8, 16)
-                                            console.log(b)
+                                             var b = a.slice(0, 5) + a.slice(8, 16)
+                                             console.log(b)
+
                                             $("#" + key).append('<option id="options" value="' + value[j] + '">' + b + '</option>')
                                         }
 
@@ -2326,8 +2341,11 @@
             console.log(kids)
             if (time === undefined || time === [] || time === null) {
                 window.alert("please select time slot")
-            } else if (kids === '0') {
-                window.alert("please select kids")
+
+            }
+            else if (kids === '0'){
+                window.alert("please select student name")
+
 
             } else {
                 $('#nextbtn').attr('data-target', "#details-popup")
@@ -2401,6 +2419,7 @@
     </script>
     <script>
         $("#nextbtn1").click(function () {
+
 
 
             var t1 = document.getElementsByClassName("select_tag").length;
@@ -2533,5 +2552,21 @@
             }
         });
 
+    </script>
+    <script>
+    $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
+    </script>
+
+    <script type="text/javascript">
+setTimeout(function (){
+       if ($('#msg').length>0){
+           $('#msg').remove();
+       }
+   }, 8000)
     </script>
     </a>{% endblock %}

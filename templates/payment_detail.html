@@ -40,10 +40,15 @@
             <div _ngcontent-nwk-c28="" class="tab-link">
                 <div _ngcontent-nwk-c28="" class="img-div ">
                     <img _ngcontent-uas-c28="" alt="Profile"
-                         src="http://167.172.131.164/media/Images/profile/default.png">
+                         {% if user_details.profile_img %}
+                                                             src="{{ user_details.profile_img }}">
+                                                            {% else %}
+                                                            src="{% static 'assets/img/default.png'%}">
+                                                            {% endif %}
                 </div>
                 <h3 _ngcontent-nwk-c28="">PROFILE</h3></div>
-        </a></a>
+        </a>
+    </a>
 
 
 
@@ -152,7 +157,14 @@
         </div>
     </div>
 
-
+<script>
+    $(document).keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+    }
+});
+    </script>
 
 
 {% endblock %}
