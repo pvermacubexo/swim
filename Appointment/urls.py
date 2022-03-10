@@ -26,6 +26,7 @@ urlpatterns = [
     path('individual-booking', views.IndividualBookingViewSet.as_view()),
     path('appointment-schedule', views.AppointmentScheduleViewSet.as_view()),
     path('booking-delete', views.BookingDelete.as_view()),
+    path('date-range', views.DateRange.as_view()),
 ]
 urlpatterns += format_suffix_patterns(router.urls)
 urlpatterns += static('/media', document_root=settings.MEDIA_ROOT)

@@ -304,3 +304,7 @@ class AppointmentScheduleSerializer(serializers.ModelSerializer):
 
     def get_end_time(self, obj):
         return obj.end_time.strftime("%I:%M %p")
+
+class GetAppointmentSerializer(serializers.Serializer):
+    start_date = serializers.DateField()
+    end_date = serializers.DateField(required=False)
