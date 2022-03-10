@@ -2268,10 +2268,18 @@
                                         if (key == todays_date) {
                                             if (value[j].substring(0, 2) > ctime.getHours()) {
                                                 //console.log(value[j])
-                                                $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
+                                                var a = value[j];
+                                                var b = a.slice(0, 5) + a.slice(8, 16)
+                                                console.log(b)
+                                                $("#" + todays_date).append('<option id="options" value="' + value[j] + '">' + b + '</option>')
                                             }
                                         } else {
-                                            $("#" + key).append('<option id="options" value="' + value[j] + '">' + value[j] + '</option>')
+                                          //  console.log(value[j])
+                                            //var a = data.time[value[j]]
+                                            var a = value[j];
+                                            var b = a.slice(0, 5) + a.slice(8, 16)
+                                            console.log(b)
+                                            $("#" + key).append('<option id="options" value="' + value[j] + '">' + b + '</option>')
                                         }
 
                                     }
