@@ -6,6 +6,8 @@ from SharkDeck.celery import app
 
 from celery import Celery
 
+from user.models import User
+
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_ENABLE_UTC = False
 
@@ -25,64 +27,54 @@ def sent_mail_task(*args, **kwargs):
 
 @app.task
 def appointment_mail():
-    get_appointment = Appointment.objects.all()
-    # now = datetime.datetime.utcnow()  # 2022-02-21 09:52:55.618620
-    # now = datetime.datetime.now()       #2022-02-21 09:55:09.027564
-    # get_detail = [i.start_time for i in get_appointment]
-    # print(get_detail)
-    # get_detail = [appoint for appoint in get_appointment]
-    # print(type(get_detail))
-    # print(get_detail[:])
-    for appointment in get_appointment:
-        # users_email = [appointment.booking.user.email]
-        user_name = appointment.booking.user.get_full_name()
-        date = appointment.start_time.date()  # 2022-02-19 07:46:00+00:00
-        start_time = appointment.start_time.time()
-        end_time = appointment.end_time.time()
-        # print(type(appointment.start_time.date()))
+    today_appointment = Appointment.objects.filter(start_time__day=datetime.datetime.now().day)
 
-        subject = f"Today's Appointments"
-        email_body = f"hello {user_name},\n \nThis mail notify you that your tomorrows {date}appointments time slot is " \
-                     f"start time {start_time} - end time {end_time}\n\n" \
-                     f"Thank You,\nTeam Swim Time Solutions"
-        print("message send")
-    try:
-        send_mail(subject, email_body, settings.EMAIL_HOST_USER, ['dinesh.parihar@cubexo.io'])
-    except Exception as e:
-        pass
+    today_date = datetime.datetime.now().date()
+    instructor_list = []
+    time_slot = {}
+    slot_classes = []
+    subject = "Appointment Reminder - Swim Time Solutions"
+    for detail in today_appointment:
+        instructor_id = detail.booking.class_instructor.instructor.id
+        slot_classes.append(detail.booking.class_instructor.title)
+        if instructor_id not in instructor_list:
+            instructor_list.append(instructor_id)
 
+    if not instructor_list:
+        print("no have any appointment")
+    else:
+        for inst_list in instructor_list:
+            today_appointment = Appointment.objects.filter(
+                booking__class_instructor__instructor=inst_list,
+                start_time__day=datetime.datetime.now().day)
+            user_slot = {}
+            for appoint in today_appointment:
+                if instructor_list:
+                    start_time = appoint.start_time.time().strftime("%H:%M")
+                    end_time = appoint.end_time.time().strftime("%H:%M")
+                    user_slot[start_time] = end_time
+            time_slot[inst_list] = user_slot
 
-# def send_mail_body():
-#     get_appointment = Appointment.objects.all()
-#     for appointment in get_appointment:
-#         now = datetime.datetime.now()  # 2022-02-22 09:55:09.027564
-#         # now = datetime.datetime.now().now()  # 2022-02-22
-#         date = appointment.start_time  # 2022-02-19 07:46:00+00:00
-#         date = appointment.start_time.date()  # 2022-02-18
-#         appoint_date = appointment.start_time.date()
-#
-#         if appoint_date == now:
-#             today_appointment = Appointment.objects.filter(start_time__gte=now)
-#         users_email = [appointment.booking.user.email]
-#         user_name = appointment.booking.user.get_full_name()
-#         date = appointment.start_time.date()
-#         start_time = appointment.start_time.time()
-#         end_time = appointment.end_time.time()
-#
-#         subject = f"Today's Appointments"
-#         email_body = f"hello {user_name},\n \nThis mail notify you that your tomorrows {date}appointments time slot is " \
-#                      f"start time {start_time} - end time {end_time}\n\n" \
-#                      f"Thank You,\nTeam Swim Time Solutions"
-#         return email_body
+    slot_class = slot_classes.__iter__()
+    for i in instructor_list:
+        instructor = User.objects.filter(id=i)
+        for j in instructor:
+            name = j.get_full_name()
+            email = j.email
+            time = time_slot.get(i)
+            str_slot = ""
+            for key, value in time.items():
+                class_name = slot_class.__next__()
+                str_slot = str_slot + class_name + " - " + key + " to " + value + ",\n"
+            email_body = f"Hello {name},\n\nHope you are doing well. This mail is to remind you about your today's" \
+                         f" appointment.\nPlease find below the details:\n" \
+                         f"{str_slot}\n" \
+                         f"Thank You,\n" \
+                         f"Team Swim Time Solutions"
+            try:
+                send_mail(subject, email_body, settings.EMAIL_HOST_USER, [email])
+            except Exception as e:
+                return e
 
-# @app.task
-# def check():
-#     import requests
-#
-#     url = "https://webhook.site/6e83818d-a1d3-4759-85da-1e813ab44e80"
-#
-#     payload = {}
-#     headers = {}
-#
-#     response = requests.request("GET", url, headers=headers, data=payload)
-#     print("Checklojgm")
+# celery -A SharkDeck worker -l info
+# celery -A SharkDeck beat -l info

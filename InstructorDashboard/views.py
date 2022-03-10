@@ -1,17 +1,25 @@
 import logging
 import os
+import urllib.request
+from urllib import request
 from datetime import datetime, timedelta, date
 from random import randint
 
 import pytz
+import requests
+import urllib3
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
+from icalendar import Calendar, Event, vCalAddress, vText
+from datetime import datetime
+from pathlib import Path
 
 from Appointment import models as appointment_model
 from Appointment import utilities
@@ -21,6 +29,7 @@ from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
 from user.email_services import sent_mail
+from user.models import Profile, User
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -63,6 +72,10 @@ def signup_view(request):
         mobile_no = request.POST.get('mobile_no')
         if user_models.User.objects.filter(email=email).exists():
             return render(request, 'InstructorDashboard/auth/login.html', {'error': 'email already exist.'})
+
+        if user_models.User.objects.filter(mobile_no=mobile_no).exists():
+            return render(request, 'InstructorDashboard/auth/login.html', {'unique_no': 'mobile number already exist.'})
+
         if int(len(password)) < 7:
             context.update({'error': 'Password must continent at-least 8 character.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)
@@ -133,13 +146,6 @@ def login_view(request):
             if user.user_type == user_constants.Instructor:
                 login(request, user)
 
-                # user_email = request.POST['email']
-                # hostname = socket.gethostname()
-                # IPAddress = socket.gethostbyname(hostname)
-                # subject = "Security Alert"
-                # email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
-                # mail_notification(request, subject, email_body, user_email)
-
                 return redirect('InstructorDashboard:dashboard_view')
             context.update({'page_errors': ['User does not have permission to access this portal.']})
             return render(request, 'InstructorDashboard/auth/login.html', context=context)
@@ -153,6 +159,14 @@ def user_logout(request):
 
 def home_view(request):
     return render(request, "index.html")
+
+
+def increase(inst_count_id):
+    inst_count_id += 1
+
+
+def setzero(inst_count_id):
+    inst_count_id = 0
 
 
 @login_required(redirect_field_name='login')
@@ -586,6 +600,7 @@ def change_password(request):
                                                    'user_email': user_email})
             except Exception as e:
                 pass
+            print("change password send mail done")
             context.update({'success': "Password update Successfully. Please login !! "})
             # user = authenticate(username=user_obj.username, password=user_obj.password)
             # if user:
