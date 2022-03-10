@@ -10,6 +10,7 @@
     <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/responsive.bootstrap4.min.css' %}" rel="stylesheet" type="text/css"/>
 
+
     <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" type="text/css">
 {#    <!-- Plugins css -->#}
 {#    <link href="https://mannatthemes.com/dastone-1/plugins/select2/select2.min.css" rel="stylesheet" type="text/css"/>#}
@@ -19,7 +20,6 @@
 {#          rel="stylesheet">#}
 {#    <link href="https://mannatthemes.com/dastone-1/plugins/bootstrap-touchspin/css/jquery.bootstrap-touchspin.min.css"#}
 {#          rel="stylesheet"/>#}
-
 
     <style>
         .dt-buttons button {
@@ -275,6 +275,7 @@
                                                 <tr role="row" class="odd">
                                                     <td>{{ appointment.booking.kids.kids_name }}</td>
                                                     <td>{{ appointment.booking.user.get_full_name }}</td>
+                                                    <td>{{ appointment.booking.user.father_name }}</td>
                                                     <td>{{ appointment.booking.user.mobile_no }}</td>
                                                     <td>{{ appointment.booking.class_instructor.title }}</td>
 
@@ -662,6 +663,7 @@ $(document).ready(function() {
                         }
                     ]
                 })
+
                 .buttons()
                 .container()
                 .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),
@@ -687,10 +689,6 @@ $(document).ready(function() {
             } );
         } );
         */
-    </script>
-    <script>
-        function ss(){
-            console.log('jay')
-        }
+
     </script>
 {% endblock %}

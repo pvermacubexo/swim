@@ -300,6 +300,7 @@ class Profile(models.Model):
     facebook_link = models.CharField(max_length=500, null=True, blank=True)
     instagram_link = models.CharField(max_length=500, null=True, blank=True)
     twitter_link = models.CharField(max_length=500, null=True, blank=True)
+    website_link = models.CharField(max_length=500, null=True, blank=True)
     day_start_time = models.TimeField(null=True, default=timezone_now)
     day_end_time = models.TimeField(null=True, default=timezone_now)
     monday = models.BooleanField(default=False)
@@ -309,6 +310,9 @@ class Profile(models.Model):
     friday = models.BooleanField(default=False)
     saturday = models.BooleanField(default=False)
     sunday = models.BooleanField(default=False)
+    cash_mode = models.BooleanField(default=True)
+    card_mode = models.BooleanField(default=True)
+    cheque_mode = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.email

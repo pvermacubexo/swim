@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
 from app.email_notification import mail_notification
-from user.models import User, Kids
+from user.models import User, Kids, Profile
 from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet
@@ -327,8 +327,13 @@ class RepaymentClasses(APIView):
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
 
+                obj = User.objects.get(email=request.session['email'])
+                user_id = obj.inst_id
+                profile_detail = Profile.objects.filter(user_id=user_id)
+
                 kid_detail = Kids.objects.filter(parent_id=obj.id)
-                return render(request, "payment.html", {"data": ser.data,"user_details": obj,'kid_detail': kid_detail ,"BASE_URL":BASE_URL})
+                return render(request, "payment.html",
+                              {"data": ser.data, "profile_detail": profile_detail, "user_details": obj, 'kid_detail': kid_detail, "BASE_URL": BASE_URL})
 
             else:
                 return redirect("dashboard_view")

@@ -21,23 +21,25 @@
 
 {% block page_content %}
     <style>
-    .modal {
-  overflow-y:auto;
-}
-    .btn-disable{
-        background: #bebebe;
-        padding-left: 28px;
-        padding-right: 28px;
-        color: black;
-    }
+        .modal {
+            overflow-y: auto;
+        }
+
+        .btn-disable {
+            background: #bebebe;
+            padding-left: 28px;
+            padding-right: 28px;
+            color: black;
+        }
+
         .Scroll-if-max {
-      text-align: left;
-      font-size: 1.5rem;
-      min-height: 400px;
-      max-height: 400px;
-      overflow-y: auto;
-      {#border: 1px solid red;#}
-    }
+            text-align: left;
+            font-size: 1.5rem;
+            min-height: 400px;
+            max-height: 400px;
+            overflow-y: auto;
+        {#border: 1px solid red;#}
+        }
     </style>
     <br><br>
     {% include 'message.html' %}
@@ -59,16 +61,21 @@
                                                     <div _ngcontent-oie-c32="" class="container">
                                                         <div _ngcontent-oie-c32="" class="col-md-12">
                                                             {% if data %}
-                                                            {% for datas in data %}
-                                                                {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
-                                                                    {% if forloop.first %}
-                                                                <div class="alert alert-danger" role="alert" style="padding: 1%;">
-                                                                   <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style=""> <strong> </strong> Please make sure to pay within 30 miniute of booking otherwise booking will rejected.</p>
-                                                                </div>
-                                                                        {%endif%}
-{#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
+                                                                {% for datas in data %}
+                                                                    {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
+                                                                        {% if forloop.first %}
+                                                                            <div class="alert alert-danger" role="alert"
+                                                                                 style="padding: 1%;">
+                                                                                <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white"
+                                                                                   style=""><strong> </strong> Please
+                                                                                    make sure to pay within 30 miniute
+                                                                                    of booking otherwise booking will
+                                                                                    rejected.</p>
+                                                                            </div>
+                                                                        {% endif %}
+                                                                        {#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
 
-                                                                {% endif %}
+                                                                    {% endif %}
 
                                                                 {% endfor %}
                                                                 <div _ngcontent-ojq-c32="" class="row">
@@ -136,7 +143,8 @@
                                                                                                                         :
                                                                                                                         <span style="color: black;font-size: 18px"
                                                                                                                               id="bkid">{{ datas.id }}</span>
-                                                                                                                    </p> <span style="color: #517e8f;
+                                                                                                                    </p>
+                                                                                                                    <span style="color: #517e8f;
     font-weight: bold;
     font-size: 14px;">{{ datas.kids_name }}</span>
                                                                                                                     <p _ngcontent-ojq-c32=""
@@ -175,7 +183,7 @@
                                                                                                                         Total
                                                                                                                         Amount
                                                                                                                         :
-                                                                                                                       ${{ datas.total_amount }}
+                                                                                                                        ${{ datas.total_amount }}
 
                                                                                                                     </h5>
                                                                                                                     <h5 _ngcontent-ojq-c32=""
@@ -191,8 +199,9 @@
                                                                                                                         Due
                                                                                                                         Amount
                                                                                                                         :
-                                                                                                                        $<span id="due_amount_fee"
-                                                                                                                                  style="color: #0c213a;font-size: 20px;font-family:bold">{{ datas.due_amount }}</span>
+                                                                                                                        $<span
+                                                                                                                            id="due_amount_fee"
+                                                                                                                            style="color: #0c213a;font-size: 20px;font-family:bold">{{ datas.due_amount }}</span>
 
                                                                                                                     </h3>
                                                                                                                 </div>
@@ -257,7 +266,8 @@
                                           class="first-step first-fieldset-section">
                                     <div _ngcontent-ygs-c30="" class="modal-content">
                                         <div _ngcontent-fqp-c30="" class="modal-header">
-                                            <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
+                                            <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal"
+                                                    onclick="window.location.reload()"
                                                     aria-hidden="true"
                                                     class="close btn-first">×
                                             </button>
@@ -293,7 +303,7 @@
                                                                                  style="padding: 5px;">
                                                                                 <div class=""
                                                                                      style="padding-left: 15px;">
-                                                                                    <div><h4 >
+                                                                                    <div><h4>
                                                                                         Instructor Name : <span
                                                                                             id="instructor_name2"
                                                                                             style="font-size: 15px;"
@@ -306,7 +316,8 @@
                                                                                             id="total_days2"
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary"></span>
-                                                                                        <span class=" text-secondary" style="color: gray; font-size: 10px;" >Days</span>
+                                                                                        <span class=" text-secondary"
+                                                                                              style="color: gray; font-size: 10px;">Days</span>
                                                                                     </h4></div>
                                                                                 </div>
 
@@ -339,26 +350,46 @@
                                                                                    placeholder="Enter Amount To Be Paid"
                                                                                    type="number" pattern="[0-9]{1,}"
                                                                                    id="amount_to_be_paid"
-{#                                                                                       onchange="RemoveError()"#}
-{#                                                                                   onkeypress="RemoveError()"#}
-{#                                                                                   keydown="RemoveError()"#}
-{#                                                                                   keyup="RemoveError()"#}
+                                                                                    {#                                                                                       onchange="RemoveError()"#}
+                                                                                    {#                                                                                   onkeypress="RemoveError()"#}
+                                                                                    {#                                                                                   keydown="RemoveError()"#}
+                                                                                    {#                                                                                   keyup="RemoveError()"#}
                                                                                     {#                                                                                   onchange="maxamount()"#}
-                                                                                   name="paid_amount" type="number" required>
+                                                                                   name="paid_amount" type="number"
+                                                                                   required>
                                                                             <br>
-                                                                            <button type="button" value="Cash_Payment"
-                                                                                    onclick="maxamount()"
-                                                                                    class="btn btn-primary"
-                                                                                    id="cash_payment"
-                                                                                    style="width: 48%">Cash Payment
-                                                                            </button>
 
-                                                                            <button type="button" _ngcontent-ojq-c32=""
-                                                                               style="width: 48%"
-                                                                               data-toggle="modal"
-                                                                                    {#                                                                               data-target="#appointment-popup"#}
-                                                                               class="btn btn-primary btn-custom pay-button"
-                                                                               onclick="CreateIntent()">Pay By Card</button>
+                                                                            {% for mode in profile_detail %}
+                                                                                {% if mode.cash_mode %}
+
+                                                                                <button type="button" value="Cash_Payment"
+                                                                                        onclick="maxamount()"
+                                                                                        class="btn btn-primary"
+                                                                                        id="cash_payment"
+                                                                                        style="width: 48%">Cash Payment
+                                                                                </button>
+                                                                                {% endif %}
+
+                                                                               {% if mode.card_mode %}
+                                                                                <button type="button" _ngcontent-ojq-c32=""
+                                                                                        style="width: 48%"
+                                                                                        data-toggle="modal"
+                                                                                        data-target="#appointment-popup"
+                                                                                        class="btn btn-primary btn-custom pay-button"
+                                                                                        onclick="CreateIntent()">Pay By Card
+                                                                                </button>
+                                                                                {% endif %}
+
+                                                                                {% if mode.cheque_mode %}
+                                                                                    <button type="button" value="Cheque_Payment"
+{#                                                                                        onclick="maxamount()"#}
+                                                                                        class="btn btn-primary"
+                                                                                        id="cheque_payment"
+                                                                                        style="width: 48%;margin-top: 7px">Cheque Payment
+                                                                                </button>
+                                                                                {% endif %}
+
+                                                                            {% endfor %}
                                                                         </form>
 
                                                                     </div>
@@ -523,7 +554,8 @@
                                           class="first-step first-fieldset-section">
                                     <div _ngcontent-ygs-c30="" class="modal-content">
                                         <div _ngcontent-fqp-c30="" class="modal-header">
-                                            <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal" onclick="window.location.reload()"
+                                            <button _ngcontent-fqp-c30="" type="button" data-dismiss="modal"
+                                                    onclick="window.location.reload()"
                                                     aria-hidden="true"
                                                     class="close btn-first">×
                                             </button>
@@ -573,7 +605,8 @@
                                                                                             style="font-size: 15px;"
                                                                                             class="text-secondary">
                                                                                     </span>
-                                                                                          <span class=" text-secondary" style="color: gray; font-size: 10px;" >Days</span>
+                                                                                        <span class=" text-secondary"
+                                                                                              style="color: gray; font-size: 10px;">Days</span>
                                                                                     </h4></div>
                                                                                 </div>
                                                                                 <div class=""
@@ -809,7 +842,7 @@
                         </div>
 
                         <script>
-                            function send_details(id,due_amount,total_days) {
+                            function send_details(id, due_amount, total_days) {
                                 var inst_name = $("#instructorname_1").text();
                                 var due_amount_fee = due_amount
                                 var session_duration = total_days
@@ -830,15 +863,14 @@
 
     <script>
 
-    {#setTimeout(()=>{#}
-    {#    if ($(".amount1").length > 0){#}
-    {#        console.log("MAx");#}
-    {#    }#}
+        {#setTimeout(()=>{#}
+        {#    if ($(".amount1").length > 0){#}
+        {#        console.log("MAx");#}
+        {#    }#}
         {#$(".amount1").hide();#}
-    $('#amount_to_be_paid').on('click', () => {
-           $(".amount1").text("");
-       })
-
+        $('#amount_to_be_paid').on('click', () => {
+            $(".amount1").text("");
+        })
 
 
         function maxamount() {
@@ -847,7 +879,7 @@
             var maxamt = $('#fee2').text()
             var inputamt = $("#amount_to_be_paid").val()
             console.log(maxamt, inputamt);
-            if (((parseInt(inputamt)) <= 0) ||( inputamt === "") ) {
+            if (((parseInt(inputamt)) <= 0) || (inputamt === "")) {
                 $("#error_meesage").text(" Enter Valid Amount  ");
             } else if (parseInt(maxamt) < parseInt(inputamt)) {
                 console.log("d");
@@ -877,12 +909,11 @@
             var booking_id = $('#bkid1').val()
             var maxamt = $('#fee2').text()
             var course_duration = $('#total_days2').text()
-            if ((Amount <= 0)||(Amount > parseInt(maxamt))) {
+            if ((Amount <= 0) || (Amount > parseInt(maxamt))) {
 
-          $("#error_meesage").text("Enter Valid Amount");
+                $("#error_meesage").text("Enter Valid Amount");
 
-            }
-            else {
+            } else {
 
                 $("#appointment-popup").modal('show');
                 $("#choose_payment_popup").modal('hide');

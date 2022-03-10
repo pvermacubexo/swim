@@ -1,3 +1,4 @@
+import collections
 import logging
 import os
 import urllib.request
@@ -23,11 +24,12 @@ from pathlib import Path
 
 from Appointment import models as appointment_model
 from Appointment import utilities
-from Appointment.models import ClassInstructor, APPOINTMENT_STATUS
+from Appointment.models import ClassInstructor, APPOINTMENT_STATUS, Appointment
 from SharkDeck.constants import user_constants
 from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
+from user.models import User, Kids
 from user.email_services import sent_mail
 from user.models import Profile, User
 from . import seializer
@@ -185,7 +187,9 @@ def dashboard_view(request):
         credit_amount += complete_transaction.paid_amount
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
+
     appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
+
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
@@ -488,6 +492,19 @@ def instructor_profile(request):
         if not (start_time < end_time):
             context.update({"errors": "End Time can't be less then Start Time."})
             return render(request, 'InstructorDashboard/instructor_profile.html', context)
+
+        req = 0
+        cash = bool(request.POST.get('cash') == 'on')
+        card = bool(request.POST.get('card') == 'on')
+        cheque = bool(request.POST.get('cheque') == 'on')
+        req = req + 1 if cash else req
+        req = req + 1 if card else req
+        req = req + 1 if cheque else req
+
+        if req == 0:
+            context.update({"errors": "Choose any one payment mode"})
+            return render(request, 'InstructorDashboard/instructor_profile.html', context)
+
         request.user.first_name = ser.initial_data.get('first_name')
         request.user.last_name = ser.initial_data.get('last_name')
         request.user.mobile_no = ser.initial_data.get('mobile_no')
@@ -512,8 +529,13 @@ def instructor_profile(request):
         profile_obj.facebook_link = ser.initial_data.get('facebook_link')
         profile_obj.instagram_link = ser.initial_data.get('instagram_link')
         profile_obj.twitter_link = ser.initial_data.get('twitter_link')
+        profile_obj.website_link = ser.initial_data.get('website_link')
         profile_obj.day_start_time = request.POST.get('day_start_time')
         profile_obj.day_end_time = request.POST.get('day_end_time')
+        # if cash or card or cheque
+        profile_obj.cash_mode = bool(request.POST.get('cash') == 'on')
+        profile_obj.card_mode = bool(request.POST.get('card') == 'on')
+        profile_obj.cheque_mode = bool(request.POST.get('cheque') == 'on')
 
         profile_obj.save()
         profile_obj = user_models.Profile.objects.get(user=request.user)
@@ -680,20 +702,37 @@ def class_delete(request, id):
 def students(request):
     ages = {}
     students = []
-
+    students_booking = []
     bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user)
-    for booking in bookings:
-        if not (booking.user in students):
-            # students.append(booking.user)
-            students.append(booking.kids)
+
+    kids = Kids.objects.filter(parent__inst_id=request.user.id)
+    for kid in kids:
+        if not (kid.parent in students):
+            students.append(kid)
             today = date.today()
-            age = today.year - booking.kids.date_of_birth.year - (
-                    (today.month, today.day) < (booking.kids.date_of_birth.month, booking.kids.date_of_birth.day))
-            ages[booking.kids.parent.mobile_no] = age
-    # stripe_msg = Strip_Message(request)
+            age = today.year - kid.date_of_birth.year - (
+                    (today.month, today.day) < (kid.date_of_birth.month, kid.date_of_birth.day))
+            ages[kid.parent.mobile_no] = age
+
+    count = []
+    for booking in bookings:
+        kids = booking.kids.kids_name
+        count.append(kids)
+    occurrences = collections.Counter(count)
+    booking_count = dict(occurrences)
+    booking_count['default'] = 0
+    print(type(booking_count))
+    print(booking_count)
+    print(booking_count.values())
+
+    # print(booking.kids.kids_name)
+    # if booking.kids:
+    # count += 1
+
     context = {
         'students': set(students),
-        "ages": ages
+        "ages": ages,
+        "booking_count": booking_count,
     }
 
     return render(request, 'InstructorDashboard/students.html', context)
