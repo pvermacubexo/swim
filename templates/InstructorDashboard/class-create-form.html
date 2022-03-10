@@ -9,11 +9,11 @@
     <link href="{% static 'css/dropify.min.css' %}" rel="stylesheet" type="text/css"/>
 
     <style>
-    .dropify-wrapper .dropify-message span.file-icon:before {
-    font-family: "Font Awesome 5 Brands";
-	font-weight: 400;
-	content: "\f093";
-}
+        .dropify-wrapper .dropify-message span.file-icon:before {
+            font-family: "Font Awesome 5 Brands";
+            font-weight: 400;
+            content: "\f093";
+        }
     </style>
 {% endblock %}
 {% block page_content %}
@@ -27,7 +27,8 @@
                             <div class="col">
                                 <h4 class="page-title">All Classes</h4>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="javascript:void(0);" style="cursor: default">Classes</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);" style="cursor: default">Classes</a>
+                                    </li>
                                     <li class="breadcrumb-item active">Create</li>
                                 </ol>
                             </div><!--end col-->
@@ -73,7 +74,8 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-calendar-clock"></i></span>
                                                 </div>
-                                                <input name="time_slot" type="number" min="1" max="120" class="form-control"
+                                                <input name="time_slot" type="number" min="1" max="120"
+                                                       class="form-control"
                                                        placeholder="Enter Time Slot" required>
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
@@ -92,7 +94,8 @@
                                                         <i class="mdi mdi-calendar-range"></i>
                                                     </span>
                                                 </div>
-                                                <input name="total_days" type="number" min="1" max="120" class="form-control"
+                                                <input name="total_days" type="number" min="1" max="120"
+                                                       class="form-control"
                                                        placeholder="Enter Total Days" required>
                                             </div>
 
@@ -110,7 +113,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">USD</span>
                                                 </div>
-                                                <input name="price" type="number" min="1" max="10000" class="form-control"
+                                                <input name="price" type="number" min="1" max="10000"
+                                                       class="form-control"
                                                        placeholder="Enter Fees" required>
                                                 {% if errors.price %}
                                                     {% for error in errors.price %}
@@ -145,6 +149,29 @@
                                             {% endif %}
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h4 class="card-title">Set class payment range</h4>
+                                            </div><!--end col-->
+                                        </div>  <!--end row-->
+                                        <div class="form-group">
+                                            <div class="d-flex justify-content-between">
+                                                <label>Range</label>
+                                                <span class="result_value"><span id="result_value"></span>%</span>
+                                            </div>
+                                            <div class="input-group">
+                                                <input id="myRange" name="range" type="range"
+                                                       class="form-control"
+                                                       min="5" max="100"
+                                                       value="{{ payment_range }}" step="5"
+                                                       required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="col-md-6">
                                         <br/>
                                         <div class="form-group mb-0">
@@ -153,6 +180,7 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </form>
                         </div><!--end card-body-->
@@ -206,7 +234,16 @@
 
     </script>
 
-<script src="{% static 'js/dropify.min.js' %}"></script>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("result_value");
+        output.innerHTML = slider.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+    </script>
+
+    <script src="{% static 'js/dropify.min.js' %}"></script>
 
     <script src="{% static 'pages/jquery.form-upload.init.js' %}"></script>
 {% endblock %}

@@ -68,9 +68,8 @@ def SwimTimeDashboard(request):
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
         active_kid = Kids.objects.filter(parent_id=user_details.id, status=True)
-        print(len(kid_detail))
-        print("kid_detail", kid_detail, kid_delete)
         payment_range = Profile.objects.get(user_id=user_id)
+
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 

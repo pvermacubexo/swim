@@ -21,6 +21,7 @@ from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
 from user.email_services import sent_mail
+from user.models import Profile
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
@@ -607,7 +608,8 @@ def change_password(request):
 def class_create_view(request):
     context = {}
     if request.method == 'POST':
-        ser = serializer.ClassCreateSerializer(data=request.POST, context={'user': request.user})
+        ser = serializer.ClassCreateSerializer(data=request.POST,
+                                               context={'user': request.user, 'payment_range': request.POST['range']})
         if ser.is_valid():
             ser.validated_data['thumbnail_image'] = request.FILES.get('thumbnail_image')
             ser.save()
@@ -615,7 +617,8 @@ def class_create_view(request):
         else:
             context.update({'errors': utility.serializer_error_to_dict(ser.errors)})
             return render(request, 'InstructorDashboard/class-create-form.html', context=context)
-    return render(request, 'InstructorDashboard/class-create-form.html')
+    payment_range = Profile.objects.get(user_id=request.user.id).payment_range
+    return render(request, 'InstructorDashboard/class-create-form.html', {'payment_range': payment_range})
 
 
 @login_required(redirect_field_name='login')
@@ -627,6 +630,8 @@ def class_update_view(request, id):
         return redirect('InstructorDashboard:page404')
 
     if request.method == 'POST':
+        payment_range = request.POST.get('range')
+        print(payment_range)
         instance.thumbnail_image = request.FILES.get('thumbnail_image') if request.FILES.get(
             'thumbnail_image') else instance.thumbnail_image
         instance.title = request.POST.get('title')
@@ -634,9 +639,12 @@ def class_update_view(request, id):
         instance.total_days = request.POST.get('total_days')
         instance.description = request.POST.get('description')
         instance.price = request.POST.get('price')
+        instance.class_payment_range = request.POST.get('range')
         instance.save()
         return redirect("InstructorDashboard:class_list")
-    return render(request, 'InstructorDashboard/class-update-form.html', {'instance': instance})
+    payment_range = ClassInstructor.objects.get(id=id).class_payment_range
+    return render(request, 'InstructorDashboard/class-update-form.html',
+                  {'instance': instance, "payment_range": payment_range})
 
 
 class ClassDetailView(DetailView):
