@@ -68,15 +68,17 @@ def SwimTimeDashboard(request):
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
         active_kid = Kids.objects.filter(parent_id=user_details.id, status=True)
-        print(len(kid_detail))
-        print("kid_detail", kid_detail, kid_delete)
+        payment_range = Profile.objects.get(user_id=user_id)
+
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
+
                           {"user_details": user_details, "data": classes, "first_name": first_name,
                            "profile_detail": profile_detail, "BASE_URL": BASE_URL, "kid_detail": kid_detail,
-                           "active_kid": active_kid})
+                           "active_kid": active_kid, "first_payment": payment_range})
+
         except:
             messages.error(request, "Invalid Login Details!")
             return render(request, "register.html")

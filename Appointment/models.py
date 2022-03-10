@@ -15,6 +15,7 @@ class ClassInstructor(models.Model):
     total_days = models.IntegerField()
     description = models.CharField(max_length=500)
     price = models.IntegerField(default=0, verbose_name='Fee')
+    class_payment_range = models.IntegerField(default=50, blank=True, null=True)  #minimum payment amount for a class
     thumbnail_image = models.ImageField(upload_to='Images/Classes', default='Images/Classes/swim.jpeg', blank=True,
                                         null=True)
 

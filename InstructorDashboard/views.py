@@ -532,7 +532,7 @@ def instructor_profile(request):
         profile_obj.website_link = ser.initial_data.get('website_link')
         profile_obj.day_start_time = request.POST.get('day_start_time')
         profile_obj.day_end_time = request.POST.get('day_end_time')
-        # if cash or card or cheque
+        profile_obj.payment_range = request.POST.get('range')
         profile_obj.cash_mode = bool(request.POST.get('cash') == 'on')
         profile_obj.card_mode = bool(request.POST.get('card') == 'on')
         profile_obj.cheque_mode = bool(request.POST.get('cheque') == 'on')
@@ -642,7 +642,8 @@ def change_password(request):
 def class_create_view(request):
     context = {}
     if request.method == 'POST':
-        ser = serializer.ClassCreateSerializer(data=request.POST, context={'user': request.user})
+        ser = serializer.ClassCreateSerializer(data=request.POST,
+                                               context={'user': request.user, 'payment_range': request.POST['range']})
         if ser.is_valid():
             ser.validated_data['thumbnail_image'] = request.FILES.get('thumbnail_image')
             ser.save()
@@ -650,7 +651,8 @@ def class_create_view(request):
         else:
             context.update({'errors': utility.serializer_error_to_dict(ser.errors)})
             return render(request, 'InstructorDashboard/class-create-form.html', context=context)
-    return render(request, 'InstructorDashboard/class-create-form.html')
+    payment_range = Profile.objects.get(user_id=request.user.id).payment_range
+    return render(request, 'InstructorDashboard/class-create-form.html', {'payment_range': payment_range})
 
 
 @login_required(redirect_field_name='login')
@@ -662,6 +664,8 @@ def class_update_view(request, id):
         return redirect('InstructorDashboard:page404')
 
     if request.method == 'POST':
+        payment_range = request.POST.get('range')
+        print(payment_range)
         instance.thumbnail_image = request.FILES.get('thumbnail_image') if request.FILES.get(
             'thumbnail_image') else instance.thumbnail_image
         instance.title = request.POST.get('title')
@@ -669,9 +673,12 @@ def class_update_view(request, id):
         instance.total_days = request.POST.get('total_days')
         instance.description = request.POST.get('description')
         instance.price = request.POST.get('price')
+        instance.class_payment_range = request.POST.get('range')
         instance.save()
         return redirect("InstructorDashboard:class_list")
-    return render(request, 'InstructorDashboard/class-update-form.html', {'instance': instance})
+    payment_range = ClassInstructor.objects.get(id=id).class_payment_range
+    return render(request, 'InstructorDashboard/class-update-form.html',
+                  {'instance': instance, "payment_range": payment_range})
 
 
 class ClassDetailView(DetailView):

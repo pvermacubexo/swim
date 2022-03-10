@@ -886,7 +886,7 @@
                                             <div class="card-header">
                                                 <div class="row align-items-center">
                                                     <div class="col">
-                                                        <h4 class="card-title">Set first payment range</h4>
+                                                        <h4 class="card-title">Set payment range</h4>
                                                     </div><!--end col-->
                                                 </div>  <!--end row-->
                                             </div><!--end card-header-->
@@ -899,11 +899,28 @@
                                                     <div class="input-group">
                                                         <input id="myRange" name="range" type="range"
                                                                class="form-control"
-                                                               min="5" max="100" value="50" step="5"
+                                                                   min="5" max="100" value="{{ user.get_profile.payment_range }}" step="5"
                                                                required>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+{#                                             <div class="card-body">#}
+{#                                                <div class="form-group">#}
+{#                                                    <div class="d-flex justify-content-between">#}
+{#                                                        <label>Range</label>#}
+{#                                                        <span class="result_value"><span id="result_value"></span>%</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="input-group">#}
+{#                                                        <input id="myRange" name="range" type="range"#}
+{#                                                               class="form-control"#}
+{#                                                                   min="5" max="100" value="{{ user.get_profile.payment_range }}" step="5"#}
+{#                                                               required>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+
 
 
 

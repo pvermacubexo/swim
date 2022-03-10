@@ -303,6 +303,7 @@ class Profile(models.Model):
     website_link = models.CharField(max_length=500, null=True, blank=True)
     day_start_time = models.TimeField(null=True, default=timezone_now)
     day_end_time = models.TimeField(null=True, default=timezone_now)
+    payment_range = models.PositiveIntegerField(default=50, blank=True)
     monday = models.BooleanField(default=False)
     tuesday = models.BooleanField(default=False)
     wednesday = models.BooleanField(default=False)

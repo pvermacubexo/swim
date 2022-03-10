@@ -1864,9 +1864,10 @@
     </script>
     <script>
 
-
+        var class_payment_range;
         $("#cash_payment_btn").click(function () {
             var amt = $('#amount_to_be_paid1').val();
+            {#var first_payment = {{first_payment.payment_range}};#}
             {#if#}
             var x = $('#fee').text();
             console.log(parseInt(x.substring(1,)));
@@ -1874,12 +1875,11 @@
 
                 $("#error_meesage").text("Enter Valid Amount  ");
 
-            } else if ((amt) < (parseInt(x.substring(1,))) * 50 / 100) {
+            } else if ((amt) < (parseInt(x.substring(1,))) * class_payment_range / 100) {
 
-                console.log("success");
+                console.log("success", class_payment_range);
 
-
-                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum "+ class_payment_range +"% of amount  ");
 
             } else {
                 $("#form_to_be").submit()
@@ -1889,22 +1889,26 @@
         //
         // Used to handle Pay
         // start
+
         $("#procced_to_pay").click(function () {
             // Calling Intent API using fetch
             var instructor_name = $('#instructor_name').text();
             var booking_id = $('#booking_id_span').text();
             var x = $('#fee').text();
             var amt = $('#amount_to_be_paid1').val();
+            {#var first_payment = {{first_payment.payment_range}};#}
+
+            console.log("card", class_payment_range)
             if ((amt <= 0) || (amt > (parseInt(x.substring(1,))))) {
 
                 $("#error_meesage").text("Enter Valid Amount");
 
-            } else if ((amt) < (parseInt(x.substring(1,))) * 50 / 100) {
+            } else if ((amt) < (parseInt(x.substring(1,))) * class_payment_range / 100) {
 
-                console.log("success");
+                console.log("success", class_payment_range);
 
 
-                $("#error_meesage").text("You have to pay minimum 50% of amount  ");
+                $("#error_meesage").text("You have to pay minimum "+ class_payment_range +"% of amount  ");
 
             } else {
                 $('#fee1').text("$" + amt);
@@ -2347,6 +2351,11 @@
                         $('#amount_to_be_paid').text(data.fee)
                         $('#instructor_name1').text(data.instructor)
                         $('#total_days1').text(data.total_days)
+                        {#$('#procced_to_pay').text(data.class_payment_range)#}
+                        class_payment_range = data.class_payment_range;
+
+
+
 
 
                         for (const [key, value] of Object.entries(data.appointments)) {
@@ -2439,7 +2448,7 @@
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify(payload),
                         success: function (data) {
-                            console.log(data)
+                            console.log("success", data)
                             $('#bid').val(data.booking);
                             $('#booking_id_span').text(data.booking);
                             $('#instructor_name').text(data.instructor);
@@ -2450,7 +2459,8 @@
                             $('#amount_to_be_paid').text(data.fee)
                             $('#instructor_name1').text(data.instructor)
                             $('#total_days1').text(data.total_days)
-                            console.log(data.dateTime)
+                            class_payment_range = data.class_payment_range;
+                            console.log("individual data", data.dateTime)
                             for (const [key1, value1] of Object.entries(data.dateTime)) {
                                 for (const [key2, value2] of Object.entries(value1)) {
                                     console.log(key2, value2)

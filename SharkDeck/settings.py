@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'swimming',
+        'NAME': 'newswim',
         'USER': 'postgres',
         'PASSWORD': 'dinesh123',
         'HOST': 'localhost',
