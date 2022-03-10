@@ -1,30 +1,42 @@
+import collections
 import logging
 import os
+import urllib.request
+from urllib import request
 from datetime import datetime, timedelta, date
 from random import randint
 
 import pytz
+import requests
+import urllib3
 from django.contrib import messages
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import DetailView
+from icalendar import Calendar, Event, vCalAddress, vText
+from datetime import datetime
+from pathlib import Path
 
 from Appointment import models as appointment_model
 from Appointment import utilities
-from Appointment.models import ClassInstructor, APPOINTMENT_STATUS
+from Appointment.models import ClassInstructor, APPOINTMENT_STATUS, Appointment
 from SharkDeck.constants import user_constants
 from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
+from user.models import User, Kids
 from user.email_services import sent_mail
+from user.models import Profile, User
 from . import seializer
 from . import serializer, utility
 from .forms import BreakTimeFormSet
 from SharkDeck import settings
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 
@@ -83,7 +95,8 @@ def signup_view(request):
                      f"Thank You," \
                      f"\nSwim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': email})
         except Exception as e:
             pass
 
@@ -133,13 +146,6 @@ def login_view(request):
             if user.user_type == user_constants.Instructor:
                 login(request, user)
 
-                # user_email = request.POST['email']
-                # hostname = socket.gethostname()
-                # IPAddress = socket.gethostbyname(hostname)
-                # subject = "Security Alert"
-                # email_body = f"We noticed a new sign-in to your Swim Time Solutions Account on a device IP Address - {IPAddress} . If this was you, you don’t need to do anything. If not, please change your password to secure your account."
-                # mail_notification(request, subject, email_body, user_email)
-
                 return redirect('InstructorDashboard:dashboard_view')
             context.update({'page_errors': ['User does not have permission to access this portal.']})
             return render(request, 'InstructorDashboard/auth/login.html', context=context)
@@ -153,6 +159,14 @@ def user_logout(request):
 
 def home_view(request):
     return render(request, "index.html")
+
+
+def increase(inst_count_id):
+    inst_count_id += 1
+
+
+def setzero(inst_count_id):
+    inst_count_id = 0
 
 
 @login_required(redirect_field_name='login')
@@ -171,8 +185,9 @@ def dashboard_view(request):
         credit_amount += complete_transaction.paid_amount
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
-                                                                start_time__day=datetime.now().day)
+
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
+
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
@@ -215,7 +230,8 @@ def update_transaction(request, id):
                      f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
                      f"Thank You,\nTeam Swim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, user_email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': user_email})
         except Exception as e:
             pass
 
@@ -247,7 +263,8 @@ def delete_transaction(request, id):
                      f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
                      f"Thank you,\nTeam Swim Time Solutions"
         try:
-            mail_notification(request, subject, email_body, user_email)
+            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                               'user_email': user_email})
         except Exception as e:
             pass
 
@@ -263,13 +280,25 @@ def update_booking(request, id):
 
         if data:
             print(id)
-            print(data)
             appointment_obj = appointment_model.Appointment.objects.get(id=int(data['id']))
-            # appointment_obj.start_time = data['start_time']
-            # appointment_obj.end_time = data['end_time']
             appointment_obj.remark = data['remark']
             appointment_obj.status = data['status']
             appointment_obj.save()
+
+            if data['status'] == '3':
+                user_name = appointment_obj.booking.user.get_full_name()
+                kid_name = appointment_obj.booking.kids.kids_name
+                user_email = appointment_obj.booking.user.email
+                subject = "Appointment Cancelled - Swim Time Solutions"
+                email_body = f"Hello {user_name},\n\nThis is to notify that your student name {kid_name} appointment of Date {appointment_obj.start_time.date()}, Time {appointment_obj.start_time.time()} to {appointment_obj.end_time.time()} reason of {data['remark']} has been cancelled.\n\n" \
+                             f"Thank You,\n" \
+                             f"Swim Time Solutions"
+                try:
+                    sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                       'user_email': user_email})
+                except Exception as e:
+                    pass
+
             print("updated")
 
             # return render(request, 'InstructorDashboard/dashboard.html', context=context)
@@ -461,6 +490,19 @@ def instructor_profile(request):
         if not (start_time < end_time):
             context.update({"errors": "End Time can't be less then Start Time."})
             return render(request, 'InstructorDashboard/instructor_profile.html', context)
+
+        req = 0
+        cash = bool(request.POST.get('cash') == 'on')
+        card = bool(request.POST.get('card') == 'on')
+        cheque = bool(request.POST.get('cheque') == 'on')
+        req = req + 1 if cash else req
+        req = req + 1 if card else req
+        req = req + 1 if cheque else req
+
+        if req == 0:
+            context.update({"errors": "Choose any one payment mode"})
+            return render(request, 'InstructorDashboard/instructor_profile.html', context)
+
         request.user.first_name = ser.initial_data.get('first_name')
         request.user.last_name = ser.initial_data.get('last_name')
         request.user.mobile_no = ser.initial_data.get('mobile_no')
@@ -485,8 +527,13 @@ def instructor_profile(request):
         profile_obj.facebook_link = ser.initial_data.get('facebook_link')
         profile_obj.instagram_link = ser.initial_data.get('instagram_link')
         profile_obj.twitter_link = ser.initial_data.get('twitter_link')
+        profile_obj.website_link = ser.initial_data.get('website_link')
         profile_obj.day_start_time = request.POST.get('day_start_time')
         profile_obj.day_end_time = request.POST.get('day_end_time')
+        profile_obj.payment_range = request.POST.get('range')
+        profile_obj.cash_mode = bool(request.POST.get('cash') == 'on')
+        profile_obj.card_mode = bool(request.POST.get('card') == 'on')
+        profile_obj.cheque_mode = bool(request.POST.get('cheque') == 'on')
 
         profile_obj.save()
         profile_obj = user_models.Profile.objects.get(user=request.user)
@@ -562,16 +609,18 @@ def change_password(request):
             user_obj.set_password(str(ser.data['new_password']))
             user_obj.save()
 
-            user_name = str(first_name + " " + last_name)
-            user_email = request.user
+            user_name = user_obj.get_full_name()
+            user_email = request.user.email
             subject = "Password Changed - Swim Time Solutions"
-            email_body = f"Hello {user_name},\n \n This is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
+            email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
                          f"Thank You,\n" \
                          f"Swim Time Solutions"
             try:
-                mail_notification(request, subject, email_body, user_email)
+                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                   'user_email': user_email})
             except Exception as e:
                 pass
+            print("change password send mail done")
             context.update({'success': "Password update Successfully. Please login !! "})
             # user = authenticate(username=user_obj.username, password=user_obj.password)
             # if user:
@@ -591,7 +640,8 @@ def change_password(request):
 def class_create_view(request):
     context = {}
     if request.method == 'POST':
-        ser = serializer.ClassCreateSerializer(data=request.POST, context={'user': request.user})
+        ser = serializer.ClassCreateSerializer(data=request.POST,
+                                               context={'user': request.user, 'payment_range': request.POST['range']})
         if ser.is_valid():
             ser.validated_data['thumbnail_image'] = request.FILES.get('thumbnail_image')
             ser.save()
@@ -599,7 +649,8 @@ def class_create_view(request):
         else:
             context.update({'errors': utility.serializer_error_to_dict(ser.errors)})
             return render(request, 'InstructorDashboard/class-create-form.html', context=context)
-    return render(request, 'InstructorDashboard/class-create-form.html')
+    payment_range = Profile.objects.get(user_id=request.user.id).payment_range
+    return render(request, 'InstructorDashboard/class-create-form.html', {'payment_range': payment_range})
 
 
 @login_required(redirect_field_name='login')
@@ -611,6 +662,8 @@ def class_update_view(request, id):
         return redirect('InstructorDashboard:page404')
 
     if request.method == 'POST':
+        payment_range = request.POST.get('range')
+        print(payment_range)
         instance.thumbnail_image = request.FILES.get('thumbnail_image') if request.FILES.get(
             'thumbnail_image') else instance.thumbnail_image
         instance.title = request.POST.get('title')
@@ -618,9 +671,12 @@ def class_update_view(request, id):
         instance.total_days = request.POST.get('total_days')
         instance.description = request.POST.get('description')
         instance.price = request.POST.get('price')
+        instance.class_payment_range = request.POST.get('range')
         instance.save()
         return redirect("InstructorDashboard:class_list")
-    return render(request, 'InstructorDashboard/class-update-form.html', {'instance': instance})
+    payment_range = ClassInstructor.objects.get(id=id).class_payment_range
+    return render(request, 'InstructorDashboard/class-update-form.html',
+                  {'instance': instance, "payment_range": payment_range})
 
 
 class ClassDetailView(DetailView):
@@ -651,20 +707,37 @@ def class_delete(request, id):
 def students(request):
     ages = {}
     students = []
-
+    students_booking = []
     bookings = appointment_model.Booking.objects.filter(class_instructor__instructor=request.user)
-    for booking in bookings:
-        if not (booking.user in students):
-            # students.append(booking.user)
-            students.append(booking.kids)
+
+    kids = Kids.objects.filter(parent__inst_id=request.user.id)
+    for kid in kids:
+        if not (kid.parent in students):
+            students.append(kid)
             today = date.today()
-            age = today.year - booking.kids.date_of_birth.year - (
-                    (today.month, today.day) < (booking.kids.date_of_birth.month, booking.kids.date_of_birth.day))
-            ages[booking.kids.parent.mobile_no] = age
-    # stripe_msg = Strip_Message(request)
+            age = today.year - kid.date_of_birth.year - (
+                    (today.month, today.day) < (kid.date_of_birth.month, kid.date_of_birth.day))
+            ages[kid.parent.mobile_no] = age
+
+    count = []
+    for booking in bookings:
+        kids = booking.kids.kids_name
+        count.append(kids)
+    occurrences = collections.Counter(count)
+    booking_count = dict(occurrences)
+    booking_count['default'] = 0
+    print(type(booking_count))
+    print(booking_count)
+    print(booking_count.values())
+
+    # print(booking.kids.kids_name)
+    # if booking.kids:
+    # count += 1
+
     context = {
         'students': set(students),
-        "ages": ages
+        "ages": ages,
+        "booking_count": booking_count,
     }
 
     return render(request, 'InstructorDashboard/students.html', context)
@@ -722,7 +795,7 @@ def generate_otp(request):
                          f'\nPlease use below OTP & link to reset your password\n' \
                          f'OTP: {otp.otp}' \
                          f'Link: {current_site}/user/reset-password \n\n' \
-                        f"Thank You,\nTeam Swim Time Solutions"
+                         f"Thank You,\nTeam Swim Time Solutions"
             data = {'email_body': email_body, 'to_email': user.email,
                     'email_subject': 'Reset your password - Swim Time Solutions'}
             try:
@@ -776,7 +849,7 @@ def add_break_time(request):
             messages.error(request, "Please select valid time slot !")
             return redirect('InstructorDashboard:instructor_profile')
         elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (
-        break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
+                break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
                 request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S"):
             if formset.is_valid():
                 formset.save()
@@ -826,8 +899,9 @@ def generate_otp(request):
                              f"\n\nPlease use below OTP & link to reset your password\n" \
                              f"OTP: {otp.otp}\n" \
                              f"Link: {current_site}/user/reset-password\n\n" \
-                             # f" Thank You,\nTeam Swim Time Solutions"
-                data = {'email_body': email_body, 'to_email': user.email, 'email_subject': 'Reset your password - Swim Time Solutions'}
+                    # f" Thank You,\nTeam Swim Time Solutions"
+                data = {'email_body': email_body, 'to_email': user.email,
+                        'email_subject': 'Reset your password - Swim Time Solutions'}
                 try:
                     sent_mail(data)
                     context.update({'success': 'OTP has been sent to your registered email address.',

@@ -14,11 +14,12 @@ from rest_framework import status
 from Appointment.models import ClassInstructor
 from user import models as user_models
 from user.models import User, Profile, Kids
-from StripePayment.serializers import  RepaymentBookingSeralizer
+from StripePayment.serializers import RepaymentBookingSeralizer
 from Appointment import models as appointment_model
 from Appointment.models import Booking
 from SharkDeck import settings
 from app.email_notification import mail_notification
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 
@@ -62,15 +63,22 @@ def SwimTimeDashboard(request):
         user_id = obj.inst_id
         first_name = User.objects.get(id=user_id)
         email = request.session['email']
-        links = Profile.objects.filter(user_id=user_id)
+        profile_detail = Profile.objects.filter(user_id=user_id)
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
-        # print(kid_detail)
+        active_kid = Kids.objects.filter(parent_id=user_details.id, status=True)
+        payment_range = Profile.objects.get(user_id=user_id)
+
         try:
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
-            return render(request, 'dashboard.html', {"user_details": user_details, "data": classes, "first_name": first_name,"links":links, "BASE_URL":BASE_URL, "kid_detail":kid_detail})
+            return render(request, 'dashboard.html',
+
+                          {"user_details": user_details, "data": classes, "first_name": first_name,
+                           "profile_detail": profile_detail, "BASE_URL": BASE_URL, "kid_detail": kid_detail,
+                           "active_kid": active_kid, "first_payment": payment_range})
+
         except:
             messages.error(request, "Invalid Login Details!")
             return render(request, "register.html")
@@ -96,7 +104,8 @@ def update_profile(request):
                 pass
             obj.save()
 
-            for (kids, dob, ids) in zip(request.POST.getlist('kids_name'), request.POST.getlist('date_of_birth'), request.POST.getlist('ID')):
+            for (kids, dob, ids) in zip(request.POST.getlist('kids_name'), request.POST.getlist('date_of_birth'),
+                                        request.POST.getlist('ID')):
                 kid_obj = Kids.objects.get(id=ids)
                 kid_obj.kids_name = kids
                 kid_obj.date_of_birth = dob
@@ -111,7 +120,7 @@ def update_profile(request):
             first_name = User.objects.get(id=user_id)
             user_details = User.objects.filter(email=email)
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
-            messages.success(request,"Updated Successfully!")
+            messages.success(request, "Updated Successfully!")
             return redirect(SwimTimeDashboard)
             # return render(request, 'dashboard.html',
             #               {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -121,7 +130,7 @@ def update_profile(request):
             first_name = User.objects.get(id=user_id)
             user_details = User.objects.filter(email=request.session['email'])
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
-            messages.error(request,"Somthing Went Wrong!")
+            messages.error(request, "Somthing Went Wrong!")
 
             return render(request, 'dashboard.html',
                           {"user_details": user_details, "data": classes, "first_name": first_name})
@@ -155,6 +164,7 @@ def Registration(request, id):
             if request.method == "POST":
                 slug = user_models.Profile.objects.get(slug=id)
                 slug_id = slug.user_id
+                print(request.POST)
 
                 first_name = request.POST['first_name']
                 last_name = request.POST['last_name']
@@ -168,8 +178,9 @@ def Registration(request, id):
                 date_of_birth = request.POST['date_of_birth']
                 # instructor_id = slug_id
 
-                obj = User(first_name=first_name, last_name=last_name, email=email, password=password, mobile_no=mobile_no,
-                            father_name=father_name, address=address, inst_id=slug_id)
+                obj = User(first_name=first_name, last_name=last_name, email=email, password=password,
+                           mobile_no=mobile_no,
+                           father_name=father_name, address=address, inst_id=slug_id)
                 obj.save()
                 kid_obj = Kids(kids_name=kids_name, date_of_birth=date_of_birth, parent_id=obj.id)
                 kid_obj.save()
@@ -183,8 +194,10 @@ def Registration(request, id):
                              f"Your account is now set up and ready to use. Let's get started !\n\n" \
                              f"Thank You," \
                              f"\nSwim Time Solutions"
+
                 try:
-                    mail_notification(request, subject, email_body, user_email)
+                    sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                       'user_email': user_email})
                 except Exception as e:
                     pass
                 return redirect(SwimTimeDashboard)
@@ -247,12 +260,26 @@ class DeleteBooking(APIView):
                 # # print("Success")
                 # if todays_date >= booking_date:
                 #     # print(i["id"])
-                    Booking.objects.get(id=i["id"]).delete()
+                Booking.objects.get(id=i["id"]).delete()
         # return Response({'message': 'Success'}, status=status.HTTP_200_OK)
         return Response(ser.data, status=status.HTTP_200_OK)
+
 
 @api_view(('GET',))
 @renderer_classes((TemplateHTMLRenderer, JSONRenderer))
 def kid_delete(request, id):
     Kids.objects.get(id=id).delete()
     return Response(status=status.HTTP_200_OK)
+
+
+def change_kid_status(request, id):
+    """ change kid status active or inactive."""
+    kid = Kids.objects.get(id=id)
+    if kid.status:
+        kid.status = False
+        kid.save()
+        return Response(status=status.HTTP_200_OK)
+    else:
+        kid.status = True
+        kid.save()
+        return Response(status=status.HTTP_200_OK)

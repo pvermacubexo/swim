@@ -22,7 +22,8 @@
                             <div class="col">
                                 <h4 class="page-title">Update Class</h4>
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="javascript:void(0);" style="cursor: default">Class</a></li>
+                                    <li class="breadcrumb-item"><a href="javascript:void(0);" style="cursor: default">Class</a>
+                                    </li>
                                     <li class="breadcrumb-item active">Update</li>
                                 </ol>
                             </div><!--end col-->
@@ -53,7 +54,8 @@
                                                 </div>
                                                 <input name="title" type="text" class="form-control input_suggestion"
                                                        maxlength="255" autocomplete="false"
-                                                       value="{{ instance.title }}" placeholder="Enter Title of class" required>
+                                                       value="{{ instance.title }}" placeholder="Enter Title of class"
+                                                       required>
                                                 {% if errors.title %}
                                                     {% for error in errors.title %}
                                                         <div style="color: red">{{ error }} </div>
@@ -74,6 +76,7 @@
                                                        min="1" max="120"
                                                        id="exampleFormControlInput1"
                                                        value="{{ instance.time_slot }}" placeholder="Enter Class Duration" required>
+
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
                                                         <div style="color: red">{{ error }} </div>
@@ -92,7 +95,8 @@
                                                 </div>
                                                 <input name="total_days" type="number" class="form-control"
                                                        id="exampleFormControlInput1" min="1" max="120"
-                                                       value="{{ instance.total_days }}" placeholder="Enter Total Days" required>
+                                                       value="{{ instance.total_days }}" placeholder="Enter Total Days"
+                                                       required>
                                                 {% if errors.total_days %}
                                                     {% for error in errors.total_days %}
                                                         <div style="color: red">{{ error }} </div>
@@ -108,7 +112,8 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">USD</span>
                                                 </div>
-                                                <input name="price" type="number" class="form-control" min="1" max="10000"
+                                                <input name="price" type="number" class="form-control" min="1"
+                                                       max="10000"
                                                        value="{{ instance.price }}" placeholder="Enter Fees" required>
                                                 {% if errors.price %}
                                                     {% for error in errors.price %}
@@ -123,7 +128,8 @@
                                             <label>Description</label>
                                             <textarea name="description" class="form-control input_suggestion"
                                                       rows="7" maxlength="500"
-                                                      value="{{ instance.description }}" required>{{ instance.description }}</textarea>
+                                                      value="{{ instance.description }}"
+                                                      required>{{ instance.description }}</textarea>
                                             {% if errors.description %}
                                                 {% for error in errors.description %}
                                                     <div style="color: red">{{ error }} </div>
@@ -131,12 +137,14 @@
                                             {% endif %}
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group mb-0">
                                             <label>Image</label>
                                             <input type="file" value="{{ instance.thumbnail_image }}" name="thumbnail_image" id="input-file-now"
                                                    accept="image/png, image/jpg, image/jpeg, image/jfif"
                                                    class="dropify" data-height="400" data-default-file="{{ instance.thumbnail_image.url }}"/>
+
                                             {% if errors.thumbnail_image %}
                                                 {% for error in errors.thumbnail_image %}
                                                     <div style="color: red">{{ error }} </div>
@@ -144,6 +152,43 @@
                                             {% endif %}
                                         </div>
                                     </div>
+
+                                    <div class="col-md-5">
+                                        <div class="row align-items-center">
+                                            <div class="col">
+                                                <h4 class="card-title">Update payment range</h4>
+                                            </div><!--end col-->
+                                        </div>  <!--end row-->
+                                        <div class="d-flex justify-content-between">
+                                                <label>Range</label>
+                                                <span class="result_value"><span id="result_value"></span>%</span>
+                                            </div>
+                                        <div class="input-group">
+{#                                                <div class="input-group-prepend">#}
+{#                                                    <span class="input-group-text"><i#}
+{#                                                            class="mdi mdi-calendar-range "></i></span>#}
+{#                                                </div>#}
+                                                <input id="update_payment_range" name="range" type="range"
+                                                       class="form-control"
+                                                       min="5" max="100"
+                                                       value="{{ payment_range }}" step="5"
+                                                       required>
+                                            </div>
+                                        <div class="form-group">
+
+{#                                            <div class="input-group">#}
+{#                                                <input id="update_payment_range" name="range" type="range"#}
+{#                                                       class="form-control"#}
+{#                                                       min="5" max="100"#}
+{#                                                       value="{{ payment_range }}" step="5"#}
+{#                                                       required>#}
+{#                                            </div>#}
+                                        </div>
+                                    </div>
+
+                                                                        <div class="col-md-6"> </div>
+
+
                                     <div class="col-md-6">
                                         <div class="form-group mb-0">
                                             <br>
@@ -174,22 +219,47 @@
     <script src="https://mannatthemes.com/dastone-1/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
     <script>
         !(function (e) {
-        "use strict";
-        var t = function () {};
-        (t.prototype.init = function () {
-        e("input.input_suggestion").maxlength({ alwaysShow: !0, warningClass: "badge badge-success", limitReachedClass: "badge badge-danger", separator: " out of ", preText: "You typed ", postText: " chars available.", validate: !0 }),
-        e("textarea.input_suggestion").maxlength({ alwaysShow: !0, warningClass: "badge badge-success", limitReachedClass: "badge badge-danger", separator: " out of ", preText: "You typed ", postText: " chars available.", validate: !0 });
-        }),
-            (e.AdvancedForm = new t()),
-            (e.AdvancedForm.Constructor = t);
-    })(window.jQuery),
-        (function (t) {
             "use strict";
-            window.jQuery.AdvancedForm.init();
-        })();
+            var t = function () {
+            };
+            (t.prototype.init = function () {
+                e("input.input_suggestion").maxlength({
+                    alwaysShow: !0,
+                    warningClass: "badge badge-success",
+                    limitReachedClass: "badge badge-danger",
+                    separator: " out of ",
+                    preText: "You typed ",
+                    postText: " chars available.",
+                    validate: !0
+                }),
+                    e("textarea.input_suggestion").maxlength({
+                        alwaysShow: !0,
+                        warningClass: "badge badge-success",
+                        limitReachedClass: "badge badge-danger",
+                        separator: " out of ",
+                        preText: "You typed ",
+                        postText: " chars available.",
+                        validate: !0
+                    });
+            }),
+                (e.AdvancedForm = new t()),
+                (e.AdvancedForm.Constructor = t);
+        })(window.jQuery),
+            (function (t) {
+                "use strict";
+                window.jQuery.AdvancedForm.init();
+            })();
     </script>
 
+    <script>
+        var slider = document.getElementById("update_payment_range");
+        var output = document.getElementById("result_value");
+        output.innerHTML = slider.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+    </script>
 
-<script src="{% static 'js/dropify.min.js' %}"></script>
+    <script src="{% static 'js/dropify.min.js' %}"></script>
     <script src="{% static 'pages/jquery.form-upload.init.js' %}"></script>
 {% endblock %}

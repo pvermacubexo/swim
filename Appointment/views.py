@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import pytz
 import requests
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -22,7 +22,7 @@ from .models import Appointment, ClassInstructor, BLOCKED_BY_INSTRUCTOR, BOOKED,
 from .serializer import BookingPostSerializer, CheckAvailabilityPostSerializer, \
     GetSlotsSerializer, AppointmentSerializer, ClassInstructorSerializer, InstructorClassGetSerializer, \
     GetDateTimeSerializer, BookClassInstructorSerializer, ClassGetSerializer, CheckInstructorAvailableSerializer, \
-    IndividualTimeSlotsSerializer, IndividualBookingSerializer, AppointmentScheduleSerializer
+    IndividualTimeSlotsSerializer, IndividualBookingSerializer, AppointmentScheduleSerializer, GetAppointmentSerializer
 from StripePayment.serializers import RepaymentBookingSeralizer
 from Appointment import models as appointment_model
 
@@ -441,10 +441,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -452,10 +452,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -463,10 +463,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -474,10 +474,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -485,10 +485,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -496,10 +496,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -507,10 +507,10 @@ def get_daily_timeslots(slot, day_list, profile_user):
                 for remove_time in total_timeslot1:
                     single_slot_end = (datetime.strptime(str(remove_time), '%H:%M:%S') + timedelta(minutes=slot)).time()
 
-                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end :
+                    if start_break_time <= remove_time <= end_break_time or remove_time <= single_slot_end <= end_break_time <= single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
-                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end :
+                    if start_break_time < single_slot_end < end_break_time or remove_time < single_slot_end < end_break_time < single_slot_end:
                         if remove_time in total_timeslot:
                             total_timeslot.remove(remove_time)
 
@@ -744,18 +744,6 @@ class BookClassInstructor(APIView):
 
                                              paper_work=serializer.data['paper_work'], kids=kids)
 
-            # class_name = class_instructor.title
-            # instructor = class_instructor.instructor.get_full_name()
-            # total_days = class_instructor.total_days
-            # time_slot = class_instructor.time_slot
-            # price = class_instructor.price
-            # print('price', price)
-            # user_name = str(reqested_user.first_name + " " + reqested_user.last_name)
-            # print('user_name', user_name)
-            # subject = "Booking Confirm"
-            # email_body = f"Dear {user_name},\n \nHope you are doing well !\nThis mail is regarding to inform that your swim time slot has been schedule.\n Detail as : your class {class_name}, with swim instructor {instructor}, for {total_days} days and per day {time_slot} minute slot, fee {price} USD"
-
-            # mail_notification(request, subject, email_body, reqested_user)
             for day in day_list:
                 start_time = datetime.combine(day, serializer.validated_data['date_time'].time())
                 appointment = Appointment.objects.create(start_time=start_time,
@@ -763,6 +751,8 @@ class BookClassInstructor(APIView):
                                                              minutes=serializer.validated_data[
                                                                          'class_instructor'].time_slot - 1),
                                                          booking=booking)
+
+                print("appointment created", appointment)
 
                 booked_slots.append(appointment.start_time)
             start_time_12hour = start_time
@@ -780,6 +770,7 @@ class BookClassInstructor(APIView):
                 'booking': booking.id,
                 'class_instructor': class_instructor.title,
                 'class_instructor_id': class_instructor.id,
+                'class_payment_range': class_instructor.class_payment_range,
                 'kids_name': kids.kids_name,
                 'paper_work': booking.paper_work,
                 'instructor': full_name,
@@ -838,11 +829,12 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
         end_break_time = (datetime.strptime(str(i.end_time), '%H:%M:%S') - timedelta(minutes=1)).time()
         if week_day == 'monday' and i.week_day == '1':
             for remove_time in total_timeslot1:
-                single_slot_end = (datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
+                single_slot_end = (
+                        datetime.strptime(str(remove_time.time()), '%H:%M:%S') + timedelta(minutes=slot)).time()
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'tuesday' and i.week_day == '2':
@@ -852,7 +844,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'wednesday' and i.week_day == '3':
@@ -862,7 +854,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'thursday' and i.week_day == '4':
@@ -872,7 +864,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'friday' and i.week_day == '5':
@@ -882,7 +874,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'saturday' and i.week_day == '6':
@@ -892,7 +884,7 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
                 if start_break_time <= remove_time.time() <= end_break_time or remove_time.time() <= single_slot_end <= end_break_time <= single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
-                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end :
+                if start_break_time < single_slot_end < end_break_time or remove_time.time() < single_slot_end < end_break_time < single_slot_end:
                     if remove_time in time_list:
                         time_list.remove(remove_time)
         if week_day == 'sunday' and i.week_day == '7':
@@ -1023,6 +1015,8 @@ class IndividualBookingViewSet(APIView):
                 Appointment.objects.create(start_time=date_time,
                                            end_time=date_time + timedelta(minutes=class_instructor.time_slot - 1),
                                            booking=booking)
+
+                print("appoint induvisual done")
             except Exception:
                 booking.delete()
                 logger.warning(f"Booking Failed due to Appointment creating fail.")
@@ -1041,6 +1035,7 @@ class IndividualBookingViewSet(APIView):
             'booking': booking.id,
             'class_instructor_id': class_instructor.id,
             'total_days': class_instructor.total_days,
+            'class_payment_range': class_instructor.class_payment_range,
             'fee': class_instructor.price,
             'class_instructor': class_instructor.title,
             'instructor': full_name,
@@ -1091,8 +1086,9 @@ class AppointmentScheduleViewSet(APIView):
                 obj = User.objects.get(email=email)
                 kid_detail = Kids.objects.filter(parent_id=obj.id)
                 logger.info(f"Appointment Schedule details for {request.user}")
-                return render(request, "my_shedule.html", {"user_details": obj, 'prev_session': prev_appointment.data, 'kid_detail': kid_detail,
-                                                           'next_session': next_appointment.data})
+                return render(request, "my_shedule.html",
+                              {"user_details": obj, 'prev_session': prev_appointment.data, 'kid_detail': kid_detail,
+                               'next_session': next_appointment.data})
             else:
                 logger.info(f"Getting error of Appointment Schedule details due")
                 return render(request, "my_shedule.html", {'error': 'Appointment schedule failed'})
@@ -1101,3 +1097,62 @@ class AppointmentScheduleViewSet(APIView):
             obj = User.objects.get(email=email)
             return render(request, "my_shedule.html",
                           {"user_details": obj, 'message': 'There is no any Appointment Schedule.'})
+
+
+class DateRange(APIView):
+
+    def post(self, request):
+        ser = GetAppointmentSerializer(data=request.data)
+        start_time_list = []
+        end_time_list = []
+        student_name = []
+        guardian_name = []
+        guardian2_name = []
+        contact_number = []
+        payment_status = []
+        if ser.is_valid():
+            if not ser.validated_data.get('end_date'):
+                start_date = ser.validated_data.get('start_date').strftime("%Y-%m-%d")
+                appointment_date = Appointment.objects.all()
+                for i in appointment_date:
+                    appointment_start = i.start_time.date().strftime("%Y-%m-%d")
+                    print("appointment_start",appointment_start)
+                    print("start_date",start_date)
+                    if start_date == appointment_start:
+                        start_time_list.append(i.start_time)
+                        end_time_list.append(i.end_time)
+                        student_name.append(i.booking.kids.kids_name)
+                        guardian_name.append(i.booking.user.get_full_name())
+                        guardian2_name.append(i.booking.user.father_name)
+                        contact_number.append(i.booking.user.mobile_no)
+                        payment_status.append(i.booking.get_booking_payment_status())
+                    else:
+                        pass
+                        # return Response({"error": "You don't have Appointments in selected date."},
+                        #                 status=status.HTTP_401_UNAUTHORIZED)
+
+            else:
+                start_date = ser.validated_data.get('start_date').strftime("%Y-%m-%d")
+                end_date = ser.validated_data.get('end_date').strftime("%Y-%m-%d")
+                appointment_date = Appointment.objects.all()
+                for i in appointment_date:
+                    print(i.start_time)
+                    appointment_start = i.start_time.date().strftime("%Y-%m-%d")
+                    # print("appointment_start", appointment_start)
+                    print("start_date", start_date)
+                    print("end_date", end_date)
+                    if start_date <= appointment_start <= end_date:
+                        start_time_list.append(i.start_time)
+                        end_time_list.append(i.end_time)
+                        student_name.append(i.booking.kids.kids_name)
+                        guardian_name.append(i.booking.user.get_full_name())
+                        guardian2_name.append(i.booking.user.father_name)
+                        contact_number.append(i.booking.user.mobile_no)
+                        payment_status.append(i.booking.get_booking_payment_status())
+                    else:
+                        pass
+                        # return Response({"error": "You don't have Appointments in selected date Range"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        else:
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"start_time_list": start_time_list, "end_time_list": end_time_list, "student_name": student_name, "guardian_name": guardian_name, "guardian2_name": guardian2_name, "contact_number": contact_number, "payment_status": payment_status}, status=status.HTTP_200_OK)

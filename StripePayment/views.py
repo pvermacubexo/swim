@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from Appointment.models import Booking, ClassInstructor
 from SharkDeck.constants import user_constants
 from app.email_notification import mail_notification
-from user.models import User, Kids
+from user.models import User, Kids, Profile
 from .models import StripeAccount
 from .serializers import StripePaymentSerializer, RepaymentBookingSeralizer
 from rest_framework.viewsets import ModelViewSet
@@ -22,6 +22,7 @@ from user.decorators import authorize
 import logging
 import os
 from SharkDeck import settings
+from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
 # Get an instance of a logger
@@ -185,7 +186,8 @@ class StripePayment(APIView):
 
                             subject = f"Booking Confirmation - Swim Time Solutions"
                             try:
-                                mail_notification(request, subject, email_body, user_email)
+                                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                                   'user_email': user_email})
                             except Exception as e:
                                 pass
 
@@ -200,7 +202,8 @@ class StripePayment(APIView):
                                          f"Thank You,\nTeam Swim Time Solutions"
                             instructor_email = inst_name.instructor.email
                             try:
-                                mail_notification(request, subject, email_body, instructor_email)
+                                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                                   'user_email': instructor_email})
                             except Exception as e:
                                 pass
                         else:
@@ -209,7 +212,8 @@ class StripePayment(APIView):
                                          f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD.\n\n" \
                                          f"Thank You,\nTeam Swim Time Solutions"
                             try:
-                                mail_notification(request, subject, email_body, user_email)
+                                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                                   'user_email': user_email})
                             except Exception as e:
                                 pass
 
@@ -279,7 +283,9 @@ class CashPayment(ModelViewSet):
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-                        mail_notification(request, subject, email_body, user_email)
+
+                        sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                           'user_email': user_email})
                     except Exception as e:
                         pass
                     email_body = f"Dear {instructor_name}," \
@@ -292,7 +298,8 @@ class CashPayment(ModelViewSet):
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-                        mail_notification(request, subject, email_body, instructor_email)
+                        sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                           'user_email': instructor_email})
                     except Exception as e:
                         pass
                 else:
@@ -301,7 +308,8 @@ class CashPayment(ModelViewSet):
                                  f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-                        mail_notification(request, subject, email_body, user_email)
+                        sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                                                           'user_email': user_email})
                     except Exception as e:
                         pass
                 return redirect("dashboard_view")
@@ -322,8 +330,13 @@ class RepaymentClasses(APIView):
                     user=User.objects.get(email=request.session['email'])).order_by('-id')
                 ser = RepaymentBookingSeralizer(bookings, many=True)
 
+                obj = User.objects.get(email=request.session['email'])
+                user_id = obj.inst_id
+                profile_detail = Profile.objects.filter(user_id=user_id)
+
                 kid_detail = Kids.objects.filter(parent_id=obj.id)
-                return render(request, "payment.html", {"data": ser.data,"user_details": obj,'kid_detail': kid_detail ,"BASE_URL":BASE_URL})
+                return render(request, "payment.html",
+                              {"data": ser.data, "profile_detail": profile_detail, "user_details": obj, 'kid_detail': kid_detail, "BASE_URL": BASE_URL})
 
             else:
                 return redirect("dashboard_view")

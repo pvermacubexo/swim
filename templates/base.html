@@ -12126,11 +12126,14 @@
                                                         </div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="first_name">Guardian First
-                                                            Name </label><input _ngcontent-uas-c28="" name="first_name"
+
+                                                                _ngcontent-uas-c28="" for="first_name"> Guardian First Name
+                                                             </label><input _ngcontent-uas-c28="" name="first_name"
                                                                                 pattern="[A-Za-z]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
-                                                                                placeholder=" Guardian First Name"
+
+                                                                                placeholder="Enter Guardian First Name"
+
                                                                                 formcontrolname="first_name"
                                                                                 value="{{ user_details.first_name }}"
                                                                                 type="text"
@@ -12140,11 +12143,14 @@
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="last_name"> Guardian Last Name </label><input
+
+                                                                _ngcontent-uas-c28="" for="last_name">Guardian Last Name </label><input
                                                                 _ngcontent-uas-c28="" name="last_name"
                                                                 pattern="[A-Za-z]{3,}"
                                                                 title="Alphabetic Characters are allowed"
-                                                                placeholder="Guardian Last Name" formcontrolname="last_name"
+
+                                                                placeholder="Enter Guardian Last Name" formcontrolname="last_name"
+
                                                                 type="text" value="{{ user_details.last_name }}"
                                                                 id="last_name"
                                                                 class="form-control ng-untouched ng-pristine ng-valid"
@@ -12152,9 +12158,11 @@
                                                             <!----></div>
                                                          <div _ngcontent-uas-c28=""
                                                              class="form-group col-md-6 column_content"><label
-                                                                _ngcontent-uas-c28="" for="father_name">Guardian-2
-                                                            Name </label><input _ngcontent-uas-c28="" name="father_name"
-                                                                                placeholder="Guardian-2 Name"
+
+                                                                _ngcontent-uas-c28="" for="father_name"> Guardian-2 Name
+                                                             </label><input _ngcontent-uas-c28="" name="father_name"
+                                                                                placeholder="Enter Guardian-2 Name"
+
                                                                                 pattern="[A-Za-z ]{3,}"
                                                                                 title="Alphabetic Characters are allowed"
                                                                                 formcontrolname="father_name"
@@ -12205,11 +12213,15 @@
                                                             <!----></div>
 {#                                                    </div>#}
                                                         {% for kids in kid_detail %}
-                                                        <div _ngcontent-uas-c28="" class="listClass">
+                                                            {% if kids.status %}
+                                                                <div _ngcontent-uas-c28="" class="listClass">
                                                         <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="kids_name">Student Name</label> <input type="hidden" value="{{ kids.id }}" name="ID"> <input
                                         _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name" value="{{ kids.kids_name }}"
+
+
                                         placeholder="Enter Student Name Here" pattern="[A-Za-z ]{3,}"
+
                                         title="Only Alphabet are allowed and min 3 characters" type="text"
                                         id="kids_name"
                                         class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
@@ -12219,7 +12231,24 @@
                                         type="date" id="DateOfBirth" max="2022-02-15"
 
                                         class="form-control ng-untouched ng-pristine ng-invalid"
-                                        style="padding: 0 0 0 10px;" required><!----></div><button type="button" class="delete" id="removeChild" onclick="kids_delete({{ kids.id }})"><i class="fas fa-trash"></i></button></div>
+                                        style="padding: 0 0 0 10px;" required><!----></div><button type="button" class="delete" id="removeChild" onclick="change_kid_status({{ kids.id }})"><i class="fas fa-trash"></i></button></div>
+
+                                                            {% endif %}
+{#                                                        <div _ngcontent-uas-c28="" class="listClass">#}
+{#                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label#}
+{#                                        _ngcontent-jar-c34="" for="kids_name">Kid Name</label> <input type="hidden" value="{{ kids.id }}" name="ID"> <input#}
+{#                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name" value="{{ kids.kids_name }}"#}
+{#                                        placeholder="Enter Your Kid Name Here" pattern="[A-Za-z ]{3,}"#}
+{#                                        title="Only Alphabet are allowed and min 3 characters" type="text"#}
+{#                                        id="kids_name"#}
+{#                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>#}
+{#                                                        <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label#}
+{#                                        _ngcontent-jar-c34="" for="date_of_birth">Date of Birth</label><input#}
+{#                                        _ngcontent-jar-c34="" formcontrolname="date_of_birth" value="{{ kids.date_of_birth|date:"Y-m-d" }}" name="date_of_birth"#}
+{#                                        type="date" id="DateOfBirth"#}
+{##}
+{#                                        class="form-control ng-untouched ng-pristine ng-invalid"#}
+{#                                        style="padding: 0 0 0 10px;" required><!----></div><button type="button" class="delete" id="removeChild" onclick="kids_delete({{ kids.id }})"><i class="fas fa-trash"></i></button></div>#}
                                                             {% endfor %}
 
                                                     <div _ngcontent-uas-c28="" class="childMain">
@@ -12316,10 +12345,10 @@
     });
 </script>
 <script>
-    function kids_delete(id){
-        $(this).parent().remove();
+    function change_kid_status(id){
+        $(this).parent().remove()
         $.ajax({
-                    url: '{{ BASE_URL }}/swim/kid_delete/'+ id,
+            url: '{{ BASE_URL }}/swim/change_kid_status/'+ id,
                 type: 'GET',
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {

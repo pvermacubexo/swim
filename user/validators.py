@@ -3,6 +3,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
+
 def SymbolValidator(string):
     if not re.findall('[()[\]{}|\\`~!@#$%^&*_\-+=;:\'",<>./?]', string):
         raise ValidationError(
@@ -10,7 +11,6 @@ def SymbolValidator(string):
               "A-Z a-z 0-9 @#$%^&*_"),
             code='password_no_symbol',
         )
-
 
 # def validate_confirm_password(self, password1):
 #     print(password1)
