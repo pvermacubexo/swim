@@ -324,94 +324,95 @@
 <script src="{% static 'js/responsive.bootstrap4.min.js' %}"></script>
     <!-- Required datatable js -->
     <script>
-{#$(document).ready(function () {#}
-{#        $("#datatable-buttons")#}
-{#            .DataTable({ lengthChange: !1, buttons: ["excel", "pdf"] })#}
-{#            .buttons()#}
-{#            .container()#}
-{#            .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),#}
-{#        $("#row_callback").DataTable({});#}
-//{#});#}
+$(document).ready(function () {
+    $("#datatable-buttons")
+        .DataTable({lengthChange: !1, buttons: ["excel", "pdf"]})
+        .buttons()
+        .container()
+        .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),
+        $("#row_callback").DataTable({});
 
-var minDate, maxDate;
+
+    var minDate, maxDate;
 
 // Custom filtering function which will search data in column four between two values
-$.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, dataIndex) {
 
-        var min = minDate.val();
-        var max = maxDate.val();
-        var date = new Date(data[4]);
-        {#var datas = date[4]#}
-        console.log(date[4])
-        if (min === null && max === null){
-            console.log("Suceess")
-            return true;
-        } else{
-            if(min != null){
-
-                var dateString = new Date(min);
-                var dateString2 = new Date(max);
-               var a = moment(date).format('YYYY-MM-DD')
-               var b= moment(dateString).format('YYYY-MM-DD')
-                var c= moment(dateString2).format('YYYY-MM-DD')
-                console.log(a)
-                console.log(b)
-                if ( (a === b && max == null ) || (b <= a && a <= c )){
-                    console.log("success")
+            var min = minDate.val();
+            var max = maxDate.val();
+            var date = new Date(data[4]);
+            {#var datas = date[4]#}
+            console.log(date[4])
+            if (min === null && max === null) {
+                console.log("Suceess")
                 return true;
+            } else {
+                if (min != null) {
+
+                    var dateString = new Date(min);
+                    var dateString2 = new Date(max);
+                    var a = moment(date).format('YYYY-MM-DD')
+                    var b = moment(dateString).format('YYYY-MM-DD')
+                    var c = moment(dateString2).format('YYYY-MM-DD')
+                    console.log(a)
+                    console.log(b)
+                    if ((a === b && max == null) || (b <= a && a <= c)) {
+                        console.log("success")
+                        return true;
+                    }
                 }
             }
+
+
+            {#var min = minDate.val();#}
+            {#var max = maxDate.val();#}
+            {#var date = new Date(data[4]);#}
+            {#console.log(date)#}
+            {#console.log(min)#}
+            {#if (min != null){#}
+            {#    var dateString = new Date(min);#}
+            {#    b= moment(dateString).format('YYYY-MM-DD')#}
+            {#    console.log(b)#}
+            //  {#}#}
+            {##}
+            {#if (#}
+            {#    ( min === null && max === null ) ||#}
+            {#    ( min === null && date <= max ) ||#}
+            {#    ( min <= date && max === null ) ||#}
+            {#    ( min <= date && date <= max )#}
+            {#) {#}
+            {##}
+            {#    console.log("Suceess")#}
+            {#    return true;#}
+            //{#}#}
+            {#console.log('error')#}
+            {#return false;#}
         }
+    );
 
+    $(document).ready(function () {
+        // Create date inputs
+        minDate = new DateTime($('#min'), {
+            format: 'DD/MM/YYYY'
+        });
+        maxDate = new DateTime($('#max'), {
+            format: 'DD/MM/YYYY'
+        });
 
-        {#var min = minDate.val();#}
-        {#var max = maxDate.val();#}
-        {#var date = new Date(data[4]);#}
-        {#console.log(date)#}
-        {#console.log(min)#}
-        {#if (min != null){#}
-        {#    var dateString = new Date(min);#}
-        {#    b= moment(dateString).format('YYYY-MM-DD')#}
-        {#    console.log(b)#}
-      //  {#}#}
-        {##}
-        {#if (#}
-        {#    ( min === null && max === null ) ||#}
-        {#    ( min === null && date <= max ) ||#}
-        {#    ( min <= date && max === null ) ||#}
-        {#    ( min <= date && date <= max )#}
-        {#) {#}
-        {##}
-        {#    console.log("Suceess")#}
-        {#    return true;#}
-        //{#}#}
-        {#console.log('error')#}
-        {#return false;#}
-    }
-);
-
-$(document).ready(function() {
-    // Create date inputs
-    minDate = new DateTime($('#min'), {
-        format: 'DD/MM/YYYY'
-    });
-    maxDate = new DateTime($('#max'), {
-        format: 'DD/MM/YYYY'
-    });
-
-    // DataTables initialisation
-    var table = $("#datatable-buttons")
-            .DataTable({ lengthChange: !1, buttons: ["excel", "pdf"] })
+        // DataTables initialisation
+        var table = $("#datatable-buttons")
+            .DataTable({lengthChange: !1, buttons: ["excel", "pdf"]})
             .buttons()
             .container()
             .appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)");
-$("#datatable-buttons_wrapper").find(".dt-buttons.btn-group").removeClass("btn-group");
-    // Refilter the table
-    $('#min, #max').on('change', function () {
-        $("#datatable-buttons").DataTable().draw();
+        $("#datatable-buttons_wrapper").find(".dt-buttons.btn-group").removeClass("btn-group");
+        // Refilter the table
+        $('#min, #max').on('change', function () {
+            $("#datatable-buttons").DataTable().draw();
+        });
     });
-});
+}
 /*
 $(document).ready(function() {
     $('#datatable-buttons').DataTable( {
