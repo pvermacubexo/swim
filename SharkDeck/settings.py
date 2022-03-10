@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django_seed',
     'app',
     'celery',
-    'django_celery_results',
     'django_celery_beat',
 
 ]

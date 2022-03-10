@@ -700,6 +700,35 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <div class="col-md-10">
+                                                        <div class="form-group ">
+                                                            <label>Website Link</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend"><span
+                                                                        class="input-group-text">
+                                                                        <i class="mdi mdi-link-variant text-secondary"></i></span>
+                                                                </div>
+                                                                <div>
+                                                                    <input type="text" class="form-control"
+                                                                           name="website_link"
+                                                                           {% if user.get_profile.website_link %}
+                                                                           value="{{ user.get_profile.website_link }}"
+                                                                            {% else %}
+                                                                             value=""
+                                                                           {% endif %}
+                                                                           placeholder="website"
+                                                                           aria-describedby="basic-addon1">
+                                                                </div>
+                                                                {% if errors.website_link %}
+                                                                    {% for error in errors.website_link %}
+                                                                        <p class="profile_error">{{ error }}</p>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-md-6">
                                                         <br/>
                                                         <div class="form-group ">
@@ -862,7 +891,7 @@
                                                 </div>  <!--end row-->
                                             </div><!--end card-header-->
                                             <div class="card-body">
-                                                <div class="form-group">
+                                                <div class="form-group mb-0">
                                                     <div class="d-flex justify-content-between">
                                                         <label>Range</label>
                                                         <span class="result_value"><span id="result_value"></span>%</span>
@@ -875,6 +904,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
 
 {#                                             <div class="card-body">#}
 {#                                                <div class="form-group">#}
@@ -892,7 +922,55 @@
 {#                                            </div>#}
 
 
+
+
+
+                                            <div class="card">
+                                            <div class="card-header">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+                                                        <h4 class="card-title">Set payment mode</h4>
+                                                    </div><!--end col-->
+                                                </div>  <!--end row-->
+                                            </div><!--end card-header-->
+                                            <div class="card-body">
+                                                <div class="row ">
+                                                    <div class="col-md-4">
+                                                        <div class="custom-control custom-switch switch-primary mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="cash_switch" name="cash"
+                                                                   {% if user.get_profile.cash_mode %}
+                                                                   checked="checked" {% endif %}
+                                                            >
+                                                            <label class="custom-control-label text-dark" for="cash_switch"> Cash</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="custom-control custom-switch switch-primary mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="card_switch" name="card"
+                                                                   {% if user.get_profile.card_mode %}
+                                                                   checked="checked" {% endif %}>
+                                                            <label class="custom-control-label text-dark" for="card_switch"> Card</label>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="custom-control custom-switch switch-primary mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="cheque_switch" name="cheque"
+                                                                   {% if user.get_profile.cheque_mode %}
+                                                                   checked="checked" {% endif %}>
+                                                            <label class="custom-control-label text-dark" for="cheque_switch"> Cheque </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
+
+
+
+                                        </div>
+
                                     </div> <!--end col-->
                                 </div><!--end row-->
                             </form>

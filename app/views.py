@@ -63,7 +63,7 @@ def SwimTimeDashboard(request):
         user_id = obj.inst_id
         first_name = User.objects.get(id=user_id)
         email = request.session['email']
-        links = Profile.objects.filter(user_id=user_id)
+        profile_detail = Profile.objects.filter(user_id=user_id)
         # user_details = User.objects.filter(email=email)
         user_details = User.objects.get(email=email)
         kid_detail = Kids.objects.filter(parent_id=user_details.id)
@@ -74,9 +74,11 @@ def SwimTimeDashboard(request):
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
 
             return render(request, 'dashboard.html',
-                          {"user_details": user_details, "data": classes, "first_name": first_name, "links": links,
-                           "BASE_URL": BASE_URL, "kid_detail": kid_detail, "active_kid": active_kid,
-                           "first_payment": payment_range})
+
+                          {"user_details": user_details, "data": classes, "first_name": first_name,
+                           "profile_detail": profile_detail, "BASE_URL": BASE_URL, "kid_detail": kid_detail,
+                           "active_kid": active_kid, "first_payment": payment_range})
+
         except:
             messages.error(request, "Invalid Login Details!")
             return render(request, "register.html")
@@ -162,6 +164,7 @@ def Registration(request, id):
             if request.method == "POST":
                 slug = user_models.Profile.objects.get(slug=id)
                 slug_id = slug.user_id
+                print(request.POST)
 
                 first_name = request.POST['first_name']
                 last_name = request.POST['last_name']
