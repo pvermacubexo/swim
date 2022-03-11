@@ -399,12 +399,14 @@ $(document).ready(function() {
                                     var name = table[i].querySelectorAll("td")[0].textContent
                                     var class_name = table[i].querySelectorAll("td")[3].textContent
                                     var start_date = table[i].querySelectorAll("td")[4].textContent
-                                    var datearray = start_date.split("/");
-
-                                    {#var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];#}
-                                    {#console.log(newdate)#}
-                                    element = document.getElementById("class_name");
-                                    cal.addEvent(class_name, "STUDENT NAME: "+ name, "Location", datearray + " " + start_time, datearray + " " + end_time);
+                                    var start_date = table[i].querySelectorAll("td")[4].textContent
+                                console.log("start_date", start_date)
+                                {#var datearray = start_date.split("/");#}
+                                {##}
+                                {#var newdate = datearray[0] + '/' + datearray[1] + '/' + datearray[2];#}
+                                {#console.log(newdate)#}
+                                element = document.getElementById("class_name");
+                                cal.addEvent(class_name, "STUDENT NAME: " + name, "Location", start_date + " " + start_time, start_date + " " + end_time);
 
                                 }
                                 {#cal.addEvent('Demo Event', 'This is an all day event', 'Nome, AK', '8/7/2013', '8/7/2013');#}
