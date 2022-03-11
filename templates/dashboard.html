@@ -302,6 +302,18 @@ setTimeout(function () {
                                                                             <i class="fab fa-twitter-square"
                                                                                style="font-size:30px;margin-left:-2px;"></i></a>
                                                                             </li>
+
+                                                                         <li _ngcontent-ygs-c30=""><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    target="_blank"
+                                                                                    {% if i.website_link is not None %}
+                                                                                    href="{{ i.website_link }}">
+                                                                                    {% else %}
+                                                                                        href="">
+                                                                                    {% endif %}
+                                                                            <i class="fa fa-link" style="font-size:23px;margin-left:-2px;"></i>/a>
+                                                                            </li>
+
                                                                             <!----></ul>
                                                                     {% endfor %}
                                                                 </div>
