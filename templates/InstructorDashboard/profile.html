@@ -105,9 +105,9 @@
                 </div>
             </div>
         </div>
-    <div>
+        <div>
 
-    </div>
+        </div>
         <div class="pb-4">
             <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
                 <li class="nav-item active">
@@ -145,135 +145,141 @@
                                                 <th> Date</th>
                                                 <th> Start Time</th>
                                                 <th> End Time</th>
-                                                <th> </th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             {% for booking in bookings %}
                                                 {% for appointment in booking.get_appointment %}
-                                                    {% if appointment.start_time  >= today  %}
-                                                    {% if appointment.status == '1' %}
-                                                    <tr>
-                                                    <td tabindex="0" class="sorting_1" style="">{{ appointment.id }}</td>
-                                                        <td >
-                                                            <span>{{ appointment.booking.class_instructor.title|truncatechars:60 }} </span>
-                                                        </td>
-                                                        <td>{{ appointment.start_time.date|date:"M d Y" }}</td>
-                                                        <td>{{ appointment.start_time|date:'h:i A' }}</td>
-                                                        <td>{{ appointment.end_time|date:'h:i A' }}</td>
-                                                        <td>
-                                                            <button type="button"
-                                                                    class="btn btn-outline-success waves-effect waves-light"
-                                                                    data-toggle="modal"
-                                                                    data-target="#default_view_details{{ appointment.id }}">
-                                                                View Details
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+                                                    {% if appointment.start_time  >= today %}
+                                                        {% if appointment.status == '1' %}
+                                                            <tr>
+                                                                <td tabindex="0" class="sorting_1"
+                                                                    style="">{{ appointment.id }}</td>
+                                                                <td>
+                                                                    <span>{{ appointment.booking.class_instructor.title|truncatechars:60 }} </span>
+                                                                </td>
+                                                                <td>{{ appointment.start_time.date|date:"M d Y" }}</td>
+                                                                <td>{{ appointment.start_time|date:'h:i A' }}</td>
+                                                                <td>{{ appointment.end_time|date:'h:i A' }}</td>
+                                                                <td>
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-success waves-effect waves-light"
+                                                                            data-toggle="modal"
+                                                                            data-target="#default_view_details{{ appointment.id }}">
+                                                                        View Details
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
 
 
-                                                    <!-- Edit booking detail model form start -->
-                                                    <div class="modal fade"
-                                                         id="default_view_details{{ appointment.id }}" tabindex="-1"
-                                                         role="dialog"
-                                                         aria-labelledby="default_view_details{{ appointment.id }}"
-                                                         aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header bg-secondary">
-                                                                    <h6 class="modal-title m-0 text-white"
-                                                                        id="exampleModalSecondary1">Edit Class</h6>
-                                                                    <button type="button" class="close "
-                                                                            data-dismiss="modal" aria-label="Close">
+                                                            <!-- Edit booking detail model form start -->
+                                                            <div class="modal fade"
+                                                                 id="default_view_details{{ appointment.id }}"
+                                                                 tabindex="-1"
+                                                                 role="dialog"
+                                                                 aria-labelledby="default_view_details{{ appointment.id }}"
+                                                                 aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header bg-secondary">
+                                                                            <h6 class="modal-title m-0 text-white"
+                                                                                id="exampleModalSecondary1">Edit
+                                                                                Class</h6>
+                                                                            <button type="button" class="close "
+                                                                                    data-dismiss="modal"
+                                                                                    aria-label="Close">
                                                                             <span aria-hidden="true"><i
                                                                                     class="la la-times text-white"></i></span>
-                                                                    </button>
-                                                                </div>
-                                                                <form method="post"
-                                                                      action="{% url 'InstructorDashboard:update_appointment' appointment.booking.kids.id %}">
-                                                                    {% csrf_token %}
-                                                                    <div class="modal-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <input type="hidden"
-                                                                                       value="{{ appointment.id }}"
-                                                                                       name="id">
-                                                                                <input type="hidden" value="0"
-                                                                                       name="redirectTo">
-                                                                                <div class="form-group">
-                                                                                    <label>Student Name </label>
-                                                                                    <input type="text"
-                                                                                           class="form-control"
-                                                                                           value="{{ booking.kids.kids_name }}"
-                                                                                           readonly>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <div class="DateContainer mb-3">
-                                                                                        <label>Start
-                                                                                            Date - Time </label>
-                                                                                        <input type="text"
-                                                                                               name="start_time"
-                                                                                               class="form-control update_appointment"
-                                                                                               date_min={{ booking.class_instructor.time_slot }}
-                                                                                                       value="{{ appointment.start_time|date:'m-d-Y H:m' }}" disabled >
-                                                                                        <label>End Date - Time </label>
-                                                                                        <input type="text"
-                                                                                               name="end_time"
-                                                                                               class="form-control update_endDate"
-                                                                                               value="{{ appointment.end_time|date:'m-d-Y H:m' }}"
-                                                                                               readonly>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label>Status</label>
-                                                                                    <select name="status">
-                                                                                        <option value="1"
-                                                                                                {% if appointment.status == '1' %}
-                                                                                                selected
-                                                                                                {% endif %}>
-                                                                                            SCHEDULED
-                                                                                        </option>
-                                                                                        <option value="3"
-                                                                                                {% if appointment.status == '3' %}
-                                                                                                selected
-                                                                                                {% endif %}>
-                                                                                            CANCELED
-                                                                                        </option>
-                                                                                        <option value="2"
-                                                                                                {% if appointment.status == '2' %}
-                                                                                                selected
-                                                                                                {% endif %}>
-                                                                                            DONE
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label>Remark </label>
-                                                                                    <textarea
-                                                                                            value="{{ appointment.remark }}"
-                                                                                            name="remark"
-                                                                                            class="form-control"
-                                                                                            clos="40" rows="3"
-                                                                                             required></textarea>
-                                                                                </div>
-                                                                            </div><!--end col-->
-                                                                        </div><!--end row-->
-                                                                    </div><!--end modal-body-->
-                                                                    <div class="modal-footer">
-                                                                        <button type="button"
-                                                                                class="btn btn-danger"
-                                                                                data-dismiss="modal">Close
-                                                                        </button>
-                                                                        <input type="submit"
-                                                                               class="btn btn-success waves-effect waves-light"
-                                                                               value="Save changes">
-                                                                    </div><!--end modal-footer-->
-                                                                </form>
-                                                            </div><!--end modal-content-->
-                                                        </div><!--end modal-dialog-->
-                                                    </div><!--end modal-->
+                                                                            </button>
+                                                                        </div>
+                                                                        <form method="post"
+                                                                              action="{% url 'InstructorDashboard:update_appointment' appointment.booking.kids.id %}">
+                                                                            {% csrf_token %}
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-12">
+                                                                                        <input type="hidden"
+                                                                                               value="{{ appointment.id }}"
+                                                                                               name="id">
+                                                                                        <input type="hidden" value="0"
+                                                                                               name="redirectTo">
+                                                                                        <div class="form-group">
+                                                                                            <label>Student Name </label>
+                                                                                            <input type="text"
+                                                                                                   class="form-control"
+                                                                                                   value="{{ booking.kids.kids_name }}"
+                                                                                                   readonly>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <div class="DateContainer mb-3">
+                                                                                                <label>Start
+                                                                                                    Date - Time </label>
+                                                                                                <input type="text"
+                                                                                                       name="start_time"
+                                                                                                       class="form-control update_appointment"
+                                                                                                       date_min={{ booking.class_instructor.time_slot }}
+                                                                                                               value="{{ appointment.start_time|date:'m-d-Y H:m' }}"
+                                                                                                       disabled>
+                                                                                                <label>End Date -
+                                                                                                    Time </label>
+                                                                                                <input type="text"
+                                                                                                       name="end_time"
+                                                                                                       class="form-control update_endDate"
+                                                                                                       value="{{ appointment.end_time|date:'m-d-Y H:m' }}"
+                                                                                                       readonly>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Status</label>
+                                                                                            <select name="status">
+                                                                                                <option value="1"
+                                                                                                        {% if appointment.status == '1' %}
+                                                                                                        selected
+                                                                                                        {% endif %}>
+                                                                                                    SCHEDULED
+                                                                                                </option>
+                                                                                                <option value="3"
+                                                                                                        {% if appointment.status == '3' %}
+                                                                                                        selected
+                                                                                                        {% endif %}>
+                                                                                                    CANCELED
+                                                                                                </option>
+                                                                                                <option value="2"
+                                                                                                        {% if appointment.status == '2' %}
+                                                                                                        selected
+                                                                                                        {% endif %}>
+                                                                                                    DONE
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Remark </label>
+                                                                                            <textarea
+                                                                                                    value="{{ appointment.remark }}"
+                                                                                                    name="remark"
+                                                                                                    class="form-control"
+                                                                                                    clos="40" rows="3"
+                                                                                                    required></textarea>
+                                                                                        </div>
+                                                                                    </div><!--end col-->
+                                                                                </div><!--end row-->
+                                                                            </div><!--end modal-body-->
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                        class="btn btn-danger"
+                                                                                        data-dismiss="modal">Close
+                                                                                </button>
+                                                                                <input type="submit"
+                                                                                       class="btn btn-success waves-effect waves-light"
+                                                                                       value="Save changes">
+                                                                            </div><!--end modal-footer-->
+                                                                        </form>
+                                                                    </div><!--end modal-content-->
+                                                                </div><!--end modal-dialog-->
+                                                            </div><!--end modal-->
 
-                                                    <!-- Edit booking detail model form end -->
+                                                            <!-- Edit booking detail model form end -->
                                                         {% endif %}
                                                     {% endif %}
                                                 {% endfor %}
@@ -314,30 +320,33 @@
                                                         <tbody>
                                                         {% for booking in bookings %}
                                                             {#                                                            <tr role="row" class="odd {% if booking.booking_payment_status == '0'%}table-warning {% else %} table-success{% endif %}">#}
-                                                            <tr role="row" class="odd">
-                                                                <td>
-                                                                    <span>{{ booking.id }}</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>{{ booking.class_instructor.title|truncatechars:30 }}</span>
-                                                                </td>
-                                                    <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
-                                                    <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
+                                                            {% if booking.last_booking.date|date:'Y-m-d' >= today.date|date:'Y-m-d' %}
+                                                                <tr role="row" class="odd">
+                                                                    <td>
+                                                                        <span>{{ booking.id }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>{{ booking.class_instructor.title|truncatechars:30 }}</span>
+                                                                    </td>
+                                                                    <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
+                                                                    <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
 
-                                                                <td>${{ booking.class_instructor.price }}</td>
-                                                                <td>${{ booking.get_total_paid }}</td>
-                                                                <td>${{ booking.get_total_due }} </td>
-                                                                <td>
-                                                                    {% if booking.get_total_due ==  booking.class_instructor.price %}
-                                                                        UNPAID
+                                                                    <td>${{ booking.class_instructor.price }}</td>
+                                                                    <td>${{ booking.get_total_paid }}</td>
+                                                                    <td>${{ booking.get_total_due }} </td>
+                                                                    <td>
+                                                                        {% if booking.get_total_due ==  booking.class_instructor.price %}
+                                                                            UNPAID
                                                                         {% else %}
                                                                             {% if booking.get_booking_payment_status %}
-                                                                            {{ booking.get_booking_payment_status }} {% else %}
-                                                                            -- {% endif %}
-                                                                    {% endif %}
-                                                                </td>
+                                                                                {{ booking.get_booking_payment_status }}
+                                                                            {% else %}
+                                                                                -- {% endif %}
+                                                                        {% endif %}
+                                                                    </td>
 
-                                                            </tr>
+                                                                </tr>
+                                                            {% endif %}
                                                         {% endfor %}
                                                         </tbody>
                                                     </table>
@@ -369,37 +378,46 @@
                                                             role="grid" aria-describedby="datatable_info">
                                                         <thead>
                                                         <tr role="row">
-                                                            <th>
-                                                                Booking ID
-                                                            <th>
-                                                            <th>
-                                                                Student Name
-                                                            <th>
-                                                                Contact
-                                                                Number
-                                                            </th>
-                                                            <th>
-                                                                Lesson Started
-                                                            </th>
-                                                            <th>
-
-                                                                Lesson Ended
-                                                            </th>
+                                                            <th> Booking ID</th>
+                                                            <th> Class Name</th>
+                                                            <th> Start Date-Time</th>
+                                                            <th> End Date-Time</th>
+                                                            <th> Booking Amount</th>
+                                                            <th> Paid Amount</th>
+                                                            <th> Due Amount</th>
+                                                            <th> Status</th>
                                                         </tr>
                                                         </thead>
 
 
                                                         <tbody>
                                                         {% for booking in bookings %}
-                                                            {% if booking.last_class.start_time  < today %}
-                                                                    <tr role="row" class="odd">
+                                                            {% if booking.last_booking.date|date:'Y-m-d' < today.date|date:'Y-m-d' %}
+                                                                <tr role="row" class="odd">
                                                                     <td>{{ booking.id }}</td>
                                                                     <td tabindex="0" class="sorting_1">
-                                                                        <a href="#">{{ booking.user.get_full_name }}</a>
+                                                                        <a href="#">{{ booking.class_instructor.title }}</a>
+
+                                                                    <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
+                                                                    <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
+
+                                                                    <td>${{ booking.class_instructor.price }}</td>
+                                                                    <td>${{ booking.get_total_paid }}</td>
+                                                                    <td>${{ booking.get_total_due }} </td>
+                                                                    <td>
+                                                                        {% if booking.get_total_due ==  booking.class_instructor.price %}
+                                                                            UNPAID
+                                                                        {% else %}
+                                                                            {% if booking.get_booking_payment_status %}
+                                                                                {{ booking.get_booking_payment_status }}
+                                                                            {% else %}
+                                                                                -- {% endif %}
+                                                                        {% endif %}
                                                                     </td>
-                                                                    <td>{{ booking.user.mobile_no }}</td>
-                                                                    <td>{{ booking.last_class|date:'M d Y h:i A' }}</td>
-                                                                    <td>{{ booking.first_class.start_time|date:'M d Y h:i A' }}</td>
+                                                                    {#                                                                    </td>#}
+                                                                    {#                                                                    <td>{{ booking.last_booking }}</td>#}
+                                                                    {#                                                                    <td>{{ booking.last_class|date:'M d Y h:i A' }}</td>#}
+                                                                    {#                                                                    <td>{{ booking.first_class.start_time|date:'M d Y h:i A' }}</td>#}
                                                                 </tr>
                                                             {% endif %}
                                                         {% endfor %}
@@ -443,7 +461,7 @@
                                                         <tbody>
                                                         {% for transaction in transactions %}
                                                             <tr role="row" class="odd">
-                                                            <td>{{ transaction.booking.id }}</td>
+                                                                <td>{{ transaction.booking.id }}</td>
                                                                 <td>{{ transaction.transaction_id }}</td>
                                                                 <td>{{ transaction.booking.class_instructor.title|truncatechars:30 }}</td>
                                                                 <td> {{ transaction.payment_at|date:'M d Y h:i A' }}</td>
@@ -454,42 +472,43 @@
                                                                      <i class="mdi mdi-cash-multiple"></i> {% else %}
                                                                      <i class="mdi mdi-credit-card"></i> {% endif %} --> {{ transaction.get_payment_type }}</td>
                                                                 <td class="text-center">
-                                                                {% if transaction.status == '1' %}
-                                                                    <span
-                                                                        style="cursor: pointer;"
-                                                                        data-toggle="modal"
-                                                                        data-target="#reject_transaction{{ transaction.id }}"
-                                                                        class="badge badge-soft-danger">Not Receive</span>
+                                                                    {% if transaction.status == '1' %}
+                                                                        <span
+                                                                                style="cursor: pointer;"
+                                                                                data-toggle="modal"
+                                                                                data-target="#reject_transaction{{ transaction.id }}"
+                                                                                class="badge badge-soft-danger">Not Receive</span>
 
-                                                                    <span
-                                                                        data-toggle="modal"
-                                                                        data-target="#approve_transaction{{ transaction.id }}"
-                                                                        style="cursor: pointer;"
-                                                                        class="badge badge-soft-success">
+                                                                        <span
+                                                                                data-toggle="modal"
+                                                                                data-target="#approve_transaction{{ transaction.id }}"
+                                                                                style="cursor: pointer;"
+                                                                                class="badge badge-soft-success">
                                                                         Receive </span>
-                                                                {% endif %}
+                                                                    {% endif %}
 
-                                                                {% if transaction.status == '2' %}
+                                                                    {% if transaction.status == '2' %}
 
-                                                                    <span
-                                                                        style="cursor: text;"
-                                                                        class="badge badge-soft-success">
+                                                                        <span
+                                                                                style="cursor: text;"
+                                                                                class="badge badge-soft-success">
                                                                         Received </span>
-                                                                {% endif %}
+                                                                    {% endif %}
 
-                                                                {% if transaction.status == '3' %}
+                                                                    {% if transaction.status == '3' %}
 
-                                                                    <span
-                                                                        style="cursor: text;"
-                                                                        class="badge badge-soft-danger">
+                                                                        <span
+                                                                                style="cursor: text;"
+                                                                                class="badge badge-soft-danger">
                                                                         Not Received </span>
-                                                                {% endif %}
+                                                                    {% endif %}
                                                                 </td>
                                                             </tr>
                                                             <div class="modal fade"
                                                                  id="approve_transaction{{ transaction.id }}"
                                                                  tabindex="-1" role="dialog"
-                                                                 aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                                                 aria-hidden="true" data-backdrop="static"
+                                                                 data-keyboard="false">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header bg-success">
@@ -540,7 +559,8 @@
                                                                  id="reject_transaction{{ transaction.id }}"
                                                                  tabindex="-1" role="dialog"
                                                                  aria-labelledby="exampleModalDanger1"
-                                                                 aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                                                 aria-hidden="true" data-backdrop="static"
+                                                                 data-keyboard="false">
                                                                 <div class="modal-dialog" role="document">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header bg-danger">
@@ -613,14 +633,14 @@
 
 {% block extra_script %}
 
-<script src="{% static 'js/daterangepicker.js' %}"></script>
-<script src="{% static 'js/select2.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-colorpicker.min.js' %}"></script>
-<script src="{% static 'js/bootstrap-material-datetimepicker.js' %}"></script>
-<script src="{% static 'js/bootstrap-maxlength.min.js' %}"></script>
-<script src="{% static 'js/jquery.bootstrap-touchspin.min.js' %}"></script>
-<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/daterangepicker.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-colorpicker.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-material-datetimepicker.js' %}"></script>
+    <script src="{% static 'js/bootstrap-maxlength.min.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap-touchspin.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
 
     <script>
         $(document).ready(function () {
@@ -634,11 +654,11 @@
             $(".booking_table").DataTable({
                 "columnDefs": [
                     null,
-                    { "width": "20%"},
+                    {"width": "20%"},
                     null,
                     null,
                     null
-              ]
+                ]
 
             });
         });

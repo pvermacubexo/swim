@@ -87,181 +87,17 @@
                                                                 {{ student.kids_name }}
                                                             </a>
                                                         </b>
-                                                    </td><<<<<<< merge_testing_branch
-11
- 
-<div class="page-content">
-12
- 
-    <div class="container-fluid">
-13
- 
-        <div class="row">
-14
- 
-            <div class="col-md-12">
-15
- 
-{#            {% if stripe_msg %}#}
-16
- 
-{##}
-17
- 
-{#                        {% else %}#}
-18
- 
-{#                        <div class="col-md-12">#}
-19
- 
-{#                            <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style="color: white !important;">Connect your <strong>stripe account</strong> to start receiving payments directly. Otherwise Swim Time Solutions will receive payment on your behalf &amp; process you manually later.</p>#}
-20
- 
-{#                        </div>#}
-21
- 
-{#                    {% endif %}#}
-22
- 
-                <div class="card">
-23
- 
-                    <div class="card-header">
-24
- 
-                        <h4 class="card-title">Your Students</h4>
-25
- 
-                        <p class="text-muted mb-0">A list of all the Students who are taking classes from you.
-26
- 
-                        </p>
-27
- 
-                    </div><!--end card-header-->
-28
- 
-                    <div class="card-body">
-29
- 
-                        <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-30
- 
-                            <div class="row">
-31
- 
-                                <div class="col-sm-12">
-32
- 
-                                    <table
-33
- 
-                                            class="table dataTable table-bordered dt-responsive nowrap dataTable no-footer dtr-inline"
-34
- 
-                                            style="border-collapse: collapse; border-spacing: 0px; width: 100%;"
-35
- 
-                                            role="grid" aria-describedby="datatable_info">
-36
- 
-                                        <thead>
-37
- 
-                                        <tr role="row">
-38
- 
-                                            <th class="sorting_asc" tabindex="0" aria-controls="datatable"
-39
- 
-                                                rowspan="1" colspan="1" style="width: 150.8px;"
-40
- 
-                                                aria-sort="ascending"
-41
- 
-                                                aria-label="Name: activate to sort column descending">Student Name
-42
- 
-                                            </th>
-43
- 
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-44
- 
-                                                colspan="1" style="width: 150.8px;"
-45
- 
-                                                aria-label="Position: activate to sort column ascending">Guardian Name
-46
- 
-                                            </th>
-47
- 
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-48
- 
-                                                colspan="1" style="width: 150.8px;"
-49
- 
-                                                aria-label="Position: activate to sort column ascending">Guardian-2 Name
-50
- 
-                                            </th>
-51
- 
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-52
- 
-                                                colspan="1"
-53
- 
-                                                aria-label="Age: activate to sort column ascending">Date of Birth
-54
- 
-                                            </th>
-55
- 
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-56
- 
-                                                colspan="1"
-57
- 
-                                                aria-label="Age: activate to sort column ascending">Age
-58
- 
-                                            </th>
-59
- 
-                                            <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-60
- 
-                                                colspan="1" style="width: 118.8px;"
-61
- 
-                                                aria-label="Start date: activate to sort column ascending">
-62
- 
-                                                Mobile Number
-63
- 
-                                            </th>
-64
- 
-                                        </tr>
+                                                    </td>
 
                                                     <td>{{ student.parent.first_name }} {{ student.parent.last_name }}</td>
                                                     <td>{{ student.parent.father_name }}</td>
                                                     <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
                                                     {% for key, value in ages.items %}
-
-                                                        {% if key == student.parent.mobile_no %}
+                                                        {% if key == student.id %}
                                                             <td>{{ value }}</td>
                                                         {% endif %}
                                                     {% endfor %}
                                                     <td> {{ student.parent.email }}</td>
-
 
                                                     <td>{{ student.parent.mobile_no }}</td>
 
@@ -275,16 +111,6 @@
                                                         {% else %}
                                                             0
                                                         {% endif %}
-
-                                                        {#                                                        {% for key, value in booking_count.items %}#}
-                                                        {#                                                            {% if student.kids_name in booking_count %}#}
-                                                        {#                                                            {% else %}#}
-                                                        {#                                                                0#}
-                                                        {#                                                            {% endif %}#}
-                                                        {#                                                            {% if student.kids_name == key %}#}
-                                                        {#                                                                {{ booking_count.key }}#}
-                                                        {#                                                            {% endif %}#}
-                                                        {#                                                        {% endfor %}#}
                                                     </td>
 
                                                 </tr>
