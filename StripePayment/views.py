@@ -239,8 +239,8 @@ class CashPayment(ModelViewSet):
         try:
             serializer.is_valid(raise_exception=True)
         except Exception as e:
-            for i in list(e.args):
-                messages.error(request, i)
+            # for i in list(e.args):
+                # messages.error(request, i)
             return redirect("repayment_classes")
         if 'email' in request.session:
             if serializer.validated_data['payment_type'] == '2':

@@ -94,7 +94,7 @@
                                                     <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
                                                     {% for key, value in ages.items %}
 
-                                                        {% if key == student.parent.mobile_no %}
+                                                        {% if key == student.id %}
                                                             <td>{{ value }}</td>
                                                         {% endif %}
                                                     {% endfor %}

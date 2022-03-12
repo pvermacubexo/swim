@@ -315,7 +315,13 @@ var selectedDates = [];
      localStorage.removeItem("individual_Date")
      localStorage.removeItem("Date");
    });
+$('.ui-state-default').click(function () {
+    document.querySelector("#accordion").innerHTML = "";
 
+});
+$('.ui-state-default').click(function (){
+    document.querySelector("#timeSelectContent").innerHTML = "";
+})
 
    //  $(".ui-datepicker-next").click(function (){
    //    console.log("rene")

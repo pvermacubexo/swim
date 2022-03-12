@@ -19,7 +19,15 @@
             src="https://js.stripe.com/v3/fingerprinted/js/trusted-types-checker-cda1635e27dc416e23614def05f39e01.js"></script>
 </head>
 <body class="" style="">
-
+<style>
+    .modal-open1{
+        overflow: hidden;
+    }
+    .modal-open1 .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+</style>
 <script src={% static 'assets/js/jquery.js' %}></script>
 <script src={% static 'assets/js/jquery-ui.min.js' %}></script>
 <script src={% static 'assets/js/bootstrap.js' %}></script>
@@ -141,8 +149,8 @@
                                 <div _ngcontent-jar-c34="" class="row">
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center" style="margin-top: 20px;">
                                         <p
-                                                _ngcontent-jar-c34="" class="forgetPassword">Don’t have an account? <a
-                                                _ngcontent-jar-c34="" onclick="hideLoginModel()" data-toggle="modal" data-target="#signup"
+                                                _ngcontent-jar-c34="" class="forgetPassword">Don’t have an account? <a onclick="hideLoginModel()"
+
                                                 >Sign up</a></p></div>
                                     <div _ngcontent-jar-c34="" class="col-md-12 text-center"
                                          style="margin-bottom: -40px;">
@@ -198,7 +206,7 @@
                                     _ngcontent-jar-c34="">Already have an account? <a onclick="showLoginModel()" _ngcontent-jar-c34=""
                                                                                       data-toggle="modal"
                                                                                       data-target="#login"
-                                                                                      data-dismiss="modal">Login</a></p>
+                                                                                      >Login</a></p>
                             </div>
                         </div>
                     </div>
@@ -209,7 +217,7 @@
                 <div _ngcontent-jar-c34="" class="modal-dialog modal-lg">
                     <div _ngcontent-jar-c34="" class="modal-content">
                         <div _ngcontent-jar-c34="" class="modal-header">
-                            <button _ngcontent-jar-c34="" type="button" data-dismiss="modal" aria-hidden="true"
+                            <button _ngcontent-jar-c34="" type="button" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload()"
                                     class="close"> ×
                             </button>
                             <h4 _ngcontent-jar-c34="">Create an Account</h4>
@@ -313,9 +321,7 @@
                         <div _ngcontent-jar-c34="" class="row modal-body">
                             <div _ngcontent-jar-c34="" class="col-md-12 text-center" style="margin-bottom: -40px;"><p
                                     _ngcontent-jar-c34="">Already have an account? <a _ngcontent-jar-c34=""
-                                                                                      data-toggle="modal"
-                                                                                      data-target="#login"
-                                                                                      data-dismiss="modal">Login</a></p>
+                                                                                      onclick="hideSignupModel()">Login</a></p>
                             </div>
                         </div>
                     </div>
@@ -693,12 +699,19 @@
             style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; visibility: hidden !important; position: fixed !important; height: 1px !important; pointer-events: none !important; user-select: none !important;"></iframe>
 <script>
 
+    function hideSignupModel(){
+         $('#signup').modal('hide');
+         $('#login').modal('show');
+         document.querySelector('body').classList.add('modal-open1')
+        console.log($('body'))
+    }
+
     function hideLoginModel(){
-         $('#login').hide();
+         $('#login').modal('hide');
+        $('#signup').modal('show');
+         document.querySelector('body').classList.add('modal-open1')
     }
-    {
-         $('#login').hide();
-    }
+    $('.modal-backdrop').removeClass('modal-open1')
  {#function showLoginModel(){#}
  {#        $('#login').show();#}
  {#   }#}
