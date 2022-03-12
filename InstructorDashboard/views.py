@@ -95,8 +95,9 @@ def signup_view(request):
                      f"Thank You," \
                      f"\nSwim Time Solutions"
         try:
-            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                               'user_email': email})
+            # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+            #                                    'user_email': email})
+            mail_notification(request, subject, email_body, email)
         except Exception as e:
             pass
 
@@ -232,8 +233,9 @@ def update_transaction(request, id):
                      f" {transaction_amount} USD is accepted by the Instructor.\n\n" \
                      f"Thank You,\nTeam Swim Time Solutions"
         try:
-            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                               'user_email': user_email})
+            # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+            #                                    'user_email': user_email})
+            mail_notification(request, subject, email_body, user_email)
         except Exception as e:
             pass
 
@@ -265,8 +267,9 @@ def delete_transaction(request, id):
                      f" {transaction_amount} USD is rejected by the Instructor. You may contact the Instructor for further information.\n\n" \
                      f"Thank you,\nTeam Swim Time Solutions"
         try:
-            sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                               'user_email': user_email})
+            # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+            #                                    'user_email': user_email})
+            mail_notification(request, subject, email_body, user_email)
         except Exception as e:
             pass
 
@@ -296,8 +299,9 @@ def update_booking(request, id):
                              f"Thank You,\n" \
                              f"Swim Time Solutions"
                 try:
-                    sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                                       'user_email': user_email})
+                    # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                    #                                    'user_email': user_email})
+                    mail_notification(request, subject, email_body, user_email)
                 except Exception as e:
                     pass
 
@@ -618,8 +622,9 @@ def change_password(request):
                          f"Thank You,\n" \
                          f"Swim Time Solutions"
             try:
-                sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                                   'user_email': user_email})
+                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                #                                    'user_email': user_email})
+                mail_notification(request, subject, email_body, user_email)
             except Exception as e:
                 pass
             print("change password send mail done")

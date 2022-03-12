@@ -196,8 +196,9 @@ def Registration(request, id):
                              f"\nSwim Time Solutions"
 
                 try:
-                    sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                                       'user_email': user_email})
+                    # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                    #                                    'user_email': user_email})
+                    mail_notification(request, subject, email_body, user_email)
                 except Exception as e:
                     pass
                 return redirect(SwimTimeDashboard)
