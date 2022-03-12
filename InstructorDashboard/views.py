@@ -178,6 +178,7 @@ def dashboard_view(request):
     credit_amount = 0
     pending_amount = 0
     bookings = utilities.get_instructors_bookings(request.user)
+    student_count = Kids.objects.filter(parent__inst_id=request.user.id)
     transactions = utilities.get_instructor_transactions(request.user)
     complete_transactions = utilities.get_complete_transactions(request.user)
     pending_transactions = utilities.get_pending_transactions(request.user)
@@ -191,7 +192,7 @@ def dashboard_view(request):
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
-               'total_students': len(set([booking.kids for booking in bookings])),
+               'total_students': len(set([student.id for student in student_count])),
                'credit_amount': credit_amount,
                'pending_transaction': pending_amount
                }
@@ -208,6 +209,7 @@ def trainee_view(request, trainee):
     today = datetime.today().replace(tzinfo=pytz.UTC)
     bookings = appointment_model.Booking.objects.filter(kids=trainee).order_by("-booked_at")
     appointment_status_options = dict(APPOINTMENT_STATUS)
+
     context = {'trainee': trainee,
                'transactions': transactions, 'bookings': bookings,
                'today': today, 'appointment_status_options': appointment_status_options}
@@ -831,7 +833,7 @@ def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
         break_time = user_models.Profile.objects.get(user=request.user.id)
-        break_time_list = user_models.BreakTime.objects.filter(instructor_id = request.user.id)
+        break_time_list = user_models.BreakTime.objects.filter(instructor_id=request.user.id)
 
         if break_time_list:
 
@@ -839,9 +841,13 @@ def add_break_time(request):
                 raw_start_time = i.start_time.strftime("%H:%M")
                 raw_end_time = i.end_time.strftime("%H:%M")
                 if (i.week_day == request.POST['form-0-week_day']):
-                    if (raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time) or (raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time) or (raw_start_time <= request.POST['form-0-start_time'] <= request.POST['form-0-end_time'] <= raw_end_time):
+                    if (raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time) or (
+                            raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time) or (
+                            raw_start_time <= request.POST['form-0-start_time'] <= request.POST[
+                        'form-0-end_time'] <= raw_end_time):
                         print("Success")
-                        messages.error(request, "The Break Time you have selected is already exist ! Please select another time slot .")
+                        messages.error(request,
+                                       "The Break Time you have selected is already exist ! Please select another time slot .")
                         return redirect('InstructorDashboard:instructor_profile')
         else:
             print("fail")

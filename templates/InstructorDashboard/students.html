@@ -93,7 +93,6 @@
                                                     <td>{{ student.parent.father_name }}</td>
                                                     <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
                                                     {% for key, value in ages.items %}
-
                                                         {% if key == student.id %}
                                                             <td>{{ value }}</td>
                                                         {% endif %}
@@ -112,16 +111,6 @@
                                                         {% else %}
                                                             0
                                                         {% endif %}
-
-                                                        {#                                                        {% for key, value in booking_count.items %}#}
-                                                        {#                                                            {% if student.kids_name in booking_count %}#}
-                                                        {#                                                            {% else %}#}
-                                                        {#                                                                0#}
-                                                        {#                                                            {% endif %}#}
-                                                        {#                                                            {% if student.kids_name == key %}#}
-                                                        {#                                                                {{ booking_count.key }}#}
-                                                        {#                                                            {% endif %}#}
-                                                        {#                                                        {% endfor %}#}
                                                     </td>
 
                                                 </tr>
