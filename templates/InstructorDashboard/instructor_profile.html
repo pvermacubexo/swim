@@ -341,7 +341,7 @@
                                     </div><!--end col-->
                                     <div class="col-lg-3 align-self-center">
                                         <div class="row">
-                                            <div class="col-auto text-center border-right">
+                                            <div class="col-auto text-center border-right" style="padding-left: 7px !important; padding-right: 7px !important;">
 
                                                 <a href="{% if user.get_profile.facebook_link %}
                                                     {{ user.get_profile.facebook_link }}
@@ -352,7 +352,7 @@
                                                 </a>
                                                 <p class="mb-0 font-weight-semibold">Facebook</p>
                                             </div><!--end col-->
-                                            <div class="col-auto text-center border-right">
+                                            <div class="col-auto text-center border-right" style="padding-left: 4px !important; padding-right: 7px !important;">
 
                                                 <a href="{% if user.get_profile.twitter_link %}{{ user.get_profile.twitter_link }}{% endif %}"
                                                    target="_blank"
@@ -361,7 +361,7 @@
                                                 </a>
                                                 <p class="mb-0 font-weight-semibold">Twitter</p>
                                             </div><!--end col-->
-                                            <div class="col-auto text-center">
+                                            <div class="col-auto text-center" style="padding-left: 7px !important; padding-right: 7px !important;">
 
                                                 <a href="{% if user.get_profile.instagram_link %}{{ user.get_profile.instagram_link }}{% endif %}"
                                                    target="_blank"
@@ -369,6 +369,15 @@
                                                     <i class="fab fa-instagram-square"></i>
                                                 </a>
                                                 <p class="mb-0 font-weight-semibold">Instagram</p>
+                                            </div>
+                                            <div class="col-auto text-center border-left" style="padding-left: 4px !important; padding-right: 7px !important;">
+
+                                                <a href="{% if user.get_profile.website_link %}{{ user.get_profile.website_link }}{% endif %}"
+                                                   target="_blank"
+                                                   class="btn btn-soft-secondary btn-icon-circle-sm mb-2">
+                                                    <i class="mdi mdi-link-variant text-secondary"></i>
+                                                </a>
+                                                <p class="mb-0 font-weight-semibold">Website</p>
                                             </div><!--end col-->
                                         </div><!--end row-->
                                     </div><!--end col-->
