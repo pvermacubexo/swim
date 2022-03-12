@@ -1117,4 +1117,17 @@
     });
 
     </script>
+
+    <script>
+        window.onload = function () {
+            $.ajax({
+                url: '{{ BASE_URL }}/swim/delete-booking',
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log("success")
+                },
+            });
+        };
+    </script>
 {% endblock %}

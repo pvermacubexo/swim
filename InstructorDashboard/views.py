@@ -717,7 +717,7 @@ def students(request):
             today = date.today()
             age = today.year - kid.date_of_birth.year - (
                     (today.month, today.day) < (kid.date_of_birth.month, kid.date_of_birth.day))
-            ages[kid.parent.mobile_no] = age
+            ages[kid.id] = age
 
     count = []
     for booking in bookings:
