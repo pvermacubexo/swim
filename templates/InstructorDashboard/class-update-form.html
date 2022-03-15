@@ -75,7 +75,8 @@
                                                 <input name="time_slot" type="number" class="form-control"
                                                        min="1" max="120"
                                                        id="exampleFormControlInput1"
-                                                       value="{{ instance.time_slot }}" placeholder="Enter Class Duration" required>
+                                                       value="{{ instance.time_slot }}"
+                                                       placeholder="Enter Class Duration" required>
 
                                                 {% if errors.time_slot %}
                                                     {% for error in errors.time_slot %}
@@ -141,9 +142,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group mb-0">
                                             <label>Image</label>
-                                            <input type="file" value="{{ instance.thumbnail_image }}" name="thumbnail_image" id="input-file-now"
+                                            <input type="file" value="{{ instance.thumbnail_image }}"
+                                                   name="thumbnail_image" id="input-file-now"
                                                    accept="image/png, image/jpg, image/jpeg, image/jfif"
-                                                   class="dropify" data-height="400" data-default-file="{{ instance.thumbnail_image.url }}"/>
+                                                   class="dropify" data-height="400"
+                                                   data-default-file="{{ instance.thumbnail_image.url }}"/>
 
                                             {% if errors.thumbnail_image %}
                                                 {% for error in errors.thumbnail_image %}
@@ -160,33 +163,33 @@
                                             </div><!--end col-->
                                         </div>  <!--end row-->
                                         <div class="d-flex justify-content-between">
-                                                <label>Range</label>
-                                                <span class="result_value"><span id="result_value"></span>%</span>
-                                            </div>
+                                            <label>Range</label>
+                                            <span class="result_value"><span id="result_value"></span>%</span>
+                                        </div>
                                         <div class="input-group">
-{#                                                <div class="input-group-prepend">#}
-{#                                                    <span class="input-group-text"><i#}
-{#                                                            class="mdi mdi-calendar-range "></i></span>#}
-{#                                                </div>#}
-                                                <input id="update_payment_range" name="range" type="range"
-                                                       class="form-control"
-                                                       min="5" max="100"
-                                                       value="{{ payment_range }}" step="5"
-                                                       required>
-                                            </div>
+                                            {#                                                <div class="input-group-prepend">#}
+                                            {#                                                    <span class="input-group-text"><i#}
+                                            {#                                                            class="mdi mdi-calendar-range "></i></span>#}
+                                            {#                                                </div>#}
+                                            <input id="update_payment_range" name="range" type="range"
+                                                   class="form-control" style=" padding-left: 8px; padding-right: 0;"
+                                                   min="5" max="100"
+                                                   value="{{ payment_range }}" step="5"
+                                                   required>
+                                        </div>
                                         <div class="form-group">
 
-{#                                            <div class="input-group">#}
-{#                                                <input id="update_payment_range" name="range" type="range"#}
-{#                                                       class="form-control"#}
-{#                                                       min="5" max="100"#}
-{#                                                       value="{{ payment_range }}" step="5"#}
-{#                                                       required>#}
-{#                                            </div>#}
+                                            {#                                            <div class="input-group">#}
+                                            {#                                                <input id="update_payment_range" name="range" type="range"#}
+                                            {#                                                       class="form-control"#}
+                                            {#                                                       min="5" max="100"#}
+                                            {#                                                       value="{{ payment_range }}" step="5"#}
+                                            {#                                                       required>#}
+                                            {#                                            </div>#}
                                         </div>
                                     </div>
 
-                                                                        <div class="col-md-6"> </div>
+                                    <div class="col-md-6"></div>
 
 
                                     <div class="col-md-6">

@@ -292,15 +292,16 @@ def update_booking(request, id):
 
             if data['status'] == '3':
                 user_name = appointment_obj.booking.user.get_full_name()
-                kid_name = appointment_obj.booking.kids.kids_name
+                # kid_name = appointment_obj.booking.kids.kids_name
                 user_email = appointment_obj.booking.user.email
                 subject = "Appointment Cancelled - Swim Time Solutions"
-                email_body = f"Hello {user_name},\n\nThis is to notify that your student name {kid_name} appointment of Date {appointment_obj.start_time.date()}, Time {appointment_obj.start_time.time()} to {appointment_obj.end_time.time()} reason of {data['remark']} has been cancelled.\n\n" \
+                email_body = f"Hello {user_name},\n\nHope you are doing well. This mail is to inform you that the appointment" \
+                             f" Date {appointment_obj.start_time.date()}, Time {appointment_obj.start_time.time()} to" \
+                             f" {appointment_obj.end_time.time()} has been cancelled. The reason for this is that" \
+                             f" '{appointment_obj.remark}'.\n\n" \
                              f"Thank You,\n" \
                              f"Swim Time Solutions"
                 try:
-                    # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                    #                                    'user_email': user_email})
                     mail_notification(request, subject, email_body, user_email)
                 except Exception as e:
                     pass

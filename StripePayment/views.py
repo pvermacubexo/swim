@@ -9,7 +9,7 @@ from rest_framework import status
 import stripe
 from rest_framework.views import APIView
 
-from Appointment.models import Booking, ClassInstructor
+from Appointment.models import Booking, ClassInstructor, Transaction
 from SharkDeck.constants import user_constants
 from app.email_notification import mail_notification
 from user.models import User, Kids, Profile
@@ -86,7 +86,7 @@ def createpayment(request):
             metadata={"booking_id": booking_id, "payment_type": data["items"][0]["payment_type"]}
 
         )
-        print(intent.client_secret)
+        # print(intent.client_secret)
         try:
             return JsonResponse({
                 'publishableKey': Publisher_key,
@@ -119,7 +119,8 @@ class PaymentDetail(APIView):
                 'due_amount': booking.get_total_due,
                 'pending_amount': ser.get_pending_amount(booking),
             }
-            return render(request, "payment_detail.html", {"data": res_data, "user_details":user_details, "kid_detail":kid_detail})
+            return render(request, "payment_detail.html",
+                          {"data": res_data, "user_details": user_details, "kid_detail": kid_detail})
         else:
             return redirect("dashboard_view")
 
@@ -169,56 +170,55 @@ class StripePayment(APIView):
                         else:
                             booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
                         booking.save()
+
                         user_email = booking.user.email
                         paid_amount = int((data["amount"]) / 100)
-                        if paid_amount >= booking.class_instructor.price / 2:
-                            inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
-                            instructor_name = inst_name.instructor.get_full_name()
-                            email_body = f"Dear {user_name}," \
-                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
-                                         f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
-                                         f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
-                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                         f"Fees - {booking.class_instructor.price} USD\n" \
-                                         f"Paid Amount - {paid_amount} USD\n\n" \
-                                         f"Thank You,\nTeam Swim Time Solutions"
-                            # f"Due Amount - {due_amount} USD\n\n" \
+                        inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
+                        instructor_name = inst_name.instructor.get_full_name()
+                        email_body = f"Dear {user_name}," \
+                                     f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                     f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
+                                     f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                     f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                     f"Fees - {booking.class_instructor.price} USD\n" \
+                                     f"Paid Amount - {paid_amount} USD\n\n" \
+                                     f"Thank You,\nSwim Time Solutions"
+                        # f"Due Amount - {due_amount} USD\n\n" \
 
-                            subject = f"Booking Confirmation - Swim Time Solutions"
-                            try:
-                                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                #                                    'user_email': user_email})
-                                mail_notification(request, subject, email_body, user_email)
-                            except Exception as e:
-                                pass
+                        subject = f"Booking Confirmation - Swim Time Solutions"
+                        try:
+                            mail_notification(request, subject, email_body, user_email)
+                        except Exception as e:
+                            pass
 
-                            instructor_name = inst_name.instructor.get_full_name()
-                            email_body = f"Dear {instructor_name}," \
-                                         f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
-                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
-                                         f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
-                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                         f"Fees - {booking.class_instructor.price} USD\n" \
-                                         f"Paid Amount - {paid_amount} USD\n\n" \
-                                         f"Thank You,\nTeam Swim Time Solutions"
-                            instructor_email = inst_name.instructor.email
-                            try:
-                                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                #                                    'user_email': instructor_email})
-                                mail_notification(request, subject, email_body, instructor_email)
-                            except Exception as e:
-                                pass
-                        else:
-                            subject = f"Repayment - Swim Time Solutions"
-                            email_body = f"Hello {user_name}," \
-                                         f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD.\n\n" \
-                                         f"Thank You,\nTeam Swim Time Solutions"
-                            try:
-                                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                                #                                    'user_email': user_email})
-                                mail_notification(request, subject, email_body, user_email)
-                            except Exception as e:
-                                pass
+                        instructor_name = inst_name.instructor.get_full_name()
+                        email_body = f"Dear {instructor_name}," \
+                                     f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
+                                     f" have been booked for you.\n" \
+                                     f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                     f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
+                                     f" - {booking.class_instructor.total_days} days\n" \
+                                     f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                     f"Fees - {booking.class_instructor.price} USD\n" \
+                                     f"Paid Amount - {paid_amount} USD\n\n" \
+                                     f"Thank You,\nSwim Time Solutions"
+                        instructor_email = inst_name.instructor.email
+                        try:
+                            mail_notification(request, subject, email_body, instructor_email)
+                        except Exception as e:
+                            pass
+                        # else:
+                        #     subject = f"Repayment - Swim Time Solutions"
+                        #     email_body = f"Hello {user_name}," \
+                        #                  f"\n\nThis mail is to inform you that you have made payment of {paid_amount}
+                        #                  USD.\n\n" \
+                        #                  f"Thank You,\nTeam Swim Time Solutions"
+                        #     try:
+                        #         # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                        #         #                                    'user_email': user_email})
+                        #         mail_notification(request, subject, email_body, user_email)
+                        #     except Exception as e:
+                        #         pass
 
                     except Exception:
                         transaction_obj.delete()
@@ -243,7 +243,7 @@ class CashPayment(ModelViewSet):
             serializer.is_valid(raise_exception=True)
         except Exception as e:
             # for i in list(e.args):
-                # messages.error(request, i)
+            # messages.error(request, i)
             return redirect("repayment_classes")
         if 'email' in request.session:
             if serializer.validated_data['payment_type'] == '2':
@@ -269,12 +269,13 @@ class CashPayment(ModelViewSet):
                 user_name = booking.user.get_full_name()
                 user_email = booking.user.email
                 paid_amount_int = serializer.validated_data['paid_amount']
-                if paid_amount >= booking.class_instructor.price / 2:
-                    due_amount = serializer.validated_data['due_amount']
-                    inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
-                    instructor_email = inst_name.instructor.email
-                    # email = [user_email, instructor_mail]
-                    instructor_name = inst_name.instructor.get_full_name()
+                inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
+                instructor_email = inst_name.instructor.email
+                instructor_name = inst_name.instructor.get_full_name()
+                due_amount = serializer.validated_data['due_amount']
+                booking_count = Transaction.objects.filter(booking_id=serializer.validated_data['booking'])
+                count = booking_count.count()
+                if count == 1:
                     subject = f"Booking Confirmation - Swim Time Solutions"
                     email_body = f"Dear {user_name}," \
                                  f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
@@ -287,35 +288,39 @@ class CashPayment(ModelViewSet):
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
 
-                        # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                        #                                    'user_email': user_email})
                         mail_notification(request, subject, email_body, user_email)
                     except Exception as e:
                         pass
                     email_body = f"Dear {instructor_name}," \
                                  f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
-                                 f"Student Name - {booking.kids.kids_name}\nParent Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                 f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                  f"Fees - {booking.class_instructor.price} USD\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-                        # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                        #                                    'user_email': instructor_email})
                         mail_notification(request, subject, email_body, instructor_email)
                     except Exception as e:
                         pass
                 else:
-                    subject = f"Repayment Mail"
+                    subject = f"Repayment - Swim Time Solutions"
                     email_body = f"Hello {user_name}," \
-                                 f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD. Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
-                                 f"Thank You,\nTeam Swim Time Solutions"
+                                 f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD." \
+                                 f" Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
+                                 f"Thank You,\nSwim Time Solutions"
                     try:
-                        # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                        #                                    'user_email': user_email})
                         mail_notification(request, subject, email_body, user_email)
+                    except Exception as e:
+                        pass
+
+                    email_body = f"Hello {instructor_name}," \
+                                 f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD." \
+                                 f" Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
+                                 f"Thank You,\nSwim Time Solutions"
+                    try:
+                        mail_notification(request, subject, email_body, instructor_email)
                     except Exception as e:
                         pass
                 return redirect("dashboard_view")
@@ -342,7 +347,8 @@ class RepaymentClasses(APIView):
 
                 kid_detail = Kids.objects.filter(parent_id=obj.id)
                 return render(request, "payment.html",
-                              {"data": ser.data, "profile_detail": profile_detail, "user_details": obj, 'kid_detail': kid_detail, "BASE_URL": BASE_URL})
+                              {"data": ser.data, "profile_detail": profile_detail, "user_details": obj,
+                               'kid_detail': kid_detail, "BASE_URL": BASE_URL})
 
             else:
                 return redirect("dashboard_view")

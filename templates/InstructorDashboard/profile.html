@@ -219,14 +219,14 @@
                                                                                                        name="start_time"
                                                                                                        class="form-control update_appointment"
                                                                                                        date_min={{ booking.class_instructor.time_slot }}
-                                                                                                               value="{{ appointment.start_time|date:'m-d-Y H:m' }}"
+                                                                                                               value="{{ appointment.start_time|date:'m-d-Y h:i A' }}"
                                                                                                        disabled>
                                                                                                 <label>End Date -
                                                                                                     Time </label>
                                                                                                 <input type="text"
                                                                                                        name="end_time"
                                                                                                        class="form-control update_endDate"
-                                                                                                       value="{{ appointment.end_time|date:'m-d-Y H:m' }}"
+                                                                                                       value="{{ appointment.end_time|date:'m-d-Y h:i A' }}"
                                                                                                        readonly>
                                                                                             </div>
                                                                                         </div>
@@ -258,6 +258,8 @@
                                                                                             <textarea
                                                                                                     value="{{ appointment.remark }}"
                                                                                                     name="remark"
+                                                                                                    id="limit"
+                                                                                                    maxlength="150"
                                                                                                     class="form-control"
                                                                                                     clos="40" rows="3"
                                                                                                     required></textarea>
@@ -715,6 +717,13 @@
 
 
     </script>
+
+{#    <script>$("#limit").on('input', function () {#}
+{#        if ($(this).val().length >= 120) {#}
+{#            alert('you have reached a limit of 150 characters');#}
+{#        }#}
+{#    });#}
+{#    </script>#}
 
 {% endblock %}
 
