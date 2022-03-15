@@ -12129,7 +12129,7 @@
 
                                                                 _ngcontent-uas-c28="" for="first_name"> Guardian First Name
                                                              </label><input _ngcontent-uas-c28="" name="first_name"
-                                                                                pattern="[A-Za-z]{3,}"
+
                                                                                 title="Alphabetic Characters are allowed"
 
                                                                                 placeholder="Enter Guardian First Name"
@@ -12138,7 +12138,7 @@
                                                                                 value="{{ user_details.first_name }}"
                                                                                 type="text"
                                                                                 id="first_name"
-                                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                class="form-control text_field ng-untouched ng-pristine ng-valid"
                                                                                 required>
                                                             <!----></div>
                                                         <div _ngcontent-uas-c28=""
@@ -12153,7 +12153,7 @@
 
                                                                 type="text" value="{{ user_details.last_name }}"
                                                                 id="last_name"
-                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                class="form-control text_field ng-untouched ng-pristine ng-valid"
                                                                 required>
                                                             <!----></div>
                                                          <div _ngcontent-uas-c28=""
@@ -12168,7 +12168,7 @@
                                                                                 formcontrolname="father_name"
                                                                                 type="text" id="father_name"
                                                                                 value="{{ user_details.father_name }}"
-                                                                                class="form-control ng-untouched ng-pristine ng-valid"
+                                                                                class="form-control text_field ng-untouched ng-pristine ng-valid"
                                                                                 required>
 
                                                             <!----></div><!---->
@@ -12176,14 +12176,14 @@
                                                              class="form-group col-md-6 column_content"><label
                                                                 _ngcontent-uas-c28="" for="mobile_no">Contact
                                                             Number </label><input _ngcontent-uas-c28="" name="mobile_no"
-                                                                                  pattern="[0-9]{8,20}"
+
                                                                                     title="Invalid Mobile number , range should be 8 to 20"
 
                                                                                   id="email"
                                                                                   placeholder="Contact Number"
                                                                                   formcontrolname="mobile_no"
                                                                                   value="{{ user_details.mobile_no }}"
-                                                                                  type="text" id="mobile_no"
+                                                                                  type="text" id="mobile_no" onkeypress="return isNumberKey(event)"
                                                                                   class="form-control ng-untouched ng-pristine ng-valid"
                                                                                   >
                                                             <!----></div>
@@ -12217,7 +12217,7 @@
                                                                 <div _ngcontent-uas-c28="" class="listClass">
                                                         <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="kids_name">Student Name</label> <input type="hidden" value="{{ kids.id }}" name="ID"> <input
-                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name" value="{{ kids.kids_name }}"
+                                        _ngcontent-jar-c34="" formcontrolname="kids_name" name="kids_name" value="{{ kids.kids_name }} "
 
 
                                         placeholder="Enter Student Name Here" pattern="[A-Za-z ]{3,}"
@@ -12231,7 +12231,7 @@
                                         type="date" id="DateOfBirth" max="2022-02-15"
 
                                         class="form-control ng-untouched ng-pristine ng-invalid"
-                                        style="padding: 0 0 0 10px;" required><!----></div><button type="button" class="delete" id="removeChild" onclick="change_kid_status({{ kids.id }})"><i class="fas fa-trash"></i></button></div>
+                                        style="padding: 0 0 0 10px;" required><!----></div> {% if forloop.counter != 1 %} <button type="button" class="delete" id="removeChild" onclick="change_kid_status({{ kids.id }})"><i class="fas fa-trash"></i></button> {% endif %} </div>
 
                                                             {% endif %}
 {#                                                        <div _ngcontent-uas-c28="" class="listClass">#}
@@ -12376,7 +12376,26 @@
 </script>
 
 
+<script>
+    $('.text_field').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+</script>
 
+<script>
+ function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if ( (charCode < 31 || charCode > 57))
+        return false;
+
+    return true;
+}
+</script>
 
 <script>
     {#let input = document.querySelector('#imginput');#}

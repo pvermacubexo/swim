@@ -235,24 +235,24 @@
                                         _ngcontent-jar-c34="" formcontrolname="first_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="first_name"
                                         placeholder="Enter Guardian First Name" type="text" id="first_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                        class="form-control ng-untouched ng-pristine ng-invalid text_field" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="last_name">Guardian Last Name</label><input
                                         _ngcontent-jar-c34="" formcontrolname="last_name" pattern="[A-Za-z]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="last_name"
                                         placeholder="Enter Guardian Last Name " type="text" id="last_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                        class="form-control ng-untouched ng-pristine ng-invalid text_field" required><!----></div>
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="father_name">Guardian-2 Name</label><input
                                         _ngcontent-jar-c34="" formcontrolname="father_name" pattern="[A-Za-z ]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="father_name"
                                         placeholder="Enter Guardian-2 Name" type="text" id="father_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid" required><!----></div>
+                                        class="form-control ng-untouched ng-pristine ng-invalid text_field" required><!----></div>
                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
-                                        _ngcontent-jar-c34="" formcontrolname="mobile_no" pattern="[0-9]{8,20}"
+                                        _ngcontent-jar-c34="" formcontrolname="mobile_no"
                                         title="Only 8-20 Numeric Characters are allowed" name="mobile_no"
-                                        placeholder="Contact Number" type="text" id="mobile_no"
+                                        placeholder="Contact Number" type="text" id="mobile_no" onkeypress="return isNumberKey(event)"
                                         class="form-control ng-untouched ng-pristine ng-invalid" ><!----></div>
                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mail">Email Address</label><input
@@ -747,5 +747,33 @@
    }
 
 </script>
+
+
+
+<script>
+    $('.text_field').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+</script>
+
+
+
+<script>
+ function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if ( (charCode < 31 || charCode > 57))
+        return false;
+
+    return true;
+}
+</script>
+
+
+
     </body>
 </html>

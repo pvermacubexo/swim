@@ -596,7 +596,7 @@ class GetDateTimeSlots(APIView):
     def get(self, request):
         serializer = GetDateTimeSerializer(data=request.query_params)
         if serializer.is_valid():
-            print(str(serializer.validated_data))
+            # print(str(serializer.validated_data))
             try:
                 class_instructor = ClassInstructor.objects.get(id=serializer.validated_data['class_instructor'].id)
                 profile_user = user_model.Profile.objects.get(user=class_instructor.instructor)
@@ -967,7 +967,7 @@ class IndividualBookingViewSet(APIView):
         class_instructor = serializer.validated_data['class_instructor']
         kids_id = serializer.validated_data['kids_id']
         kids_obj = Kids.objects.get(id=kids_id)
-        print(kids_obj.kids_name)
+        # print(kids_obj.kids_name)
         datetime_list = serializer.initial_data['datetime_list']
         if not (class_instructor.total_days == len(datetime_list)):
             logger.warning(f"You select {len(datetime_list)} day of class, should select "
@@ -1080,7 +1080,7 @@ class AppointmentScheduleViewSet(APIView):
                 context={'request': request})
             next_appointment = AppointmentScheduleSerializer(appointments.filter(start_time__gt=datetime.now()),
                                                              many=True, context={'request': request})
-            print(next_appointment.data[0])
+            # print(next_appointment.data[0])
             if prev_appointment.data or next_appointment.data:
                 email = request.session['email']
                 obj = User.objects.get(email=email)
@@ -1136,7 +1136,7 @@ class DateRange(APIView):
                 end_date = ser.validated_data.get('end_date').strftime("%Y-%m-%d")
                 appointment_date = Appointment.objects.all()
                 for i in appointment_date:
-                    print(i.start_time)
+                    # print(i.start_time)
                     appointment_start = i.start_time.date().strftime("%Y-%m-%d")
                     # print("appointment_start", appointment_start)
                     print("start_date", start_date)

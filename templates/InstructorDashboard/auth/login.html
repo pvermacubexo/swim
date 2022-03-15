@@ -263,9 +263,9 @@
                                         <div class="form-group mb-2">
                                             <label for="firstname">First Name </label>
                                             <div class="input-group">
-                                                <input pattern="[A-Za-z]{3,}"
+                                                <input
                                                        title="Only Alphabetic characters are Allowed" type="text"
-                                                       class="form-control" required value=""
+                                                       class="form-control text_field" required value=""
                                                        name="first_name" id="firstname"
                                                        placeholder="Enter First Name">
                                             </div>
@@ -273,11 +273,11 @@
                                         <div class="form-group mb-2">
                                             <label for="lastname">Last Name </label>
                                             <div class="input-group">
-                                                <input pattern="[A-Za-z]{3,}"
+                                                <input
                                                        title="Only Alphabetic characters are Allowed" type="text"
-                                                       class="form-control" required value=""
+                                                       class="form-control text_field" required value=""
                                                        name="last_name" id="lastname"
-                                                       placeholder="Enter Last Name">
+                                                       placeholder="Enter Last Name" >
                                             </div>
                                         </div><!--end form-group-->
 
@@ -318,11 +318,10 @@
                                         <div class="form-group mb-2">
                                             <label for="mo_number">Mobile Number</label>
                                             <div class="input-group">
-                                                <input type="text" value="" class="form-control" required
-                                                       pattern="[0-9 ]{8,20}"
+                                                <input type="text" value="" class="form-control phone" required
                                                        title="only numeric characters are allowed of range between 8 to 20"
                                                        name="mobile_no"
-                                                       id="mo_number" placeholder="Enter Mobile Number">
+                                                       id="mo_number" placeholder="Enter Mobile Number" onkeypress="return isNumberKey(event)">
                                             </div>
                                         </div><!--end form-group-->
 
@@ -408,6 +407,38 @@
             $("[data-dismiss=alert]").click();
         }, 2000);
     </script>
+
+<script>
+    $('.text_field').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+</script>
+
+<script>
+    $('.text_field').on('keypress', function (event) {
+    var regex = new RegExp("^[a-zA-Z]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+       event.preventDefault();
+       return false;
+    }
+});
+</script>
+
+<script>
+ function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if ( (charCode < 31 || charCode > 57))
+        return false;
+
+    return true;
+}
+</script>
 
 </body>
 
