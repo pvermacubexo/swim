@@ -97,7 +97,6 @@ function initCalendar() {
             X\
         </a>\
     ');
-
     var thisMonth = $($($('#calendar tbody tr')[2]).find('td')[0]).attr('data-month');
     var dateDragStart = undefined; // We'll use this variable to identify if the user is mouse button is pressed (if the user is dragging over the calendar)
     var thisDates = [];
@@ -107,9 +106,17 @@ function initCalendar() {
     $('#calendar td a').removeClass('ui-state-active');
     $('#calendar td a.ui-state-highlight').removeClass('ui-state-active').removeClass('ui-state-highlight').removeClass('ui-state-hover');
     $('#calendar td').off();
-    for (var i = 0; i < myDates[thisMonth].length; i++) { // Repaint
+    // myDates[thisMonth] = thisDates;
+    // console.log(myDates[thisMonth])
+    if (myDates[thisMonth] != null ){
+        console.log("yeh u did it")
+        for (var i = 0; i < myDates[thisMonth].length; i++) { // Repaint
+            // console.log(typeof (myDates[thisMonth][i]))
         var a = calendarTds.find('a').filter('a:textEquals(' + myDates[thisMonth][i].getDate() + ')').addClass('ui-state-active');
         thisDates.push(new Date(a.parent().attr('data-year'), thisMonth, a.html()));
+    }
+    } else {
+        myDates[thisMonth] = thisDates
     }
 
     $('#calendar td').mousedown(function () {  // Click or start of dragging
@@ -144,17 +151,36 @@ console.log("First")
             //  console.log("0")
               indDate.push(today)
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
-          console.log(indDate)
+          // console.log(indDate)
             }
         else{
             if(indDate.find(element => element === today)){
+                console.log("rumi")
+                a = new Date($(this).parent().attr('data-year'), $(this).parent().attr('data-month'), $(this).html());
+                a= a.toString()
+                // console.log(typeof thisDates)
+                // console.log(a)
+                // console.log(typeof (a))
+                function removeItemFromArray(array, n) {
+                    const newArray = [];
+
+                    for ( let i = 0; i < array.length; i++) {
+                        array[i]=array[i].toString();
+                        if(array[i] !== n) {
+                            array_element = new Date(array[i])
+                            newArray.push(array_element);
+                        }
+                    }
+                    return newArray;
+                }
+                const result = removeItemFromArray(thisDates, a);
+                //console.log(result)
+                thisDates = result;
               indDate = indDate.filter(e => e !== today);
-              // dd=removeFirstZero(dd)
-             // console.log(dd);
-              console.log('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')');
+              //console.log('#calendar > div > table > tbody > tr > td > a:contains('+ dd +')');
               $(this).removeClass('ui-state-active');
               localStorage.setItem('individual_Date', JSON.stringify(indDate))
-              console.log("else if", indDate)
+            //  console.log("else if", indDate)
             }
             else{
               $(this).addClass('ui-state-active');
@@ -165,8 +191,7 @@ console.log("First")
             }
 
              }
-      console.log(today)
-
+     // console.log(today);
   })
     // $('#calendar td').mouseenter(function() {  // Drag over day on calendar
     //     var thisDate = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
@@ -200,13 +225,23 @@ console.log("First")
         }
     });
 
-    $('.ui-datepicker-clear-month').click(function () {
-        thisDates = [];
-        myDates = [];
-        calendarTds.find('a').removeClass('ui-state-active');
-    });
+ $('.ui-datepicker-clear-month').click(function(){
+     console.log("Hello World")
+     $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+     document.querySelector("#accordion").innerHTML = "";
+     selectedDates = [];
+     indDate = [];
+     // myDates = [];
+     console.log(myDates)
+     localStorage.removeItem("individual_Date")
+     localStorage.removeItem("Date");
+     thisDates = [];
+     myDates = [];
+     calendarTds.find('a').removeClass('ui-state-active');
+   });
 
     $('a.ui-datepicker-next, a.ui-datepicker-prev').click(function() {
+        console.log(thisDates)
         myDates[thisMonth] = thisDates;
         initCalendar();
     });
@@ -306,22 +341,11 @@ var selectedDates = [];
     // beforeShowDay: $.datepicker.noWeekends,
     dateFormat: "yy-mm-dd",
   })
-   $('.ui-datepicker-clear-month').click(function(){
-     console.log("Hello World")
-     $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
-     document.querySelector("#accordion").innerHTML = "";
-     selectedDates = [];
-     indDate = [];
-     localStorage.removeItem("individual_Date")
-     localStorage.removeItem("Date");
-   });
+
 $('.ui-state-default').click(function () {
     document.querySelector("#accordion").innerHTML = "";
 
 });
-$('.ui-state-default').click(function (){
-    document.querySelector("#timeSelectContent").innerHTML = "";
-})
 
    //  $(".ui-datepicker-next").click(function (){
    //    console.log("rene")
@@ -329,17 +353,17 @@ $('.ui-state-default').click(function (){
 
 
 
-   setInterval(()=>{
-$('.ui-datepicker-clear-month').click(function(){
-     console.log("Hello World")
-     $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
-     document.querySelector("#accordion").innerHTML = "";
-     selectedDates = [];
-     indDate = [];
-     localStorage.removeItem("individual_Date")
-     localStorage.removeItem("Date");
-   });
-},1000);
+//    setInterval(()=>{
+// $('.ui-datepicker-clear-month').click(function(){
+//      console.log("Hello World")
+//      $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+//      document.querySelector("#accordion").innerHTML = "";
+//      selectedDates = [];
+//      indDate = [];
+//      localStorage.removeItem("individual_Date")
+//      localStorage.removeItem("Date");
+//    });
+// },1000);
   // $("#calendar").on("click", function () {
   //   var x = $(this).val();
   //   console.log(x)
@@ -355,7 +379,23 @@ $('.ui-datepicker-clear-month').click(function(){
   // });
 });
 
-
+$('.ui-datepicker-clear-month').click(function(){
+//     console.log("Hello World")
+//     $(function () {
+//   $('#calendar').datepicker({
+//     // beforeShowDay: $.datepicker.noWeekends,
+//     // minDate: 0,
+//   });
+//   initCalendar();
+// });
+     // console.log("Hello World")
+     // $('#calendar').find(".ui-state-default").removeClass("ui-state-active");
+     // document.querySelector("#accordion").innerHTML = "";
+     // selectedDates = [];
+     // indDate = [];
+     // localStorage.removeItem("individual_Date")
+     // localStorage.removeItem("Date");
+   });
 // ----------------------------Select Complete Course---------------------
 
 
@@ -369,7 +409,10 @@ $(function () {
   })
   $('#calendar2').find(".ui-state-default").removeClass("ui-state-active");
   CompleteDate = [$(this).val()];
-
+$(".ui-state-active ").click(function (){
+    console.log("ho bhai chal gya bs khush")
+    document.querySelector(".timeSelectContent").innerHTML = "";
+})
 
   $("#clearDates").click(function(){
     $('#calendar2').find(".ui-state-default").removeClass("ui-state-active");
@@ -378,9 +421,12 @@ $(function () {
     console.log("clear complete course dates", CompleteDate)
   });
 
+
+
   $("#calendar2").on("change", function () {
     CompleteDate = [$(this).val()];
     localStorage.setItem('Date', JSON.stringify(CompleteDate[0]))
+      document.querySelector(".timeSelectContent").innerHTML = "";
     console.log("Select complete date for complete course", CompleteDate)
     var class_instructor = window.localStorage.getItem('class_instructor_id')
     console.error("class_instructor",class_instructor)

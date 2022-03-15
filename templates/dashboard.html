@@ -1288,7 +1288,7 @@
                                                            type="number" pattern="[0-9]"
                                                            id="amount_to_be_paid1"
                                                            name="paid_amount"
-                                                           max=10
+
 
                                                            required>
                                                     <span style="color: red;" class="amount1" id="error_meesage"></span>
@@ -1889,7 +1889,7 @@
 
             } else if ((amt) < (parseInt(x.substring(1,))) * class_payment_range / 100) {
 
-                console.log("success", class_payment_range);
+                {#console.log("success", class_payment_range);#}
 
                 $("#error_meesage").text("You have to pay minimum "+ class_payment_range +"% of amount  ");
 

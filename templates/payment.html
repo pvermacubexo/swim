@@ -371,7 +371,6 @@
                                                                                 <button type="button" _ngcontent-ojq-c32=""
                                                                                         style="width: 48%"
                                                                                         data-toggle="modal"
-                                                                                        data-target="#appointment-popup"
                                                                                         class="btn btn-primary btn-custom pay-button"
                                                                                         onclick="CreateIntent()">Pay By Card
                                                                                 </button>
@@ -909,8 +908,11 @@
             if ((Amount <= 0) || (Amount > parseInt(maxamt))) {
 
                 $("#error_meesage").text("Enter Valid Amount");
+                $("#appointment-popup").modal('hide');
+                console.log("nhi chalna tha ye")
 
             } else {
+                console.log("done it")
 
                 $("#appointment-popup").modal('show');
                 $("#choose_payment_popup").modal('hide');
