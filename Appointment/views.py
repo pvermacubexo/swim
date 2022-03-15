@@ -1071,27 +1071,31 @@ class AppointmentScheduleViewSet(APIView):
     # @authorize([user_constants.Trainee])
 
     def get(self, request):
-        appointments = Appointment.objects.filter(
-            booking__user=User.objects.get(email=request.session['email'])).order_by('start_time')
-        # print(appointments..booking.kids.kids_name)
-        if appointments:
-            prev_appointment = AppointmentScheduleSerializer(
-                appointments.filter(start_time__lt=datetime.now()).order_by('-start_time'), many=True,
-                context={'request': request})
-            next_appointment = AppointmentScheduleSerializer(appointments.filter(start_time__gt=datetime.now()),
-                                                             many=True, context={'request': request})
-            # print(next_appointment.data[0])
-            if prev_appointment.data or next_appointment.data:
-                email = request.session['email']
-                obj = User.objects.get(email=email)
-                kid_detail = Kids.objects.filter(parent_id=obj.id)
-                logger.info(f"Appointment Schedule details for {request.user}")
-                return render(request, "my_shedule.html",
-                              {"user_details": obj, 'prev_session': prev_appointment.data, 'kid_detail': kid_detail,
-                               'next_session': next_appointment.data})
-            else:
-                logger.info(f"Getting error of Appointment Schedule details due")
+        try:
+            appointments = Appointment.objects.filter(
+                booking__user=User.objects.get(email=request.session['email'])).order_by('start_time')
+            # print(appointments..booking.kids.kids_name)
+            if appointments:
+                prev_appointment = AppointmentScheduleSerializer(
+                    appointments.filter(start_time__lt=datetime.now()).order_by('-start_time'), many=True,
+                    context={'request': request})
+                next_appointment = AppointmentScheduleSerializer(appointments.filter(start_time__gt=datetime.now()),
+                                                                 many=True, context={'request': request})
+                #print(next_appointment.data[0])
+                if prev_appointment.data or next_appointment.data:
+                    email = request.session['email']
+                    obj = User.objects.get(email=email)
+                    kid_detail = Kids.objects.filter(parent_id=obj.id)
+                    logger.info(f"Appointment Schedule details for {request.user}")
+                    return render(request, "my_shedule.html",
+                                  {"user_details": obj, 'prev_session': prev_appointment.data, 'kid_detail': kid_detail,
+                                   'next_session': next_appointment.data})
+                else:
+                    logger.info(f"Getting error of Appointment Schedule details due")
+
                 return render(request, "my_shedule.html", {'error': 'Appointment schedule failed'})
+        except:
+            return render(request, 'index.html')
         else:
             email = request.session['email']
             obj = User.objects.get(email=email)

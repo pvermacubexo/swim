@@ -769,7 +769,8 @@
                                                                    checked="checked" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="monday_switch"> Monday</label>
+                                                                   for="monday_switch"></label>
+                                                        <span>Monday</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -781,7 +782,8 @@
                                                                    checked="" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="tuesday_switch"> Tuesday</label>
+                                                                   for="tuesday_switch"></label>
+                                                        <span>Tuesday</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -792,7 +794,8 @@
                                                                    checked="checked" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="wednesday_switch"> Wednesday</label>
+                                                                   for="wednesday_switch"></label>
+                                                         <span>Wednesday</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -800,10 +803,10 @@
                                                             <input type="checkbox" class="custom-control-input"
                                                                    id="thursday_switch" name="thursday"
                                                                     {% if user.get_profile.thursday %}
-                                                                   checked="checked" {% endif %}
-                                                            >
+                                                                   checked="checked" {% endif %}>
                                                             <label class="custom-control-label text-dark"
-                                                                   for="thursday_switch"> Thursday</label>
+                                                                   for="thursday_switch"></label>
+                                                            <span >Thursday</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -814,7 +817,8 @@
                                                                    checked="checked" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="friday_switch"> Friday</label>
+                                                                   for="friday_switch"></label>
+                                                            <span >Friday</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -825,7 +829,8 @@
                                                                    checked="checked" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="saturday_switch"> Saturday</label>
+                                                                   for="saturday_switch"></label>
+                                                            <span >Saturday</span>
                                                         </div>
 
                                                     </div>
@@ -837,7 +842,8 @@
                                                                    checked="checked" {% endif %}
                                                             >
                                                             <label class="custom-control-label text-dark"
-                                                                   for="sunday_switch"> Sunday</label>
+                                                                   for="sunday_switch"></label>
+                                                            <span>Sunday</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -906,7 +912,7 @@
                                                     </div>
                                                     <div class="input-group">
                                                         <input id="myRange" name="range" type="range"
-                                                               class="form-control"
+                                                               class="form-control" style=" padding-left: 8px; padding-right: 0;"
                                                                    min="5" max="100" value="{{ user.get_profile.payment_range }}" step="5"
                                                                required>
                                                     </div>
@@ -949,7 +955,8 @@
                                                                    {% if user.get_profile.cash_mode %}
                                                                    checked="checked" {% endif %}
                                                             >
-                                                            <label class="custom-control-label text-dark" for="cash_switch"> Cash</label>
+                                                            <label class="custom-control-label text-dark" for="cash_switch"></label>
+                                                            <span>Cash</span>
 
                                                         </div>
                                                     </div>
@@ -958,7 +965,8 @@
                                                             <input type="checkbox" class="custom-control-input" id="card_switch" name="card"
                                                                    {% if user.get_profile.card_mode %}
                                                                    checked="checked" {% endif %}>
-                                                            <label class="custom-control-label text-dark" for="card_switch"> Card</label>
+                                                            <label class="custom-control-label text-dark" for="card_switch"></label>
+                                                            <span>Card</span>
 
                                                         </div>
                                                     </div>
@@ -967,7 +975,8 @@
 {#                                                            <input type="checkbox" class="custom-control-input" id="cheque_switch" name="cheque"#}
 {#                                                                   {% if user.get_profile.cheque_mode %}#}
 {#                                                                   checked="checked" {% endif %}>#}
-{#                                                            <label class="custom-control-label text-dark" for="cheque_switch"> Cheque </label>#}
+{#                                                            <label class="custom-control-label text-dark" for="cheque_switch"></label>#}
+{#                                                                <span>Cheque</span>#}
 {#                                                        </div>#}
 {#                                                    </div>#}
                                                 </div>
