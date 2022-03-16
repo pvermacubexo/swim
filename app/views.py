@@ -99,7 +99,7 @@ def update_profile(request):
             if 'mobile_no' in request.POST:
                 obj.mobile_no = request.POST['mobile_no']
             else:
-                pass
+                obj.mobile_no = None
             if 'address' in request.POST:
                 obj.address = request.POST['address']
             else:
@@ -166,51 +166,51 @@ def Registration(request, id):
         # return render(request, 'register.html')
         return redirect(SwimTimeDashboard)
     else:
-        try:
-            if request.method == "POST":
-                slug = user_models.Profile.objects.get(slug=id)
-                slug_id = slug.user_id
-                print(request.POST)
+        # try:
+        if request.method == "POST":
+            slug = user_models.Profile.objects.get(slug=id)
+            slug_id = slug.user_id
+            print(request.POST)
 
-                first_name = request.POST['first_name']
-                last_name = request.POST['last_name']
-                email = request.POST['email']
-                password = make_password(request.POST['password'])
-                mobile_no = request.POST['mobile_no']
-                father_name = request.POST['father_name']
-                # mother_name = request.POST['mother_name']
-                address = request.POST['address']
-                kids_name = request.POST['kids_name']
-                date_of_birth = request.POST['date_of_birth']
-                # instructor_id = slug_id
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            email = request.POST['email']
+            password = make_password(request.POST['password'])
+            mobile_no = request.POST['mobile_no']
+            father_name = request.POST['father_name']
+            # mother_name = request.POST['mother_name']
+            address = request.POST['address']
+            kids_name = request.POST['kids_name']
+            date_of_birth = request.POST['date_of_birth']
+            # instructor_id = slug_id
 
-                obj = User(first_name=first_name, last_name=last_name, email=email, password=password,
-                           mobile_no=mobile_no,
-                           father_name=father_name, address=address, inst_id=slug_id)
-                obj.save()
-                kid_obj = Kids(kids_name=kids_name, date_of_birth=date_of_birth, parent_id=obj.id)
-                kid_obj.save()
-                request.session['slug_id'] = slug_id
-                request.session['email'] = email
+            obj = User(first_name=first_name, last_name=last_name, email=email, password=password,
+                       mobile_no=mobile_no,
+                       father_name=father_name, address=address, inst_id=slug_id)
+            obj.save()
+            kid_obj = Kids(kids_name=kids_name, date_of_birth=date_of_birth, parent_id=obj.id)
+            kid_obj.save()
+            request.session['slug_id'] = slug_id
+            request.session['email'] = email
 
-                user_name = obj.get_full_name()
-                user_email = request.POST['email']
-                subject = "Registration Successful - Swim Time Solutions"
-                email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions, " \
-                             f"Your account is now set up and ready to use. Let's get started !\n\n" \
-                             f"Thank You," \
-                             f"\nSwim Time Solutions"
+            user_name = obj.get_full_name()
+            user_email = request.POST['email']
+            subject = "Registration Successful - Swim Time Solutions"
+            email_body = f"Hello {user_name},\n \nWelcome to Swim Time Solutions, " \
+                         f"Your account is now set up and ready to use. Let's get started !\n\n" \
+                         f"Thank You," \
+                         f"\nSwim Time Solutions"
 
-                try:
-                    # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                    #                                    'user_email': user_email})
-                    mail_notification(request, subject, email_body, user_email)
-                except Exception as e:
-                    pass
-                return redirect(SwimTimeDashboard)
-        except:
-            messages.error(request, "Somthing went wrong !")
-            return render(request, "register.html", {"id": id})
+            try:
+                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                #                                    'user_email': user_email})
+                mail_notification(request, subject, email_body, user_email)
+            except Exception as e:
+                pass
+            return redirect(SwimTimeDashboard)
+        # except:
+        messages.error(request, "Somthing went wrong !")
+        return render(request, "register.html", {"id": id})
         return render(request, "register.html", {"id": id})
 
 

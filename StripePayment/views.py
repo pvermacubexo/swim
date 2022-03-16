@@ -175,7 +175,7 @@ class StripePayment(APIView):
                         paid_amount = int((data["amount"]) / 100)
                         inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
                         instructor_name = inst_name.instructor.get_full_name()
-                        booking_count = Booking.objects.filter(id=int(previous_intent["metadata"]["booking_id"]))
+                        booking_count = Transaction.objects.filter(booking_id=int(previous_intent["metadata"]["booking_id"]))
                         count = booking_count.count()
                         if count == 1:
                             email_body = f"Dear {user_name}," \
