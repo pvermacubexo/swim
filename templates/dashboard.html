@@ -295,8 +295,20 @@
                                                                             <i class="fab fa-twitter-square"
                                                                                style="font-size:30px;margin-left:-2px;"></i></a>
                                                                             </li>
+                                                                        <li _ngcontent-ygs-c30=""><a
+                                                                                    _ngcontent-ygs-c30=""
+                                                                                    target="_blank"
+                                                                                    {% if i.website_link is not None %}
+                                                                                    href="{{ i.website_link }}">
+                                                                                    {% else %}
+                                                                                        href="https://swimtimesolutions.com/">
+                                                                                    {% endif %}
+                                                                            <i i class="fas fa-link"
+   style="font-size:25px;margin-left:-2px;"></i></a>
+                                                                            </li>
                                                                             <!----></ul>
                                                                     {% endfor %}
+
                                                                 </div>
                                                             </div><!----></div>
                                                     </div>
@@ -2326,7 +2338,7 @@
             console.log(time)
             var kids = document.getElementById("kids").value;
            // console.log(kids)
-            if (time === undefined || time === [] || time === null) {
+            if (time === undefined || time === [] || time === null || time === '0') {
                 window.alert("please select time slot")
             } else if (kids === '0') {
                 window.alert("please select kids")

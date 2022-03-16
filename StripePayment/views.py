@@ -315,14 +315,14 @@ class CashPayment(ModelViewSet):
                     except Exception as e:
                         pass
 
-                    email_body = f"Hello {instructor_name}," \
-                                 f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD." \
-                                 f" Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
-                                 f"Thank You,\nSwim Time Solutions"
-                    try:
-                        mail_notification(request, subject, email_body, instructor_email)
-                    except Exception as e:
-                        pass
+                    # email_body = f"Hello {instructor_name}," \
+                    #              f"\n\nThis mail is to inform you that you have made payment of {paid_amount} USD." \
+                    #              f" Your Due amount is {serializer.validated_data['due_amount']} USD\n\n" \
+                    #              f"Thank You,\nSwim Time Solutions"
+                    # try:
+                    #     mail_notification(request, subject, email_body, instructor_email)
+                    # except Exception as e:
+                    #     pass
                 return redirect("dashboard_view")
         else:
             return redirect("dashboard_view")

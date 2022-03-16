@@ -19,6 +19,26 @@
     <link href="{% static 'css/metisMenu.min.css' %}" rel="stylesheet" type="text/css"/>
     <link href="{% static 'css/app.min.css' %}" rel="stylesheet" type="text/css"/>
     <style>
+        #preloader{
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #fff;
+                z-index: 99;
+        }
+        #status {
+          width: 200px;
+          height: 200px;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          background-image: url(https://raw.githubusercontent.com/niklausgerber/PreLoadMe/master/img/status.gif);
+          background-repeat: no-repeat;
+          background-position: center;
+          margin: -100px 0 0 -100px;
+}
         .top_alert_position {
             position: fixed;
             top: 2%;
@@ -39,6 +59,9 @@
     </style>
 </head>
 <body>
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
 <div class="left-sidenav">
     <!-- LOGO -->
     <div class="brand">
@@ -142,6 +165,14 @@
 {% block extra_script %}{% endblock %}
 {#<script src="{% static 'pages/jquery.datatable.init.js' %}"></script>#}
 <script src="{% static 'js/app.js' %}"></script>
+
+<script>
+    $(window).on('load', function() {
+      $('#status').fadeOut();
+      $('#preloader').delay(350).fadeOut('slow');
+      $('body').delay(350).css({'overflow':'visible'});
+    })
+</script
 
 
 </body>

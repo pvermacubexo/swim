@@ -93,11 +93,17 @@ def update_profile(request):
             obj = User.objects.get(email=email)
             obj.first_name = request.POST['first_name']
             obj.last_name = request.POST['last_name']
-            obj.address = request.POST['address']
-            obj.mobile_no = request.POST['mobile_no']
             # obj.DateOfBirth = request.POST['DateOfBirth']
             # obj.mother_name = request.POST['mother_name']
             obj.father_name = request.POST['father_name']
+            if 'mobile_no' in request.POST:
+                obj.mobile_no = request.POST['mobile_no']
+            else:
+                pass
+            if 'address' in request.POST:
+                obj.address = request.POST['address']
+            else:
+                pass
             if 'profile_img' in request.FILES:
                 obj.profile_img = request.FILES['profile_img']
             else:

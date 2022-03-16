@@ -81,7 +81,7 @@ def signup_view(request):
             return render(request, 'InstructorDashboard/auth/login.html', context)
 
         if not (password == conf_password):
-            context.update({'error': 'Password must equal.'})
+            context.update({'error': 'Password must be equal.'})
             return render(request, 'InstructorDashboard/auth/login.html', context)
         slug = generate_slug(first_name, last_name)
         user = user_models.User.objects.create(email=email, first_name=first_name, last_name=last_name,

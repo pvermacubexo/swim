@@ -427,6 +427,8 @@ $(".ui-state-active ").click(function (){
     CompleteDate = [$(this).val()];
     localStorage.setItem('Date', JSON.stringify(CompleteDate[0]))
       document.querySelector(".timeSelectContent").innerHTML = "";
+      console.log($("#selected_date").val("0"))
+
     console.log("ho bhai chal gya bs khush")
     console.log("Select complete date for complete course", CompleteDate)
     var class_instructor = window.localStorage.getItem('class_instructor_id')
