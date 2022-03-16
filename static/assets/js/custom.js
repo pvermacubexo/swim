@@ -410,7 +410,7 @@ $(function () {
   $('#calendar2').find(".ui-state-default").removeClass("ui-state-active");
   CompleteDate = [$(this).val()];
 $(".ui-state-active ").click(function (){
-    console.log("ho bhai chal gya bs khush")
+
     document.querySelector(".timeSelectContent").innerHTML = "";
 })
 
@@ -427,6 +427,7 @@ $(".ui-state-active ").click(function (){
     CompleteDate = [$(this).val()];
     localStorage.setItem('Date', JSON.stringify(CompleteDate[0]))
       document.querySelector(".timeSelectContent").innerHTML = "";
+    console.log("ho bhai chal gya bs khush")
     console.log("Select complete date for complete course", CompleteDate)
     var class_instructor = window.localStorage.getItem('class_instructor_id')
     console.error("class_instructor",class_instructor)

@@ -295,17 +295,6 @@
                                                                             <i class="fab fa-twitter-square"
                                                                                style="font-size:30px;margin-left:-2px;"></i></a>
                                                                             </li>
-
-                                                                            <li _ngcontent-ygs-c30=""><a
-                                                                                    _ngcontent-ygs-c30=""
-                                                                                    target="_blank"
-                                                                                    {% if i.website_link is not None %}
-                                                                                    href="{{ i.website_link }}">
-                                                                                    {% else %}
-                                                                                        href="https://swimtimesolutions.com/">
-                                                                                    {% endif %}
-                                                                            <i class="fas fa-link"
-                                                                               style="font-size:25px;margin-left:-2px;"></i>
                                                                             <!----></ul>
                                                                     {% endfor %}
                                                                 </div>
@@ -1857,21 +1846,21 @@
             $(".amount1").text("");
         })
 
-        function checkdate() {
-            var dtToday = new Date();
-
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate() - 1;
-            var year = dtToday.getFullYear() - 8;
-            console.log(month, day, year)
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
-            console.log(month, day, year)
-            var maxDate = year + '-' + month + '-' + day;
-            $('#DateOfBirth').attr('max', maxDate);
-        }
+        {#function checkdate() {#}
+        {#    var dtToday = new Date();#}
+        {##}
+        {#    var month = dtToday.getMonth() + 1;#}
+        {#    var day = dtToday.getDate() - 1;#}
+        {#    var year = dtToday.getFullYear() - 8;#}
+        {#    console.log(month, day, year)#}
+        {#    if (month < 10)#}
+        {#        month = '0' + month.toString();#}
+        {#    if (day < 10)#}
+        {#        day = '0' + day.toString();#}
+        {#    console.log(month, day, year)#}
+        {#    var maxDate = year + '-' + month + '-' + day;#}
+        {#    $('#DateOfBirth').attr('max', maxDate);#}
+      //  {#}#}
 
     </script>
     <script>
@@ -2145,7 +2134,7 @@
 
         function bgchange(classname) {
             $(".times").removeAttr('id')
-            console.log("hii", classname)
+           // console.log("hii", classname)
             $(".times").css({"background-color": "#d4d1d1", "color": "black"});
             $(".checkbox").css({"background-color": "#d4d1d1", "color": "black"});
             $(".ttime" + classname).css({"background-color": "#073767", "color": "white"});
@@ -2329,13 +2318,14 @@
         }
 
         $("#nextbtn").click(function () {
-            console.log("button clicked")
-            console.log("hii")
+           // console.log("button clicked")
+          //  console.log("hii")
             start_date = localStorage.getItem('Date')
-            console.log("hii")
+          //  console.log("hii")
             var time = $("#selected_date").val();
+            console.log(time)
             var kids = document.getElementById("kids").value;
-            console.log(kids)
+           // console.log(kids)
             if (time === undefined || time === [] || time === null) {
                 window.alert("please select time slot")
             } else if (kids === '0') {

@@ -247,7 +247,7 @@
                                         _ngcontent-jar-c34="" formcontrolname="father_name" pattern="[A-Za-z ]{3,}"
                                         title="Only Alphabet are allowed and min 3 characters" name="father_name"
                                         placeholder="Enter Guardian-2 Name" type="text" id="father_name"
-                                        class="form-control ng-untouched ng-pristine ng-invalid text_field" required><!----></div>
+                                        class="form-control ng-untouched ng-pristine ng-invalid text_field1" required><!----></div>
                                    <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
                                         _ngcontent-jar-c34="" for="mobile_no">Contact Number</label><input
                                         _ngcontent-jar-c34="" formcontrolname="mobile_no"
@@ -757,6 +757,17 @@
     if (!regex.test(key)) {
        event.preventDefault();
        return false;
+    }
+});
+</script>
+
+<script>
+    $('.text_field1').on('keypress', function (event) {
+   var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
     }
 });
 </script>

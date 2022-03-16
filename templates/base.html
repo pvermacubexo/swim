@@ -12089,7 +12089,7 @@
                                                     alt="img"></a></li>
                                     <li _ngcontent-uas-c28="" data-toggle="tooltip" title="Update Profile"><a
                                             _ngcontent-uas-c28="" data-toggle="modal" data-target="#profileEdit"
-                                            class="img" onclick="checkdate()"><img _ngcontent-uas-c28="" alt="Profile"
+                                            class="img" ><img _ngcontent-uas-c28="" alt="Profile"
                                                              {% if user_details.profile_img %}
                                                              src="{{ user_details.profile_img }}">
                                                             {% else %}
@@ -12168,7 +12168,7 @@
                                                                                 formcontrolname="father_name"
                                                                                 type="text" id="father_name"
                                                                                 value="{{ user_details.father_name }}"
-                                                                                class="form-control text_field ng-untouched ng-pristine ng-valid"
+                                                                                class="form-control text_field1 ng-untouched ng-pristine ng-valid"
                                                                                 required>
 
                                                             <!----></div><!---->
@@ -12272,7 +12272,7 @@
                                                     </div>
                                                         <div _ngcontent-uas-c28="" class="col-md-12 text-center mrT25">
                                                             <button _ngcontent-uas-c28="" type="submit"
-                                                                    class="btn btn-primary btn-login btn-sm" style="width:200px;" onclick="checkdate()">UPDATE
+                                                                    class="btn btn-primary btn-login btn-sm" style="width:200px;" >UPDATE
                                                             </button>
                                                         </div>
                                                     </div><!----></form>
@@ -12369,11 +12369,7 @@
             });
 };
     </script>
-<script>
-    //function checkdates(){
 
-   //}
-</script>
 
 
 <script>
@@ -12386,7 +12382,6 @@
     }
 });
 </script>
-
 <script>
  function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -12394,7 +12389,17 @@
         return false;
 
     return true;
-}
+</script>
+
+<script>
+    $('.text_field1').on('keypress', function (event) {
+   var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+});
 </script>
 
 <script>

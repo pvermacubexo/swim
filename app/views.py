@@ -203,7 +203,7 @@ def Registration(request, id):
                     pass
                 return redirect(SwimTimeDashboard)
         except:
-            messages.error(request, "Already Registered User!")
+            messages.error(request, "Somthing went wrong !")
             return render(request, "register.html", {"id": id})
         return render(request, "register.html", {"id": id})
 

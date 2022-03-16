@@ -99,7 +99,7 @@
                                                         style="">{{ appointment.booking.kids.kids_name}}</td>
                                                     <td style="">{{ appointment.start_time|date:'M d Y h:i A' }}</td>
                                                     <td>{{ appointment.end_time|date:'M d Y h:i A' }}</td>
-                                                    <td>{{ appointment.remark }}</td>
+                                                    <td><span style="max-width: 180px; display: block; text-overflow: ellipsis; word-wrap: break-word; overflow: hidden;">{{ appointment.remark }}</span></td>
                                                     {% if appointment.status == '1' %}
                                                     <td>Scheduled</td>
                                                     {% endif %}

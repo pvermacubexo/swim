@@ -135,7 +135,7 @@
     {% endif %}
     {% if errors %}
         {#                        <p>{{ errors }}</p>#}
-        <div class="top_alert_position">
+        <div class="top_alert_position" style="background: unset; ">
             {% if errors.items %}
                 {% for key,value in errors.items %}
                     {#        <p>{{ key }} {{ value }}</p>#}
@@ -554,7 +554,7 @@
                                                                         class="input-group-text"><i
                                                                         class="typcn typcn-clipboard  "></i></span>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="language"
+                                                                <input type="text" class="form-control text_field" name="language"
                                                                        value="{% if user.get_profile.language %}{{ user.get_profile.language }}{% endif %}"
                                                                        pattern="[A-Za-z]{3,}"
 
