@@ -175,38 +175,41 @@ class StripePayment(APIView):
                         paid_amount = int((data["amount"]) / 100)
                         inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
                         instructor_name = inst_name.instructor.get_full_name()
-                        email_body = f"Dear {user_name}," \
-                                     f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
-                                     f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
-                                     f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
-                                     f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                     f"Fees - {booking.class_instructor.price} USD\n" \
-                                     f"Paid Amount - {paid_amount} USD\n\n" \
-                                     f"Thank You,\nSwim Time Solutions"
-                        # f"Due Amount - {due_amount} USD\n\n" \
+                        booking_count = Booking.objects.filter(id=int(previous_intent["metadata"]["booking_id"]))
+                        count = booking_count.count()
+                        if count == 1:
+                            email_body = f"Dear {user_name}," \
+                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                         f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
+                                         f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Paid Amount - {paid_amount} USD\n\n" \
+                                         f"Thank You,\nSwim Time Solutions"
+                            # f"Due Amount - {due_amount} USD\n\n" \
 
-                        subject = f"Booking Confirmation - Swim Time Solutions"
-                        try:
-                            mail_notification(request, subject, email_body, user_email)
-                        except Exception as e:
-                            pass
+                            subject = f"Booking Confirmation - Swim Time Solutions"
+                            try:
+                                mail_notification(request, subject, email_body, user_email)
+                            except Exception as e:
+                                pass
 
-                        instructor_name = inst_name.instructor.get_full_name()
-                        email_body = f"Dear {instructor_name}," \
-                                     f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
-                                     f" have been booked for you.\n" \
-                                     f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
-                                     f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
-                                     f" - {booking.class_instructor.total_days} days\n" \
-                                     f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                     f"Fees - {booking.class_instructor.price} USD\n" \
-                                     f"Paid Amount - {paid_amount} USD\n\n" \
-                                     f"Thank You,\nSwim Time Solutions"
-                        instructor_email = inst_name.instructor.email
-                        try:
-                            mail_notification(request, subject, email_body, instructor_email)
-                        except Exception as e:
-                            pass
+                            instructor_name = inst_name.instructor.get_full_name()
+                            email_body = f"Dear {instructor_name}," \
+                                         f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
+                                         f" have been booked for you.\n" \
+                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                         f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
+                                         f" - {booking.class_instructor.total_days} days\n" \
+                                         f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
+                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Paid Amount - {paid_amount} USD\n\n" \
+                                         f"Thank You,\nSwim Time Solutions"
+                            instructor_email = inst_name.instructor.email
+                            try:
+                                mail_notification(request, subject, email_body, instructor_email)
+                            except Exception as e:
+                                pass
                         # else:
                         #     subject = f"Repayment - Swim Time Solutions"
                         #     email_body = f"Hello {user_name}," \
