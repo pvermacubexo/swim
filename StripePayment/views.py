@@ -198,11 +198,12 @@ class StripePayment(APIView):
                             email_body = f"Dear {instructor_name}," \
                                          f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
                                          f" have been booked for you.\n" \
-                                         f"Here is the Detail: \nClass - {booking.class_instructor.title} \n" \
+                                         f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                          f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
                                          f" - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n\n" \
                                          f"Thank You,\nSwim Time Solutions"
                             instructor_email = inst_name.instructor.email
@@ -300,6 +301,7 @@ class CashPayment(ModelViewSet):
                                  f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                  f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
