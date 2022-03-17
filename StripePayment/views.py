@@ -184,6 +184,7 @@ class StripePayment(APIView):
                                          f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n\n" \
                                          f"Thank You,\nSwim Time Solutions"
                             # f"Due Amount - {due_amount} USD\n\n" \
@@ -287,6 +288,7 @@ class CashPayment(ModelViewSet):
                                  f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                  f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"

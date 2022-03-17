@@ -28,6 +28,17 @@
     overflow-y: auto;
 }
 </style>
+<script>
+    window.onload = function () {
+        a = document.querySelector("#signup > div > div > div:nth-child(2) > div > form > input[type=hidden]").value
+        console.log(a)
+        if (a == '') {
+            window.location.reload()
+        } else {
+            console.log("nhi hua")
+        }
+    }
+</script>
 <script src={% static 'assets/js/jquery.js' %}></script>
 <script src={% static 'assets/js/jquery-ui.min.js' %}></script>
 <script src={% static 'assets/js/bootstrap.js' %}></script>
@@ -227,7 +238,7 @@
 
                                <form action="{% url 'registration' id %}"  _ngcontent-jar-c34="" role="form"
                                   autocomplete="off" class="form-horizontal ng-untouched ng-pristine ng-invalid"
-                                  method="POST"
+                                  method="POST" onsubmit="return csrf_function();"
                             >
                                 {% csrf_token %}
                                 <div _ngcontent-jar-c34="" class="form-group col-md-6 column_content"><label
@@ -311,7 +322,7 @@
 
                                    <div _ngcontent-jar-c34="" class="col-md-12 text-center mrT25">
                                     <button _ngcontent-jar-c34="" type="submit"
-                                            class="btn btn-primary btn-login btn-sm"
+                                            class="btn btn-primary btn-login btn-sm" onclick="csrf_function()"
                                     >SIGN UP
                                     </button>
                                 </div>
@@ -772,7 +783,17 @@
 });
 </script>
 
-
+<script>
+    function csrf_function(){
+         a = document.querySelector("#signup > div > div > div:nth-child(2) > div > form > input[type=hidden]").value
+        console.log("it works")
+        if (a == '') {
+            window.location.reload()
+        } else {
+            console.log("nhi hua")
+        }
+    }
+</script>
 
 <script>
  function isNumberKey(evt) {

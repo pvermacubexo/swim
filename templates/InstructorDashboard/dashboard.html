@@ -325,7 +325,7 @@ $.fn.dataTable.ext.search.push(
             {#console.log(current_date)#}
             console.log(a)
             if (a === current_date){
-                    console.log("success")
+                    console.log("success4")
                 return true;
                 }
             {#console.log("renesmes")#}
@@ -341,9 +341,14 @@ $.fn.dataTable.ext.search.push(
                 var c= moment(dateString2).format('YYYY-MM-DD')
                 console.log(a)
                 console.log(b)
-                if ( (a === b && max == null ) || (b <= a && a <= c )){
-                    console.log("success")
-                return true;
+                if ( a === b && max == null ){
+                    console.log("success1")
+                    return true;
+                } else if(b <= a && a <= c ){
+                     console.log("success2")
+                    return true;
+                } else{
+                    console.log("wrong")
                 }
             }
         }

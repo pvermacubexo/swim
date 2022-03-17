@@ -19,6 +19,7 @@ from Appointment import models as appointment_model
 from Appointment.models import Booking
 from SharkDeck import settings
 from app.email_notification import mail_notification
+from django.template import RequestContext
 from SharkDeck.tasks import sent_mail_task
 
 BASE_URL = settings.BASE_URL
@@ -252,11 +253,6 @@ def LogoutView(request):
 
 class DeleteBooking(APIView):
     def post(self, request):
-        # current_date = datetime.datetime.now() - timedelta(minutes=30)
-        # current_date = current_date.replace(tzinfo=datetime.timezone.utc)
-        # current_date = current_date.isoformat()
-        # todays_date = str(current_date).replace('+00:00', 'Z')
-        # # print("aj ki tarik",todays_date)
         booking_data = appointment_model.Booking.objects.all()
         ser = RepaymentBookingSeralizer(booking_data, many=True)
         list(ser.data)

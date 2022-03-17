@@ -156,7 +156,10 @@ setTimeout(function (){
        if ($('#msg').length>0){
            $('#msg').remove();
        }
-   }, 40000)
+   }, 5000)
 
+{#setTimeout(function () {#}
+{#            $('[role="alert"]').click();#}
+{#        }, 5000);#}
     </script>
 

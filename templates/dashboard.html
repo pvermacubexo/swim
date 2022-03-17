@@ -410,7 +410,7 @@
                                                                                 id="kids">
                                                                             <option selected disabled id="options"
                                                                                     value="0" required="">Please Select
-                                                                                Kids Name
+                                                                                Student Name
                                                                             </option>  {% for kids in active_kid %}
                                                                             <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}
                                                                         </select>
@@ -504,7 +504,7 @@
                                                                                 id="kids1">
                                                                             <option selected disabled id="options"
                                                                                     value="0" required="">Please Select
-                                                                                Kids Name
+                                                                                Student Name
                                                                             </option>  {% for kids in active_kid %}
                                                                             <option value="{{ kids.id }}">{{ kids.kids_name }}</option> {% endfor %}
                                                                         </select>
@@ -2341,7 +2341,7 @@
             if (time === undefined || time === [] || time === null || time === '0') {
                 window.alert("please select time slot")
             } else if (kids === '0') {
-                window.alert("please select kids")
+                window.alert("please select student name")
 
             } else {
                 $('#nextbtn').attr('data-target', "#details-popup")
@@ -2430,7 +2430,7 @@
                     break;
                 }
                 if (kids === '0') {
-                    window.alert("please select kids")
+                    window.alert("please select student")
                     break;
 
                 }

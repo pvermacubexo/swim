@@ -188,8 +188,9 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user)
-
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
+    for i in appointments:
+        print(i.start_time)
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
