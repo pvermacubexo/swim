@@ -62,14 +62,14 @@
                                                         <div _ngcontent-oie-c32="" class="col-md-12">
                                                             {% if data %}
 
-                                                            {% for datas in data %}
-                                                                {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
-                                                                    {% if forloop.first %}
-{#                                                                <div class="alert alert-danger" role="alert" style="padding: 1%;">#}
-{#                                                                   <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style=""> <strong> </strong> Please make sure to pay within 30 miniute of booking otherwise booking will rejected.</p>#}
-{#                                                                </div>#}
-                                                                        {%endif%}
-{#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
+                                                                {% for datas in data %}
+                                                                    {% if datas.paid_amount == 0 and datas.pending_amount == 0 %}
+                                                                        {% if forloop.first %}
+                                                                            {#                                                                <div class="alert alert-danger" role="alert" style="padding: 1%;">#}
+                                                                            {#                                                                   <p class="alert pt-4 mt-3 pb-4 bg-danger-50 font-15 text-white" style=""> <strong> </strong> Please make sure to pay within 30 miniute of booking otherwise booking will rejected.</p>#}
+                                                                            {#                                                                </div>#}
+                                                                        {% endif %}
+                                                                        {#                                                                    {{ "<!--" }} {%endif%} {%endfor%} {{ "-->" }}#}
 
 
                                                                     {% endif %}
@@ -359,30 +359,36 @@
                                                                             {% for mode in profile_detail %}
                                                                                 {% if mode.cash_mode %}
 
-                                                                                <button type="button" value="Cash_Payment"
-                                                                                        onclick="maxamount()"
-                                                                                        class="btn btn-primary"
-                                                                                        id="cash_payment"
-                                                                                        style="width: 48%">Cash Payment
-                                                                                </button>
+                                                                                    <button type="button"
+                                                                                            value="Cash_Payment"
+                                                                                            onclick="maxamount()"
+                                                                                            class="btn btn-primary"
+                                                                                            id="cash_payment"
+                                                                                            style="width: 48%">Cash
+                                                                                        Payment
+                                                                                    </button>
                                                                                 {% endif %}
 
-                                                                               {% if mode.card_mode %}
-                                                                                <button type="button" _ngcontent-ojq-c32=""
-                                                                                        style="width: 48%"
-                                                                                        data-toggle="modal"
-                                                                                        class="btn btn-primary btn-custom pay-button"
-                                                                                        onclick="CreateIntent()">Pay By Card
-                                                                                </button>
+                                                                                {% if mode.card_mode %}
+                                                                                    <button type="button"
+                                                                                            _ngcontent-ojq-c32=""
+                                                                                            style="width: 48%"
+                                                                                            data-toggle="modal"
+                                                                                            class="btn btn-primary btn-custom pay-button"
+                                                                                            onclick="CreateIntent()">
+                                                                                        Card Pay
+                                                                                    </button>
                                                                                 {% endif %}
 
                                                                                 {% if mode.cheque_mode %}
-                                                                                    <button type="button" value="Cheque_Payment"
-{#                                                                                        onclick="maxamount()"#}
-                                                                                        class="btn btn-primary"
-                                                                                        id="cheque_payment"
-                                                                                        style="width: 48%;margin-top: 7px">Cheque Payment
-                                                                                </button>
+                                                                                    <button type="button"
+                                                                                            value="Cheque_Payment"
+                                                                                            {#                                                                                        onclick="maxamount()"#}
+                                                                                            class="btn btn-primary"
+                                                                                            id="cheque_payment"
+                                                                                            style="width: 48%;margin-top: 7px">
+                                                                                        Cheque Payment
+                                                                                    </button>
                                                                                 {% endif %}
 
                                                                             {% endfor %}
@@ -1095,28 +1101,28 @@
 
         // End Stripe Api code
     </script>
-<script>
-    $(document).keypress(
-  function(event){
-    if (event.which == '13') {
-      event.preventDefault();
-    }
-});
+    <script>
+        $(document).keypress(
+            function (event) {
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            });
     </script>
-<script>
-    var inputBox = document.getElementById("amount_to_be_paid");
+    <script>
+        var inputBox = document.getElementById("amount_to_be_paid");
 
-    var invalidChars = [
-      "E",
-      "e",
-    ];
+        var invalidChars = [
+            "E",
+            "e",
+        ];
 
-    inputBox.addEventListener("keydown", function(e) {
-      if (invalidChars.includes(e.key)) {
-        e.preventDefault();
-        console.log("Success")
-      }
-    });
+        inputBox.addEventListener("keydown", function (e) {
+            if (invalidChars.includes(e.key)) {
+                e.preventDefault();
+                console.log("Success")
+            }
+        });
 
     </script>
 
@@ -1134,12 +1140,12 @@
     </script>
     <script>
         $(document).keypress(
-          function(event){
-            if (event.which == '13') {
-              event.preventDefault();
-            }
-        });
-</script>
+            function (event) {
+                if (event.which == '13') {
+                    event.preventDefault();
+                }
+            });
+    </script>
     <script>
         window.onload = function () {
             $.ajax({

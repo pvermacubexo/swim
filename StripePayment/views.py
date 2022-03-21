@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from django.contrib import messages
@@ -175,13 +176,15 @@ class StripePayment(APIView):
                         paid_amount = int((data["amount"]) / 100)
                         inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
                         instructor_name = inst_name.instructor.get_full_name()
-                        booking_count = Transaction.objects.filter(booking_id=int(previous_intent["metadata"]["booking_id"]))
+                        booking_count = Transaction.objects.filter(
+                            booking_id=int(previous_intent["metadata"]["booking_id"]))
                         count = booking_count.count()
+                        today_datetime = datetime.datetime.now().strftime("%b-%d-%Y %H:%M, day - %A")
                         if count == 1:
                             email_body = f"Dear {user_name}," \
-                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
-                                         f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
-                                         f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled at {today_datetime}.\n" \
+                                         f"Please find below the details: \nClass - {booking.class_instructor.title}\n" \
+                                         f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Payment Mode - Card\n" \
@@ -198,7 +201,7 @@ class StripePayment(APIView):
                             instructor_name = inst_name.instructor.get_full_name()
                             email_body = f"Dear {instructor_name}," \
                                          f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
-                                         f" have been booked for you.\n" \
+                                         f" have been booked for you at {today_datetime}.\n" \
                                          f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                          f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
                                          f" - {booking.class_instructor.total_days} days\n" \
@@ -280,10 +283,11 @@ class CashPayment(ModelViewSet):
                 due_amount = serializer.validated_data['due_amount']
                 booking_count = Transaction.objects.filter(booking_id=serializer.validated_data['booking'])
                 count = booking_count.count()
+                today_datetime = datetime.datetime.now().strftime("%b-%d-%Y %H:%M, day - %A")
                 if count == 1:
                     subject = f"Booking Confirmation - Swim Time Solutions"
                     email_body = f"Dear {user_name}," \
-                                 f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                 f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled at {today_datetime}.\n" \
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
@@ -298,7 +302,7 @@ class CashPayment(ModelViewSet):
                     except Exception as e:
                         pass
                     email_body = f"Dear {instructor_name}," \
-                                 f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you.\n" \
+                                 f"\n\nHope you are doing well. This mail is to inform you that Swimming classes have been booked for you at {today_datetime}.\n" \
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
