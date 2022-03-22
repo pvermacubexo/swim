@@ -507,9 +507,9 @@ def instructor_profile(request):
         req = req + 1 if card else req
         req = req + 1 if cheque else req
 
-        if req == 0:
-            context.update({"errors": "Choose any one payment mode"})
-            return render(request, 'InstructorDashboard/instructor_profile.html', context)
+        # if req == 0:
+        #     context.update({"errors": "Choose any one payment mode"})
+        #     return render(request, 'InstructorDashboard/instructor_profile.html', context)
 
         request.user.first_name = ser.initial_data.get('first_name')
         request.user.last_name = ser.initial_data.get('last_name')

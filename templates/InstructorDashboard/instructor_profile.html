@@ -740,7 +740,7 @@
                                                     <div class="col-md-6">
                                                         <br/>
                                                         <div class="form-group ">
-                                                            <input type="submit" class="btn btn-primary btn-sm"
+                                                            <input id="submit_detail" type="submit" class="btn btn-primary btn-sm"
                                                                    value="Submit" style="width:250px;">
 
                                                         </div>
@@ -938,7 +938,6 @@
 
 
 
-
                                             <div class="card">
                                             <div class="card-header">
                                                 <div class="row align-items-center">
@@ -953,8 +952,8 @@
                                                         <div class="custom-control custom-switch switch-primary mb-2">
                                                             <input type="checkbox" class="custom-control-input" id="cash_switch" name="cash"
                                                                    {% if user.get_profile.cash_mode %}
-                                                                   checked="checked" {% endif %}
-                                                            >
+                                                                   checked="checked" value="on"{% endif %}
+                                                             value="off" >
                                                             <label class="custom-control-label text-dark" for="cash_switch"></label>
                                                             <span>Cash</span>
 
@@ -964,10 +963,10 @@
                                                         <div class="custom-control custom-switch switch-primary mb-2">
                                                             <input type="checkbox" class="custom-control-input" id="card_switch" name="card"
                                                                    {% if user.get_profile.card_mode %}
-                                                                   checked="checked" {% endif %}>
+                                                                   checked="checked" value="on" {% endif %}
+                                                            value="off" >
                                                             <label class="custom-control-label text-dark" for="card_switch"></label>
                                                             <span>Card</span>
-
                                                         </div>
                                                     </div>
 {#                                                    <div class="col-md-4">#}
@@ -980,6 +979,8 @@
 {#                                                        </div>#}
 {#                                                    </div>#}
                                                 </div>
+                                            <input type="text" name="input" class="display_none" id="hidden_input" value="on" required>
+                                            <span style="color: red;" id="error_message"></span>
                                             </div>
                                         </div>
 
@@ -1473,7 +1474,6 @@
 </script>
 
 
-
 <script>
  function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -1482,6 +1482,30 @@
 
     return true;
 }
+</script>
+
+<script>
+    $('#cash_switch, #card_switch').change(function()
+    {
+    if (this.checked)
+    {
+       this.value = 'on';
+    } else {
+        this.value = "off";
+    }
+    var cash_btn = $('#cash_switch').val();
+    var card_btn = $('#card_switch').val();
+    console.log(cash_btn , card_btn)
+    if ((cash_btn == 'off') && (card_btn == 'off'))
+    {
+        $("#hidden_input").val('');
+    $('#error_message').text("Choose any one payment mode.");
+    } else {
+        $('#error_message').text("");
+        $("#hidden_input").val('ON');
+    }
+    })
+
 </script>
 {% endblock %}
 
