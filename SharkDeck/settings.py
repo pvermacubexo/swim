@@ -13,6 +13,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import plivo
 from django.contrib import messages
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -114,14 +115,14 @@ WSGI_APPLICATION = 'SharkDeck.wsgi.application'
 # }
 
 DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'newswim',
-#         'USER': 'postgres',
-#         'PASSWORD': 'dinesh123',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'sms_features',
+            'USER': 'postgres',
+            'PASSWORD': 'dinesh123',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -218,17 +219,18 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-BASE_URL = "https://swimtimesolutions.com"
+BASE_URL = "http://127.0.0.1:8000"
 
+client = plivo.RestClient('MAMTHKYJVHZDY3M2IWNJ', 'ZmRmMDVhNDlmMDQ0YWYxMzQ0Y2QzNzMyODM4YzU2')
 
 # CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 # CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Asia/Kolkata'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Kolkata'
 
 # CELERY_RESULT_BACKEND = 'django-db'
 # CELERY_RESULT_BACKEND = 'db+sqlite:///results.db'

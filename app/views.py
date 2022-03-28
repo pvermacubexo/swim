@@ -12,6 +12,7 @@ from django.shortcuts import render, redirect
 from rest_framework import status
 # Create your views here.
 from Appointment.models import ClassInstructor
+from SharkDeck.settings import client
 from user import models as user_models
 from user.models import User, Profile, Kids
 from StripePayment.serializers import RepaymentBookingSeralizer
@@ -206,11 +207,18 @@ def Registration(request, id):
                     # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
                     #                                    'user_email': user_email})
                     mail_notification(request, subject, email_body, user_email)
+
+                    response = client.messages.create(
+                        src=9131768552,
+                        dst=+919131768552,
+                        text="Dear {0}\nWelcome to Swim Time Solutions, Your account is now set up and ready to use."
+                             " Let's get started!\nThank You,\nSwim Time Solutions".format(user_name))
+                    print("sendmsg", response)
                 except Exception as e:
                     pass
                 return redirect(SwimTimeDashboard)
         except:
-            messages.error(request, "Somthing went wrong !")
+            messages.error(request, "Something went wrong !")
             return render(request, "register.html", {"id": id})
         return render(request, "register.html", {"id": id})
 

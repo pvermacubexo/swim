@@ -26,6 +26,7 @@ from Appointment import models as appointment_model
 from Appointment import utilities
 from Appointment.models import ClassInstructor, APPOINTMENT_STATUS, Appointment
 from SharkDeck.constants import user_constants
+from SharkDeck.settings import client
 from StripePayment.models import StripeAccount
 from app.email_notification import mail_notification
 from user import models as user_models
@@ -98,6 +99,14 @@ def signup_view(request):
             # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
             #                                    'user_email': email})
             mail_notification(request, subject, email_body, email)
+
+            response = client.messages.create(
+                src=9131768552,
+                dst=+919131768552,
+                text="Dear {0}\nWelcome to Swim Time Solutions, Your account is now set up and ready to use."
+                     " Let's get started!\nThank You,\nSwim Time Solutions".format(user_name))
+            print("send msg", response)
+
         except Exception as e:
             pass
 
@@ -188,7 +197,8 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
+                                                                status='1').order_by('start_time')
     for i in appointments:
         print(i.start_time)
     context = {'appointments': appointments,
@@ -237,6 +247,13 @@ def update_transaction(request, id):
             # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
             #                                    'user_email': user_email})
             mail_notification(request, subject, email_body, user_email)
+            response = client.messages.create(
+                src=9131768552,
+                dst=+919131768552,
+                text="Dear {0}\nYour payment of {1} USD is accepted by the Instructor.\nThank You,"
+                     "\nSwim Time Solutions"
+                     "".format(user_name, transaction_amount))
+            print("send msg", response)
         except Exception as e:
             pass
 
@@ -271,6 +288,15 @@ def delete_transaction(request, id):
             # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
             #                                    'user_email': user_email})
             mail_notification(request, subject, email_body, user_email)
+
+            response = client.messages.create(
+                src=9131768552,
+                dst=+919131768552,
+                text="Dear {0}\nYour cash payment of {1} USD is rejected by the Instructor. You may contact the"
+                     " Instructor for further information\nThank You,"
+                     "\nSwim Time Solutions"
+                     "".format(user_name, transaction_amount))
+            print("send msg", response)
         except Exception as e:
             pass
 
@@ -304,6 +330,16 @@ def update_booking(request, id):
                              f"Swim Time Solutions"
                 try:
                     mail_notification(request, subject, email_body, user_email)
+
+                    response = client.messages.create(
+                        src=9131768552,
+                        dst=+919131768552,
+                        text="Hello {0}\nYour appointment of Date {1}, Time {2} to {3} has been cancelled. The reason"
+                             " for that {4}'.".format(user_name, appointment_obj.start_time.date(),
+                                                      appointment_obj.start_time.time(),
+                                                      appointment_obj.end_time.time(), appointment_obj.remark))
+                    print("send msg", response)
+
                 except Exception as e:
                     pass
 
@@ -620,12 +656,16 @@ def change_password(request):
             user_name = user_obj.get_full_name()
             user_email = request.user.email
             subject = "Password Changed - Swim Time Solutions"
-            email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
+            email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account on Swim Time Solutions has been changed successfully.\n\n" \
                          f"Thank You,\n" \
                          f"Swim Time Solutions"
             try:
-                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                #                                    'user_email': user_email})
+                response = client.messages.create(
+                    src=9131768552,
+                    dst=+919131768552,
+                    text="Dear (0)\nThis is to notify that the password of your account on Swim Time Solutions has"
+                         " been changed successfully.\nThank You,\nSwim Time Solutions".format(user_name))
+                print("send msg", response)
                 mail_notification(request, subject, email_body, user_email)
             except Exception as e:
                 pass

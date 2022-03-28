@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 
 from Appointment.models import Booking, ClassInstructor, Transaction
 from SharkDeck.constants import user_constants
+from SharkDeck.settings import client
 from app.email_notification import mail_notification
 from user.models import User, Kids, Profile
 from .models import StripeAccount
@@ -175,29 +176,38 @@ class StripePayment(APIView):
                         paid_amount = int((data["amount"]) / 100)
                         inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
                         instructor_name = inst_name.instructor.get_full_name()
-                        booking_count = Transaction.objects.filter(booking_id=int(previous_intent["metadata"]["booking_id"]))
+                        booking_count = Transaction.objects.filter(
+                            booking_id=int(previous_intent["metadata"]["booking_id"]))
                         count = booking_count.count()
                         if count == 1:
                             email_body = f"Dear {user_name}," \
-                                         f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
+                                         f"\n\nHope you are doing well. This mail is to inform you that your swimming classes have been scheduled.\n" \
                                          f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
-                                         f"Instructore - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
+                                         f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n\n" \
                                          f"Thank You,\nSwim Time Solutions"
                             # f"Due Amount - {due_amount} USD\n\n" \
-
                             subject = f"Booking Confirmation - Swim Time Solutions"
                             try:
+                                response = client.messages.create(
+                                    src=9131768552,
+                                    dst=+919131768552,
+                                    text="Dear {0}\nyour swimming classes have been scheduled."
+                                         "\nClass: {1}\nInstructor: {2}\nTime Slot: {3} m/Session"
+                                         "".format(user_name, booking.class_instructor.title, instructor_name,
+                                                   booking.class_instructor.time_slot))
+                                print("send user msg", response)
+
                                 mail_notification(request, subject, email_body, user_email)
                             except Exception as e:
                                 pass
 
                             instructor_name = inst_name.instructor.get_full_name()
                             email_body = f"Dear {instructor_name}," \
-                                         f"\n\nHope you are doing well. This mail is to inform you that Swimming classes" \
+                                         f"\n\nHope you are doing well. This mail is to inform you that swimming classes" \
                                          f" have been booked for you.\n" \
                                          f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                          f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
@@ -209,6 +219,16 @@ class StripePayment(APIView):
                                          f"Thank You,\nSwim Time Solutions"
                             instructor_email = inst_name.instructor.email
                             try:
+                                response = client.messages.create(
+                                    src=9131768552,
+                                    dst=+919131768552,
+                                    text="Dear {0}\nyour swimming classes have been booked for you."
+                                         "\nClass: {1}\nStudent: {2}\nDays: {3}"
+                                         "".format(instructor_name, booking.class_instructor.title,
+                                                   booking.kids.kids_name,
+                                                   booking.class_instructor.total_days))
+                                print("send user msg", response)
+
                                 mail_notification(request, subject, email_body, instructor_email)
                             except Exception as e:
                                 pass
@@ -295,6 +315,16 @@ class CashPayment(ModelViewSet):
                     try:
 
                         mail_notification(request, subject, email_body, user_email)
+
+                        response = client.messages.create(
+                            src=9131768552,
+                            dst=+919131768552,
+                            text="Dear {0}\nyour swimming classes have been scheduled."
+                                 "\nClass: {1}\nInstructor: {2}\nTime Slot: {3} m/Session"
+                                 "".format(user_name, booking.class_instructor.title, instructor_name,
+                                           booking.class_instructor.time_slot))
+                        print("send msg", response)
+
                     except Exception as e:
                         pass
                     email_body = f"Dear {instructor_name}," \
@@ -309,6 +339,15 @@ class CashPayment(ModelViewSet):
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
                         mail_notification(request, subject, email_body, instructor_email)
+                        response = client.messages.create(
+                            src=9131768552,
+                            dst=+919131768552,
+                            text="Dear {0}\nyour swimming classes have been booked for you."
+                                 "\nClass: {1}\nStudent: {2}\nDays: {3}".format(instructor_name,
+                                                                                booking.class_instructor.title,
+                                                                                booking.kids.kids_name,
+                                                                                booking.class_instructor.total_days))
+                        print("send msg", response)
                     except Exception as e:
                         pass
                 else:
@@ -319,6 +358,14 @@ class CashPayment(ModelViewSet):
                                  f"Thank You,\nSwim Time Solutions"
                     try:
                         mail_notification(request, subject, email_body, user_email)
+
+                        response = client.messages.create(
+                            src=9131768552,
+                            dst=+919131768552,
+                            text="Dear {0}\nyou have made cash payment of {1} USD, Due amount: {2} USD\nThank You,"
+                                 "\nSwim Time Solutions"
+                                 "".format(user_name, paid_amount, serializer.validated_data['due_amount']))
+                        print("send msg", response)
                     except Exception as e:
                         pass
 
