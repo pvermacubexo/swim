@@ -24,6 +24,7 @@
     border: none;
     background: #1e6ffd;
     color: #fff;
+    margin-bottom: 6px;
     padding: 5px 20px;
     border-radius: 5px;
     font-size: 18px
@@ -266,7 +267,7 @@
                                                     <td>{{ appointment.booking.user.get_full_name }}</td>
                                                     <td>{{ appointment.booking.user.mobile_no }}</td>
                                                     <td>{{ appointment.booking.class_instructor.title }}</td>
-                                                    <td>{{    appointment.start_time|date:'20y/m/d'}}</td>
+                                                    <td>{{    appointment.start_time|date:'m/d/Y'}}</td>
                                                     <td>{{ appointment.start_time|time:'h:i A'}}</td>
                                                     <td>{{ appointment.end_time|time:'h:i A' }}</td>
                                                     <td>{{ appointment.booking.get_booking_payment_status }}</td>
@@ -391,7 +392,7 @@ $(document).ready(function() {
 
     // DataTables initialisation
     var table = $("#datatable-buttons")
-            .DataTable({ lengthChange: !1, buttons: ["excel", "pdf",
+            .DataTable({ dom: '<"float-left"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>', buttons: ["excel", "pdf",
                         {
                             text: 'Export ICS',
                             action: function download() {

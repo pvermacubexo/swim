@@ -91,7 +91,7 @@
 
                                                     <td>{{ student.parent.first_name }} {{ student.parent.last_name }}</td>
                                                     <td>{{ student.parent.father_name }}</td>
-                                                    <td>{{ student.date_of_birth|date:"Y-m-d" }}</td>
+                                                    <td>{{ student.date_of_birth|date:"m/d/Y" }}</td>
                                                     {% for key, value in ages.items %}
                                                         {% if key == student.id %}
                                                             <td>{{ value }}</td>
