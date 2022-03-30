@@ -113,7 +113,7 @@ class AppointmentViewSet(ModelViewSet):
 
 def check_availability(start_time, instructor, avoid_blocked_time=False):
     if not start_time.tzinfo:
-        start_time = start_time.replace(tzinfo=pytz.UTC)
+        start_time = start_time.replace(tzinfo=pytz.timezone('America/New_York'))
     appointments = Appointment.objects.filter(start_time__date=start_time.date(),
                                               booking__class_instructor__instructor=instructor)
     is_available = True
@@ -990,7 +990,7 @@ class IndividualBookingViewSet(APIView):
                     '%A').lower() in available_day:
                 return Response({'error': f'Instructor not available on date {date_time}'})
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
-            date_time = date_time.replace(tzinfo=pytz.UTC)
+            date_time = date_time.replace(tzinfo=pytz.timezone('America/New_York'))
             if not (Available_instructor(date_time, class_instructor)):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
@@ -1010,13 +1010,13 @@ class IndividualBookingViewSet(APIView):
         # mail_notification(request, subject, email_body, user_email)
         for date_time in datetime_list:
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
-            date_time = date_time.replace(tzinfo=pytz.UTC)
+            date_time = date_time.replace(tzinfo=pytz.timezone('America/New_York'))
             try:
                 Appointment.objects.create(start_time=date_time,
                                            end_time=date_time + timedelta(minutes=class_instructor.time_slot - 1),
                                            booking=booking)
 
-                print("appoint induvisual done")
+                # print("appoint induvisual done")
             except Exception:
                 booking.delete()
                 logger.warning(f"Booking Failed due to Appointment creating fail.")
@@ -1120,8 +1120,8 @@ class DateRange(APIView):
                 appointment_date = Appointment.objects.all()
                 for i in appointment_date:
                     appointment_start = i.start_time.date().strftime("%Y-%m-%d")
-                    print("appointment_start",appointment_start)
-                    print("start_date",start_date)
+                    # print("appointment_start",appointment_start)
+                    # print("start_date",start_date)
                     if start_date == appointment_start:
                         start_time_list.append(i.start_time)
                         end_time_list.append(i.end_time)
@@ -1143,8 +1143,8 @@ class DateRange(APIView):
                     # print(i.start_time)
                     appointment_start = i.start_time.date().strftime("%Y-%m-%d")
                     # print("appointment_start", appointment_start)
-                    print("start_date", start_date)
-                    print("end_date", end_date)
+                    # print("start_date", start_date)
+                    # print("end_date", end_date)
                     if start_date <= appointment_start <= end_date:
                         start_time_list.append(i.start_time)
                         end_time_list.append(i.end_time)
