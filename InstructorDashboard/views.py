@@ -208,7 +208,7 @@ def trainee_view(request, trainee):
     except user_models.Kids.DoesNotExist:
         return redirect('InstructorDashboard:page404')
     transactions = appointment_model.Transaction.objects.filter(booking__kids=trainee).order_by('-payment_at')
-    today = datetime.today().replace(tzinfo=pytz.timezone('America/New_York'))
+    today = datetime.today().replace(tzinfo=pytz.UTC)
     bookings = appointment_model.Booking.objects.filter(kids=trainee).order_by("-booked_at")
     appointment_status_options = dict(APPOINTMENT_STATUS)
 
