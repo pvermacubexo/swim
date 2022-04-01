@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from user.models import User
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from .models import ClassInstructor, Appointment, Booking
 from django.contrib.sites.shortcuts import get_current_site
 
@@ -300,10 +300,12 @@ class AppointmentScheduleSerializer(serializers.ModelSerializer):
         return obj.booking.class_instructor.instructor.mobile_no
 
     def get_start_time(self, obj):
-        return obj.start_time.strftime("%B %d %Y %I:%M %p")
+        a = obj.start_time + timedelta(hours=-4)
+        return a.strftime("%B %d %Y %I:%M %p")
 
     def get_end_time(self, obj):
-        return obj.end_time.strftime("%I:%M %p")
+        b = obj.end_time + timedelta(hours=-4)
+        return b.strftime("%I:%M %p")
 
 class GetAppointmentSerializer(serializers.Serializer):
     start_date = serializers.DateField()

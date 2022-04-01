@@ -113,7 +113,7 @@ class AppointmentViewSet(ModelViewSet):
 
 def check_availability(start_time, instructor, avoid_blocked_time=False):
     if not start_time.tzinfo:
-        start_time = start_time.replace(tzinfo=pytz.UTC)
+        start_time = start_time
     appointments = Appointment.objects.filter(start_time__date=start_time.date(),
                                               booking__class_instructor__instructor=instructor)
     is_available = True
@@ -763,9 +763,11 @@ class BookClassInstructor(APIView):
             appointments = Appointment.objects.filter(booking=booking)
             appointments_list = {}
             for appointment in appointments:
+                a = (appointment.start_time + timedelta(hours=-4)).time()
+                b = (appointment.end_time + timedelta(hours=-4)).time()
                 appointments_list.update({f"{appointment.start_time.date().strftime('%b, %d %Y')}":
-                                              {'start_time': appointment.start_time.time().strftime("%I:%M %p"),
-                                               'end_time': appointment.end_time.time().strftime("%I:%M %p")}})
+                                              {'start_time': a.strftime("%I:%M %p"),
+                                               'end_time': b.strftime("%I:%M %p")}})
             return Response({
                 'booking': booking.id,
                 'class_instructor': class_instructor.title,
@@ -990,7 +992,7 @@ class IndividualBookingViewSet(APIView):
                     '%A').lower() in available_day:
                 return Response({'error': f'Instructor not available on date {date_time}'})
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
-            date_time = date_time.replace(tzinfo=pytz.UTC)
+            date_time = date_time
             if not (Available_instructor(date_time, class_instructor)):
                 logger.warning(f"Instructor = {class_instructor.instructor} is Not Available on '{date_time}'")
                 return Response({'error': 'Instructor Not Available'}, status=status.HTTP_400_BAD_REQUEST)
@@ -1010,7 +1012,7 @@ class IndividualBookingViewSet(APIView):
         # mail_notification(request, subject, email_body, user_email)
         for date_time in datetime_list:
             date_time = datetime.strptime(date_time, '%Y-%m-%dT%H:%M:%S')
-            date_time = date_time.replace(tzinfo=pytz.UTC)
+            date_time = date_time
             try:
                 Appointment.objects.create(start_time=date_time,
                                            end_time=date_time + timedelta(minutes=class_instructor.time_slot - 1),
@@ -1025,10 +1027,12 @@ class IndividualBookingViewSet(APIView):
         booked_appointment = []
         if appointments:
             for appointment in appointments:
+                a = (appointment.start_time + timedelta(hours=-4)).time()
+                b = (appointment.end_time + timedelta(hours=-4)).time()
                 appointmenat_date = appointment.start_time.date().strftime("%b, %d %Y")
                 booked_appointment.append(
-                    {f'{appointmenat_date}': f'{appointment.start_time.time().strftime("%I:%M %p")} to '
-                                             f'{appointment.end_time.time().strftime("%I:%M %p")}'})
+                    {f'{appointmenat_date}': f'{a.strftime("%I:%M %p")} to '
+                                             f'{b.strftime("%I:%M %p")}'})
 
         full_name = class_instructor.instructor.first_name + " " + class_instructor.instructor.last_name
         return Response({
