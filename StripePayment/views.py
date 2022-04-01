@@ -150,13 +150,13 @@ class StripePayment(APIView):
                     if paid_amount > due_amount:
                         messages.error("You have paid more then due amount contact support team form refund ")
                         return redirect("dashboard_view")
-                    due_amount = 0
+                    final_due_amount = due_amount - paid_amount
                     transaction_obj = appointment_model.Transaction.objects.create(
                         booking=booking, transaction_id=transaction_id,
                         status=payment_status, payment_type=payment_type,
                         total_amount=booking.class_instructor.price,
                         paid_amount=paid_amount,
-                        due_amount=due_amount
+                        due_amount=final_due_amount
                     )
                     try:
                         total_paid_amount = 0
@@ -183,7 +183,7 @@ class StripePayment(APIView):
                         if count == 1:
                             email_body = f"Dear {user_name}," \
                                          f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
-                                         f"Please find below the details: \nClass - {booking.class_instructor.title}\n"\
+                                         f"Please find below the details: \nClass - {booking.class_instructor.title}\n" \
                                          f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
                                          f"Fees - {booking.class_instructor.price} USD\n" \
@@ -280,6 +280,12 @@ class CashPayment(ModelViewSet):
                 user_email = booking.user.email
                 paid_amount_int = serializer.validated_data['paid_amount']
                 inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
+
+                # get_detail = appointment_model.Appointment.objects.filter(booking_id=booking.id)
+                # for i in get_detail:
+                #     print(f"Date - {i.start_time.date().strftime('%m/%d/%Y')}\n"
+                #           f"Appointment - {i.start_time.time().strftime('%H:%M')} to {i.end_time.time().strftime('%H:%M')}")
+
                 instructor_email = inst_name.instructor.email
                 instructor_name = inst_name.instructor.get_full_name()
                 due_amount = serializer.validated_data['due_amount']
@@ -300,7 +306,6 @@ class CashPayment(ModelViewSet):
                                  f"Date & Time - {today_datetime}\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-
                         mail_notification(request, subject, email_body, user_email)
                     except Exception as e:
                         pass
