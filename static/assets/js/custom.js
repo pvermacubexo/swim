@@ -120,7 +120,7 @@ function initCalendar() {
 
     $('#calendar td').mousedown(function () {  // Click or start of dragging
         dateDragStart = new Date($(this).attr('data-year'), $(this).attr('data-month'), $(this).find('a').html());
-        // $(this).find('a').addClass('ui-state-active');
+        $(this).find('a').addClass('ui-state-active');
         return false;
     });
 
