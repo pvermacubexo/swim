@@ -97,6 +97,13 @@ def update_profile(request):
             # obj.DateOfBirth = request.POST['DateOfBirth']
             # obj.mother_name = request.POST['mother_name']
             obj.father_name = request.POST['father_name']
+            user_obj = User.objects.all()
+            for i in user_obj:
+                if request.POST['mobile_no'] in i.mobile_no:
+                    messages.error(request, "Mobile number already exists!")
+                    return redirect(SwimTimeDashboard)
+                else:
+                    pass
             if 'mobile_no' in request.POST:
                 obj.mobile_no = request.POST['mobile_no']
             else:
@@ -137,7 +144,7 @@ def update_profile(request):
             first_name = User.objects.get(id=user_id)
             user_details = User.objects.filter(email=request.session['email'])
             classes = ClassInstructor.objects.filter(instructor_id=user_id)
-            messages.error(request, "Somthing Went Wrong!")
+            messages.error(request, "Something Went Wrong!")
 
             return render(request, 'dashboard.html',
                           {"user_details": user_details, "data": classes, "first_name": first_name})
