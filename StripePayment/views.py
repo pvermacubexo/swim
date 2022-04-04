@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import stripe
 from rest_framework.views import APIView
+from datetime import datetime, timedelta
 
 from Appointment.models import Booking, ClassInstructor, Transaction
 from SharkDeck.constants import user_constants
@@ -179,7 +180,14 @@ class StripePayment(APIView):
                         booking_count = Transaction.objects.filter(
                             booking_id=int(previous_intent["metadata"]["booking_id"]))
                         count = booking_count.count()
-                        today_datetime = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
+                        get_detail = appointment_model.Appointment.objects.filter(booking_id=booking.id)
+                        appointments_list = {}
+                        for appointment in get_detail:
+                            a = (appointment.start_time + timedelta(hours=-4)).time()
+                            b = (appointment.end_time + timedelta(hours=-4)).time()
+                            result = "{} - {}".format(a.strftime("%I:%M %p"), b.strftime("%I:%M %p"))
+                            appointments_list.update({appointment.start_time.date().strftime('%m-%d-%Y'): result})
+                        # today_datetime = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
                         if count == 1:
                             email_body = f"Dear {user_name}," \
                                          f"\n\nHope you are doing well. This mail is to inform you that your Swimming classes have been scheduled.\n" \
@@ -189,7 +197,7 @@ class StripePayment(APIView):
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n" \
-                                         f"Date & Time - {today_datetime}\n\n" \
+                                         f"Class Timing - {appointments_list}\n\n" \
                                          f"Thank You,\nSwim Time Solutions"
                             # f"Due Amount - {due_amount} USD\n\n" \
 
@@ -210,7 +218,7 @@ class StripePayment(APIView):
                                          f"Fees - {booking.class_instructor.price} USD\n" \
                                          f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n" \
-                                         f"Date & Time - {today_datetime}\n\n" \
+                                         f"Class Timing - {appointments_list}\n\n" \
                                          f"Thank You,\nSwim Time Solutions"
                             instructor_email = inst_name.instructor.email
                             try:
@@ -281,17 +289,20 @@ class CashPayment(ModelViewSet):
                 paid_amount_int = serializer.validated_data['paid_amount']
                 inst_name = ClassInstructor.objects.get(id=booking.class_instructor.id)
 
-                # get_detail = appointment_model.Appointment.objects.filter(booking_id=booking.id)
-                # for i in get_detail:
-                #     print(f"Date - {i.start_time.date().strftime('%m/%d/%Y')}\n"
-                #           f"Appointment - {i.start_time.time().strftime('%H:%M')} to {i.end_time.time().strftime('%H:%M')}")
+                get_detail = appointment_model.Appointment.objects.filter(booking_id=booking.id)
+                appointments_list = {}
+                for appointment in get_detail:
+                    a = (appointment.start_time + timedelta(hours=-4)).time()
+                    b = (appointment.end_time + timedelta(hours=-4)).time()
+                    result = "{} - {}".format(a.strftime("%I:%M %p"),b.strftime("%I:%M %p"))
+                    appointments_list.update({appointment.start_time.date().strftime('%m-%d-%Y'): result})
 
                 instructor_email = inst_name.instructor.email
                 instructor_name = inst_name.instructor.get_full_name()
                 due_amount = serializer.validated_data['due_amount']
                 booking_count = Transaction.objects.filter(booking_id=serializer.validated_data['booking'])
                 count = booking_count.count()
-                today_datetime = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
+                # today_datetime = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
                 if count == 1:
                     subject = f"Booking Confirmation - Swim Time Solutions"
                     email_body = f"Dear {user_name}," \
@@ -303,7 +314,7 @@ class CashPayment(ModelViewSet):
                                  f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n" \
-                                 f"Date & Time - {today_datetime}\n\n" \
+                                 f"Class Timing - {appointments_list}\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
                         mail_notification(request, subject, email_body, user_email)
@@ -318,7 +329,7 @@ class CashPayment(ModelViewSet):
                                  f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n" \
-                                 f"Date & Time - {today_datetime}\n\n" \
+                                 f"Class Timing - {appointments_list}\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
                         mail_notification(request, subject, email_body, instructor_email)

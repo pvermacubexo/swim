@@ -118,7 +118,9 @@ def check_availability(start_time, instructor, avoid_blocked_time=False):
                                               booking__class_instructor__instructor=instructor)
     is_available = True
     for appointment in appointments:
-        is_available = not (appointment.start_time <= start_time <= appointment.end_time)
+        # print(type (start_time))
+        # print(type(appointment.start_time))
+        is_available = not (appointment.start_time.replace(tzinfo=None) <= start_time.replace(tzinfo=None) <= appointment.end_time.replace(tzinfo=None))
         if avoid_blocked_time and appointment.booking.booking_type == BLOCKED_BY_INSTRUCTOR:
             return True, False
         if not is_available:
