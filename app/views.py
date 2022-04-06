@@ -149,6 +149,7 @@ def update_profile(request):
             return render(request, 'dashboard.html',
                           {"user_details": user_details, "data": classes, "first_name": first_name})
     except:
+        messages.error(request, "Mobile number already exists!")
         return redirect(SwimTimeDashboard)
 
 
