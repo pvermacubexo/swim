@@ -222,7 +222,9 @@ class StripePayment(APIView):
                                          f"Thank You,\nSwim Time Solutions"
                             instructor_email = inst_name.instructor.email
                             try:
-                                mail_notification(request, subject, email_body, instructor_email)
+                                profile_detail = Profile.objects.get(user__email=instructor_email)
+                                if profile_detail.email_enable:
+                                    mail_notification(request, subject, email_body, instructor_email)
                             except Exception as e:
                                 pass
                         # else:
@@ -294,7 +296,7 @@ class CashPayment(ModelViewSet):
                 for appointment in get_detail:
                     a = (appointment.start_time + timedelta(hours=-4)).time()
                     b = (appointment.end_time + timedelta(hours=-4)).time()
-                    result = "{} - {}".format(a.strftime("%I:%M %p"),b.strftime("%I:%M %p"))
+                    result = "{} - {}".format(a.strftime("%I:%M %p"), b.strftime("%I:%M %p"))
                     appointments_list.update({appointment.start_time.date().strftime('%m-%d-%Y'): result})
 
                 instructor_email = inst_name.instructor.email
@@ -303,6 +305,7 @@ class CashPayment(ModelViewSet):
                 booking_count = Transaction.objects.filter(booking_id=serializer.validated_data['booking'])
                 count = booking_count.count()
                 # today_datetime = datetime.datetime.now().strftime("%m/%d/%Y %H:%M")
+
                 if count == 1:
                     subject = f"Booking Confirmation - Swim Time Solutions"
                     email_body = f"Dear {user_name}," \
@@ -332,7 +335,9 @@ class CashPayment(ModelViewSet):
                                  f"Class Timing - {appointments_list}\n\n" \
                                  f"Thank You,\nTeam Swim Time Solutions"
                     try:
-                        mail_notification(request, subject, email_body, instructor_email)
+                        profile_detail = Profile.objects.get(user__email=instructor_email)
+                        if profile_detail.email_enable:
+                            mail_notification(request, subject, email_body, instructor_email)
                     except Exception as e:
                         pass
                 else:

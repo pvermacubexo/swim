@@ -314,6 +314,8 @@ class Profile(models.Model):
     cash_mode = models.BooleanField(default=True)
     card_mode = models.BooleanField(default=True)
     cheque_mode = models.BooleanField(default=False)
+    email_enable = models.BooleanField(default=True)
+    sms_enable = models.BooleanField(default=True)
 
     def __str__(self):
         return self.user.email

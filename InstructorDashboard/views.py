@@ -188,7 +188,8 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
+                                                                status='1').order_by('start_time')
     for i in appointments:
         print(i.start_time)
     context = {'appointments': appointments,
@@ -542,6 +543,8 @@ def instructor_profile(request):
         profile_obj.cash_mode = bool(request.POST.get('cash') == 'on')
         profile_obj.card_mode = bool(request.POST.get('card') == 'on')
         profile_obj.cheque_mode = bool(request.POST.get('cheque') == 'on')
+        profile_obj.email_enable = bool(request.POST.get('email_enable') == 'on')
+        profile_obj.sms_enable = bool(request.POST.get('sms_enable') == 'on')
 
         profile_obj.save()
         profile_obj = user_models.Profile.objects.get(user=request.user)
@@ -617,19 +620,21 @@ def change_password(request):
             user_obj.set_password(str(ser.data['new_password']))
             user_obj.save()
 
-            user_name = user_obj.get_full_name()
-            user_email = request.user.email
-            subject = "Password Changed - Swim Time Solutions"
-            email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
-                         f"Thank You,\n" \
-                         f"Swim Time Solutions"
-            try:
-                # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
-                #                                    'user_email': user_email})
-                mail_notification(request, subject, email_body, user_email)
-            except Exception as e:
-                pass
-            print("change password send mail done")
+            get_detail = Profile.objects.get(user_id=request.user.id)
+            if get_detail.email_enable:
+                user_name = user_obj.get_full_name()
+                user_email = request.user.email
+                subject = "Password Changed - Swim Time Solutions"
+                email_body = f"Hello {user_name},\n\nThis is to notify that the password of your account  on Swim Time Solutions has been changed successfully.\n\n" \
+                             f"Thank You,\n" \
+                             f"Swim Time Solutions"
+                try:
+                    # sent_mail_task.apply_async(kwargs={'subject': subject, 'email_body': email_body,
+                    #                                    'user_email': user_email})
+                    mail_notification(request, subject, email_body, user_email)
+                except Exception as e:
+                    pass
+                print("change password send mail done")
             context.update({'success': "Password update Successfully. Please login !! "})
             # user = authenticate(username=user_obj.username, password=user_obj.password)
             # if user:

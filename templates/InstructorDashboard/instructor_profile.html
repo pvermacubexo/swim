@@ -896,6 +896,40 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+                                                        <h4 class="card-title">Receive Notifications</h4>
+                                                    </div><!--end col-->
+                                                </div>  <!--end row-->
+                                            </div><!--end card-header-->
+                                            <div class="card-body">
+                                                <div class="row ">
+                                                    <div class="col-md-6">
+                                                        <div class="custom-control custom-switch switch-primary mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="email_switch" name="email_enable"
+                                                                   {% if user.get_profile.email_enable %}
+                                                                   checked="checked" {% endif %}>
+                                                            <label class="custom-control-label text-dark" for="email_switch"></label>
+                                                            <span>Email</span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="custom-control custom-switch switch-primary mb-2">
+                                                            <input type="checkbox" class="custom-control-input" id="sms_switch" name="sms_enable"
+                                                                   {% if user.get_profile.sms_enable %}
+                                                                   checked="checked" {% endif %}>
+                                                            <label class="custom-control-label text-dark" for="sms_switch"></label>
+                                                            <span>SMS</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="row align-items-center">
