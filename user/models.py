@@ -314,6 +314,8 @@ class Profile(models.Model):
     cash_mode = models.BooleanField(default=True)
     card_mode = models.BooleanField(default=True)
     cheque_mode = models.BooleanField(default=False)
+    processing_fee = models.PositiveIntegerField(default=3, blank=True)
+    tax = models.PositiveIntegerField(default=0, blank=True)
 
     def __str__(self):
         return self.user.email

@@ -210,6 +210,8 @@ def trainee_view(request, trainee):
     transactions = appointment_model.Transaction.objects.filter(booking__kids=trainee).order_by('-payment_at')
     today = datetime.today().replace(tzinfo=pytz.UTC)
     bookings = appointment_model.Booking.objects.filter(kids=trainee).order_by("-booked_at")
+    for i in bookings:
+        print("get class price", i.class_instructor.get_total_price)
     appointment_status_options = dict(APPOINTMENT_STATUS)
 
     context = {'trainee': trainee,
@@ -542,6 +544,8 @@ def instructor_profile(request):
         profile_obj.cash_mode = bool(request.POST.get('cash') == 'on')
         profile_obj.card_mode = bool(request.POST.get('card') == 'on')
         profile_obj.cheque_mode = bool(request.POST.get('cheque') == 'on')
+        profile_obj.processing_fee = request.POST.get('processing_fee')
+        profile_obj.tax = request.POST.get('tax')
 
         profile_obj.save()
         profile_obj = user_models.Profile.objects.get(user=request.user)

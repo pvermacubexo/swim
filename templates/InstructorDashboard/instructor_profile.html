@@ -935,9 +935,6 @@
 {#                                                </div>#}
 {#                                            </div>#}
 
-
-
-
                                             <div class="card" style="margin-bottom: 0px">
                                             <div class="card-header">
                                                 <div class="row align-items-center">
@@ -983,10 +980,62 @@
                                             <span style="color: red;" id="error_message"></span>
                                             </div>
                                         </div>
+                                        </div>
 
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="row align-items-center">
+                                                    <div class="col">
+                                                        <h4 class="card-title">Additional Charges</h4>
+                                                    </div><!--end col-->
+                                                </div>  <!--end row-->
+                                            </div><!--end card-header-->
+                                            <div class="card-body" style="margin-bottom: -12px">
+                                                <div class="row">
 
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label style="color: #262627">Tax</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="mdi mdi-briefcase"></i>
+                                                            </span>
+                                                                </div>
+                                                                <input name="tax" type="number"
+                                                                       class="form-control"
+                                                                       value="{{ user.get_profile.tax }}"
+                                                                       placeholder="Tax" required>
 
+                                                                <div class="input-group-append">
+                                                                <span class="input-group-text">%</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label style="color: #262627">Processing Fee</label>
+                                                            <div class="input-group">
+                                                                <div class="input-group-prepend">
+                                                                    <span class="input-group-text">
+                                                                        <i class="mdi mdi-coin"></i>
+                                                                    </span>
+                                                                </div>
 
+                                                                <input style="" name="processing_fee" type="number"
+                                                                       class="form-control" value="{{ user.get_profile.processing_fee }}"
+                                                                       placeholder="Processing_fee"
+                                                                required>
+                                                                <div class="input-group-append">
+                                                            <span class="input-group-text">%</span>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
 
                                     </div> <!--end col-->
@@ -1062,7 +1111,6 @@
                                                                 <div class="form-group">
                                                                     {{ form.end_time }}
                                                                 </div>
-                                                                {#                                                        {{form.as_p}}#}
                                                             </div>
                                                         {% endfor %}
 {#                                                        <button id="add-form" type="button" class="btn btn-info">Add#}
@@ -1140,8 +1188,6 @@
                         </div>
                     <div class="tab-pane fade" id="connect_stripe" role="tabpanel" >
                         <div class="row">
-
-
                                 <div class="col-md-12 text-center">
                                     <div class="card">
                                         <div class="card-header">
@@ -1172,8 +1218,6 @@
                                     </div>
                                 </div>
 
-
-
                         </div>
 
                     </div>
@@ -1185,7 +1229,6 @@
             </div>
 
         </div>
-
 
     </div>
 {% endblock %}
@@ -1238,11 +1281,13 @@
     <script>
         var slider = document.getElementById("myRange");
         var output = document.getElementById("result_value");
+        console.log("out", output)
         output.innerHTML = slider.value;
         slider.oninput = function() {
           output.innerHTML = this.value;
         }
     </script>
+
     <script>
         !(function (e) {
             "use strict";
