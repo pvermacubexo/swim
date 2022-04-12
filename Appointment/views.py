@@ -118,8 +118,6 @@ def check_availability(start_time, instructor, avoid_blocked_time=False):
                                               booking__class_instructor__instructor=instructor)
     is_available = True
     for appointment in appointments:
-        # print(type (start_time))
-        # print(type(appointment.start_time))
         is_available = not (appointment.start_time.replace(tzinfo=None) <= start_time.replace(tzinfo=None) <= appointment.end_time.replace(tzinfo=None))
         if avoid_blocked_time and appointment.booking.booking_type == BLOCKED_BY_INSTRUCTOR:
             return True, False
@@ -542,11 +540,17 @@ def get_common_slots(class_instructor, start_date, profile_user):
     if not time_list:
         return False, False
     time_list = (sorted(time_list))
+    print(time_list)
     for day in day_list:
         for start_time in time_list:
             date_time = datetime.combine(day, start_time)
             if not check_availability(date_time, class_instructor.instructor):
-                time_list.remove(start_time)
+
+                start_time1 = datetime.combine(datetime.today(), start_time)
+                start_time = (start_time1 + timedelta(hours=-4)).time()
+                for i in time_list:
+                    if i == start_time:
+                        time_list.remove(i)
     time_count = 1
     for single_time in time_list:
         if time_count < len(time_list):
@@ -611,7 +615,6 @@ class GetDateTimeSlots(APIView):
                 return Response({'error': 'Invalid Class ID.'})
             day_result, time_result = get_common_slots(class_instructor, serializer.validated_data['start_date'],
                                                        profile_user)
-            print(time_result)
             if not (day_result or time_result):
                 return Response({'error': 'Instructor is on Holiday on this day.'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'date': day_result, 'time': time_result})

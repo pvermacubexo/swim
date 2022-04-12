@@ -294,3 +294,6 @@ def change_kid_status(request, id):
         kid.status = True
         kid.save()
         return Response(status=status.HTTP_200_OK)
+
+def TermsConditionView(request):
+    return render(request, 'terms_condition.html')

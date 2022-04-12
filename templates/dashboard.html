@@ -443,9 +443,26 @@
                                                                             here to
                                                                             indicate that you have read and
                                                                             agree to the terms &amp; condition
-                                                                            of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                                            of the <a href="swim/terms_condition/" style="font-size: 19px;">Swim Time Solutions </a>
                                                                             Agreement. </label>
                                                                     </div>
+
+{#                                                                    <div id="tc" style="display: none; overflow: auto;#}
+{#    max-height: 180px;">#}
+{#                                                                        <span id="hideTC">show less</span>#}
+{#                                                                        <ol>#}
+{#                                                                            <li> I acknowledge and confirm that my child is in good health and able to participate in these swimming lessons. The information I have provided about myself and my minor child's medical history is accurate to the best of my knowledge. I agree to accept responsibility for omissions regarding my#}
+{#                                                                            failure to disclose any existing or past health conditions. </li>#}
+{#                                                                            <li>I give permission for me/my child to participate in aquatic activity. I/My child am/is in good health and physical condition, and am/is#}
+{#                                                                            not suffering from any condition that would prevent me/my child from engaging in this activity. Photographs and video may#}
+{#                                                                            be taken in conjunction with lessons. </li>#}
+{#                                                                            <li> I understand and agree that they may be used for informational and advertising purposes.#}
+{#                                                                            One time administration and pool fee of $35.00 per student. </li>#}
+{#                                                                            <li>Payments are due the 1st Monday of each week. Acceptable forms of payment are cash, cashier's cheque or Stripe. Stripe payments are made through the www.swimtimesolutions.com website and include a small additional amount for merchant account processing. I have acknowledged the payment policy and understand there are NO REFUNDS.#}
+{#                                                                            Please read carefully and be aware that in registering your minor child for participation in this program, you will be waiving and releasing all claims for injuries you or your child might sustain as a result of participation in any class or activity conducted by Swim Time Solutions, its agents and/or employees. As a parent/guardian of a participant in Swim Time Solutions, I recognize and acknowledge that there are certain risks associated. I agree to assume full responsibility of any injuries, property damage, or loss, which I, or my minor child, may sustain as a result of participating in any and all activities connected with or associated with Swim Time Soliutions. I agree to indemnify and hold Swim Time Solutions harmless from any liability resulting from the use of premises and waive and relinquish all claims against Early Learning Swim Academy and the owners and employees that I or my minor child may sustain as a result of participating in any Swim Time Soltions program. I have read and fully understand the above waiver and release of all claims, and it shall not be modified orally.#}
+{#                                                                            I have acknowledged the payment policy and understand there are NO REFUNDS. Cashier's checks payable to: Swim Time Solutions. Please include your child/children’s name, the instructor’s name and the dates(s) of the lesson(s). </li>#}
+{#                                                                        </ol>#}
+{#                                                                    </div>#}
                                                                     <div _ngcontent-ygs-c30="" class="row">
                                                                         <div _ngcontent-ygs-c30=""
                                                                              class="next-btn-div registration-form col-md-6"
@@ -534,7 +551,7 @@
                                                                             here to
                                                                             indicate that you have read and
                                                                             agree to the terms &amp; condition
-                                                                            of the <span _ngcontent-dbn-c30="">Swim Time Solutions </span>
+                                                                            of the <a href="swim/terms_condition/" style="font-size: 19px;">Swim Time Solutions </a>
                                                                             Agreement. </label>
                                                                     </div>
                                                                     <div _ngcontent-ygs-c30="" class="row">
@@ -2549,5 +2566,13 @@
             }
         });
 
+    </script>
+    <script>
+    $("#showTC").click(()=>{
+        $("#tc").show();
+    })
+    $("#hideTC").click(()=>{
+        $("#tc").hide();
+    })
     </script>
     </a>{% endblock %}

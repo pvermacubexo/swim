@@ -53,7 +53,7 @@ urlpatterns = [
     path('class/delete/<int:id>', views.class_delete, name='class_delete'),
 
     path('page404', views.Page404, name='page404'),
-    path('terms-contions', views.terms_conditions, name='terms_conditions'),
+    path('terms-conditions', views.terms_conditions, name='terms_conditions'),
     path('break-time', views.add_break_time, name='add_break_time'),
     path('del-time/<int:id>', views.del_break_time, name='del_break_time'),
 ]
