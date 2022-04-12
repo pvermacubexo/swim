@@ -33,15 +33,15 @@ class StripePaymentSerializer(serializers.ModelSerializer):
             # booking = appointment_model.Booking.objects.get(id=booking_id)
             ser = RepaymentBookingSeralizer(booking)
             pending_amount = ser.get_pending_amount(booking)
-            due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
+            due_amount = booking.class_instructor.final_price - booking.get_total_paid - pending_amount
             if int(attrs['paid_amount']) > due_amount:
                 raise Exception('Paid amount is greater than due amount. ')
             trns = appointment_model.Transaction.objects.filter(booking=booking).exclude(status='3')
             for i in trns:
                 amount += i.paid_amount
-            due_amount = booking.class_instructor.price - amount
+            due_amount = booking.class_instructor.final_price - amount
             attrs['booking'] = booking
-            attrs['total_amount'] = booking.class_instructor.price
+            attrs['total_amount'] = booking.class_instructor.final_price
 
             # total_amount = int(attrs['total_amount'])
             # paid_amount = int(attrs['paid_amount'])
@@ -104,7 +104,7 @@ def transaction_reject_history(obj):
 
 
 def transaction_due_history(obj):
-    amount = obj.class_instructor.price
+    amount = obj.class_instructor.final_price
     pending = transaction_pending_history(obj)
     complete = transaction_paid_history(obj)
     return amount - int(pending + complete)
@@ -139,7 +139,7 @@ class RepaymentBookingSeralizer(serializers.ModelSerializer):
     def get_total_amount(self, obj):
         booked_class = classes(obj)
         if booked_class:
-            return booked_class.price
+            return booked_class.final_price
         return None
 
     def get_pending_amount(self, obj):

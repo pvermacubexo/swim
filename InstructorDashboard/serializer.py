@@ -33,6 +33,7 @@ class ClassCreateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         attrs['class_payment_range'] = self.context['payment_range']
         attrs['instructor'] = self.context['user']
+        attrs['final_price'] = self.context['final_price']
         return attrs
 
 

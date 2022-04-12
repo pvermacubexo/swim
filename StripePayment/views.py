@@ -54,7 +54,7 @@ def createpayment(request):
         booking = appointment_model.Booking.objects.get(id=booking_id)
         ser = RepaymentBookingSeralizer(booking)
         pending_amount = ser.get_pending_amount(booking)
-        due_amount = booking.class_instructor.price - booking.get_total_paid - pending_amount
+        due_amount = booking.class_instructor.final_price - booking.get_total_paid - pending_amount
 
         # price = booking.class_instructor.price
         # print("prince", price)
@@ -116,7 +116,7 @@ class PaymentDetail(APIView):
                 'transaction_id': transection_data.transaction_id,
                 'status': status,
                 'payment_type': booking.payment_type,
-                'total_amount': booking.class_instructor.price,
+                'total_amount': booking.class_instructor.final_price,
                 'paid_amount': booking.get_total_paid,
                 'due_amount': booking.get_total_due,
                 'pending_amount': ser.get_pending_amount(booking),
@@ -147,7 +147,7 @@ class StripePayment(APIView):
                     booking1 = appointment_model.Booking.objects.get(id=booking.id)
                     ser = RepaymentBookingSeralizer(booking1)
                     pending_amount = ser.get_pending_amount(booking1)
-                    due_amount = booking1.class_instructor.price - booking1.get_total_paid - pending_amount
+                    due_amount = booking1.class_instructor.final_price - booking1.get_total_paid - pending_amount
                     if paid_amount > due_amount:
                         messages.error("You have paid more then due amount contact support team form refund ")
                         return redirect("dashboard_view")
@@ -155,7 +155,7 @@ class StripePayment(APIView):
                     transaction_obj = appointment_model.Transaction.objects.create(
                         booking=booking, transaction_id=transaction_id,
                         status=payment_status, payment_type=payment_type,
-                        total_amount=booking.class_instructor.price,
+                        total_amount=booking.class_instructor.final_price,
                         paid_amount=paid_amount,
                         due_amount=final_due_amount
                     )
@@ -167,7 +167,7 @@ class StripePayment(APIView):
                             total_paid_amount = total_paid_amount + transaction.paid_amount
                         user_name = booking.user.get_full_name()
 
-                        if booking.class_instructor.price == total_paid_amount:
+                        if booking.class_instructor.final_price == total_paid_amount:
                             booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
                         else:
                             booking.booking_payment_status = appointment_model.PARTIALLY_BOOKED
@@ -194,7 +194,7 @@ class StripePayment(APIView):
                                          f"Please find below the details: \nClass - {booking.class_instructor.title}\n" \
                                          f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Fees - {booking.class_instructor.final_price} USD\n" \
                                          f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n" \
                                          f"Class Timing - {appointments_list}\n\n" \
@@ -215,7 +215,7 @@ class StripePayment(APIView):
                                          f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days" \
                                          f" - {booking.class_instructor.total_days} days\n" \
                                          f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                         f"Fees - {booking.class_instructor.price} USD\n" \
+                                         f"Fees - {booking.class_instructor.final_price} USD\n" \
                                          f"Payment Mode - Card\n" \
                                          f"Paid Amount - {paid_amount} USD\n" \
                                          f"Class Timing - {appointments_list}\n\n" \
@@ -272,11 +272,12 @@ class CashPayment(ModelViewSet):
                 payment_status = appointment_model.PENDING
                 payment_type = appointment_model.CASH
                 booking = serializer.validated_data['booking']
+
                 paid_amount = float(serializer.validated_data['paid_amount'])
                 appointment_model.Transaction.objects.create(
                     booking=booking, transaction_id=transaction_id,
                     status=payment_status, payment_type=payment_type,
-                    total_amount=booking.class_instructor.price,
+                    total_amount=booking.class_instructor.final_price,
                     paid_amount=paid_amount,
                     due_amount=serializer.validated_data['due_amount']
                 )
@@ -310,7 +311,7 @@ class CashPayment(ModelViewSet):
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Instructor - {instructor_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                 f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Fees - {booking.class_instructor.final_price} USD\n" \
                                  f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n" \
@@ -325,7 +326,7 @@ class CashPayment(ModelViewSet):
                                  f"Please find below the details: \nClass - {booking.class_instructor.title} \n" \
                                  f"Student Name - {booking.kids.kids_name}\nGuardian Name - {user_name}\nTotal days - {booking.class_instructor.total_days} days\n" \
                                  f"Time Slot - {booking.class_instructor.time_slot} minutes(Per Session)\n" \
-                                 f"Fees - {booking.class_instructor.price} USD\n" \
+                                 f"Fees - {booking.class_instructor.final_price} USD\n" \
                                  f"Payment Mode - Cash\n" \
                                  f"Paid Amount - {paid_amount_int} USD\n" \
                                  f"Due Amount - {due_amount} USD\n" \

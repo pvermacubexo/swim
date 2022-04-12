@@ -75,7 +75,8 @@
                                                             class="mdi mdi-calendar-clock"></i></span>
                                                 </div>
 
-                                                <input name="time_slot" type="number" min="1" max="120" class="form-control"
+                                                <input name="time_slot" type="number" min="1" max="120"
+                                                       class="form-control"
                                                        placeholder="Enter Class Duration" required>
 
                                                 {% if errors.time_slot %}
@@ -122,10 +123,16 @@
                                                         <div style="color: red">{{ error }} </div>
                                                     {% endfor %}
                                                 {% endif %}
+
+                                            </div>
+                                            <div style="margin-left: 128px;">
+                                                <span>Note: Tax and Processing fee as applicable would be charged.
+                                               </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class=" col-md-6
+                                            ">
                                         <div class="form-group">
                                             <label>Description</label>
                                             <textarea name="description" class="form-control input_suggestion"
@@ -164,7 +171,8 @@
                                             </div>
                                             <div class="input-group">
                                                 <input id="myRange" name="range" type="range"
-                                                       class="form-control" style=" padding-left: 8px; padding-right: 0;"
+                                                       class="form-control"
+                                                       style=" padding-left: 8px; padding-right: 0;"
                                                        min="5" max="100"
                                                        value="{{ payment_range }}" step="5"
                                                        required>

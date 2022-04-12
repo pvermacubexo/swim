@@ -1,4 +1,5 @@
 import collections
+
 import logging
 import os
 import urllib.request
@@ -188,9 +189,8 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
-    for i in appointments:
-        print(i.start_time)
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
+                                                                status='1').order_by('start_time')
     context = {'appointments': appointments,
                'transactions': transactions,
                'total_bookings': bookings.count(),
@@ -210,8 +210,6 @@ def trainee_view(request, trainee):
     transactions = appointment_model.Transaction.objects.filter(booking__kids=trainee).order_by('-payment_at')
     today = datetime.today().replace(tzinfo=pytz.UTC)
     bookings = appointment_model.Booking.objects.filter(kids=trainee).order_by("-booked_at")
-    for i in bookings:
-        print("get class price", i.class_instructor.get_total_price)
     appointment_status_options = dict(APPOINTMENT_STATUS)
 
     context = {'trainee': trainee,
@@ -247,7 +245,7 @@ def update_transaction(request, id):
                                                                     status=appointment_model.COMPLETED)
         for i in transactions:
             complete_amount += i.paid_amount
-        if booking.class_instructor.price == complete_amount:
+        if booking.class_instructor.final_price == complete_amount:
             booking.booking_payment_status = appointment_model.BOOKING_COMPLETED
             booking.save()
     except appointment_model.Transaction.DoesNotExist:
@@ -653,8 +651,13 @@ def change_password(request):
 def class_create_view(request):
     context = {}
     if request.method == 'POST':
+        profile = user_models.Profile.objects.get(user_id=request.user.id)
+        tax_charges = int(request.POST['price']) * profile.tax / 100 + int(request.POST['price'])
+        processing_fee = tax_charges * profile.processing_fee / 100
+        final_price = tax_charges + processing_fee
         ser = serializer.ClassCreateSerializer(data=request.POST,
-                                               context={'user': request.user, 'payment_range': request.POST['range']})
+                                               context={'user': request.user, 'final_price': final_price,
+                                                        'payment_range': request.POST['range']})
         if ser.is_valid():
             ser.validated_data['thumbnail_image'] = request.FILES.get('thumbnail_image')
             ser.save()
@@ -675,8 +678,9 @@ def class_update_view(request, id):
         return redirect('InstructorDashboard:page404')
 
     if request.method == 'POST':
-        payment_range = request.POST.get('range')
-        print(payment_range)
+        profile = user_models.Profile.objects.get(user_id=request.user.id)
+        tax_charges = int(request.POST.get('price')) * profile.tax / 100 + int(request.POST.get('price'))
+        processing_fee = tax_charges * profile.processing_fee / 100
         instance.thumbnail_image = request.FILES.get('thumbnail_image') if request.FILES.get(
             'thumbnail_image') else instance.thumbnail_image
         instance.title = request.POST.get('title')
@@ -684,6 +688,7 @@ def class_update_view(request, id):
         instance.total_days = request.POST.get('total_days')
         instance.description = request.POST.get('description')
         instance.price = request.POST.get('price')
+        instance.final_price = round(tax_charges + processing_fee)
         instance.class_payment_range = request.POST.get('range')
         instance.save()
         return redirect("InstructorDashboard:class_list")

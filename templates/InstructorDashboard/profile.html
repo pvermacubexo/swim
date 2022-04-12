@@ -333,11 +333,11 @@
                                                                     <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
                                                                     <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
 
-                                                                    <td>${{ booking.class_instructor.price }}</td>
+                                                                    <td>${{ booking.class_instructor.final_price }}</td>
                                                                     <td>${{ booking.get_total_paid }}</td>
                                                                     <td>${{ booking.get_total_due }} </td>
                                                                     <td>
-                                                                        {% if booking.get_total_due ==  booking.class_instructor.price %}
+                                                                        {% if booking.get_total_due ==  booking.class_instructor.final_price %}
                                                                             UNPAID
                                                                         {% else %}
                                                                             {% if booking.get_booking_payment_status %}
@@ -403,11 +403,11 @@
                                                                     <td>{{ booking.next_class.date }} {{ booking.next_class|date:'h:i A' }}</td>
                                                                     <td>{{ booking.last_booking.date }} {{ booking.last_booking|date:'h:i A' }}</td>
 
-                                                                    <td>${{ booking.class_instructor.price }}</td>
+                                                                    <td>${{ booking.class_instructor.final_price }}</td>
                                                                     <td>${{ booking.get_total_paid }}</td>
                                                                     <td>${{ booking.get_total_due }} </td>
                                                                     <td>
-                                                                        {% if booking.get_total_due ==  booking.class_instructor.price %}
+                                                                        {% if booking.get_total_due ==  booking.class_instructor.final_price %}
                                                                             UNPAID
                                                                         {% else %}
                                                                             {% if booking.get_booking_payment_status %}

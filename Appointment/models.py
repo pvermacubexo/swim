@@ -17,21 +17,13 @@ class ClassInstructor(models.Model):
     total_days = models.IntegerField()
     description = models.CharField(max_length=500)
     price = models.IntegerField(default=0, verbose_name='Fee')
+    final_price = models.IntegerField(default=0, blank=True)
     class_payment_range = models.IntegerField(default=50, blank=True, null=True)  # minimum payment amount for a class
     thumbnail_image = models.ImageField(upload_to='Images/Classes', default='Images/Classes/swim.jpeg', blank=True,
                                         null=True)
 
     def __str__(self):
         return self.title
-
-    @property
-    def get_total_price(self):
-        """total of class price include tax amount and processing fee"""
-        profile = user.models.Profile.objects.get(user_id=self.instructor.id)
-        tax_charges = self.price * profile.tax / 100 + self.price
-        processing_fee = tax_charges * profile.processing_fee / 100
-        total_price = tax_charges + processing_fee
-        return round(total_price)
 
 
 BOOKED = '1'
@@ -191,7 +183,7 @@ class Booking(models.Model):
         transactions = Transaction.objects.filter(booking=self, status=COMPLETED)
         for i in transactions:
             total_amount += i.paid_amount
-        return self.class_instructor.price - total_amount
+        return self.class_instructor.final_price - total_amount
 
     def __str__(self):
         return f"{self.id} -- {self.user.get_full_name()} - Booked {self.class_instructor.instructor.get_full_name()}'s Class"
