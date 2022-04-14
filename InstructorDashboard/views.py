@@ -188,7 +188,8 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
+                                                                status='1').order_by('start_time')
     for i in appointments:
         print(i.start_time)
     context = {'appointments': appointments,
@@ -469,7 +470,8 @@ def is_working_time(start_time, end_time, instructor):
 def instructor_profile(request):
     request.session["instructor_email"] = request.user.email
     formset = BreakTimeFormSet(queryset=user_models.BreakTime.objects.none())
-    break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user)
+    break_time_list = user_models.BreakTime.objects.filter(instructor__user=request.user).order_by('week_day')
+
     try:
         instructor = user_models.User.objects.get(id=request.user.id)
         user = user_models.Profile.objects.get(user=request.user)
@@ -843,38 +845,69 @@ def add_break_time(request):
         break_time_list = user_models.BreakTime.objects.filter(instructor_id=request.user.id)
 
         if break_time_list:
-
             for i in break_time_list:
                 raw_start_time = i.start_time.strftime("%H:%M")
                 raw_end_time = i.end_time.strftime("%H:%M")
-                if (i.week_day == request.POST['form-0-week_day']):
+                if i.week_day == request.POST['form-0-week_day']:
                     if (raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time) or (
                             raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time) or (
                             raw_start_time <= request.POST['form-0-start_time'] <= request.POST[
-                        'form-0-end_time'] <= raw_end_time):
+                            'form-0-end_time'] <= raw_end_time):
                         print("Success")
                         messages.error(request,
-                                       "The Break Time you have selected is already exist ! Please select another time slot .")
+                                       "The Break Time you have selected is already exist ! Please select another"
+                                       " time slot .")
                         return redirect('InstructorDashboard:instructor_profile')
         else:
             print("fail")
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
             messages.error(request, "Please select valid time slot !")
             return redirect('InstructorDashboard:instructor_profile')
-        elif (break_time.day_start_time).strftime("%H:%M:%S") < request.POST['form-0-start_time'] < (
-                break_time.day_end_time).strftime("%H:%M:%S") and (break_time.day_start_time).strftime("%H:%M:%S") < \
-                request.POST['form-0-end_time'] < (break_time.day_end_time).strftime("%H:%M:%S"):
+
+        elif break_time.day_start_time.strftime("%H:%M") <= request.POST['form-0-start_time'] < (
+                break_time.day_end_time).strftime("%H:%M") and break_time.day_start_time.strftime("%H:%M") < \
+                request.POST['form-0-end_time'] <= break_time.day_end_time.strftime("%H:%M"):
+            if request.POST.get("break_time_check") == 'on':
+                profile_data = Profile.objects.get(user_id=request.user.id)
+                if profile_data.monday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='1',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.tuesday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='2',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.wednesday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='3',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.thursday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='4',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.friday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='5',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.saturday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='6',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+                if profile_data.sunday:
+                    user_models.BreakTime.objects.create(instructor=profile_data, week_day='7',
+                                                         start_time=request.POST['form-0-start_time'],
+                                                         end_time=request.POST['form-0-end_time'])
+
             if formset.is_valid():
+                if request.POST.get("break_time_check") == 'on':
+                    return redirect('InstructorDashboard:instructor_profile')
                 formset.save()
                 return redirect('InstructorDashboard:instructor_profile')
             else:
                 messages.error(request, "Please select all fields !")
                 return redirect('InstructorDashboard:instructor_profile')
-
         else:
-            print("Renesme")
             messages.error(request, "Please select valid timeSlot!")
-
     return redirect('InstructorDashboard:instructor_profile')
 
 
