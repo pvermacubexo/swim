@@ -399,10 +399,10 @@
             <div class="pb-4">
                 <ul class="nav-border nav nav-pills mb-0" id="pills-tab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="settings_detail_tab" data-toggle="pill" href="#Profile_Settings">Settings</a>
+                        <a class="nav-link {% if active %} {% else %} active {% endif %}" id="settings_detail_tab" data-toggle="pill" href="#Profile_Settings">Settings</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="pill" href="#break_time_tab">
+                        <a class="nav-link {% if active %} {% if active == "break_time" %} active {% endif %} {% endif %}" data-toggle="pill" href="#break_time_tab">
                             Break Time</a>
                     </li>
                     <li class="nav-item">
@@ -417,7 +417,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="Profile_Settings" role="tabpanel"
+                        <div class="tab-pane fade show {% if active  %} {% else %} active {% endif %}" id="Profile_Settings" role="tabpanel"
                              aria-labelledby="settings_detail_tab">
                             <form method="post" action="{% url 'InstructorDashboard:instructor_profile' %}">
                                 {% csrf_token %}
@@ -984,16 +984,13 @@
                                             </div>
                                         </div>
 
-
-
-
                                         </div>
 
                                     </div> <!--end col-->
                                 </div><!--end row-->
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="break_time_tab" role="tabpanel"
+                        <div class="tab-pane fade {% if active  %} {% if  active == "break_time" %} active show{% endif %} {% endif %}" id="break_time_tab" role="tabpanel"
                              aria-labelledby="break_time_tab">
                             <div class="row">
                                 <div class="col-md-12">

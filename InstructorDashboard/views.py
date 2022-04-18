@@ -577,6 +577,8 @@ def instructor_profile(request):
         stripe_msg = Strip_Message(request)
         context.update({'user_update': 'Updated Successfully ! ', 'stripe_msg': stripe_msg})
         return render(request, 'InstructorDashboard/instructor_profile.html', context)
+    if 'active' in request.GET:
+        context["active"] = request.GET.get("active")
     return render(request, 'InstructorDashboard/instructor_profile.html', context)
 
 
@@ -861,7 +863,7 @@ def add_break_time(request):
 
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
             messages.error(request, "Please select valid time slot !")
-            return redirect('InstructorDashboard:instructor_profile')
+            return redirect('/profile'+"?active=break_time")
 
         elif break_time.day_start_time.strftime("%H:%M") <= request.POST['form-0-start_time'] < (
                 break_time.day_end_time).strftime("%H:%M") and break_time.day_start_time.strftime("%H:%M") < \
@@ -907,19 +909,19 @@ def add_break_time(request):
 
             if request.POST['form-0-week_day'] in check_day:
                 messages.error(request, "selected day and time is exist or overlap")
-                return redirect('InstructorDashboard:instructor_profile')
+                return redirect('/profile' + "?active=break_time")
             else:
                 if formset.is_valid():
                     if request.POST.get("break_time_check") == 'on':
-                        return redirect('InstructorDashboard:instructor_profile')
+                        return redirect('/profile' + "?active=break_time")
                     formset.save()
-                    return redirect('InstructorDashboard:instructor_profile')
+                    return redirect('/profile' + "?active=break_time")
                 else:
                     messages.error(request, "Please select all fields !")
-                    return redirect('InstructorDashboard:instructor_profile')
+                    return redirect('/profile' + "?active=break_time")
         else:
             messages.error(request, "Please select valid timeSlot!")
-        return redirect('InstructorDashboard:instructor_profile')
+        return redirect('/profile' + "?active=break_time")
 
 
 def del_break_time(request, id):
@@ -927,7 +929,7 @@ def del_break_time(request, id):
         user_models.BreakTime.objects.get(id=id).delete()
     except user_models.BreakTime.DoesNotExist:
         pass
-    return redirect('InstructorDashboard:instructor_profile')
+    return redirect('/profile' + "?active=break_time")
 
 
 def Strip_Message(request):
