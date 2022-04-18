@@ -832,32 +832,33 @@ def terms_conditions(request):
 def check_break_time(request):
     break_time_list = user_models.BreakTime.objects.filter(instructor_id=request.user.id)
     break_time_day = []
+    week_days = []
     for i in break_time_list:
         raw_start_time = i.start_time.strftime("%H:%M")
         raw_end_time = i.end_time.strftime("%H:%M")
+        if request.POST.get("break_time_check") == 'on':
+            week_days.append(i.week_day)
+            for day in week_days:
+                if i.week_day == day:
+                    if raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time or \
+                            raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time or \
+                            raw_start_time >= request.POST['form-0-start_time'] and raw_end_time <= request.POST[
+                        'form-0-end_time']:
+                        break_time_day.append(i.week_day)
         if i.week_day == request.POST['form-0-week_day']:
             if raw_start_time <= request.POST['form-0-end_time'] <= raw_end_time or \
                     raw_start_time <= request.POST['form-0-start_time'] <= raw_end_time or \
                     raw_start_time >= request.POST['form-0-start_time'] and raw_end_time <= request.POST[
-                    'form-0-end_time']:
+                'form-0-end_time']:
                 break_time_day.append(i.week_day)
-                print("Success", i.week_day)
-                # messages.error(request,
-                #                "Selected time is overlap the existing break time!")
-                # return redirect('InstructorDashboard:instructor_profile')
-                return break_time_day
+    return list(set(break_time_day))
 
 
 def add_break_time(request):
     if request.method == "POST":
         formset = BreakTimeFormSet(data=request.POST, initial=[{'instructor': request.user}])
         break_time = user_models.Profile.objects.get(user=request.user.id)
-        break_time_list = user_models.BreakTime.objects.filter(instructor_id=request.user.id)
 
-        # if break_time_list:
-        #     check_break_time(request)
-        # else:
-        #     print("fail")
         if request.POST['form-0-start_time'] > request.POST['form-0-end_time']:
             messages.error(request, "Please select valid time slot !")
             return redirect('InstructorDashboard:instructor_profile')
@@ -865,65 +866,60 @@ def add_break_time(request):
         elif break_time.day_start_time.strftime("%H:%M") <= request.POST['form-0-start_time'] < (
                 break_time.day_end_time).strftime("%H:%M") and break_time.day_start_time.strftime("%H:%M") < \
                 request.POST['form-0-end_time'] <= break_time.day_end_time.strftime("%H:%M"):
-            print("check_time", check_break_time(request))
+            check_day = check_break_time(request)
             if request.POST.get("break_time_check") == 'on':
                 profile_data = Profile.objects.get(user_id=request.user.id)
-                print("check_time", check_break_time(request))
                 if profile_data.monday:
-                    if request.POST['form-0-week_day'] in check_break_time(request):
-                        if check_break_time(request) == 'time_exist':
-                            pass
+                    if '1' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='1',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.tuesday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '2' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='2',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.wednesday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '3' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='3',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.thursday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '4' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='4',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.friday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '5' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='5',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.saturday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '6' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='6',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
                 if profile_data.sunday:
-                    if break_time_list:
-                        check_break_time(request)
+                    if '7' not in check_day:
                         user_models.BreakTime.objects.create(instructor=profile_data, week_day='7',
                                                              start_time=request.POST['form-0-start_time'],
                                                              end_time=request.POST['form-0-end_time'])
 
-            if formset.is_valid():
-                if request.POST.get("break_time_check") == 'on':
-                    return redirect('InstructorDashboard:instructor_profile')
-                formset.save()
+            if request.POST['form-0-week_day'] in check_day:
+                messages.error(request, "selected day and time is exist or overlap")
                 return redirect('InstructorDashboard:instructor_profile')
             else:
-                messages.error(request, "Please select all fields !")
-                return redirect('InstructorDashboard:instructor_profile')
+                if formset.is_valid():
+                    if request.POST.get("break_time_check") == 'on':
+                        return redirect('InstructorDashboard:instructor_profile')
+                    formset.save()
+                    return redirect('InstructorDashboard:instructor_profile')
+                else:
+                    messages.error(request, "Please select all fields !")
+                    return redirect('InstructorDashboard:instructor_profile')
         else:
             messages.error(request, "Please select valid timeSlot!")
-    return redirect('InstructorDashboard:instructor_profile')
+        return redirect('InstructorDashboard:instructor_profile')
 
 
 def del_break_time(request, id):
