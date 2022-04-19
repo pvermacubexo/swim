@@ -321,7 +321,7 @@
                                                 <input type="text" value="" class="form-control phone" required
                                                        title="only numeric characters are allowed of range between 8 to 20"
                                                        name="mobile_no"
-                                                       id="mo_number" placeholder="Enter Mobile Number" onkeypress="return isNumberKey(event)">
+                                                           id="mo_number" placeholder="Enter Mobile Number" onkeypress="return isNumberKey(event)">
                                             </div>
                                         </div><!--end form-group-->
 
@@ -440,7 +440,7 @@
 <script>
  function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : event.keyCode;
-    if ( (charCode < 31 || charCode > 57))
+    if ( (charCode < 47 || charCode > 57))
         return false;
 
     return true;

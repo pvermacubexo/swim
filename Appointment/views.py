@@ -829,7 +829,16 @@ def individual_daily_timeslots(slot, date_filter, user_profile):
     for appointment in appointments:
         for remove_time in time_list:
             if appointment.start_time.time() <= remove_time.time() <= appointment.end_time.time():
-                time_list.remove(remove_time)
+                # print(remove_time)
+                # a = remove_time.time()
+                # start_time1 = datetime.combine(datetime.today(), a)
+                # start_time2 = (start_time1 + timedelta(hours=-4)).time()
+                # for i in time_list:
+                #     if i == start_time2:
+                #         print(i)
+                #         # time_list.remove(i)
+                a = remove_time + timedelta(hours=-4)
+                time_list.remove(a)
     total_timeslot1 = copy.copy(time_list)
     for i in break_time:
         start_break_time = (datetime.strptime(str(i.start_time), '%H:%M:%S') + timedelta(minutes=1)).time()
