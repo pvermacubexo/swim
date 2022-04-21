@@ -93,7 +93,6 @@
                 </a>
             </li>
             <hr>
-
             <li>
                 <a href="{% url 'InstructorDashboard:booking_view' %}">
                     <i data-feather="book-open" class="align-self-center menu-icon"></i>
@@ -105,6 +104,13 @@
                 <a href="{% url 'InstructorDashboard:appointment_view' %}">
                     <i data-feather="file-text" class="align-self-center menu-icon"></i>
                     <span class="menu-icon">Appointments</span>
+                </a>
+            </li>
+            <hr>
+            <li>
+                <a href="{% url 'InstructorDashboard:cash_transactions' %}">
+                    <i data-feather="dollar-sign" class="align-self-center menu-icon"></i>
+                    <span class="menu-icon" style="white-space: nowrap">Pending Cash</span>
                 </a>
             </li>
         </ul>
@@ -172,7 +178,7 @@
       $('#preloader').delay(350).fadeOut('slow');
       $('body').delay(350).css({'overflow':'visible'});
     })
-</script
+</script>
 
 
 </body>

@@ -39,6 +39,7 @@ urlpatterns = [
     path('profile/', views.profile_update, name='profile_update'),
     path('bookings/', views.booking_view, name='booking_view'),
     path('appointments/', views.appointment_view, name='appointment_view'),
+    path('cash-transactions/', views.cash_transactions, name='cash_transactions'),
     path('update/transaction/<int:id>', views.update_transaction, name='update_transaction'),
     path('delete/transaction/<int:id>', views.delete_transaction, name='delete_transaction'),
 

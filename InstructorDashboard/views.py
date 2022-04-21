@@ -188,7 +188,8 @@ def dashboard_view(request):
     for pending_transaction in pending_transactions:
         pending_amount += pending_transaction.paid_amount
 
-    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user, status='1').order_by('start_time')
+    appointments = appointment_model.Appointment.objects.filter(booking__class_instructor__instructor=request.user,
+                                                                status='1').order_by('start_time')
     for i in appointments:
         print(i.start_time)
     context = {'appointments': appointments,
@@ -219,13 +220,23 @@ def trainee_view(request, trainee):
 
 
 @login_required(redirect_field_name='login')
+def cash_transactions(request):
+    transactions = appointment_model.Transaction.objects.filter(
+        booking__class_instructor__instructor_id=request.user.id, status='1').order_by('-payment_at')
+    bookings = appointment_model.Booking.objects.filter(class_instructor__instructor_id=request.user.id).order_by(
+        "-booked_at")
+    name = request.user.first_name
+    context = {'transactions': transactions, 'name': name, 'bookings': bookings}
+    return render(request, 'InstructorDashboard/cash-transactions.html', context=context)
+
+
+@login_required(redirect_field_name='login')
 def update_transaction(request, id):
     try:
         complete_amount = 0
         transaction = appointment_model.Transaction.objects.get(id=id)
         transaction.status = appointment_model.COMPLETED
         transaction.save()
-
         user_name = transaction.booking.user.get_full_name()
         transaction_amount = transaction.paid_amount
         user_email = transaction.booking.user.email
@@ -250,6 +261,9 @@ def update_transaction(request, id):
             booking.save()
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
+    if request.GET.get("cash"):
+        if request.GET.get("cash") == "approve":
+            return redirect('InstructorDashboard:cash_transactions')
     return redirect('InstructorDashboard:trainee_view', transaction.booking.kids.id)
 
 
@@ -276,6 +290,9 @@ def delete_transaction(request, id):
 
     except appointment_model.Transaction.DoesNotExist:
         return redirect('InstructorDashboard:page404')
+    if request.GET.get("cash"):
+        if request.GET.get("cash") == "reject":
+            return redirect('InstructorDashboard:cash_transactions')
     return redirect('InstructorDashboard:trainee_view', transaction.booking.kids.id)
 
 
